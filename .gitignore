@@ -1,0 +1,26 @@
+# macOS / IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Frontend
+website-ui/node_modules/
+website-ui/dist/
+website-ui/.umi/
+website-ui/.umi-production/
+website-ui/coverage/
+website-ui/npm-debug.log*
+website-ui/yarn-debug.log*
+website-ui/pnpm-debug.log*
+
+# Backend
+website-server/target/
+*.log
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Local runtime data
+deploy/docker/data/

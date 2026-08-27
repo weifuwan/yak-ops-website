@@ -1,0 +1,37 @@
+:root {
+  --yak-brand-color: #fe2c55;
+  --yak-brand-color-hover: rgba(254, 44, 85, 0.88);
+  --yak-brand-color-soft: rgba(254, 44, 85, 0.06);
+  --yak-font-family: 'HarmonyOS Sans SC', 'HarmonyOS Sans', 'Outfit', 'Noto Sans SC', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  --yak-page-background: #f7f6f2;
+  --yak-text-primary: #191918;
+  --yak-text-secondary: #6f6e69;
+  --yak-border-color: #e7e5df;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--yak-text-primary);
+  background: var(--yak-page-background);
+  font-family: var(--yak-font-family);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
