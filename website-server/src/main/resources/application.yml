@@ -12,6 +12,25 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:false}
+          starttls:
+            enable: ${MAIL_STARTTLS:false}
+
+sa-token:
+  token-name: yakops_web_session
+  cookie:
+    path: /
+    http-only: true
+    same-site: Lax
+    secure: ${SA_TOKEN_COOKIE_SECURE:false}
 
 management:
   endpoints:
@@ -23,3 +42,43 @@ management:
       probes:
         enabled: true
       show-details: never
+
+yak:
+  security:
+    enabled: true
+    database-enabled: true
+    web-enabled: true
+    authentication-enabled: true
+    application-name: yak-ops-website
+    audit-enabled: false
+    datasource:
+      enabled: true
+      url: ${SECURITY_DB_URL:jdbc:mysql://localhost:3307/yak_ops_website_security?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
+      username: ${SECURITY_DB_USERNAME:root}
+      password: ${SECURITY_DB_PASSWORD:yakops}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    authentication:
+      storage: MEMORY
+      idle-timeout: 30m
+    bootstrap:
+      enabled: false
+    permission-registration:
+      enabled: false
+    public-paths:
+      - /api/v1/auth/register
+      - /api/v1/auth/verify-email
+      - /api/v1/auth/resend-verification
+      - /api/v1/auth/login
+      - /api/v1/auth/forgot-password
+      - /api/v1/auth/reset-password
+      - /actuator/health/**
+      - /error
+
+website:
+  account:
+    public-base-url: ${WEBSITE_PUBLIC_BASE_URL:http://localhost:8000}
+    verification-ttl: 24h
+    reset-password-ttl: 30m
+    mail-from: ${WEBSITE_MAIL_FROM:no-reply@yakops.local}
+  mail:
+    mode: ${WEBSITE_MAIL_MODE:log}
