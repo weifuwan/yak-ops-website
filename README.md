@@ -9,7 +9,7 @@ This repository is intentionally separated from the Yak Ops admin product. It re
 ```text
 yak-ops-website/
 ├── website-ui/       # React + Umi Max + Ant Design website
-├── website-server/   # Spring Boot website API and account facade
+├── website-server/   # Spring Boot website API, account facade and protected docs delivery
 ├── docs/             # Git-managed documentation source
 ├── deploy/           # local Docker and Nginx deployment foundation
 └── pom.xml            # backend reactor parent
@@ -19,10 +19,10 @@ yak-ops-website/
 
 - **PR 1 — Website Foundation:** frontend/backend/deploy skeleton and Git-managed docs boundary.
 - **PR 2 — Account Foundation:** email registration, verification, login session, password reset and mail adapter.
-- **PR 3 — Protected Docs:** authenticated docs delivery, renderer, navigation and search.
+- **PR 3 — Protected Docs:** authenticated docs delivery, Markdown renderer, navigation, TOC and search.
 - **PR 4 — Marketing Homepage:** production Claude-inspired product story and motion design.
 
-`docs/` is never imported into the public frontend bundle. Protected documentation is delivered by the backend only after authentication in PR 3.
+PR 1–3 establish the runtime foundation. The public marketing experience remains intentionally minimal until PR 4.
 
 ## Account architecture
 
@@ -40,11 +40,48 @@ email verification activates the security account
 Sa-Token session / HttpOnly cookie
 ```
 
-The website business schema (`yak_ops_website`) and Yak Security schema (`yak_ops_website_security`) must remain separate so their Flyway histories cannot collide. Production may host both schemas on the same MySQL service. The local Compose file uses two MySQL containers on ports `3306` and `3307` so a fresh checkout needs no privileged schema-bootstrap step and existing PR 1 data volumes remain compatible.
+The website business schema (`yak_ops_website`) and Yak Security schema (`yak_ops_website_security`) remain separate so their Flyway histories cannot collide. Production may host both schemas on the same MySQL service. The local Compose file uses two MySQL containers on ports `3306` and `3307` so a fresh checkout needs no privileged schema-bootstrap step and existing PR 1 data volumes remain compatible.
 
 Verification and reset tokens are stored only as SHA-256 hashes. Registration and password-reset discovery responses are deliberately generic to reduce account enumeration. Login attempt protection is provided by Yak Security; registration, resend, login-facade and reset-mail actions also have a small in-memory rate guard for the single-instance website phase.
 
 The Sa-Token browser session is explicitly configured as `HttpOnly` and `SameSite=Lax`. It is a session cookie rather than a persistent cookie. Local HTTP development leaves `Secure` disabled; any HTTPS production deployment must set `SA_TOKEN_COOKIE_SECURE=true`. Production Nginx also emits `Referrer-Policy: no-referrer` so reset/verification tokens in URLs are not forwarded as referrers.
+
+## Protected docs architecture
+
+`docs/` is the only documentation content source. It is never imported into `website-ui` or copied into the public frontend bundle.
+
+```text
+Git-reviewed docs/
+      ↓ Maven resources
+backend protected-docs/ classpath
+      ↓ startup-validated navigation allowlist
+Yak Security session
+      ↓ verified website profile guard
+/api/v1/docs/**
+      ↓
+React Markdown docs experience
+```
+
+`docs/navigation.json` controls ordering and acts as the addressable-content allowlist. Missing documents, duplicate/unsafe slugs and an invalid default document fail backend startup. The API never turns a user-supplied slug into a filesystem path; it only looks up documents that were loaded into the validated catalog.
+
+Docs access requires both a valid Yak Security login and a verified row in `website_user_profile`. Responses use `Cache-Control: no-store`. Search runs on the backend catalog, so protected Markdown is not shipped to anonymous clients as a prebuilt search index. Raw HTML inside Markdown is not rendered.
+
+Protected docs APIs:
+
+```text
+GET /api/v1/docs/navigation
+GET /api/v1/docs/content?slug=getting-started/overview
+GET /api/v1/docs/search?q=质量
+```
+
+Frontend route:
+
+```text
+/docs
+/docs/<slug>
+```
+
+Anonymous visits to `/docs` are redirected to `/login?returnTo=...`; after authentication the user returns to the requested document.
 
 ## Prerequisites
 

@@ -10,6 +10,14 @@ export default [
     ],
   },
   {
+    path: '/docs',
+    component: '@/pages/docs',
+  },
+  {
+    path: '/docs/*',
+    component: '@/pages/docs',
+  },
+  {
     path: '/login',
     component: '@/pages/auth/login',
   },

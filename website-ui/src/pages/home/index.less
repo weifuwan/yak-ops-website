@@ -32,3 +32,42 @@
   font-size: 17px;
   line-height: 1.7;
 }
+
+.foundation-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.foundation-page__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--yak-border-color);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--yak-text-primary);
+  font-size: 13px;
+  font-weight: 650;
+  transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.foundation-page__action:hover {
+  border-color: #d6d2ca;
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+.foundation-page__action--primary {
+  border-color: var(--yak-brand-color);
+  background: var(--yak-brand-color);
+  color: #fff;
+}
+
+.foundation-page__action--primary:hover {
+  border-color: var(--yak-brand-color-hover);
+  background: var(--yak-brand-color-hover);
+}
