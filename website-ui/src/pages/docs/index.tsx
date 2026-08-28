@@ -179,7 +179,7 @@ export default function DocsPage() {
         </div>
 
         <div className="yak-docs-header__search">
-          <DocsSearch onSelect={navigateToDoc} />
+          <DocsSearch onSelect={navigateToDoc} onUnauthorized={redirectToLogin} />
         </div>
 
         <div className="yak-docs-header__user">

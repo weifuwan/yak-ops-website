@@ -2,12 +2,14 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Input, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { searchDocs, type DocsSearchHit } from '@/services/docs';
+import { ApiError } from '@/services/http/client';
 
 type DocsSearchProps = {
   onSelect: (slug: string) => void;
+  onUnauthorized: () => void;
 };
 
-export default function DocsSearch({ onSelect }: DocsSearchProps) {
+export default function DocsSearch({ onSelect, onUnauthorized }: DocsSearchProps) {
   const [query, setQuery] = useState('');
   const [hits, setHits] = useState<DocsSearchHit[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,7 +32,11 @@ export default function DocsSearch({ onSelect }: DocsSearchProps) {
             setHits(response.hits);
           }
         })
-        .catch(() => {
+        .catch((error) => {
+          if (!cancelled && error instanceof ApiError && error.status === 401) {
+            onUnauthorized();
+            return;
+          }
           if (!cancelled) {
             setHits([]);
           }
