@@ -1,6 +1,6 @@
 # Yak Ops Website
 
-Yak Ops Website is the public product website and the future authenticated developer entry for Yak Ops.
+Yak Ops Website is the public product website and authenticated developer entry for Yak Ops.
 
 This repository is intentionally separated from the Yak Ops admin product. It reuses Yak Ops engineering conventions and design primitives without copying product-domain pages into the website.
 
@@ -9,28 +9,42 @@ This repository is intentionally separated from the Yak Ops admin product. It re
 ```text
 yak-ops-website/
 ├── website-ui/       # React + Umi Max + Ant Design website
-├── website-server/   # Spring Boot website API
+├── website-server/   # Spring Boot website API and account facade
 ├── docs/             # Git-managed documentation source
 ├── deploy/           # local Docker and Nginx deployment foundation
 └── pom.xml            # backend reactor parent
 ```
 
-## Stage boundaries
+## Roadmap boundaries
 
-PR 1 only establishes the website foundation:
+- **PR 1 — Website Foundation:** frontend/backend/deploy skeleton and Git-managed docs boundary.
+- **PR 2 — Account Foundation:** email registration, verification, login session, password reset and mail adapter.
+- **PR 3 — Protected Docs:** authenticated docs delivery, renderer, navigation and search.
+- **PR 4 — Marketing Homepage:** production Claude-inspired product story and motion design.
 
-- frontend runtime, routing, theme tokens and Yak UI entry;
-- Spring Boot / Yak Framework / MySQL / Flyway backend foundation;
-- Git-based docs source boundary;
-- local MySQL and Nginx deployment skeleton.
+`docs/` is never imported into the public frontend bundle. Protected documentation is delivered by the backend only after authentication in PR 3.
 
-The following are deliberately deferred:
+## Account architecture
 
-- **PR 2:** email registration, verification, login, session and password reset;
-- **PR 3:** authenticated docs delivery and docs UI;
-- **PR 4:** production marketing homepage and motion design.
+Website accounts use email as the public login identifier while Yak Security remains the credential and session authority.
 
-`docs/` is not imported into the frontend bundle. Protected documentation will be delivered through the backend after authentication is implemented.
+```text
+email registration
+      ↓
+website account profile + hashed one-time token
+      ↓
+Yak Security user (internal web_* username)
+      ↓
+email verification activates the security account
+      ↓
+Sa-Token session / HttpOnly cookie
+```
+
+The website business schema (`yak_ops_website`) and Yak Security schema (`yak_ops_website_security`) must remain separate so their Flyway histories cannot collide. Production may host both schemas on the same MySQL service. The local Compose file uses two MySQL containers on ports `3306` and `3307` so a fresh checkout needs no privileged schema-bootstrap step and existing PR 1 data volumes remain compatible.
+
+Verification and reset tokens are stored only as SHA-256 hashes. Registration and password-reset discovery responses are deliberately generic to reduce account enumeration. Login attempt protection is provided by Yak Security; registration, resend, login-facade and reset-mail actions also have a small in-memory rate guard for the single-instance website phase.
+
+The Sa-Token browser session is explicitly configured as `HttpOnly` and `SameSite=Lax`. It is a session cookie rather than a persistent cookie. Local HTTP development leaves `Secure` disabled; any HTTPS production deployment must set `SA_TOKEN_COOKIE_SECURE=true`. Production Nginx also emits `Referrer-Policy: no-referrer` so reset/verification tokens in URLs are not forwarded as referrers.
 
 ## Prerequisites
 
@@ -42,7 +56,7 @@ The following are deliberately deferred:
 
 ## Local development
 
-Start MySQL:
+Start both local database dependencies:
 
 ```bash
 docker compose -f deploy/docker/compose.yaml up -d
@@ -54,6 +68,8 @@ Start the backend:
 mvn -pl website-server spring-boot:run
 ```
 
+By default `WEBSITE_MAIL_MODE=log`, so verification/reset links are written to the backend development log instead of sending real email. For SMTP delivery set `WEBSITE_MAIL_MODE=smtp` and configure the `MAIL_*` / `WEBSITE_MAIL_FROM` variables from `.env.example`.
+
 Start the frontend:
 
 ```bash
@@ -62,7 +78,19 @@ npm install
 npm run dev
 ```
 
-The frontend proxies `/api/*` and `/actuator/*` to `http://localhost:8080` during local development.
+The frontend proxies `/api/*` and `/actuator/*` to `http://localhost:8080` during local development. Production Nginx exposes only `/api/*`; Actuator remains internal.
+
+## Account routes
+
+```text
+/register
+/verify-email
+/login
+/forgot-password
+/reset-password
+```
+
+The account API is under `/api/v1/auth`. `/current` and `/logout` require a valid Yak Security session.
 
 ## Quality checks
 
