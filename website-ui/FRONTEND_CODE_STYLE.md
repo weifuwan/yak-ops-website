@@ -34,11 +34,13 @@ Use a Yak Component when one exists. Ant Design remains the underlying UI system
 
 Website-only presentation belongs in page/layout components; product business components from `yak-ops-ui` are not copied into this repository.
 
+Marketing product previews are illustrative presentation components, not duplicated admin business components. Keep them under the owning marketing page until reuse is proven.
+
 ## Services
 
 All HTTP access belongs under `src/services`. Pages, components and hooks do not hard-code API URLs or call `fetch` / `request` directly.
 
-PR 2 will establish the account/auth service boundary; PR 3 will establish the protected docs service boundary.
+Account/auth and protected Docs already have dedicated service boundaries. Public marketing pages should remain backend-independent unless a real public-data requirement appears; do not add anonymous API calls only to make the homepage feel dynamic.
 
 ## Styling
 
@@ -49,6 +51,8 @@ Yak Component -> design token -> module class -> dynamic inline style
 ```
 
 Marketing pages may use lower-density editorial layouts than the Yak Ops admin product, while preserving the same brand color, typography family, interaction quality and component primitives.
+
+Use brand red as an accent rather than a surface. Motion should clarify entry, flow or state and must respect `prefers-reduced-motion`.
 
 ## Quality gate
 

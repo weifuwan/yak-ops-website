@@ -27,7 +27,7 @@ function Reveal({ children, className }: RevealProps) {
       initial={reduceMotion ? false : { opacity: 0, y: 28 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ amount: 0.18, once: true }}
-      transition={{ duration: 0.58, ease: [0.2, 0.8, 0.2, 1] }}
+      transition={{ duration: 0.58, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
@@ -103,9 +103,7 @@ export default function HomePage() {
           <Reveal>
             <span className="home-section-label">FROM SOURCE TO VALUE</span>
             <h2 className="home-display">Data should flow. Not get stuck between tools.</h2>
-            <p>
-              数据集成、开发、治理和交付不应该是四个彼此看不见的系统。Yak Ops 用同一个上下文连接它们。
-            </p>
+            <p>数据集成、开发、治理和交付不应该是四个彼此看不见的系统。Yak Ops 用同一个上下文连接它们。</p>
           </Reveal>
         </section>
 
@@ -145,7 +143,7 @@ export default function HomePage() {
             <IntegrationPreview />
           </Reveal>
 
-          <Reveal className="home-product-card" >
+          <Reveal className="home-product-card">
             <div className="home-product-card__copy">
               <span className="home-section-label">GOVERN</span>
               <h3>问题应该先被你看到。</h3>
@@ -177,9 +175,7 @@ export default function HomePage() {
           <Reveal className="home-feature__copy">
             <span className="home-section-label">DATA QUALITY</span>
             <h2 className="home-display">Know your data. Before your users do.</h2>
-            <p>
-              从质量维度到具体问题，把“数据有没有问题”变成“哪里出了问题、影响了什么、接下来该处理什么”。
-            </p>
+            <p>从质量维度到具体问题，把“数据有没有问题”变成“哪里出了问题、影响了什么、接下来该处理什么”。</p>
             <Link className="home-text-link" to="/docs/data-quality/overview">
               了解数据质量 <ArrowRightOutlined />
             </Link>
@@ -212,7 +208,12 @@ export default function HomePage() {
               <Link className="home-button home-button--light" to="/register">
                 创建 Yak Ops 账号 <ArrowRightOutlined />
               </Link>
-              <a className="home-button home-button--dark-outline" href={HOME_GITHUB_URL} target="_blank" rel="noreferrer">
+              <a
+                className="home-button home-button--dark-outline"
+                href={HOME_GITHUB_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <GithubOutlined /> GitHub
               </a>
             </div>

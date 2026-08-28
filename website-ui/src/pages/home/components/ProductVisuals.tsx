@@ -15,7 +15,7 @@ export function HeroDataFlow() {
       className="hero-canvas"
       initial={reduceMotion ? false : { opacity: 0, y: 28, scale: 0.985 }}
       animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.7, delay: 0.12, ease: [0.2, 0.8, 0.2, 1] }}
+      transition={{ duration: 0.7, delay: 0.12, ease: 'easeOut' }}
     >
       <div className="hero-canvas__grid" aria-hidden="true" />
       <div className="hero-canvas__topbar">

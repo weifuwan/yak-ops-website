@@ -15,14 +15,34 @@ yak-ops-website/
 └── pom.xml            # backend reactor parent
 ```
 
-## Roadmap boundaries
+## Roadmap foundation
 
 - **PR 1 — Website Foundation:** frontend/backend/deploy skeleton and Git-managed docs boundary.
 - **PR 2 — Account Foundation:** email registration, verification, login session, password reset and mail adapter.
 - **PR 3 — Protected Docs:** authenticated docs delivery, Markdown renderer, navigation, TOC and search.
-- **PR 4 — Marketing Homepage:** production Claude-inspired product story and motion design.
+- **PR 4 — Marketing Homepage:** Claude-inspired editorial product story, responsive product previews and restrained motion.
 
-PR 1–3 establish the runtime foundation. The public marketing experience remains intentionally minimal until PR 4.
+PR 1–4 establish the first complete website loop: public discovery → email account → verified session → protected documentation.
+
+## Marketing homepage
+
+The homepage borrows the information hierarchy and editorial restraint of modern product websites without copying another product's skin. Yak Ops keeps its own data-engineering visual language:
+
+```text
+Hero
+  ↓
+MySQL → Link-Up → Doris product flow
+  ↓
+Connect → Move → Build → Govern → Deliver
+  ↓
+Data Integration / Quality / Lineage / Service previews
+  ↓
+Account / Docs / GitHub conversion paths
+```
+
+The public page uses the existing Yak Ops warm background, dark ink and `#fe2c55` brand accent. Brand red is intentionally sparse and limited to primary actions, active flow states and quality highlights. The marketing page uses Framer Motion for restrained entrance motion and honors `prefers-reduced-motion`.
+
+The homepage does not make anonymous backend calls. Protected Docs links still pass through the PR 3 access boundary and return to the requested document after login.
 
 ## Account architecture
 
