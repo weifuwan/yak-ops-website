@@ -83,7 +83,7 @@ export default function DocsPage() {
 
   useEffect(() => {
     if (!navigation || !currentSlug) {
-      return;
+      return undefined;
     }
 
     let cancelled = false;
@@ -156,6 +156,9 @@ export default function DocsPage() {
     );
   }
 
+  const previousDocument = documentData?.previous;
+  const nextDocument = documentData?.next;
+
   return (
     <div className="yak-docs-page">
       <header className="yak-docs-header">
@@ -211,31 +214,31 @@ export default function DocsPage() {
               <MarkdownArticle markdown={documentData.markdown} />
 
               <div className="yak-docs-pagination">
-                {documentData.previous ? (
+                {previousDocument ? (
                   <button
                     className="yak-docs-page-link yak-docs-page-link--previous"
-                    onClick={() => navigateToDoc(documentData.previous!.slug)}
+                    onClick={() => navigateToDoc(previousDocument.slug)}
                     type="button"
                   >
                     <ArrowLeftOutlined />
                     <span>
                       <small>上一篇</small>
-                      <strong>{documentData.previous.title}</strong>
+                      <strong>{previousDocument.title}</strong>
                     </span>
                   </button>
                 ) : (
                   <span />
                 )}
 
-                {documentData.next ? (
+                {nextDocument ? (
                   <button
                     className="yak-docs-page-link yak-docs-page-link--next"
-                    onClick={() => navigateToDoc(documentData.next!.slug)}
+                    onClick={() => navigateToDoc(nextDocument.slug)}
                     type="button"
                   >
                     <span>
                       <small>下一篇</small>
-                      <strong>{documentData.next.title}</strong>
+                      <strong>{nextDocument.title}</strong>
                     </span>
                     <ArrowRightOutlined />
                   </button>

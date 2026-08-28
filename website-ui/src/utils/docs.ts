@@ -17,14 +17,20 @@ const stripHeadingMarkdown = (value: string) =>
 export function extractDocsToc(markdown: string): DocsTocItem[] {
   const slugger = new GithubSlugger();
   const items: DocsTocItem[] = [];
-  let inFence = false;
+  let fenceMarker: string | undefined;
 
   for (const line of markdown.split(/\r?\n/)) {
-    if (/^\s*```/.test(line)) {
-      inFence = !inFence;
+    const fence = /^\s*(`{3,}|~{3,})/.exec(line);
+    if (fence) {
+      const marker = fence[1][0];
+      if (!fenceMarker) {
+        fenceMarker = marker;
+      } else if (fenceMarker === marker) {
+        fenceMarker = undefined;
+      }
       continue;
     }
-    if (inFence) {
+    if (fenceMarker) {
       continue;
     }
 

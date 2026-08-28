@@ -18,7 +18,7 @@ export default function DocsSearch({ onSelect }: DocsSearchProps) {
     if (!normalized) {
       setHits([]);
       setLoading(false);
-      return;
+      return undefined;
     }
 
     let cancelled = false;
@@ -60,6 +60,7 @@ export default function DocsSearch({ onSelect }: DocsSearchProps) {
       <Input
         allowClear
         aria-label="搜索文档"
+        maxLength={80}
         onBlur={() => window.setTimeout(() => setOpen(false), 120)}
         onChange={(event) => {
           setQuery(event.target.value);

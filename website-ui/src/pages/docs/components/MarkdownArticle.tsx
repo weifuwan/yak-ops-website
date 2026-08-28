@@ -46,14 +46,13 @@ function CodeBlock({ children }: { children?: ReactNode }) {
 
 const markdownComponents: Components = {
   pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
-  a: ({ href, children, ...props }) => {
+  a: ({ href, children }) => {
     if (href?.startsWith('/docs/')) {
       return <Link to={href}>{children}</Link>;
     }
     const external = Boolean(href && /^(https?:)?\/\//.test(href));
     return (
       <a
-        {...props}
         href={href}
         rel={external ? 'noreferrer noopener' : undefined}
         target={external ? '_blank' : undefined}

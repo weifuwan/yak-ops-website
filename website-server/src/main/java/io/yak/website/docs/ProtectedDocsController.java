@@ -20,19 +20,25 @@ public class ProtectedDocsController {
     private static final int MAX_SEARCH_QUERY_LENGTH = 80;
 
     private final ProtectedDocsCatalog catalog;
+    private final ProtectedDocsAccessGuard accessGuard;
 
-    public ProtectedDocsController(ProtectedDocsCatalog catalog) {
+    public ProtectedDocsController(
+            ProtectedDocsCatalog catalog,
+            ProtectedDocsAccessGuard accessGuard) {
         this.catalog = catalog;
+        this.accessGuard = accessGuard;
     }
 
     @GetMapping("/navigation")
     public ResponseEntity<Result<NavigationResponse>> navigation() {
+        accessGuard.requireVerifiedWebsiteUser();
         return ok(catalog.navigation());
     }
 
     @GetMapping("/content")
     public ResponseEntity<Result<DocumentResponse>> content(
             @RequestParam("slug") String slug) {
+        accessGuard.requireVerifiedWebsiteUser();
         return catalog.document(slug)
                 .map(this::ok)
                 .orElseGet(() -> ResponseEntity
@@ -44,6 +50,7 @@ public class ProtectedDocsController {
     @GetMapping("/search")
     public ResponseEntity<Result<SearchResponse>> search(
             @RequestParam(value = "q", defaultValue = "") String query) {
+        accessGuard.requireVerifiedWebsiteUser();
         if (query != null && query.length() > MAX_SEARCH_QUERY_LENGTH) {
             return ResponseEntity
                     .badRequest()

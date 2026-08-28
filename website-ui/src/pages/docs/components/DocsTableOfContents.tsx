@@ -11,7 +11,7 @@ export default function DocsTableOfContents({ items }: DocsTableOfContentsProps)
   useEffect(() => {
     setActiveId(items[0]?.id ?? '');
     if (!items.length || typeof IntersectionObserver === 'undefined') {
-      return;
+      return undefined;
     }
 
     const elements = items
