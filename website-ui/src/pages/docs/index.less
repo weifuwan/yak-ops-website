@@ -1,0 +1,633 @@
+.yak-docs-page {
+  min-height: 100vh;
+  background: #fff;
+  color: var(--yak-text-primary);
+}
+
+.yak-docs-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(320px, 620px) minmax(260px, 1fr);
+  align-items: center;
+  min-height: 64px;
+  padding: 10px 22px;
+  border-bottom: 1px solid #eceae5;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+}
+
+.yak-docs-header__left,
+.yak-docs-header__user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.yak-docs-header__user {
+  justify-content: flex-end;
+}
+
+.yak-docs-header__menu {
+  display: none !important;
+}
+
+.yak-docs-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.yak-docs-brand__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--yak-brand-color);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.yak-docs-brand__name {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.yak-docs-brand__divider {
+  width: 1px;
+  height: 17px;
+  background: #dfddd7;
+}
+
+.yak-docs-brand__docs {
+  color: #77756f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.yak-docs-header__search {
+  width: 100%;
+  padding: 0 22px;
+}
+
+.yak-docs-search {
+  position: relative;
+  width: 100%;
+}
+
+.yak-docs-search .ant-input-affix-wrapper {
+  height: 38px;
+  border-color: #e4e2dc;
+  border-radius: 10px;
+  background: #f8f7f4;
+  box-shadow: none;
+}
+
+.yak-docs-search .ant-input-affix-wrapper-focused,
+.yak-docs-search .ant-input-affix-wrapper:hover {
+  border-color: #d6d2ca;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(25, 25, 24, 0.035);
+}
+
+.yak-docs-search-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  max-height: min(520px, 70vh);
+  border: 1px solid #e6e3dc;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(33, 31, 27, 0.14);
+  overflow-y: auto;
+}
+
+.yak-docs-search-panel__state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 84px;
+  padding: 16px;
+  color: #85827b;
+  font-size: 13px;
+}
+
+.yak-docs-search-hit {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  border: 0;
+  border-bottom: 1px solid #f0eee9;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.yak-docs-search-hit:last-child {
+  border-bottom: 0;
+}
+
+.yak-docs-search-hit:hover {
+  background: #f8f7f4;
+}
+
+.yak-docs-search-hit__meta {
+  margin-bottom: 3px;
+  color: #9a968d;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.yak-docs-search-hit__title {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.yak-docs-search-hit__snippet {
+  overflow: hidden;
+  color: #72706a;
+  font-size: 12px;
+  line-height: 1.55;
+  text-overflow: ellipsis;
+}
+
+.yak-docs-user-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 210px;
+  text-align: right;
+}
+
+.yak-docs-user-meta strong,
+.yak-docs-user-meta span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.yak-docs-user-meta strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.yak-docs-user-meta span {
+  margin-top: 1px;
+  color: #96928a;
+  font-size: 10px;
+}
+
+.yak-docs-shell {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 220px;
+  width: min(1540px, 100%);
+  min-height: calc(100vh - 64px);
+  margin: 0 auto;
+}
+
+.yak-docs-sidebar,
+.yak-docs-toc-column {
+  position: sticky;
+  top: 64px;
+  align-self: start;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+.yak-docs-sidebar {
+  padding: 30px 24px 44px 20px;
+  border-right: 1px solid #f0eee9;
+}
+
+.yak-docs-sidebar-section + .yak-docs-sidebar-section {
+  margin-top: 28px;
+}
+
+.yak-docs-sidebar-section__title {
+  margin-bottom: 7px;
+  padding: 0 10px;
+  color: #9a968e;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.yak-docs-sidebar-section__items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.yak-docs-sidebar-item {
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #65635e;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.yak-docs-sidebar-item:hover {
+  background: #f7f6f2;
+  color: #252421;
+}
+
+.yak-docs-sidebar-item--active {
+  background: var(--yak-brand-color-soft);
+  color: #d91e47;
+  font-weight: 650;
+}
+
+.yak-docs-content {
+  width: min(100%, 850px);
+  min-width: 0;
+  margin: 0 auto;
+  padding: 54px 54px 76px;
+}
+
+.yak-docs-content__loading {
+  padding-top: 18px;
+}
+
+.yak-docs-breadcrumb {
+  margin-bottom: 12px;
+  color: #aaa59d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.yak-docs-markdown {
+  color: #32312e;
+  font-size: 15px;
+  line-height: 1.82;
+}
+
+.yak-docs-markdown h1,
+.yak-docs-markdown h2,
+.yak-docs-markdown h3,
+.yak-docs-markdown h4 {
+  color: #191918;
+  scroll-margin-top: 92px;
+}
+
+.yak-docs-markdown h1 {
+  margin: 0 0 24px;
+  font-size: clamp(32px, 3vw, 42px);
+  font-weight: 760;
+  line-height: 1.16;
+  letter-spacing: -0.035em;
+}
+
+.yak-docs-markdown h2 {
+  margin: 54px 0 18px;
+  padding-top: 4px;
+  font-size: 24px;
+  font-weight: 720;
+  line-height: 1.28;
+  letter-spacing: -0.02em;
+}
+
+.yak-docs-markdown h3 {
+  margin: 34px 0 12px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.yak-docs-markdown p {
+  margin: 0 0 18px;
+}
+
+.yak-docs-markdown ul,
+.yak-docs-markdown ol {
+  margin: 0 0 20px;
+  padding-left: 24px;
+}
+
+.yak-docs-markdown li + li {
+  margin-top: 5px;
+}
+
+.yak-docs-markdown strong {
+  color: #22211f;
+  font-weight: 700;
+}
+
+.yak-docs-markdown a {
+  color: #d91e47;
+  text-decoration: underline;
+  text-decoration-color: rgba(217, 30, 71, 0.25);
+  text-underline-offset: 3px;
+}
+
+.yak-docs-markdown blockquote {
+  margin: 24px 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--yak-brand-color);
+  border-radius: 0 10px 10px 0;
+  background: #faf8f5;
+  color: #66635d;
+}
+
+.yak-docs-markdown blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.yak-docs-markdown :not(pre) > code {
+  padding: 2px 6px;
+  border: 1px solid #e8e5df;
+  border-radius: 5px;
+  background: #f7f6f2;
+  color: #b51d3b;
+  font-size: 0.88em;
+}
+
+.yak-docs-code-block {
+  position: relative;
+  margin: 24px 0;
+}
+
+.yak-docs-code-block pre {
+  overflow-x: auto;
+  margin: 0;
+  padding: 20px 22px;
+  border: 1px solid #e5e2db;
+  border-radius: 12px;
+  background: #f7f6f2;
+  color: #34322e;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.yak-docs-code-block__copy {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border: 1px solid #ddd9d1;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #77736c;
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.yak-docs-code-block__copy:hover {
+  color: #242320;
+}
+
+.yak-docs-markdown table {
+  width: 100%;
+  margin: 24px 0;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.yak-docs-markdown th,
+.yak-docs-markdown td {
+  padding: 10px 12px;
+  border: 1px solid #e8e5df;
+  text-align: left;
+}
+
+.yak-docs-markdown th {
+  background: #f8f7f4;
+  font-weight: 700;
+}
+
+.yak-docs-markdown .hljs-keyword,
+.yak-docs-markdown .hljs-selector-tag,
+.yak-docs-markdown .hljs-literal {
+  color: #b81f43;
+}
+
+.yak-docs-markdown .hljs-string,
+.yak-docs-markdown .hljs-attr,
+.yak-docs-markdown .hljs-template-variable {
+  color: #2d6b4f;
+}
+
+.yak-docs-markdown .hljs-number,
+.yak-docs-markdown .hljs-built_in,
+.yak-docs-markdown .hljs-type {
+  color: #7a4aa0;
+}
+
+.yak-docs-markdown .hljs-comment,
+.yak-docs-markdown .hljs-quote {
+  color: #99958d;
+}
+
+.yak-docs-pagination {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid #edeae4;
+}
+
+.yak-docs-page-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 78px;
+  padding: 14px 16px;
+  border: 1px solid #e7e4dd;
+  border-radius: 12px;
+  background: #fff;
+  color: #2b2a27;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.yak-docs-page-link:hover {
+  border-color: #d8d4cc;
+  background: #faf9f6;
+}
+
+.yak-docs-page-link--next {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.yak-docs-page-link span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.yak-docs-page-link small {
+  color: #9a968e;
+  font-size: 10px;
+}
+
+.yak-docs-page-link strong {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.yak-docs-toc-column {
+  padding: 56px 24px 48px;
+}
+
+.yak-docs-toc__title {
+  margin-bottom: 10px;
+  color: #aaa59c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.yak-docs-toc__items {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-left: 1px solid #ece9e2;
+}
+
+.yak-docs-toc__item {
+  margin-left: -1px;
+  padding: 5px 0 5px 13px;
+  border-left: 1px solid transparent;
+  color: #918e87;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.yak-docs-toc__item:hover,
+.yak-docs-toc__item--active {
+  border-left-color: #77736b;
+  color: #4a4843;
+}
+
+.yak-docs-toc__item--nested {
+  padding-left: 23px;
+}
+
+.yak-docs-boot {
+  width: min(760px, calc(100% - 40px));
+  margin: 96px auto;
+  padding: 32px;
+  border: 1px solid #e8e5df;
+  border-radius: 16px;
+  background: #fff;
+}
+
+@media (max-width: 1180px) {
+  .yak-docs-header {
+    grid-template-columns: minmax(220px, 1fr) minmax(320px, 560px) minmax(200px, 1fr);
+  }
+
+  .yak-docs-shell {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+
+  .yak-docs-toc-column {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .yak-docs-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .yak-docs-header__menu {
+    display: inline-flex !important;
+  }
+
+  .yak-docs-brand__name,
+  .yak-docs-brand__divider,
+  .yak-docs-brand__docs,
+  .yak-docs-user-meta {
+    display: none;
+  }
+
+  .yak-docs-header__search {
+    padding: 0;
+  }
+
+  .yak-docs-shell {
+    display: block;
+  }
+
+  .yak-docs-sidebar {
+    display: none;
+  }
+
+  .yak-docs-content {
+    width: min(100%, 760px);
+    padding: 38px 24px 60px;
+  }
+
+  .yak-docs-markdown {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .yak-docs-brand__mark {
+    width: 28px;
+    height: 28px;
+  }
+
+  .yak-docs-header {
+    grid-template-columns: auto 1fr auto;
+    padding: 9px 10px;
+  }
+
+  .yak-docs-header__left {
+    gap: 6px;
+  }
+
+  .yak-docs-content {
+    padding: 32px 18px 48px;
+  }
+
+  .yak-docs-markdown h1 {
+    font-size: 30px;
+  }
+
+  .yak-docs-markdown h2 {
+    margin-top: 42px;
+    font-size: 21px;
+  }
+
+  .yak-docs-pagination {
+    grid-template-columns: 1fr;
+  }
+
+  .yak-docs-page-link--next {
+    grid-column: 1;
+  }
+}
