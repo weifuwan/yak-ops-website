@@ -23,8 +23,8 @@ interface NavDropdownProps {
 }
 
 const MENU_WIDTH_BY_COLUMNS: Record<number, string> = {
-  1: 'w-[28rem]',
-  2: 'w-[42rem]',
+  1: 'w-[24rem]',
+  2: 'w-[38rem]',
   3: 'w-[50rem]',
   4: 'w-[56rem]',
 };
@@ -144,21 +144,20 @@ function MegaMenu({
         grid
         w-full
         ${gridClass}
+        divide-x
+        divide-[#e5e3dc]
         overflow-hidden
         rounded-[12.5px]
         bg-white
-        px-5
-        py-4
-        text-[#30302e]
-        shadow-[0_4px_24px_rgba(0,0,0,0.08)]
+        px-7
+        py-5
+        text-[#242422]
+        shadow-[0_8px_30px_rgba(0,0,0,0.08)]
       `}
     >
-      {item.columns.map((column, columnIndex) => (
-        <div
-          className={columnIndex === 0 ? 'pr-5' : 'border-l border-[#e8e6dc] px-5'}
-          key={column.title}
-        >
-          <div className="mb-3 text-[12px] font-semibold tracking-[0.08em] text-[#73726c]">
+      {item.columns.map((column) => (
+        <div className="min-w-0 px-6 first:pl-0 last:pr-0" key={column.title}>
+          <div className="mb-4 text-[12px] font-normal leading-5 tracking-[0.01em] text-[#8a8881]">
             {column.title}
           </div>
 
@@ -166,17 +165,12 @@ function MegaMenu({
             {column.items.map((link) => (
               <li key={`${column.title}-${link.label}`}>
                 <MarketingLink
-                  className="group flex min-h-[56px] items-start justify-between gap-3 py-1 text-[#30302e] no-underline transition-opacity duration-200 hover:opacity-60"
+                  className="flex min-h-10 items-center justify-between gap-3 py-1.5 text-[16px] font-normal leading-6 text-[#242422] no-underline transition-opacity duration-200 hover:opacity-60"
                   external={link.external}
                   href={link.href}
                   onClick={closeMenu}
                 >
-                  <span>
-                    <span className="block text-[15px] font-medium leading-6">{link.label}</span>
-                    <span className="mt-0.5 block text-[12px] leading-5 text-[#8a8881]">
-                      {link.description}
-                    </span>
-                  </span>
+                  <span>{link.label}</span>
                   {link.external && <ExternalLinkIcon />}
                 </MarketingLink>
               </li>
