@@ -1,39 +1,170 @@
-export const DATA_FLOW_STEPS = [
-  {
-    number: '01',
-    verb: 'Connect',
-    title: '连接数据，而不是连接孤岛。',
-    description: '统一管理数据源与连接信息，让后续同步、开发和治理从同一个上下文开始。',
-    tags: ['Datasource', 'Connector', 'Metadata'],
-  },
-  {
-    number: '02',
-    verb: 'Move',
-    title: '让批处理与 CDC 走同一条路。',
-    description: '离线同步和实时同步共享清晰的任务边界，让数据流转不再散落在不同工具里。',
-    tags: ['Batch', 'CDC', 'Link-Up'],
-  },
-  {
-    number: '03',
-    verb: 'Build',
-    title: '从 SQL 到任务，都留在工作流里。',
-    description: '把数据开发、调度和执行上下文组织起来，让开发过程更容易理解、复用和追踪。',
-    tags: ['SQL', 'Workflow', 'Schedule'],
-  },
-  {
-    number: '04',
-    verb: 'Govern',
-    title: '质量、元数据与血缘不再事后补。',
-    description: '在数据流转过程中持续看见质量问题、上下游关系和影响范围，而不是等用户发现。',
-    tags: ['Quality', 'Lineage', 'Governance'],
-  },
-  {
-    number: '05',
-    verb: 'Deliver',
-    title: '把数据交付成真正可使用的能力。',
-    description: '从数据集到服务与可视化，让治理后的数据继续向业务价值流动。',
-    tags: ['Dataset', 'Data Service', 'Dashboard'],
-  },
-] as const;
-
 export const HOME_GITHUB_URL = 'https://github.com/weifuwan/yak-ops';
+
+export interface HomeNavLink {
+  label: string;
+  description: string;
+  href: string;
+  external?: boolean;
+}
+
+export interface HomeNavColumn {
+  title: string;
+  items: readonly HomeNavLink[];
+}
+
+export type HomeNavItem =
+  | {
+      key: string;
+      label: string;
+      kind: 'mega';
+      columns: readonly HomeNavColumn[];
+    }
+  | {
+      key: string;
+      label: string;
+      kind: 'link';
+      href: string;
+      external?: boolean;
+    };
+
+export const HOME_NAV_ITEMS: readonly HomeNavItem[] = [
+  {
+    key: 'about',
+    label: '了解 Yak Ops',
+    kind: 'mega',
+    columns: [
+      {
+        title: '开始',
+        items: [
+          {
+            label: 'Yak Ops 概览',
+            description: '了解产品定位、能力边界与整体数据流。',
+            href: '/docs/getting-started/overview',
+          },
+          {
+            label: '快速开始',
+            description: '沿着最短路径跑通接入、开发、治理与交付。',
+            href: '/docs/getting-started/quick-start',
+          },
+        ],
+      },
+      {
+        title: '运行',
+        items: [
+          {
+            label: '部署与运行',
+            description: '了解部署边界、配置原则与上线检查。',
+            href: '/docs/deployment/overview',
+          },
+          {
+            label: '开源项目',
+            description: '在 GitHub 查看 Yak Ops 源码与最新进展。',
+            href: HOME_GITHUB_URL,
+            external: true,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: 'platform',
+    label: '平台',
+    kind: 'mega',
+    columns: [
+      {
+        title: '连接与集成',
+        items: [
+          {
+            label: '数据集成',
+            description: '数据源管理、离线同步与实时 CDC。',
+            href: '/docs/data-integration/overview',
+          },
+        ],
+      },
+      {
+        title: '开发与编排',
+        items: [
+          {
+            label: '数据开发',
+            description: '开发任务、发布中心与运行记录。',
+            href: '/docs/data-development/overview',
+          },
+          {
+            label: '工作流',
+            description: '工作流定义、调度与实例运行。',
+            href: '/docs/getting-started/overview',
+          },
+        ],
+      },
+      {
+        title: '治理与理解',
+        items: [
+          {
+            label: '数据质量',
+            description: '质量总览、表监控、运行记录与规则模板。',
+            href: '/docs/data-quality/overview',
+          },
+          {
+            label: '数据血缘',
+            description: '查看上下游关系、传播路径与影响范围。',
+            href: '/docs/lineage/overview',
+          },
+        ],
+      },
+      {
+        title: '消费与交付',
+        items: [
+          {
+            label: '数据消费',
+            description: '数据集、仪表盘与数字化大屏。',
+            href: '/docs/getting-started/overview',
+          },
+          {
+            label: '数据服务',
+            description: 'API 集市、调试、运行概览与调用记录。',
+            href: '/docs/getting-started/overview',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: 'membership',
+    label: '会员',
+    kind: 'link',
+    href: '/#membership',
+  },
+  {
+    key: 'resources',
+    label: '资源',
+    kind: 'mega',
+    columns: [
+      {
+        title: '文档',
+        items: [
+          {
+            label: 'Docs',
+            description: '浏览 Yak Ops 产品与部署文档。',
+            href: '/docs',
+          },
+          {
+            label: '快速开始',
+            description: '从一条最短的数据流开始使用 Yak Ops。',
+            href: '/docs/getting-started/quick-start',
+          },
+        ],
+      },
+      {
+        title: '开源',
+        items: [
+          {
+            label: 'GitHub',
+            description: '查看源码、Issue 与 Pull Request。',
+            href: HOME_GITHUB_URL,
+            external: true,
+          },
+        ],
+      },
+    ],
+  },
+];
