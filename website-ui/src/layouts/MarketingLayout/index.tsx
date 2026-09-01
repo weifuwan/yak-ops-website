@@ -7,8 +7,9 @@ export default function MarketingLayout() {
     <div className="yak-marketing-layout">
       <header
         className="
-          relative
-          z-[1]
+          sticky
+          top-0
+          z-[1200]
           visible
           transform-none
           border-b
