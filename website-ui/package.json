@@ -5,8 +5,8 @@
   "description": "Yak Ops website frontend",
   "scripts": {
     "build": "max build",
-    "dev": "max dev",
-    "start": "cross-env REACT_APP_ENV=dev max dev",
+    "dev": "cross-env CHECK_TIMEOUT=60 max dev",
+    "start": "cross-env CHECK_TIMEOUT=60 REACT_APP_ENV=dev max dev",
     "postinstall": "max setup",
     "biome:lint": "biome lint .",
     "format": "biome format --write .",
