@@ -144,8 +144,6 @@ function MegaMenu({
         grid
         w-full
         ${gridClass}
-        divide-x
-        divide-[#e5e3dc]
         overflow-hidden
         rounded-[12.5px]
         bg-white
@@ -155,8 +153,12 @@ function MegaMenu({
         shadow-[0_8px_30px_rgba(0,0,0,0.08)]
       `}
     >
-      {item.columns.map((column) => (
-        <div className="min-w-0 px-6 first:pl-0 last:pr-0" key={column.title}>
+      {item.columns.map((column, columnIndex) => (
+        <div
+          className="min-w-0 px-6 first:pl-0 last:pr-0"
+          key={column.title}
+          style={columnIndex === 0 ? undefined : { borderLeft: '1px solid #e2e0da' }}
+        >
           <div className="mb-4 text-[12px] font-normal leading-5 tracking-[0.01em] text-[#8a8881]">
             {column.title}
           </div>
@@ -256,7 +258,10 @@ export default function MarketingHeader() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
-    <div className="mx-auto flex h-[84px] w-[calc(100%-clamp(2rem,calc(1.428571rem+2.857143vw),4rem)*2)] max-w-[90rem] items-center gap-6 [container:threshold-large/inline-size]">
+    <div
+      className="mx-auto flex h-[84px] w-[calc(100%-clamp(2rem,calc(1.428571rem+2.857143vw),4rem)*2)] max-w-[90rem] items-center gap-6 [container:threshold-large/inline-size]"
+      style={{ fontFamily: 'var(--yak-font-marketing)' }}
+    >
       <BrandLogo />
 
       <nav className="ml-auto flex h-full items-center" aria-label="主导航">
