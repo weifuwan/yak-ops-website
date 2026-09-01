@@ -16,6 +16,9 @@ export default function MarketingLayout() {
           bg-[#faf9f5]
           opacity-100
         "
+        style={{
+          border: "0.0625rem solid #e8e6dc"
+        }}
       >
         <MarketingHeader />
       </header>
