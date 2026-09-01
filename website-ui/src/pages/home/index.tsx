@@ -1,5 +1,5 @@
 import MarketingHeader from './components/MarketingHeader';
-import './index.less';
+
 
 export default function HomePage() {
   return (

@@ -1,13 +1,13 @@
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:8088}
 
 spring:
   application:
     name: yak-ops-website
   datasource:
-    url: ${DB_URL:jdbc:mysql://localhost:3306/yak_ops_website?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/yak_ops_website?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
     username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:yakops}
+    password: ${DB_PASSWORD:123456}
     driver-class-name: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: true
@@ -53,9 +53,9 @@ yak:
     audit-enabled: false
     datasource:
       enabled: true
-      url: ${SECURITY_DB_URL:jdbc:mysql://localhost:3307/yak_ops_website_security?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
+      url: ${SECURITY_DB_URL:jdbc:mysql://127.0.0.1:3306/yak_ops_website?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
       username: ${SECURITY_DB_USERNAME:root}
-      password: ${SECURITY_DB_PASSWORD:yakops}
+      password: ${SECURITY_DB_PASSWORD:123456}
       driver-class-name: com.mysql.cj.jdbc.Driver
     authentication:
       storage: MEMORY
