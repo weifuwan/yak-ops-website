@@ -16,7 +16,12 @@ module.exports = {
         'yak-border': 'var(--yak-border-color)',
       },
       fontFamily: {
-        yak: ['var(--yak-font-family)'],
+        sans: ['var(--yak-font-sans)'],
+        serif: ['var(--yak-font-serif)'],
+        mono: ['var(--yak-font-mono)'],
+        yak: ['var(--yak-font-sans)'],
+        'yak-serif': ['var(--yak-font-serif)'],
+        'yak-mono': ['var(--yak-font-mono)'],
       },
     },
   },
