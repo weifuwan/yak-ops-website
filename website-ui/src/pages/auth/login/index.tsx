@@ -1,63 +1,67 @@
-import { history, Link, useLocation } from '@umijs/max';
-import { Alert, Form, Input } from 'antd';
-import { useState } from 'react';
-import { YakButton } from '@/components/ui';
-import AuthLayout from '@/layouts/AuthLayout';
-import { loginAccount } from '@/services/auth';
-import { getSafeReturnTo } from '@/utils/redirect';
-
-type LoginFormValues = {
-  email: string;
-  password: string;
-};
+import loginLogo from '@/assets/img/logo1.png';
+import loginHeroVideo from '@/assets/video/login-hero3.mp4';
+import LoginPanel from './LoginPanel';
 
 export default function LoginPage() {
-  const location = useLocation();
-  const [submitting, setSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>();
-
-  const handleSubmit = async (values: LoginFormValues) => {
-    setSubmitting(true);
-    setErrorMessage(undefined);
-    try {
-      await loginAccount(values);
-      const returnTo = getSafeReturnTo(new URLSearchParams(location.search).get('returnTo'));
-      history.push(returnTo);
-    } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : '登录失败，请稍后重试');
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
   return (
-    <AuthLayout title="登录 Yak Ops" description="使用注册邮箱登录，继续访问 Yak Ops 开发者内容。">
-      {errorMessage ? <Alert className="yak-auth-form__alert" type="error" message={errorMessage} showIcon /> : null}
+    <main className="yak-login-page h-screen overflow-y-auto bg-[#fbfbfa] text-[#171717]">
+      <div className="mx-auto flex min-h-screen w-full max-w-[1540px] flex-col px-6 py-4 sm:px-10 lg:px-12 lg:pb-6 lg:pt-5 xl:px-16">
+        <header className="flex h-11 shrink-0 items-center">
+          <a href="/" aria-label="Yak Ops home">
+            <img
+              src={loginLogo}
+              alt="Yak Ops 一体化"
+              className="h-9 w-auto select-none object-contain sm:h-9"
+              draggable={false}
+            />
+          </a>
+        </header>
 
-      <Form<LoginFormValues> className="yak-auth-form" layout="vertical" onFinish={handleSubmit} requiredMark={false}>
-        <Form.Item
-          label="邮箱"
-          name="email"
-          rules={[{ required: true, type: 'email', max: 128, message: '请输入有效邮箱（最多 128 个字符）' }]}
-        >
-          <Input autoComplete="email" maxLength={128} placeholder="you@example.com" />
-        </Form.Item>
-        <Form.Item label="密码" name="password" rules={[{ required: true, min: 8, max: 64, message: '密码长度需为 8～64 位' }]}>
-          <Input.Password autoComplete="current-password" maxLength={64} placeholder="输入密码" />
-        </Form.Item>
-        <div className="yak-auth-form__row">
-          <Link className="yak-auth-form__link" to="/forgot-password">
-            忘记密码？
-          </Link>
+        <div className="grid flex-1 grid-cols-1 gap-10 pt-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(540px,0.95fr)] lg:items-center lg:gap-14 lg:pt-0 xl:gap-20">
+          <section className="flex min-w-0 items-center justify-center py-8 lg:py-10">
+            <div className="w-full max-w-[620px]">
+              <div
+                className="mb-10 text-center"
+                style={{ fontFamily: "'YakOps', Inter, sans-serif" }}
+              >
+                <h1 className="m-0 text-[46px] font-normal leading-[1.01] tracking-[-0.045em] text-[#171717] sm:text-[60px] lg:text-[64px]">
+                  Data ops, &nbsp; simplified.
+                </h1>
+
+                <p className="mt-5 text-[16px] leading-7 text-[#555] sm:text-[17px]">
+                  One workspace for your data.
+                </p>
+              </div>
+
+              <div className="mx-auto w-full max-w-[430px]">
+                <LoginPanel />
+              </div>
+            </div>
+          </section>
+
+          <aside className="hidden min-w-0 justify-end lg:flex">
+            <div className="relative h-[min(734px,calc(100vh-112px))] w-[min(587px,calc((100vh-112px)*0.8))] overflow-hidden rounded-[24px] bg-[#ecece9] shadow-[0_12px_36px_rgba(15,23,42,0.06)]">
+              <video
+                className="h-full w-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-label="Yak Ops login visual"
+              >
+                <source src={loginHeroVideo} type="video/mp4" />
+              </video>
+
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5" />
+            </div>
+          </aside>
         </div>
-        <YakButton className="yak-auth-form__submit" htmlType="submit" loading={submitting} type="primary">
-          登录
-        </YakButton>
-      </Form>
 
-      <p className="yak-auth-form__footer">
-        还没有账号？ <Link to="/register">创建账号</Link>
-      </p>
-    </AuthLayout>
+        <footer className="flex h-8 shrink-0 items-center">
+          <span className="text-[12px] tracking-[0.01em] text-black/45">Built by 魏福万</span>
+        </footer>
+      </div>
+    </main>
   );
 }
