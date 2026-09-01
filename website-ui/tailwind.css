@@ -1,0 +1,8 @@
+/*
+ * Umi Max injects this file through its Tailwind CSS plugin.
+ * Preflight stays disabled in tailwind.config.js so Ant Design and the
+ * existing Less foundation keep ownership of global element styles.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
