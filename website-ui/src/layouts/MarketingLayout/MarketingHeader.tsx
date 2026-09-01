@@ -167,7 +167,7 @@ function MegaMenu({
             {column.items.map((link) => (
               <li key={`${column.title}-${link.label}`}>
                 <MarketingLink
-                  className="flex min-h-10 items-center justify-between gap-3 py-1.5 text-[16px] font-normal leading-6 text-[#242422] no-underline transition-opacity duration-200 hover:opacity-60"
+                  className="-mx-3 flex min-h-10 items-center justify-between gap-3 rounded-[4px] px-3 py-1.5 !text-[#242422] no-underline transition-colors duration-150 hover:!bg-[#f1efe8] hover:!text-[#242422] focus-visible:!bg-[#f1efe8] focus-visible:!text-[#242422] focus-visible:outline-none"
                   external={link.external}
                   href={link.href}
                   onClick={closeMenu}
