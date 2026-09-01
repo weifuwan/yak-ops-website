@@ -32,5 +32,6 @@ export default defineConfig({
   proxy: proxy[REACT_APP_ENV as keyof typeof proxy],
   request: {},
   routes,
+  tailwindcss: {},
   title: 'Yak Ops',
 });

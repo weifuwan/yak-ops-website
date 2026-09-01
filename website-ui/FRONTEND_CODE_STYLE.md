@@ -47,8 +47,14 @@ Account/auth and protected Docs already have dedicated service boundaries. Publi
 Prefer this order:
 
 ```text
-Yak Component -> design token -> module class -> dynamic inline style
+Yak Component -> design token / Tailwind utility -> module class -> dynamic inline style
 ```
+
+Tailwind CSS is available for layout, spacing, typography, responsive states and other small compositional utilities. Keep complex component states, pseudo-elements and Ant Design overrides in the owning Less stylesheet.
+
+Tailwind Preflight is intentionally disabled. `src/global.less` remains the owner of global element resets and base typography so Tailwind cannot unexpectedly reset Ant Design or existing website styles.
+
+Prefer the Yak theme utilities mapped in `tailwind.config.js` (`text-yak-brand`, `bg-yak-page`, `border-yak-border`, `font-yak`, etc.) over arbitrary hard-coded brand colors. Keep Tailwind class names statically discoverable; use explicit variant maps instead of constructing class names such as `bg-${tone}` at runtime.
 
 Marketing pages may use lower-density editorial layouts than the Yak Ops admin product, while preserving the same brand color, typography family, interaction quality and component primitives.
 
