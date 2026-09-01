@@ -1,13 +1,20 @@
 import MarketingHeader from './components/MarketingHeader';
 
-
 export default function HomePage() {
   return (
-    <div className="yak-home">
+    <div
+      className="
+        relative
+        z-[1]
+        visible
+        transform-none
+        border-b
+        border-[#e8e6dc]
+        bg-[#faf9f5]
+        opacity-100
+      "
+    >
       <MarketingHeader />
-      <main className="home-content-shell" aria-label="Yak Ops 网站内容区域">
-        <div id="membership" className="home-content-anchor" aria-hidden="true" />
-      </main>
     </div>
   );
 }
