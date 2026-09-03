@@ -104,9 +104,10 @@ function ExternalLinkIcon() {
     >
       <path
         d="M9.5 3C9.77614 3 10 3.22386 10 3.5C10 3.77614 9.77614 4 9.5 4H4.5C4.22386 4 4 4.22386 4 4.5V15.5C4 15.7761 4.22386 16 4.5 16H15.5C15.7761 16 16 15.7761 16 15.5V10.5C16 10.2239 16.2239 10 16.5 10C16.7761 10 17 10.2239 17 10.5V15.5C17 16.3284 16.3284 17 15.5 17H4.5C3.67157 17 3 16.3284 3 15.5V4.5C3 3.67157 3.67157 3 4.5 3H9.5ZM16.5 3C16.7761 3 17 3.22386 17 3.5V7.5C17 7.77614 16.7761 8 16.5 8C16.2239 8 16 7.77614 16 7.5V4.70703L11.8535 8.85352C11.6583 9.04878 11.3417 9.04878 11.1465 8.85352C10.9512 8.65825 10.9512 8.34175 11.1465 8.14648L15.293 4H12.5C12.2239 4 12 3.77614 12 3.5C12 3.22386 12.2239 3 12.5 3H16.5Z"
-        fill="currentColor"
-      />
-    </svg>
+          fill="currentColor"
+        />
+      </svg>
+    </span>
   );
 }
 
@@ -134,6 +135,7 @@ function MegaMenu({
   item: MarketingMegaNavItem;
   closeMenu: () => void;
 }) {
+  const [hoveredLinkKey, setHoveredLinkKey] = useState<string | null>(null);
   const columnCount = Math.min(Math.max(item.columns.length, 1), 4);
   const gridClass = MENU_GRID_BY_COLUMNS[columnCount] ?? 'grid-cols-1';
 
@@ -150,7 +152,7 @@ function MegaMenu({
         px-7
         py-5
         text-[#242422]
-        shadow-[0_8px_30px_rgba(0,0,0,0.08)]
+        shadow-[0_1px_2px_rgba(17,17,16,0.08),0_14px_40px_rgba(17,17,16,0.14)]
       `}
     >
       {item.columns.map((column, columnIndex) => (
@@ -164,19 +166,30 @@ function MegaMenu({
           </div>
 
           <ul className="m-0 list-none p-0">
-            {column.items.map((link) => (
-              <li key={`${column.title}-${link.label}`}>
-                <MarketingLink
-                  className="-mx-3 flex min-h-10 items-center justify-between gap-3 rounded-[4px] px-3 py-1.5 !text-[#242422] no-underline transition-[background-color] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:!bg-[#f1efe8] hover:!text-[#242422] focus-visible:!bg-[#f1efe8] focus-visible:!text-[#242422] focus-visible:outline-none motion-reduce:transition-none"
-                  external={link.external}
-                  href={link.href}
-                  onClick={closeMenu}
+            {column.items.map((link) => {
+              const linkKey = `${column.title}-${link.label}`;
+              const isDimmed = hoveredLinkKey !== null && hoveredLinkKey !== linkKey;
+
+              return (
+                <li
+                  key={linkKey}
+                  onMouseEnter={() => setHoveredLinkKey(linkKey)}
+                  onMouseLeave={() => setHoveredLinkKey(null)}
                 >
-                  <span>{link.label}</span>
-                  {link.external && <ExternalLinkIcon />}
-                </MarketingLink>
-              </li>
-            ))}
+                  <MarketingLink
+                    className={`-mx-3 flex min-h-10 items-center justify-between gap-3 rounded-[4px] px-3 py-1.5 no-underline transition-[background-color,color] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:!bg-[#f1efe8] hover:!text-[#242422] focus-visible:!bg-[#f1efe8] focus-visible:!text-[#242422] focus-visible:outline-none motion-reduce:transition-none ${
+                      isDimmed ? '!text-[#8a8881]' : '!text-[#242422]'
+                    }`}
+                    external={link.external}
+                    href={link.href}
+                    onClick={closeMenu}
+                  >
+                    <span>{link.label}</span>
+                    {link.external && <ExternalLinkIcon />}
+                  </MarketingLink>
+                </li>
+              );
+            })}
           </ul>
         </div>
       ))}
