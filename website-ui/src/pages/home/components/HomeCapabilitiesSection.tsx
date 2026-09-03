@@ -1,5 +1,6 @@
 import DesktopDownloadLinks from "./DesktopDownloadLinks";
 import HomeFeatureList from "./HomeFeatureList";
+import WorkflowCodeVisual from "./WorkflowCodeVisual";
 import YakCapabilitiesMap from "./YakCapabilitiesMap";
 
 export default function HomeCapabilitiesSection() {
@@ -8,6 +9,25 @@ export default function HomeCapabilitiesSection() {
       <div style={{ background: "#D1CFC5", height: 1 }} />
 
       <div style={{ width: "100%", height: 128 }} />
+
+      <div style={{ height: 96, width: 96 }} className="
+          
+          flex
+          min-w-full
+          max-w-[16ch]
+          flex-col
+          items-center
+          justify-center
+          text-left
+        ">
+        <WorkflowCodeVisual
+          width="100%"
+          height="100%"
+          foregroundColor="#181817"
+          accentColor="#ff6b3d"
+          cycleDuration={3.8}
+        />
+      </div>
 
       <div
         className="

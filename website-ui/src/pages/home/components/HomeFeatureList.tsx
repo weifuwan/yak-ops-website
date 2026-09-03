@@ -154,8 +154,8 @@ export default function HomeFeatureList() {
           }}
           className="border-t border-solid border-[#D1CFC5] py-8 first:mt-0"
         >
-          <div className="flex items-start gap-3 text-[#181817]">
-            <div className="flex h-6 w-6 shrink-0 items-center justify-center text-[#5E5D59]">
+          <div className="flex gap-3 items-center text-[#181817]">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center text-[#5E5D59]">
               {item.icon}
             </div>
 
