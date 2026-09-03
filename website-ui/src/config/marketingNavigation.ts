@@ -39,23 +39,23 @@ export type MarketingNavItem = MarketingMegaNavItem | MarketingDirectNavItem;
 export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
   {
     key: 'developers',
-    label: '开发者',
+    label: 'Developers',
     kind: 'mega',
     columns: [
       {
         title: 'GET STARTED',
         items: [
-          { label: '快速开始', href: '/developers/quick-start' },
-          { label: '部署指南', href: '/developers/deployment' },
+          { label: 'Quick Start', href: '/developers/quick-start' },
+          { label: 'Deployment Guide', href: '/developers/deployment' },
           { label: 'Docker', href: '/developers/docker' },
         ],
       },
       {
         title: 'BUILD',
         items: [
-          { label: '开发指南', href: '/developers/development' },
+          { label: 'Development Guide', href: '/developers/development' },
           { label: 'API', href: '/developers/api' },
-          { label: '配置参考', href: '/developers/configuration' },
+          { label: 'Configuration Reference', href: '/developers/configuration' },
         ],
       },
       {
@@ -64,14 +64,14 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
           { label: 'GitHub', href: MARKETING_GITHUB_URL, external: true },
           { label: 'Releases', href: MARKETING_GITHUB_RELEASES_URL, external: true },
           { label: 'Issues', href: MARKETING_GITHUB_ISSUES_URL, external: true },
-          { label: '贡献指南', href: '/developers/contributing' },
+          { label: 'Contributing Guide', href: '/developers/contributing' },
         ],
       },
     ],
   },
   {
     key: 'docs',
-    label: '文档',
+    label: 'Docs',
     kind: 'link',
     href: '/docs',
   },
