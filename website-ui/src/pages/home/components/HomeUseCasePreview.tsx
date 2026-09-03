@@ -37,7 +37,7 @@ function StatusDot({ tone }: { tone: keyof typeof STATUS_STYLES }) {
 
 function PreviewWindow({ children, label }: { children: ReactNode; label: string }) {
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-solid border-[#C7C4BA] bg-[#FAF9F5] shadow-[0_16px_40px_rgba(24,24,23,0.08)]">
+    <div className="w-full overflow-hidden rounded-2xl border border-solid border-[#C7C4BA] bg-white shadow-[0_18px_50px_rgba(24,24,23,0.10)]">
       <div className="flex h-12 items-center justify-between border-b border-solid border-[#D8D5CB] px-4">
         <div className="flex items-center gap-1.5" aria-hidden="true">
           <span className="h-2 w-2 rounded-full bg-[#C7C4BA]" />
@@ -322,36 +322,62 @@ function ProductPreview({ id }: { id: HomeUseCaseId }) {
   }
 }
 
+function PreviewBackdrop() {
+  return (
+    <svg
+      viewBox="0 0 1120 600"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute inset-0 h-full w-full text-white/20"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path d="M-40 440C115 385 135 520 286 450C430 384 445 235 590 260C730 284 744 406 890 358C1010 318 1045 205 1170 232" stroke="currentColor" strokeWidth="3" />
+      <path d="M-80 128C95 196 138 82 296 142C452 202 452 354 606 326C758 298 780 112 938 154C1022 176 1080 238 1182 208" stroke="currentColor" strokeWidth="3" />
+      <path d="M174 -24C230 92 206 190 252 294C302 404 400 486 474 624" stroke="currentColor" strokeWidth="3" />
+      <path d="M790 -30C748 86 724 154 746 246C768 340 856 444 884 632" stroke="currentColor" strokeWidth="3" />
+    </svg>
+  );
+}
+
 export default function HomeUseCasePreview({ useCase }: HomeUseCasePreviewProps) {
   return (
-    <div className="grid min-h-[520px] lg:grid-cols-[minmax(260px,0.34fr)_minmax(0,1fr)]">
-      <aside className="flex flex-col justify-between bg-[#1F1E1D] p-7 text-[#FAF9F5] sm:p-9">
-        <div>
-          <div className="text-[10px] uppercase tracking-[0.1em] text-[#9C9A92] [font-family:'Yak_Sans',Arial,sans-serif]">
-            {useCase.eyebrow}
-          </div>
-          <h3 className="mt-5 max-w-[18ch] text-[clamp(1.7rem,1.35rem+1.1vw,2.4rem)] font-medium leading-[1.12] [font-family:'Yak_Serif',Georgia,sans-serif]">
-            {useCase.title}
-          </h3>
-          <p className="mt-5 max-w-[34ch] text-[14px] leading-[1.65] text-[#C7C4BA] [font-family:'Yak_Sans',Arial,sans-serif]">
-            {useCase.description}
-          </p>
+    <div className="relative min-h-[560px] overflow-hidden p-6 sm:min-h-[600px] sm:p-10 lg:p-12">
+      <PreviewBackdrop />
+
+      <div className="relative z-10 flex min-h-[512px] flex-col justify-center sm:min-h-[520px] lg:block">
+        <div className="w-full lg:absolute lg:left-12 lg:top-1/2 lg:w-[58%] lg:-translate-y-1/2">
+          <ProductPreview id={useCase.id} />
         </div>
 
-        <dl className="mt-10 space-y-4 border-t border-solid border-[#3D3D3A] pt-5 text-[11px] [font-family:'Yak_Sans',Arial,sans-serif]">
-          <div className="flex items-start justify-between gap-5">
-            <dt className="text-[#87867F]">From</dt>
-            <dd className="m-0 text-right text-[#DEDCD1]">{useCase.sourceLabel}</dd>
+        <aside className="mt-5 space-y-3 lg:absolute lg:right-12 lg:top-1/2 lg:mt-0 lg:w-[29%] lg:-translate-y-1/2">
+          <div className="rounded-2xl bg-[#1F1E1D] p-5 text-[#FAF9F5] shadow-[0_12px_30px_rgba(24,24,23,0.10)] sm:p-6">
+            <div className="text-[10px] uppercase tracking-[0.1em] text-[#9C9A92] [font-family:'Yak_Sans',Arial,sans-serif]">
+              {useCase.eyebrow}
+            </div>
+            <h3 className="mt-4 text-[clamp(1.25rem,1.08rem+0.6vw,1.6rem)] font-medium leading-[1.2] [font-family:'Yak_Serif',Georgia,sans-serif]">
+              {useCase.title}
+            </h3>
+            <p className="mt-4 text-[12px] leading-[1.65] text-[#C7C4BA] [font-family:'Yak_Sans',Arial,sans-serif]">
+              {useCase.description}
+            </p>
           </div>
-          <div className="flex items-start justify-between gap-5">
-            <dt className="text-[#87867F]">To</dt>
-            <dd className="m-0 text-right text-[#DEDCD1]">{useCase.outputLabel}</dd>
-          </div>
-        </dl>
-      </aside>
 
-      <div className="flex items-center justify-center bg-[#DEDCD1] p-5 sm:p-8 lg:p-10">
-        <ProductPreview id={useCase.id} />
+          <div className="rounded-2xl bg-[#1F1E1D] p-4 text-[#FAF9F5] shadow-[0_12px_30px_rgba(24,24,23,0.08)] sm:p-5">
+            <div className="text-[10px] font-medium uppercase tracking-[0.1em] text-[#9C9A92] [font-family:'Yak_Sans',Arial,sans-serif]">
+              Flow
+            </div>
+            <dl className="mt-3 rounded-xl border border-solid border-[#3D3D3A] px-3 py-2.5 text-[10px] [font-family:'Yak_Sans',Arial,sans-serif]">
+              <div className="flex items-start justify-between gap-4 py-1.5">
+                <dt className="text-[#87867F]">From</dt>
+                <dd className="m-0 text-right text-[#DEDCD1]">{useCase.sourceLabel}</dd>
+              </div>
+              <div className="flex items-start justify-between gap-4 border-t border-solid border-[#343330] py-1.5">
+                <dt className="text-[#87867F]">To</dt>
+                <dd className="m-0 text-right text-[#DEDCD1]">{useCase.outputLabel}</dd>
+              </div>
+            </dl>
+          </div>
+        </aside>
       </div>
     </div>
   );
