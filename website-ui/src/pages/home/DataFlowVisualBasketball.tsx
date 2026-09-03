@@ -203,7 +203,7 @@ export default function DataFlowVisualBasketball({
       className={className}
       style={{
         display: 'block',
-        width: '100%',
+        width: '80%',
         height: '100%',
         overflow: 'visible',
         ...style,
