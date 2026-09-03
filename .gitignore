@@ -24,3 +24,4 @@ website-server/target/
 
 # Local runtime data
 deploy/docker/data/
+/website-ui/src/.umi/
