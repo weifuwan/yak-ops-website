@@ -1,12 +1,12 @@
-import brandLogo from '@/assets/img/logo1.png';
+import brandLogo from "@/assets/img/logo1.png";
 import {
   MARKETING_HEADER_ACTIONS,
   MARKETING_NAV_ITEMS,
   type MarketingMegaNavItem,
-} from '@/config/marketingNavigation';
-import { Link } from '@umijs/max';
-import type { ReactNode } from 'react';
-import { useState } from 'react';
+} from "@/config/marketingNavigation";
+import { Link } from "@umijs/max";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 interface MarketingLinkProps {
   href: string;
@@ -23,17 +23,17 @@ interface NavDropdownProps {
 }
 
 const MENU_WIDTH_BY_COLUMNS: Record<number, string> = {
-  1: 'w-[24rem]',
-  2: 'w-[38rem]',
-  3: 'w-[50rem]',
-  4: 'w-[56rem]',
+  1: "w-[24rem]",
+  2: "w-[38rem]",
+  3: "w-[50rem]",
+  4: "w-[56rem]",
 };
 
 const MENU_GRID_BY_COLUMNS: Record<number, string> = {
-  1: 'grid-cols-1',
-  2: 'grid-cols-2',
-  3: 'grid-cols-3',
-  4: 'grid-cols-4',
+  1: "grid-cols-1",
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-4",
 };
 
 function MarketingLink({
@@ -75,7 +75,7 @@ function ChevronDown({ open = false }: { open?: boolean }) {
         transition-transform
         duration-[750ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
-        ${open ? 'rotate-180' : 'rotate-0'}
+        ${open ? "rotate-180" : "rotate-0"}
       `}
     >
       <svg
@@ -104,10 +104,9 @@ function ExternalLinkIcon() {
     >
       <path
         d="M9.5 3C9.77614 3 10 3.22386 10 3.5C10 3.77614 9.77614 4 9.5 4H4.5C4.22386 4 4 4.22386 4 4.5V15.5C4 15.7761 4.22386 16 4.5 16H15.5C15.7761 16 16 15.7761 16 15.5V10.5C16 10.2239 16.2239 10 16.5 10C16.7761 10 17 10.2239 17 10.5V15.5C17 16.3284 16.3284 17 15.5 17H4.5C3.67157 17 3 16.3284 3 15.5V4.5C3 3.67157 3.67157 3 4.5 3H9.5ZM16.5 3C16.7761 3 17 3.22386 17 3.5V7.5C17 7.77614 16.7761 8 16.5 8C16.2239 8 16 7.77614 16 7.5V4.70703L11.8535 8.85352C11.6583 9.04878 11.3417 9.04878 11.1465 8.85352C10.9512 8.65825 10.9512 8.34175 11.1465 8.14648L15.293 4H12.5C12.2239 4 12 3.77614 12 3.5C12 3.22386 12.2239 3 12.5 3H16.5Z"
-          fill="currentColor"
-        />
-      </svg>
-    </span>
+        fill="currentColor"
+      />
+    </svg>
   );
 }
 
@@ -137,7 +136,7 @@ function MegaMenu({
 }) {
   const [hoveredLinkKey, setHoveredLinkKey] = useState<string | null>(null);
   const columnCount = Math.min(Math.max(item.columns.length, 1), 4);
-  const gridClass = MENU_GRID_BY_COLUMNS[columnCount] ?? 'grid-cols-1';
+  const gridClass = MENU_GRID_BY_COLUMNS[columnCount] ?? "grid-cols-1";
 
   return (
     <div
@@ -159,22 +158,31 @@ function MegaMenu({
         <div
           className="min-w-0 px-6 first:pl-0 last:pr-0"
           key={column.title}
-          style={columnIndex === 0 ? undefined : { borderLeft: '1px solid #e2e0da' }}
+          style={
+            columnIndex === 0 ? undefined : { borderLeft: "1px solid #e2e0da" }
+          }
         >
           <div className="mb-4 text-[12px] font-normal leading-5 tracking-[0.01em] text-[#8a8881]">
             {column.title}
           </div>
 
-          <ul className="m-0 list-none p-0" onMouseLeave={() => setHoveredLinkKey(null)}>
+          <ul
+            className="m-0 list-none p-0"
+            onMouseLeave={() => setHoveredLinkKey(null)}
+          >
             {column.items.map((link) => {
               const linkKey = `${column.title}-${link.label}`;
-              const isDimmed = hoveredLinkKey !== null && hoveredLinkKey !== linkKey;
+              const isDimmed =
+                hoveredLinkKey !== null && hoveredLinkKey !== linkKey;
 
               return (
-                <li key={linkKey} onMouseEnter={() => setHoveredLinkKey(linkKey)}>
+                <li
+                  key={linkKey}
+                  onMouseEnter={() => setHoveredLinkKey(linkKey)}
+                >
                   <MarketingLink
                     className={`-mx-3 flex min-h-10 items-center justify-between gap-3 rounded-[4px] px-3 py-1.5 no-underline transition-[background-color,color] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:!bg-[#f1efe8] hover:!text-[#242422] focus-visible:!bg-[#f1efe8] focus-visible:!text-[#242422] focus-visible:outline-none motion-reduce:transition-none ${
-                      isDimmed ? '!text-[#8a8881]' : '!text-[#242422]'
+                      isDimmed ? "!text-[#8a8881]" : "!text-[#242422]"
                     }`}
                     external={link.external}
                     href={link.href}
@@ -196,7 +204,7 @@ function MegaMenu({
 function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
   const open = openMenu === item.key;
   const columnCount = Math.min(Math.max(item.columns.length, 1), 4);
-  const widthClass = MENU_WIDTH_BY_COLUMNS[columnCount] ?? 'w-[42rem]';
+  const widthClass = MENU_WIDTH_BY_COLUMNS[columnCount] ?? "w-[42rem]";
 
   return (
     <li className="flex items-center">
@@ -225,7 +233,7 @@ function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
             -translate-x-1/2
             pt-2
             ${widthClass}
-            ${open ? 'pointer-events-auto' : 'pointer-events-none'}
+            ${open ? "pointer-events-auto" : "pointer-events-none"}
           `}
         >
           <div
@@ -235,7 +243,7 @@ function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
               transition-[grid-template-rows,opacity]
               duration-[750ms]
               ease-[cubic-bezier(0.16,1,0.3,1)]
-              ${open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
+              ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}
             `}
           >
             <div className="min-h-0 overflow-hidden">
@@ -269,14 +277,17 @@ export default function MarketingHeader() {
   return (
     <div
       className="mx-auto flex h-[84px] w-[calc(100%-clamp(2rem,calc(1.428571rem+2.857143vw),4rem)*2)] max-w-[90rem] items-center gap-6 [container:threshold-large/inline-size]"
-      style={{ fontFamily: 'var(--yak-font-marketing)' }}
+      style={{ fontFamily: "var(--yak-font-marketing)" }}
     >
       <BrandLogo />
 
-      <nav className="ml-auto flex h-full items-center" aria-label="Primary navigation">
+      <nav
+        className="ml-auto flex h-full items-center"
+        aria-label="Primary navigation"
+      >
         <ul className="m-0 flex h-full list-none items-center justify-center gap-0 p-0">
           {MARKETING_NAV_ITEMS.map((item) =>
-            item.kind === 'mega' ? (
+            item.kind === "mega" ? (
               <NavDropdown
                 item={item}
                 key={item.key}
