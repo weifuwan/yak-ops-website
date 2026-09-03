@@ -1,4 +1,4 @@
-import brandLogo from "@/assets/img/logo1.png";
+import brandLogo from "@/assets/img/logo2.png";
 import {
   MARKETING_HEADER_ACTIONS,
   MARKETING_NAV_ITEMS,
