@@ -1,123 +1,30 @@
 export const MARKETING_GITHUB_URL = 'https://github.com/weifuwan/yak-ops';
-export const MARKETING_GITHUB_RELEASES_URL = `${MARKETING_GITHUB_URL}/releases`;
-export const MARKETING_GITHUB_ISSUES_URL = `${MARKETING_GITHUB_URL}/issues`;
 
-export interface MarketingNavLink {
+export interface MarketingNavItem {
+  key: string;
   label: string;
   href: string;
   external?: boolean;
 }
-
-export interface MarketingNavColumn {
-  title: string;
-  items: readonly MarketingNavLink[];
-}
-
-export interface MarketingMegaNavItem {
-  key: string;
-  label: string;
-  kind: 'mega';
-  columns: readonly MarketingNavColumn[];
-}
-
-export interface MarketingDirectNavItem {
-  key: string;
-  label: string;
-  kind: 'link';
-  href: string;
-  external?: boolean;
-}
-
-export type MarketingNavItem = MarketingMegaNavItem | MarketingDirectNavItem;
 
 /**
- * 官网顶部导航的单一数据源。
- *
- * Mega Menu 只承担导航职责：分组 + 链接，不在菜单中堆叠产品说明；
- * 产品页与开发者页使用独立 marketing URL，Docs 保持独立入口。
+ * 官网公开区域保持克制：一个介绍 Yak Ops 的首页，以及登录后可访问的文档。
+ * GitHub 作为开源项目入口直接外跳，不在官网内增加中转页面。
  */
 export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
   {
-    key: 'product',
-    label: '产品',
-    kind: 'mega',
-    columns: [
-      {
-        title: 'CONNECT',
-        items: [
-          { label: '数据源管理', href: '/product/data-sources' },
-          { label: '离线同步', href: '/product/batch-sync' },
-          { label: '实时同步', href: '/product/realtime-sync' },
-        ],
-      },
-      {
-        title: 'BUILD',
-        items: [
-          { label: '数据开发', href: '/product/data-development' },
-          { label: '工作流', href: '/product/workflows' },
-          { label: '任务调度', href: '/product/scheduling' },
-        ],
-      },
-      {
-        title: 'GOVERN',
-        items: [
-          { label: '数据质量', href: '/product/data-quality' },
-          { label: '数据血缘', href: '/product/lineage' },
-          { label: '数据资产', href: '/product/data-assets' },
-        ],
-      },
-      {
-        title: 'SERVE',
-        items: [
-          { label: '数据集', href: '/product/datasets' },
-          { label: '数据服务', href: '/product/data-services' },
-          { label: '指标', href: '/product/metrics' },
-        ],
-      },
-    ],
-  },
-  {
-    key: 'developers',
-    label: '开发者',
-    kind: 'mega',
-    columns: [
-      {
-        title: 'GET STARTED',
-        items: [
-          { label: '快速开始', href: '/developers/quick-start' },
-          { label: '部署指南', href: '/developers/deployment' },
-          { label: 'Docker', href: '/developers/docker' },
-        ],
-      },
-      {
-        title: 'BUILD',
-        items: [
-          { label: '开发指南', href: '/developers/development' },
-          { label: 'API', href: '/developers/api' },
-          { label: '配置参考', href: '/developers/configuration' },
-        ],
-      },
-      {
-        title: 'OPEN SOURCE',
-        items: [
-          { label: 'GitHub', href: MARKETING_GITHUB_URL, external: true },
-          { label: 'Releases', href: MARKETING_GITHUB_RELEASES_URL, external: true },
-          { label: 'Issues', href: MARKETING_GITHUB_ISSUES_URL, external: true },
-          { label: '贡献指南', href: '/developers/contributing' },
-        ],
-      },
-    ],
+    key: 'home',
+    label: '首页',
+    href: '/',
   },
   {
     key: 'docs',
     label: '文档',
-    kind: 'link',
     href: '/docs',
   },
   {
     key: 'github',
     label: 'GitHub',
-    kind: 'link',
     href: MARKETING_GITHUB_URL,
     external: true,
   },
