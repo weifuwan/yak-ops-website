@@ -1,4 +1,6 @@
-import DataFlowVisual from "./DataFlowVisual";
+import DataFlowVisualBasketball from "./DataFlowVisualBasketball";
+import DataFlowVisualFootball from "./DataFlowVisualFootball";
+
 
 export default function HomePage() {
   return (
@@ -76,7 +78,8 @@ export default function HomePage() {
 
         {/* Visual */}
         <div className="flex min-h-[420px] items-center justify-center pb-4 lg:min-h-0 lg:pb-0">
-          <DataFlowVisual />
+          {/* <DataFlowVisualFootball   />*/}
+          <DataFlowVisualBasketball  />
         </div>
       </section>
 
