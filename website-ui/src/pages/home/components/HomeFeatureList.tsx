@@ -152,18 +152,19 @@ export default function HomeFeatureList() {
             delay: shouldReduceMotion ? 0 : index * 0.12,
             ease: HOME_EASE,
           }}
-          className="border-t border-[#D1CFC5] py-8 first:mt-0"
+          className="border-t border-solid border-[#D1CFC5] py-8 first:mt-0"
         >
-          <div className="flex items-center gap-3 text-[#181817]">
+          <div className="flex items-start gap-3 text-[#181817]">
             <div className="flex h-6 w-6 shrink-0 items-center justify-center text-[#5E5D59]">
               {item.icon}
             </div>
 
             <h3
               className="
+                m-0
                 text-[clamp(1.125rem,1rem+0.4vw,1.35rem)]
                 font-medium
-                leading-[1.25]
+                leading-6
                 [font-family:'Yak_Serif',Georgia,sans-serif]
               "
             >
@@ -173,6 +174,7 @@ export default function HomeFeatureList() {
 
           <p
             className="
+              mb-0
               mt-4
               max-w-[31ch]
               text-[15px]
