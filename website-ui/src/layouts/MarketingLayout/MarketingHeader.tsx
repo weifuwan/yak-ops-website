@@ -165,17 +165,13 @@ function MegaMenu({
             {column.title}
           </div>
 
-          <ul className="m-0 list-none p-0">
+          <ul className="m-0 list-none p-0" onMouseLeave={() => setHoveredLinkKey(null)}>
             {column.items.map((link) => {
               const linkKey = `${column.title}-${link.label}`;
               const isDimmed = hoveredLinkKey !== null && hoveredLinkKey !== linkKey;
 
               return (
-                <li
-                  key={linkKey}
-                  onMouseEnter={() => setHoveredLinkKey(linkKey)}
-                  onMouseLeave={() => setHoveredLinkKey(null)}
-                >
+                <li key={linkKey} onMouseEnter={() => setHoveredLinkKey(linkKey)}>
                   <MarketingLink
                     className={`-mx-3 flex min-h-10 items-center justify-between gap-3 rounded-[4px] px-3 py-1.5 no-underline transition-[background-color,color] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:!bg-[#f1efe8] hover:!text-[#242422] focus-visible:!bg-[#f1efe8] focus-visible:!text-[#242422] focus-visible:outline-none motion-reduce:transition-none ${
                       isDimmed ? '!text-[#8a8881]' : '!text-[#242422]'
