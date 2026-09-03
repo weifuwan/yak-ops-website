@@ -100,20 +100,36 @@ function TabIcon({ id }: { id: HomeUseCaseId }) {
           <circle cx="5" cy="5" r="2" stroke="currentColor" strokeWidth="1.2" />
           <circle cx="15" cy="5" r="2" stroke="currentColor" strokeWidth="1.2" />
           <circle cx="10" cy="15" r="2" stroke="currentColor" strokeWidth="1.2" />
-          <path d="M6.8 6.2L9 12.8M13.2 6.2L11 12.8M7 5H13" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
+          <path
+            d="M6.8 6.2L9 12.8M13.2 6.2L11 12.8M7 5H13"
+            stroke="currentColor"
+            strokeWidth="1.1"
+            strokeLinecap="round"
+          />
         </svg>
       );
     case "integration":
       return (
         <svg {...commonProps}>
-          <path d="M3 5H8M12 5H17M8 5L12 10M12 15H17M8 15H3M8 15L12 10" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          <path
+            d="M3 5H8M12 5H17M8 5L12 10M12 15H17M8 15H3M8 15L12 10"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+          />
           <circle cx="10" cy="10" r="1.8" stroke="currentColor" strokeWidth="1.1" />
         </svg>
       );
     case "quality":
       return (
         <svg {...commonProps}>
-          <path d="M4 10.2L7.4 13.5L16 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M4 10.2L7.4 13.5L16 5"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
           <rect x="2.5" y="2.5" width="15" height="15" rx="3" stroke="currentColor" strokeWidth="1.1" />
         </svg>
       );
@@ -121,7 +137,13 @@ function TabIcon({ id }: { id: HomeUseCaseId }) {
       return (
         <svg {...commonProps}>
           <rect x="3" y="4" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="1.2" />
-          <path d="M6 8L8 10L6 12M11 12H14" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M6 8L8 10L6 12M11 12H14"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       );
     case "operations":
@@ -163,8 +185,8 @@ export default function HomeUseCasesSection() {
   };
 
   return (
-    <section className="border-t border-solid border-[#D1CFC5] bg-[#FAF9F5]">
-      <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-24 lg:py-32">
+    <section className="border-t border-solid border-[#E8E6DC] bg-white">
+      <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[70rem] pb-24 pt-24 sm:pb-28 sm:pt-28 lg:pb-32">
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -172,10 +194,10 @@ export default function HomeUseCasesSection() {
           transition={{ duration: shouldReduceMotion ? 0.2 : 0.7, ease: HOME_EASE }}
           className="flex flex-col items-center text-center"
         >
-          <div className="h-[72px] w-[72px]">
+          <div className="h-16 w-16">
             <SectionPictogram />
           </div>
-          <h2 className="mt-7 text-[clamp(2.25rem,1.75rem+2.5vw,4rem)] font-medium leading-[1.08] text-[#141413] [font-family:'Yak_Serif',Georgia,sans-serif]">
+          <h2 className="mt-7 text-[clamp(2.25rem,1.8rem+2vw,3.5rem)] font-medium leading-[1.08] text-[#141413] [font-family:'Yak_Serif',Georgia,sans-serif]">
             How you can use Yak Ops
           </h2>
         </motion.div>
@@ -189,12 +211,12 @@ export default function HomeUseCasesSection() {
             delay: shouldReduceMotion ? 0 : 0.16,
             ease: HOME_EASE,
           }}
-          className="mt-14 overflow-x-auto pb-2"
+          className="mt-24 overflow-x-auto pb-2 lg:mt-28"
         >
           <div
             role="tablist"
             aria-label="Yak Ops use cases"
-            className="mx-auto flex w-max min-w-full justify-start rounded-2xl bg-[#F0EEE6] p-1 sm:min-w-0 sm:justify-center"
+            className="flex w-max rounded-2xl bg-[#F5F4ED] p-1"
           >
             {USE_CASES.map((item, index) => {
               const active = item.id === activeId;
@@ -212,7 +234,7 @@ export default function HomeUseCasesSection() {
                   onKeyDown={(event) => handleTabKeyDown(event, index)}
                   className={`flex h-10 shrink-0 appearance-none items-center justify-center gap-2 rounded-xl border-0 px-3 text-[12px] font-medium transition-[background-color,color,box-shadow] duration-200 [font-family:'Yak_Sans',Arial,sans-serif] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C96442] sm:px-4 ${
                     active
-                      ? "bg-[#FAF9F5] text-[#181817] shadow-[0_1px_2px_rgba(24,24,23,0.08)]"
+                      ? "bg-white text-[#181817] shadow-[0_1px_2px_rgba(24,24,23,0.08)]"
                       : "bg-transparent text-[#73726C] hover:bg-[#E8E6DC] hover:text-[#181817]"
                   }`}
                 >
@@ -239,7 +261,7 @@ export default function HomeUseCasesSection() {
             delay: shouldReduceMotion ? 0 : 0.24,
             ease: HOME_EASE,
           }}
-          className="mt-7 overflow-hidden rounded-[24px] border border-solid border-[#C7C4BA] bg-[#DEDCD1]"
+          className="mt-7 overflow-hidden rounded-[28px] bg-[#D9D8E5] shadow-[inset_0_0_0_1px_rgba(20,20,19,0.05)]"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
