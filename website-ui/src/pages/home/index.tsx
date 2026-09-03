@@ -1,8 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+
 import DataFlowVisualBasketball from "./DataFlowVisualBasketball";
 import DataFlowVisualFootball from "./DataFlowVisualFootball";
 
+const SWITCH_INTERVAL = 7000;
+
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+type VisualType = "basketball" | "football";
 
 export default function HomePage() {
+  const [visual, setVisual] = useState<VisualType>("basketball");
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setVisual((current) =>
+        current === "basketball" ? "football" : "basketball",
+      );
+    }, SWITCH_INTERVAL);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <main className="min-h-[calc(100vh-84px)] overflow-hidden bg-[#faf9f5] text-[#181817] [font-family:var(--yak-font-marketing)]">
       <section
@@ -78,25 +101,59 @@ export default function HomePage() {
 
         {/* Visual */}
         <div className="flex min-h-[420px] items-center justify-center pb-4 lg:min-h-0 lg:pb-0">
-          {/* <DataFlowVisualFootball   />*/}
-          <DataFlowVisualBasketball  />
+          <div className="relative flex w-full items-center justify-center">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={visual}
+                className="flex w-full items-center justify-center"
+                initial={
+                  shouldReduceMotion
+                    ? { opacity: 0 }
+                    : {
+                        opacity: 0,
+                        y: 12,
+                        scale: 0.985,
+                      }
+                }
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }}
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0 }
+                    : {
+                        opacity: 0,
+                        y: -8,
+                        scale: 0.99,
+                      }
+                }
+                transition={{
+                  duration: shouldReduceMotion ? 0.2 : 0.65,
+                  ease: EASE,
+                }}
+              >
+                {visual === "basketball" ? (
+                  <DataFlowVisualBasketball />
+                ) : (
+                  <DataFlowVisualFootball />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </section>
 
-      <section
-        className="
-          
-        "
-        style={{ background: "#F0EEE6" }}
-      >
+      <section style={{ background: "#F0EEE6" }}>
         <div
           style={{
             background: "#D1CFC5",
             height: 1,
           }}
-        ></div>
+        />
 
-        <div style={{ width: "100%", height: 128 }}></div>
+        <div style={{ width: "100%", height: 128 }} />
       </section>
     </main>
   );
