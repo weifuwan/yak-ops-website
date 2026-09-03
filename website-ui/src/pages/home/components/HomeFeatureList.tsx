@@ -152,7 +152,7 @@ export default function HomeFeatureList() {
             delay: shouldReduceMotion ? 0 : index * 0.12,
             ease: HOME_EASE,
           }}
-          className="border-t border-solid border-[#D1CFC5] py-8 first:mt-0"
+          className="border-t  py-8 first:mt-0"
         >
           <div className="flex gap-3 items-center text-[#181817]">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center text-[#5E5D59]">
