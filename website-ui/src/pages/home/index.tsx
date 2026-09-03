@@ -70,9 +70,7 @@ export default function HomePage() {
               [font-family:'Yak_Sans',Arial,sans-serif]
             "
           >
-            <p>
-              Build, move, govern, and operate data with confidence.
-            </p>
+            <p>Build, move, govern, and operate data with confidence.</p>
           </div>
         </div>
 
@@ -80,6 +78,22 @@ export default function HomePage() {
         <div className="flex min-h-[420px] items-center justify-center pb-4 lg:min-h-0 lg:pb-0">
           <DataFlowVisual />
         </div>
+      </section>
+
+      <section
+        className="
+          
+        "
+        style={{ background: "#F0EEE6" }}
+      >
+        <div
+          style={{
+            background: "#D1CFC5",
+            height: 1,
+          }}
+        ></div>
+
+        <div style={{ width: "100%", height: 128 }}></div>
       </section>
     </main>
   );
