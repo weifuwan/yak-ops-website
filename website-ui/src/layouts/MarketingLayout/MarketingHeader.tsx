@@ -264,7 +264,7 @@ export default function MarketingHeader() {
     >
       <BrandLogo />
 
-      <nav className="ml-auto flex h-full items-center" aria-label="主导航">
+      <nav className="ml-auto flex h-full items-center" aria-label="Primary navigation">
         <ul className="m-0 flex h-full list-none items-center justify-center gap-0 p-0">
           {MARKETING_NAV_ITEMS.map((item) =>
             item.kind === 'mega' ? (
@@ -295,14 +295,14 @@ export default function MarketingHeader() {
           className="inline-flex h-[40px] items-center justify-center whitespace-nowrap rounded-[9px] border border-[#d8d5cc] bg-transparent px-4 text-[15px] font-medium leading-none text-[#30302e] no-underline transition-colors duration-200 hover:bg-[#f1efe8]"
           href={MARKETING_HEADER_ACTIONS.login}
         >
-          登录
+          Login
         </MarketingLink>
 
         <MarketingLink
           className="inline-flex h-[40px] items-center justify-center whitespace-nowrap rounded-[9px] border border-[#1f1f1d] bg-[#1f1f1d] px-4 text-[15px] font-semibold leading-none text-white no-underline transition-colors duration-200 hover:bg-black"
           href={MARKETING_HEADER_ACTIONS.startUsing}
         >
-          开始使用
+          Get Started
         </MarketingLink>
       </div>
     </div>
