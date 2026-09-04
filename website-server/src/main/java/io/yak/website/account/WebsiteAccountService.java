@@ -2,16 +2,18 @@ package io.yak.website.account;
 
 import io.yak.framework.security.common.entity.user.User;
 import io.yak.framework.security.context.CurrentUser;
+import io.yak.website.account.WebsiteAccountModels.CompleteRegistrationRequest;
 import io.yak.website.account.WebsiteAccountModels.CurrentUserResponse;
 import io.yak.website.account.WebsiteAccountModels.EmailRequest;
 import io.yak.website.account.WebsiteAccountModels.LoginRequest;
 import io.yak.website.account.WebsiteAccountModels.MessageResponse;
 import io.yak.website.account.WebsiteAccountModels.Profile;
-import io.yak.website.account.WebsiteAccountModels.RegisterRequest;
+import io.yak.website.account.WebsiteAccountModels.RegistrationEmailRequest;
+import io.yak.website.account.WebsiteAccountModels.RegistrationVerificationResponse;
 import io.yak.website.account.WebsiteAccountModels.ResetPasswordRequest;
 import io.yak.website.account.WebsiteAccountModels.TokenPurpose;
 import io.yak.website.account.WebsiteAccountModels.TokenRecord;
-import io.yak.website.account.WebsiteAccountModels.VerifyEmailRequest;
+import io.yak.website.account.WebsiteAccountModels.VerifyRegistrationCodeRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.Duration;
@@ -26,8 +28,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service
 public class WebsiteAccountService {
 
-    private static final MessageResponse GENERIC_REGISTRATION_RESPONSE =
-            new MessageResponse("如果该邮箱可以注册，我们已发送验证邮件");
+    private static final int REGISTRATION_CODE_LENGTH = 6;
+    private static final int REGISTRATION_CODE_INSERT_ATTEMPTS = 5;
+    private static final MessageResponse REGISTRATION_CODE_SENT =
+            new MessageResponse("验证码已发送，请检查邮箱");
     private static final MessageResponse GENERIC_RESET_RESPONSE =
             new MessageResponse("如果该邮箱已注册，我们已发送重置密码邮件");
 
@@ -56,22 +60,29 @@ public class WebsiteAccountService {
         this.currentUser = currentUser;
     }
 
-    public MessageResponse register(RegisterRequest request, HttpServletRequest httpRequest) {
+    public MessageResponse requestRegistrationCode(
+            RegistrationEmailRequest request,
+            HttpServletRequest httpRequest) {
         String email = normalizeEmail(request.email());
         String ip = remoteAddress(httpRequest);
-        rateLimiter.check("register-ip", ip, 20);
-        rateLimiter.check("register-email", email, 3);
+        rateLimiter.check("register-code-ip", ip, 20);
+        rateLimiter.check("register-code-email", email, 5);
 
         Optional<Profile> existingProfile = repository.findProfileByEmail(email);
         if (existingProfile.isPresent()) {
             Profile profile = existingProfile.get();
-            if (!profile.emailVerified()) {
-                issueVerification(profile.securityUserId(), email);
+            if (profile.emailVerified()) {
+                throw new WebsiteAccountException(HttpStatus.CONFLICT, "该邮箱已注册，请直接登录");
             }
-            return GENERIC_REGISTRATION_RESPONSE;
+            issueRegistrationCode(profile.securityUserId(), email);
+            return REGISTRATION_CODE_SENT;
         }
 
-        User user = securityUsers.provisionPending(email, request.password());
+        if (securityUsers.findByEmail(email) != null) {
+            throw new WebsiteAccountException(HttpStatus.CONFLICT, "该邮箱已被使用，请直接登录或更换邮箱");
+        }
+
+        User user = securityUsers.provisionPending(email, tokenCodec.generate());
         try {
             repository.insertProfile(
                     user.getId(),
@@ -85,43 +96,84 @@ public class WebsiteAccountService {
             if (raced == null) {
                 throw exception;
             }
-            if (!raced.emailVerified()) {
-                issueVerification(raced.securityUserId(), email);
+            if (raced.emailVerified()) {
+                throw new WebsiteAccountException(HttpStatus.CONFLICT, "该邮箱已注册，请直接登录");
             }
-            return GENERIC_REGISTRATION_RESPONSE;
+            issueRegistrationCode(raced.securityUserId(), email);
+            return REGISTRATION_CODE_SENT;
         }
 
-        issueVerification(user.getId(), email);
-        return GENERIC_REGISTRATION_RESPONSE;
+        issueRegistrationCode(user.getId(), email);
+        return REGISTRATION_CODE_SENT;
     }
 
-    public MessageResponse resendVerification(EmailRequest request, HttpServletRequest httpRequest) {
+    public RegistrationVerificationResponse verifyRegistrationCode(
+            VerifyRegistrationCodeRequest request,
+            HttpServletRequest httpRequest) {
         String email = normalizeEmail(request.email());
         String ip = remoteAddress(httpRequest);
-        rateLimiter.check("verify-ip", ip, 20);
-        rateLimiter.check("verify-email", email, 3);
-        repository.findProfileByEmail(email)
-                .filter(profile -> !profile.emailVerified())
-                .ifPresent(profile -> issueVerification(profile.securityUserId(), email));
-        return GENERIC_REGISTRATION_RESPONSE;
-    }
+        rateLimiter.check("register-verify-ip", ip, 50);
+        rateLimiter.check("register-verify-email", email, 10);
 
-    public MessageResponse verifyEmail(VerifyEmailRequest request) {
-        TokenRecord token = repository.consumeToken(
-                        tokenCodec.hash(request.token()),
-                        TokenPurpose.VERIFY_EMAIL)
+        Profile profile = repository.findProfileByEmail(email)
                 .orElseThrow(() -> new WebsiteAccountException(
                         HttpStatus.BAD_REQUEST,
-                        "链接无效或已过期"));
+                        "验证码无效或已过期"));
+        if (profile.emailVerified()) {
+            throw new WebsiteAccountException(HttpStatus.CONFLICT, "该邮箱已完成注册，请直接登录");
+        }
+
+        String codeHash = registrationCodeHash(profile.securityUserId(), request.code());
+        repository.consumeTokenForUser(
+                        profile.securityUserId(),
+                        codeHash,
+                        TokenPurpose.REGISTRATION_CODE)
+                .orElseThrow(() -> new WebsiteAccountException(
+                        HttpStatus.BAD_REQUEST,
+                        "验证码无效或已过期"));
+
+        rateLimiter.reset("register-verify-email", email);
+        String setupToken = issueToken(
+                profile.securityUserId(),
+                TokenPurpose.REGISTRATION_SETUP,
+                properties.getRegistrationSetupTtl());
+        return new RegistrationVerificationResponse(setupToken, "邮箱验证成功，请设置密码");
+    }
+
+    public CurrentUserResponse completeRegistration(
+            CompleteRegistrationRequest request,
+            HttpServletRequest httpRequest,
+            HttpServletResponse httpResponse) {
+        String ip = remoteAddress(httpRequest);
+        rateLimiter.check("register-complete-ip", ip, 30);
+
+        TokenRecord token = repository.consumeToken(
+                        tokenCodec.hash(request.setupToken()),
+                        TokenPurpose.REGISTRATION_SETUP)
+                .orElseThrow(() -> new WebsiteAccountException(
+                        HttpStatus.BAD_REQUEST,
+                        "注册会话无效或已过期，请重新验证邮箱"));
 
         Profile profile = repository.findProfileBySecurityUserId(token.securityUserId())
                 .orElseThrow(() -> new WebsiteAccountException(
                         HttpStatus.BAD_REQUEST,
-                        "账号验证信息不存在"));
+                        "账号注册信息不存在"));
+        if (profile.emailVerified()) {
+            throw new WebsiteAccountException(HttpStatus.CONFLICT, "该邮箱已完成注册，请直接登录");
+        }
 
+        securityUsers.resetPassword(profile.securityUserId(), request.password());
         securityUsers.enable(profile.securityUserId());
         repository.markEmailVerified(profile.securityUserId());
-        return new MessageResponse("邮箱验证成功，现在可以登录 Yak Ops");
+
+        User user = securityUsers.login(
+                profile.email(),
+                request.password(),
+                httpRequest,
+                httpResponse);
+        repository.touchLastLogin(user.getId());
+        rateLimiter.reset("register-code-email", profile.email());
+        return toCurrentUser(user, profileWithVerifiedEmail(profile));
     }
 
     public CurrentUserResponse login(
@@ -202,15 +254,30 @@ public class WebsiteAccountService {
         return new MessageResponse("密码已重置，请使用新密码登录");
     }
 
-    private void issueVerification(Long userId, String email) {
-        String rawToken = issueToken(userId, TokenPurpose.VERIFY_EMAIL, properties.getVerificationTtl());
-        String link = UriComponentsBuilder.fromUriString(properties.getPublicBaseUrl())
-                .pathSegment("verify-email")
-                .queryParam("token", rawToken)
-                .build()
-                .encode()
-                .toUriString();
-        mailService.sendVerification(email, link);
+    private void issueRegistrationCode(Long userId, String email) {
+        Duration ttl = properties.getRegistrationCodeTtl();
+        DataIntegrityViolationException lastCollision = null;
+        for (int attempt = 0; attempt < REGISTRATION_CODE_INSERT_ATTEMPTS; attempt++) {
+            String code = tokenCodec.generateNumericCode(REGISTRATION_CODE_LENGTH);
+            try {
+                repository.replaceToken(
+                        userId,
+                        TokenPurpose.REGISTRATION_CODE,
+                        registrationCodeHash(userId, code),
+                        ttl);
+                mailService.sendRegistrationCode(email, code, ttl);
+                return;
+            } catch (DataIntegrityViolationException collision) {
+                lastCollision = collision;
+            }
+        }
+        throw lastCollision == null
+                ? new IllegalStateException("Unable to issue registration code")
+                : lastCollision;
+    }
+
+    private String registrationCodeHash(Long userId, String code) {
+        return tokenCodec.hash(userId + ":" + code);
     }
 
     private void issueReset(Long userId, String email) {
@@ -239,6 +306,14 @@ public class WebsiteAccountService {
                 profile.email(),
                 displayName,
                 profile.emailVerified());
+    }
+
+    private Profile profileWithVerifiedEmail(Profile profile) {
+        return new Profile(
+                profile.id(),
+                profile.securityUserId(),
+                profile.email(),
+                true);
     }
 
     private String normalizeEmail(String email) {
