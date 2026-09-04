@@ -237,20 +237,17 @@ export default function DocsPage() {
                   </div>
                   <MarkdownArticle markdown={documentData.markdown} />
 
-                  <div className="mt-14 grid grid-cols-1 gap-3 border-t border-solid border-[#ddd9d0] pt-7 sm:grid-cols-2">
+                  <div className="mt-14 flex flex-col gap-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                     {previousDocument ? (
                       <button
-                        className="group flex min-h-[86px] items-center gap-3 rounded-xl border border-solid border-[#ddd9d0] bg-transparent px-4 py-3 text-left hover:border-[#aaa69d]"
+                        className="group inline-flex min-w-0 items-center gap-2 border-0 bg-transparent p-0 text-left text-sm font-semibold text-[#55544f] transition-colors duration-200 hover:text-[#1f1f1d]"
                         onClick={() => navigateToDoc(previousDocument.slug)}
                         type="button"
                       >
-                        <ArrowLeftIcon />
-                        <span className="min-w-0">
-                          <small className="block text-[11px] font-semibold uppercase tracking-[0.06em] text-[#88867f]">Previous</small>
-                          <strong className="mt-1 block truncate text-sm font-semibold text-[#292927]">
-                            {previousDocument.title}
-                          </strong>
+                        <span className="shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-1">
+                          <ArrowLeftIcon />
                         </span>
+                        <span className="truncate">{previousDocument.title}</span>
                       </button>
                     ) : (
                       <span />
@@ -258,17 +255,14 @@ export default function DocsPage() {
 
                     {nextDocument ? (
                       <button
-                        className="group flex min-h-[86px] items-center justify-end gap-3 rounded-xl border border-solid border-[#ddd9d0] bg-transparent px-4 py-3 text-right hover:border-[#aaa69d]"
+                        className="group ml-auto inline-flex min-w-0 items-center justify-end gap-2 border-0 bg-transparent p-0 text-right text-sm font-semibold text-[#55544f] transition-colors duration-200 hover:text-[#1f1f1d]"
                         onClick={() => navigateToDoc(nextDocument.slug)}
                         type="button"
                       >
-                        <span className="min-w-0">
-                          <small className="block text-[11px] font-semibold uppercase tracking-[0.06em] text-[#88867f]">Next</small>
-                          <strong className="mt-1 block truncate text-sm font-semibold text-[#292927]">
-                            {nextDocument.title}
-                          </strong>
+                        <span className="truncate">{nextDocument.title}</span>
+                        <span className="shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-1">
+                          <ArrowRightIcon />
                         </span>
-                        <ArrowRightIcon />
                       </button>
                     ) : null}
                   </div>
