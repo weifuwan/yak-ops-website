@@ -57,7 +57,10 @@ export default function DocsHeader({
 
   return (
     <header className="sticky top-0 z-40 bg-[#fdfdf7] text-[#1f1f1d]">
-      <div className="mx-auto flex h-16 max-w-[92rem] items-center gap-4 px-5 lg:px-8" style={{borderBottom: "1px solid rgb(31 30 29 / 0.05)"}}>
+      <div
+        className="mx-auto flex h-16 max-w-[92rem] items-center gap-4 px-5 lg:px-8"
+        style={{ borderBottom: '1px solid rgb(31 30 29 / 0.05)' }}
+      >
         <div className="flex min-w-0 flex-1 items-center lg:min-w-[230px] lg:flex-none">
           <button
             aria-label="Open documentation navigation"
@@ -95,7 +98,7 @@ export default function DocsHeader({
         </div>
       </div>
 
-      <div style={{marginBottom: 40, }}>
+      <div className="pb-10">
         <div className="mx-auto flex h-12 max-w-[92rem] items-end px-5 lg:px-8">
           <YakTab
             activeKey={isLanding ? 'welcome' : 'start'}
