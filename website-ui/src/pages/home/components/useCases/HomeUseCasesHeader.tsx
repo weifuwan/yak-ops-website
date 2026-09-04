@@ -23,7 +23,7 @@ export default function HomeUseCasesHeader() {
     <motion.div
       initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: Boolean(shouldReduceMotion), amount: 0.5 }}
       transition={{ duration: shouldReduceMotion ? 0.2 : 0.7, ease: HOME_EASE }}
       className="flex flex-col items-center text-center"
     >
