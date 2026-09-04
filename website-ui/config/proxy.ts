@@ -1,11 +1,11 @@
 export default {
   dev: {
     '/api/': {
-      target: 'http://localhost:8080',
+      target: 'http://localhost:8088',
       changeOrigin: true,
     },
     '/actuator/': {
-      target: 'http://localhost:8080',
+      target: 'http://localhost:8088',
       changeOrigin: true,
     },
   },

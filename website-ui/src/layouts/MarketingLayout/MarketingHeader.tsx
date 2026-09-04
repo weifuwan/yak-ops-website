@@ -7,6 +7,7 @@ import {
 import { Link } from "@umijs/max";
 import type { ReactNode } from "react";
 import { useState } from "react";
+import "./index.less";
 
 interface MarketingLinkProps {
   href: string;
@@ -564,8 +565,8 @@ export default function MarketingHeader() {
         </MarketingLink>
 
         <MarketingLink
-          className={GET_STARTED_LINK_CLASS_NAME}
           href={MARKETING_HEADER_ACTIONS.startUsing}
+          className={`${GET_STARTED_LINK_CLASS_NAME} yak-get-started-link`}
         >
           Get Started
         </MarketingLink>
