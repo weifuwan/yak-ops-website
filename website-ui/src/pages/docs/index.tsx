@@ -222,7 +222,7 @@ export default function DocsPage() {
         <DocsLanding navigation={navigation} onNavigate={navigateToDoc} />
       ) : (
         <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
-          <aside className="sticky top-[9.5rem] hidden h-[calc(100vh-9.5rem)] w-[18rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
+          <aside className="sticky top-[9.5rem] hidden h-[calc(100vh-9.5rem)] w-[18rem] shrink-0 overflow-y-auto pb-8 pr-8 lg:block">
             <DocsSidebar activeSlug={currentSlug} navigation={navigation} onNavigate={navigateToDoc} />
           </aside>
 
@@ -277,7 +277,7 @@ export default function DocsPage() {
             </div>
           </main>
 
-          <aside className="sticky top-[9.5rem] hidden h-[calc(100vh-9.5rem)] w-[16.5rem] shrink-0 overflow-y-auto py-10 pl-8 xl:block">
+          <aside className="sticky top-[9.5rem] hidden h-[calc(100vh-9.5rem)] w-[16.5rem] shrink-0 overflow-y-auto pb-10 pl-8 xl:block">
             <DocsTableOfContents items={toc} />
           </aside>
         </div>
