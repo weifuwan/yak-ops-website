@@ -1,5 +1,5 @@
 import { history, useLocation } from '@umijs/max';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { getCurrentWebsiteUser, logoutAccount, type CurrentWebsiteUser } from '@/services/auth';
 import {
   getDocsDocument,
@@ -16,29 +16,6 @@ import DocsTableOfContents from './components/DocsTableOfContents';
 import MarkdownArticle from './components/MarkdownArticle';
 
 const docsSlugFromPath = (pathname: string) => pathname.replace(/^\/docs\/?/, '').replace(/\/$/, '');
-
-function DocsBootState() {
-  return (
-    <div className="min-h-screen bg-[#faf9f5] px-6 py-10">
-      <div className="mx-auto max-w-[80rem]">
-        <div className="h-10 w-52 rounded-xl bg-[#e5e2da]" />
-        <div className="mt-16 grid grid-cols-[260px_minmax(0,1fr)] gap-14">
-          <div className="space-y-3">
-            {Array.from({ length: 7 }).map((_, index) => (
-              <div className="h-8 rounded-lg bg-[#ebe8e1]" key={index} />
-            ))}
-          </div>
-          <div className="max-w-[760px] space-y-4">
-            <div className="h-12 w-2/3 rounded-xl bg-[#e5e2da]" />
-            <div className="h-4 rounded bg-[#ebe8e1]" />
-            <div className="h-4 w-5/6 rounded bg-[#ebe8e1]" />
-            <div className="h-4 w-4/6 rounded bg-[#ebe8e1]" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function DocsErrorState({ message }: { message: string }) {
   return (
@@ -64,9 +41,9 @@ export default function DocsPage() {
   const [currentUser, setCurrentUser] = useState<CurrentWebsiteUser>();
   const [documentData, setDocumentData] = useState<DocsDocument>();
   const [bootLoading, setBootLoading] = useState(true);
-  const [documentLoading, setDocumentLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const documentCacheRef = useRef(new Map<string, DocsDocument>());
 
   const redirectToLogin = () => {
     const returnTo = `${location.pathname}${location.search}`;
@@ -91,8 +68,23 @@ export default function DocsPage() {
         if (cancelled) {
           return;
         }
+
         setCurrentUser(user);
         setNavigation(docsNavigation);
+
+        if (!currentSlug) {
+          getDocsDocument(docsNavigation.defaultSlug)
+            .then((docsDocument) => {
+              if (!cancelled) {
+                documentCacheRef.current.set(docsNavigation.defaultSlug, docsDocument);
+              }
+            })
+            .catch((error) => {
+              if (!cancelled && error instanceof ApiError && error.status === 401) {
+                redirectToLogin();
+              }
+            });
+        }
       })
       .catch((error) => {
         if (!cancelled) {
@@ -113,18 +105,25 @@ export default function DocsPage() {
   useEffect(() => {
     if (!navigation || !currentSlug) {
       setDocumentData(undefined);
-      setDocumentLoading(false);
+      return undefined;
+    }
+
+    const cachedDocument = documentCacheRef.current.get(currentSlug);
+    if (cachedDocument) {
+      setErrorMessage(undefined);
+      setDocumentData(cachedDocument);
+      window.scrollTo({ top: 0, behavior: 'auto' });
       return undefined;
     }
 
     let cancelled = false;
-    setDocumentLoading(true);
     setErrorMessage(undefined);
     setDocumentData(undefined);
 
     getDocsDocument(currentSlug)
       .then((docsDocument) => {
         if (!cancelled) {
+          documentCacheRef.current.set(currentSlug, docsDocument);
           setDocumentData(docsDocument);
           window.scrollTo({ top: 0, behavior: 'auto' });
         }
@@ -132,11 +131,6 @@ export default function DocsPage() {
       .catch((error) => {
         if (!cancelled) {
           handleApiError(error, 'Failed to load documentation');
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setDocumentLoading(false);
         }
       });
 
@@ -150,20 +144,42 @@ export default function DocsPage() {
     [documentData],
   );
 
-  const navigateToDoc = (slug: string) => {
+  const navigateToDoc = async (slug: string) => {
     setMobileNavOpen(false);
     if (slug === currentSlug) {
       return;
     }
-    history.push(`/docs/${slug}`);
+
+    const cachedDocument = documentCacheRef.current.get(slug);
+    if (cachedDocument) {
+      setErrorMessage(undefined);
+      setDocumentData(cachedDocument);
+      history.push(`/docs/${slug}`);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
+
+    try {
+      const docsDocument = await getDocsDocument(slug);
+      documentCacheRef.current.set(slug, docsDocument);
+      setErrorMessage(undefined);
+      setDocumentData(docsDocument);
+      history.push(`/docs/${slug}`);
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    } catch (error) {
+      handleApiError(error, 'Failed to load documentation');
+    }
   };
 
   const navigateToWelcome = () => {
     setMobileNavOpen(false);
+    setErrorMessage(undefined);
+    setDocumentData(undefined);
     if (!currentSlug) {
       return;
     }
     history.push('/docs');
+    window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   const handleLogout = async () => {
@@ -175,7 +191,7 @@ export default function DocsPage() {
   };
 
   if (bootLoading && !navigation) {
-    return <DocsBootState />;
+    return <div className="min-h-screen bg-[#faf9f5]" />;
   }
 
   if (!navigation) {
@@ -212,15 +228,7 @@ export default function DocsPage() {
 
           <main className="min-w-0 flex-1 py-10 lg:px-8 xl:px-12">
             <div className="mx-auto max-w-[760px]">
-              {documentLoading ? (
-                <div className="space-y-4 pt-2">
-                  <div className="h-4 w-24 rounded bg-[#e5e2da]" />
-                  <div className="h-11 w-3/4 rounded-xl bg-[#e2dfd7]" />
-                  <div className="h-4 rounded bg-[#ebe8e1]" />
-                  <div className="h-4 w-5/6 rounded bg-[#ebe8e1]" />
-                  <div className="h-4 w-4/6 rounded bg-[#ebe8e1]" />
-                </div>
-              ) : errorMessage ? (
+              {errorMessage ? (
                 <DocsErrorState message={errorMessage} />
               ) : documentData ? (
                 <>
