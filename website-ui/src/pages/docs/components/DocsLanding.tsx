@@ -8,7 +8,13 @@ type DocsLandingProps = {
 function ArrowRightIcon() {
   return (
     <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 18 18">
-      <path d="M3 9H15M10.75 4.75L15 9L10.75 13.25" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4" />
+      <path
+        d="M3 9H15M10.75 4.75L15 9L10.75 13.25"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.4"
+      />
     </svg>
   );
 }
@@ -50,36 +56,13 @@ export default function DocsLanding({ navigation, onNavigate }: DocsLandingProps
   return (
     <main className="bg-[#faf9f5]">
       <section className="bg-[#e3dacc]">
-        <div className="mx-auto flex max-w-[92rem] flex-col items-center px-6 py-[76px] text-center sm:px-10 lg:py-[84px]">
+        <div className="mx-auto flex max-w-[92rem] flex-col items-center px-6 py-[72px] text-center sm:px-10 lg:py-[80px]">
           <p className="mb-7 text-[13px] font-medium uppercase tracking-[0.14em] text-[#77756f]">
             Yak Ops Documentation
           </p>
           <h1 className="m-0 max-w-[820px] font-yak-serif text-[42px] font-normal leading-[1.04] tracking-[-0.045em] text-[#171715] sm:text-[52px] lg:text-[58px]">
             What do you want to do with Yak Ops?
           </h1>
-
-          <div className="mt-8 grid w-full max-w-[690px] grid-cols-1 gap-2.5 sm:grid-cols-2">
-            {overview ? (
-              <button
-                className="flex min-h-[58px] flex-col items-center justify-center rounded-full border border-solid border-[#1f1e1d]/[0.14] bg-white/75 px-5 py-2.5 text-center text-[#1f1f1d] hover:bg-white"
-                onClick={() => onNavigate(overview.slug)}
-                type="button"
-              >
-                <span className="text-[14px] font-semibold leading-5">Understand Yak Ops</span>
-                <span className="mt-0.5 text-[12px] font-medium leading-4 text-[#66645f]">{overview.title}</span>
-              </button>
-            ) : null}
-            {quickStart ? (
-              <button
-                className="flex min-h-[58px] flex-col items-center justify-center rounded-full border border-solid border-[#1f1e1d]/[0.14] bg-white/75 px-5 py-2.5 text-center text-[#1f1f1d] hover:bg-white"
-                onClick={() => onNavigate(quickStart.slug)}
-                type="button"
-              >
-                <span className="text-[14px] font-semibold leading-5">Get started quickly</span>
-                <span className="mt-0.5 text-[12px] font-medium leading-4 text-[#66645f]">{quickStart.title}</span>
-              </button>
-            ) : null}
-          </div>
         </div>
       </section>
 
