@@ -9,9 +9,22 @@ export default function HomeClosingSection() {
     <section className="relative bg-[#181817] text-[#F7F5EE]">
       <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(6rem,5.142857rem+4.285714vw,9rem)]">
         <motion.div
-          initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          initial={
+            shouldReduceMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  y: 18,
+                }
+          }
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.4,
+          }}
           transition={{
             duration: shouldReduceMotion ? 0.2 : 0.7,
             ease: HOME_EASE,
@@ -47,7 +60,7 @@ export default function HomeClosingSection() {
 
               <a
                 href="/docs"
-                className="inline-flex items-center gap-2 rounded-lg border border-solid border-[#3D3B36] px-4 py-2.5 text-[14px] font-medium text-[#F7F5EE] no-underline transition-colors duration-200 hover:border-[#5A5750] hover:bg-[#232321] [font-family:'Yak_Sans',Arial,sans-serif]"
+                className="inline-flex items-center gap-2 rounded-lg border  px-4 py-2.5 text-[14px] font-medium text-[#F7F5EE] no-underline transition-colors duration-200 hover:border-[#5A5750] hover:bg-[#232321] [font-family:'Yak_Sans',Arial,sans-serif]"
               >
                 Read the docs
                 <span aria-hidden="true">→</span>
@@ -56,13 +69,26 @@ export default function HomeClosingSection() {
           </div>
         </motion.div>
 
-        <div className="mt-[clamp(5rem,4.428571rem+2.857143vw,7rem)] border-t border-solid border-[#34332F] pt-6">
+        <div className="mt-[clamp(5rem,4.428571rem+2.857143vw,7rem)]  border-[#34332F] pt-6">
           <div className="flex flex-col gap-3 text-[12px] text-[#8F8C85] sm:flex-row sm:items-center sm:justify-between [font-family:'Yak_Sans',Arial,sans-serif]">
-            <span className="text-[15px] font-medium text-[#D8D4CA] [font-family:'Yak_Serif',Georgia,sans-serif]">
-              Yak Ops
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[15px] font-medium text-[#D8D4CA] [font-family:'Yak_Serif',Georgia,sans-serif]">
+                Yak Ops
+              </span>
 
-            <span>Open source · Self-hosted · Built for data operations</span>
+              <span className="text-[#5F5D57]">·</span>
+
+              <span>
+                Built by{" "}
+                <span className="text-[#B9B6AE]">
+                  魏福万
+                </span>
+              </span>
+            </div>
+
+            <span>
+              Open source · Self-hosted · Built for data operations
+            </span>
           </div>
         </div>
       </div>
