@@ -11,17 +11,16 @@ This directory is the source of truth for Yak Ops product documentation. Git is 
 - Documentation responses use `Cache-Control: no-store` so protected content is not retained by shared caches.
 - Raw HTML in Markdown is intentionally not rendered by the frontend.
 
-## Authoring rules
+## Current authoring scope
+
+The first documentation pass intentionally keeps only the getting-started section. Additional top-level sections should be added together with reviewed content instead of publishing empty navigation placeholders.
 
 ```text
 docs/
 ├── navigation.json
-├── getting-started/
-├── data-integration/
-├── data-development/
-├── data-quality/
-├── lineage/
-└── deployment/
+└── getting-started/
+    ├── overview.md
+    └── quick-start.md
 ```
 
 Keep slugs lowercase and stable. Prefer plain-text ATX headings (`#`, `##`, `###`) so table-of-contents anchors remain predictable. Use fenced code blocks with an explicit language when possible.
