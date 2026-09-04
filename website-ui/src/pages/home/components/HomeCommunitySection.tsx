@@ -50,7 +50,7 @@ function CommunityCard({
       aria-hidden={duplicate ? true : undefined}
       className="group flex h-[230px] w-[clamp(18rem,16.285714rem+8.571429vw,24rem)] shrink-0 flex-col justify-between rounded-[clamp(1.25rem,1.107143rem+0.714286vw,1.75rem)] border border-solid border-[#DDD9CF] bg-[#FAF9F5] p-[clamp(1.5rem,1.285714rem+1.071429vw,2.25rem)] text-[#181817] no-underline transition-colors duration-300 hover:border-[#C8C3B8] hover:bg-white"
     >
-      <p className="m-0 max-w-[25ch] text-[clamp(1.18rem,1.08rem+0.5vw,1.45rem)] font-medium leading-[1.35] tracking-[-0.01em] [font-family:'Yak_Serif',Georgia,sans-serif]">
+      <p className="m-0 max-w-[25ch] text-[clamp(1.18rem,1.08rem+0.5vw,1.45rem)] group-hover:text-[#C96442] font-medium leading-[1.35] tracking-[-0.01em] [font-family:'Yak_Serif',Georgia,sans-serif]">
         {member.statement}
       </p>
 

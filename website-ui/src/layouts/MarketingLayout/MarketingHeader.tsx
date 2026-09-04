@@ -71,7 +71,7 @@ function ChevronDown({ open = false }: { open?: boolean }) {
         aspect-square
         w-4
         flex-none
-        text-[#6f6f6b]
+        text-[#6F6F6B]
         transition-transform
         duration-[750ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
@@ -83,6 +83,7 @@ function ChevronDown({ open = false }: { open?: boolean }) {
         viewBox="0 0 20 20"
         fill="none"
         className="block h-full w-full"
+        aria-hidden="true"
       >
         <path
           d="M14.128 7.16482C14.3126 6.95983 14.6298 6.94336 14.835 7.12771C15.0402 7.31242 15.0567 7.62952 14.8721 7.83477L10.372 12.835L10.2939 12.9053C10.2093 12.9667 10.1063 13 9.99995 13C9.85833 12.9999 9.72264 12.9402 9.62788 12.835L5.12778 7.83477L5.0682 7.75273C4.95072 7.55225 4.98544 7.28926 5.16489 7.12771C5.34445 6.96617 5.60969 6.95939 5.79674 7.09744L5.87193 7.16482L9.99995 11.7519L14.128 7.16482Z"
@@ -115,7 +116,22 @@ function BrandLogo() {
     <Link
       aria-label="Home page"
       to="/"
-      className="relative z-[2] flex w-[7.5rem] max-w-full flex-none items-center justify-start outline-offset-[-0.125rem]"
+      className="
+        relative
+        z-[2]
+        flex
+        w-[7.5rem]
+        max-w-full
+        flex-none
+        items-center
+        justify-start
+        rounded-md
+        outline-none
+        outline-offset-4
+        focus-visible:outline
+        focus-visible:outline-2
+        focus-visible:outline-[#C9C4B8]
+      "
     >
       <img
         src={brandLogo}
@@ -135,8 +151,14 @@ function MegaMenu({
   closeMenu: () => void;
 }) {
   const [hoveredLinkKey, setHoveredLinkKey] = useState<string | null>(null);
-  const columnCount = Math.min(Math.max(item.columns.length, 1), 4);
-  const gridClass = MENU_GRID_BY_COLUMNS[columnCount] ?? "grid-cols-1";
+
+  const columnCount = Math.min(
+    Math.max(item.columns.length, 1),
+    4,
+  );
+
+  const gridClass =
+    MENU_GRID_BY_COLUMNS[columnCount] ?? "grid-cols-1";
 
   return (
     <div
@@ -159,10 +181,23 @@ function MegaMenu({
           className="min-w-0 px-6 first:pl-0 last:pr-0"
           key={column.title}
           style={
-            columnIndex === 0 ? undefined : { borderLeft: "1px solid #e2e0da" }
+            columnIndex === 0
+              ? undefined
+              : {
+                  borderLeft: "1px solid #E2E0DA",
+                }
           }
         >
-          <div className="mb-4 text-[12px] font-normal leading-5 tracking-[0.01em] text-[#8a8881]">
+          <div
+            className="
+              mb-4
+              text-[12px]
+              font-normal
+              leading-5
+              tracking-[0.01em]
+              text-[#8A8881]
+            "
+          >
             {column.title}
           </div>
 
@@ -172,24 +207,59 @@ function MegaMenu({
           >
             {column.items.map((link) => {
               const linkKey = `${column.title}-${link.label}`;
+
               const isDimmed =
-                hoveredLinkKey !== null && hoveredLinkKey !== linkKey;
+                hoveredLinkKey !== null &&
+                hoveredLinkKey !== linkKey;
 
               return (
                 <li
                   key={linkKey}
-                  onMouseEnter={() => setHoveredLinkKey(linkKey)}
+                  onMouseEnter={() =>
+                    setHoveredLinkKey(linkKey)
+                  }
                 >
                   <MarketingLink
-                    className={`-mx-3 flex min-h-10 items-center justify-between gap-3 rounded-[4px] px-3 py-1.5 no-underline transition-[background-color,color] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:!bg-[#f1efe8] hover:!text-[#242422] focus-visible:!bg-[#f1efe8] focus-visible:!text-[#242422] focus-visible:outline-none motion-reduce:transition-none ${
-                      isDimmed ? "!text-[#8a8881]" : "!text-[#242422]"
-                    }`}
+                    className={`
+                      -mx-3
+                      flex
+                      min-h-10
+                      items-center
+                      justify-between
+                      gap-3
+                      rounded-[4px]
+                      px-3
+                      py-1.5
+                      no-underline
+
+                      transition-[background-color,color]
+                      duration-[220ms]
+                      ease-[cubic-bezier(0.16,1,0.3,1)]
+
+                      hover:!bg-[#F1EFE8]
+                      hover:!text-[#242422]
+
+                      focus-visible:!bg-[#F1EFE8]
+                      focus-visible:!text-[#242422]
+                      focus-visible:outline-none
+
+                      motion-reduce:transition-none
+
+                      ${
+                        isDimmed
+                          ? "!text-[#8A8881]"
+                          : "!text-[#242422]"
+                      }
+                    `}
                     external={link.external}
                     href={link.href}
                     onClick={closeMenu}
                   >
                     <span>{link.label}</span>
-                    {link.external && <ExternalLinkIcon />}
+
+                    {link.external && (
+                      <ExternalLinkIcon />
+                    )}
                   </MarketingLink>
                 </li>
               );
@@ -201,10 +271,20 @@ function MegaMenu({
   );
 }
 
-function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
+function NavDropdown({
+  item,
+  openMenu,
+  setOpenMenu,
+}: NavDropdownProps) {
   const open = openMenu === item.key;
-  const columnCount = Math.min(Math.max(item.columns.length, 1), 4);
-  const widthClass = MENU_WIDTH_BY_COLUMNS[columnCount] ?? "w-[42rem]";
+
+  const columnCount = Math.min(
+    Math.max(item.columns.length, 1),
+    4,
+  );
+
+  const widthClass =
+    MENU_WIDTH_BY_COLUMNS[columnCount] ?? "w-[42rem]";
 
   return (
     <li className="flex items-center">
@@ -217,8 +297,43 @@ function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
           type="button"
           aria-haspopup="menu"
           aria-expanded={open}
-          className="relative z-[2] flex cursor-pointer select-none items-center gap-1 whitespace-nowrap border-0 bg-transparent px-3 py-2 text-[15px] leading-5 text-[#242422] outline-none"
-          onClick={() => setOpenMenu(open ? null : item.key)}
+          className={`
+            relative
+            z-[2]
+            flex
+            cursor-pointer
+            select-none
+            items-center
+            gap-1
+            whitespace-nowrap
+            rounded-[7px]
+            border-0
+            bg-transparent
+            px-3
+            py-2
+            text-[15px]
+            leading-5
+            text-[#242422]
+            outline-none
+
+            transition-[background-color,color]
+            duration-200
+
+            hover:bg-[#F1EFE8]
+            hover:text-[#181817]
+
+            focus-visible:bg-[#F1EFE8]
+            focus-visible:text-[#181817]
+
+            ${
+              open
+                ? "bg-[#F1EFE8] text-[#181817]"
+                : ""
+            }
+          `}
+          onClick={() =>
+            setOpenMenu(open ? null : item.key)
+          }
         >
           <span>{item.label}</span>
           <ChevronDown open={open} />
@@ -233,7 +348,11 @@ function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
             -translate-x-1/2
             pt-2
             ${widthClass}
-            ${open ? "pointer-events-auto" : "pointer-events-none"}
+            ${
+              open
+                ? "pointer-events-auto"
+                : "pointer-events-none"
+            }
           `}
         >
           <div
@@ -243,11 +362,19 @@ function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
               transition-[grid-template-rows,opacity]
               duration-[750ms]
               ease-[cubic-bezier(0.16,1,0.3,1)]
-              ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}
+
+              ${
+                open
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "grid-rows-[0fr] opacity-0"
+              }
             `}
           >
             <div className="min-h-0 overflow-hidden">
-              <MegaMenu item={item} closeMenu={() => setOpenMenu(null)} />
+              <MegaMenu
+                item={item}
+                closeMenu={() => setOpenMenu(null)}
+              />
             </div>
           </div>
         </div>
@@ -259,25 +386,126 @@ function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
 const NAV_LINK_CLASS_NAME = `
   flex
   items-center
+  gap-1
   whitespace-nowrap
+
+  rounded-[7px]
+
   px-3
   py-2
+
   text-[15px]
   leading-5
   text-[#242422]
+
   no-underline
-  transition-opacity
+
+  transition-[background-color,color]
   duration-200
-  hover:opacity-60
+
+  hover:bg-[#F1EFE8]
+  hover:!text-[#181817]
+
+  focus-visible:bg-[#F1EFE8]
+  focus-visible:!text-[#181817]
+  focus-visible:outline-none
+`;
+
+const LOGIN_LINK_CLASS_NAME = `
+  inline-flex
+  h-[40px]
+  items-center
+  justify-center
+  whitespace-nowrap
+
+  rounded-[9px]
+
+  border
+  border-solid
+  border-[#D8D5CC]
+
+  bg-transparent
+
+  px-4
+
+  text-[15px]
+  font-medium
+  leading-none
+  text-[#30302E]
+
+  no-underline
+
+  transition-[background-color,border-color,color]
+  duration-200
+  ease-out
+
+  hover:border-[#C7C1B5]
+  hover:bg-[#ECE8DF]
+  hover:!text-[#181817]
+
+  focus-visible:border-[#C7C1B5]
+  focus-visible:bg-[#ECE8DF]
+  focus-visible:!text-[#181817]
+  focus-visible:outline-none
+`;
+
+const GET_STARTED_LINK_CLASS_NAME = `
+  inline-flex
+  h-[40px]
+  items-center
+  justify-center
+  whitespace-nowrap
+
+  rounded-[9px]
+
+  border
+  border-solid
+  border-[#1F1F1D]
+
+  bg-[#1F1F1D]
+
+  px-4
+
+  text-[15px]
+  font-semibold
+  leading-none
+  text-white
+
+  no-underline
+
+  transition-[background-color,border-color]
+  duration-200
+  ease-out
+
+  hover:border-[#000000]
+  hover:bg-[#000000]
+  hover:!text-white
+
+  focus-visible:border-[#000000]
+  focus-visible:bg-[#000000]
+  focus-visible:!text-white
+  focus-visible:outline-none
 `;
 
 export default function MarketingHeader() {
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [openMenu, setOpenMenu] =
+    useState<string | null>(null);
 
   return (
     <div
-      className="mx-auto flex h-[84px] w-[calc(100%-clamp(2rem,calc(1.428571rem+2.857143vw),4rem)*2)] max-w-[90rem] items-center gap-6 [container:threshold-large/inline-size]"
-      style={{ fontFamily: "var(--yak-font-marketing)" }}
+      className="
+        mx-auto
+        flex
+        h-[84px]
+        w-[calc(100%-clamp(2rem,calc(1.428571rem+2.857143vw),4rem)*2)]
+        max-w-[90rem]
+        items-center
+        gap-6
+        [container:threshold-large/inline-size]
+      "
+      style={{
+        fontFamily: "var(--yak-font-marketing)",
+      }}
     >
       <BrandLogo />
 
@@ -285,7 +513,18 @@ export default function MarketingHeader() {
         className="ml-auto flex h-full items-center"
         aria-label="Primary navigation"
       >
-        <ul className="m-0 flex h-full list-none items-center justify-center gap-0 p-0">
+        <ul
+          className="
+            m-0
+            flex
+            h-full
+            list-none
+            items-center
+            justify-center
+            gap-0
+            p-0
+          "
+        >
           {MARKETING_NAV_ITEMS.map((item) =>
             item.kind === "mega" ? (
               <NavDropdown
@@ -295,14 +534,20 @@ export default function MarketingHeader() {
                 setOpenMenu={setOpenMenu}
               />
             ) : (
-              <li className="flex items-center" key={item.key}>
+              <li
+                className="flex items-center"
+                key={item.key}
+              >
                 <MarketingLink
                   className={NAV_LINK_CLASS_NAME}
                   external={item.external}
                   href={item.href}
                 >
                   <span>{item.label}</span>
-                  {item.external && <ExternalLinkIcon />}
+
+                  {item.external && (
+                    <ExternalLinkIcon />
+                  )}
                 </MarketingLink>
               </li>
             ),
@@ -312,14 +557,14 @@ export default function MarketingHeader() {
 
       <div className="flex flex-none items-center gap-2">
         <MarketingLink
-          className="inline-flex h-[40px] items-center justify-center whitespace-nowrap rounded-[9px] border border-[#d8d5cc] bg-transparent px-4 text-[15px] font-medium leading-none text-[#30302e] no-underline transition-colors duration-200 hover:bg-[#f1efe8]"
+          className={LOGIN_LINK_CLASS_NAME}
           href={MARKETING_HEADER_ACTIONS.login}
         >
           Login
         </MarketingLink>
 
         <MarketingLink
-          className="inline-flex h-[40px] items-center justify-center whitespace-nowrap rounded-[9px] border border-[#1f1f1d] bg-[#1f1f1d] px-4 text-[15px] font-semibold leading-none text-white no-underline transition-colors duration-200 hover:bg-black"
+          className={GET_STARTED_LINK_CLASS_NAME}
           href={MARKETING_HEADER_ACTIONS.startUsing}
         >
           Get Started
