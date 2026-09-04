@@ -93,7 +93,7 @@ export default function DocsSearch({ onSelect, onUnauthorized, className }: Docs
 
   return (
     <div className={`relative ${className ?? ''}`}>
-      <div className="flex h-9 items-center rounded-xl border border-solid border-[#cfcac0] bg-[#faf9f5] px-3 text-[#66645f] transition-colors focus-within:border-[#98948a]">
+      <div className="flex h-9 items-center rounded-xl border border-solid border-[#cfcac0] bg-[#faf9f5] px-3 text-[#66645f] focus-within:border-[#98948a]">
         <SearchIcon />
         <input
           aria-label="Search documentation"
@@ -124,7 +124,7 @@ export default function DocsSearch({ onSelect, onUnauthorized, className }: Docs
             <div className="max-h-[360px] overflow-y-auto">
               {hits.map((hit) => (
                 <button
-                  className="block w-full rounded-xl border-0 bg-transparent px-3 py-2.5 text-left transition-colors hover:bg-[#f3f1eb]"
+                  className="block w-full rounded-xl border-0 bg-transparent px-3 py-2.5 text-left hover:bg-[#f3f1eb]"
                   key={hit.slug}
                   onClick={() => handleSelect(hit.slug)}
                   onMouseDown={(event) => event.preventDefault()}

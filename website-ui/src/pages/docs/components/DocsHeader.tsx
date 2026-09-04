@@ -60,7 +60,7 @@ function MenuIcon() {
 const tabClassName = (active: boolean) =>
   active
     ? 'relative flex h-12 shrink-0 items-center font-semibold text-[#1f1f1d] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-[#1f1f1d]'
-    : 'relative flex h-12 shrink-0 items-center font-medium text-[#55544f] transition-colors hover:text-[#1f1f1d]';
+    : 'relative flex h-12 shrink-0 items-center font-medium text-[#55544f] hover:text-[#1f1f1d]';
 
 export default function DocsHeader({
   navigation,
@@ -106,17 +106,14 @@ export default function DocsHeader({
 
         <div className="ml-auto hidden min-w-[230px] items-center justify-end gap-5 text-sm lg:flex">
           <a
-            className="font-medium text-[#55544f] transition-colors hover:text-[#1f1f1d]"
+            className="font-medium text-[#55544f] hover:text-[#1f1f1d]"
             href="https://github.com/weifuwan/yak-ops/issues"
             rel="noreferrer noopener"
             target="_blank"
           >
             Support
           </a>
-          <Link
-            className="inline-flex h-9 items-center gap-2 rounded-xl bg-[#171715] px-4 font-semibold text-white transition-opacity hover:opacity-90"
-            to="/"
-          >
+          <Link className="inline-flex h-9 items-center gap-2 rounded-xl bg-[#171715] px-4 font-semibold text-white hover:opacity-90" to="/">
             Go to Yak Ops
             <span aria-hidden="true">›</span>
           </Link>

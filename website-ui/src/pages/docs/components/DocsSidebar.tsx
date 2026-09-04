@@ -9,7 +9,7 @@ type DocsSidebarProps = {
 const itemClassName = (active: boolean) =>
   active
     ? 'flex w-full items-start rounded-xl border-0 bg-[#e7e5df] px-4 py-2 text-left text-[13px] font-semibold leading-5 text-[#20201e]'
-    : 'flex w-full items-start rounded-xl border-0 bg-transparent px-4 py-2 text-left text-[13px] font-medium leading-5 text-[#55544f] transition-colors hover:bg-black/[0.035] hover:text-[#20201e]';
+    : 'flex w-full items-start rounded-xl border-0 bg-transparent px-4 py-2 text-left text-[13px] font-medium leading-5 text-[#55544f] hover:bg-black/[0.035] hover:text-[#20201e]';
 
 export default function DocsSidebar({ navigation, activeSlug, onNavigate }: DocsSidebarProps) {
   return (

@@ -56,7 +56,7 @@ function CodeBlock({ children }: { children?: ReactNode }) {
   return (
     <div className="group relative my-6 overflow-hidden rounded-2xl bg-[#242421] text-[#f3f1eb] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]">
       <button
-        className="absolute right-3 top-3 z-10 inline-flex h-8 items-center gap-1.5 rounded-lg border border-solid border-white/10 bg-white/10 px-2.5 text-xs text-white/75 opacity-0 transition-opacity hover:bg-white/15 group-hover:opacity-100 focus-visible:opacity-100"
+        className="absolute right-3 top-3 z-10 inline-flex h-8 items-center gap-1.5 rounded-lg border border-solid border-white/10 bg-white/10 px-2.5 text-xs text-white/75 opacity-0 hover:bg-white/15 group-hover:opacity-100 focus-visible:opacity-100"
         onClick={handleCopy}
         type="button"
       >
