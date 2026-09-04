@@ -1,10 +1,9 @@
-import { Link } from '@umijs/max';
+import { Link, useLocation } from '@umijs/max';
 import { YakTab } from '@/components/ui';
 import type { DocsNavigation } from '@/services/docs';
 
 type DocsHeaderProps = {
   navigation: DocsNavigation;
-  currentSlug: string;
   isLanding: boolean;
   onNavigate: (slug: string) => void;
   onOpenNavigation: () => void;
@@ -34,14 +33,17 @@ function MenuIcon() {
   );
 }
 
+const docsSlugFromPath = (pathname: string) => pathname.replace(/^\/docs\/?/, '').replace(/\/$/, '');
+
 export default function DocsHeader({
   navigation,
-  currentSlug,
   isLanding,
   onNavigate,
   onOpenNavigation,
   onWelcome,
 }: DocsHeaderProps) {
+  const location = useLocation();
+  const currentSlug = docsSlugFromPath(location.pathname);
   const sectionTabs = navigation.sections.map((section, sectionIndex) => ({
     key: `section-${sectionIndex}`,
     label: section.title,
