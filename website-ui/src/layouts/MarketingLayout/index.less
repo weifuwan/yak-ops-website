@@ -3,8 +3,45 @@
   background: var(--yak-page-background);
 }
 
-.yak-marketing-header--session-active {
-  a[href='/login'] {
-    display: none;
+.yak-marketing-header--session-checking {
+  nav + div > a[href='/login']:first-child {
+    visibility: hidden;
+  }
+}
+
+.yak-marketing-header--authenticated {
+  nav + div > a[href='/login']:first-child {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--yak-account-avatar-bg, #6d635d);
+    color: transparent !important;
+    font-size: 0;
+    line-height: 0;
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 18%),
+      0 1px 2px rgb(0 0 0 / 10%);
+    cursor: default;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  nav + div > a[href='/login']:first-child::before {
+    content: var(--yak-account-avatar-label, 'Y');
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
   }
 }
