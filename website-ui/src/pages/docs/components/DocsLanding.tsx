@@ -68,7 +68,7 @@ export default function DocsLanding({ navigation, onNavigate }: DocsLandingProps
           <div className="mt-8 grid w-full max-w-[940px] grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
             {quickLinks.map((item, index) => (
               <button
-                className="flex min-h-[58px] flex-col items-center justify-center rounded-full border border-[#1f1e1d]/[0.14] bg-white/75 px-5 py-2.5 text-center text-[#1f1f1d] transition-colors hover:bg-white"
+                className="flex min-h-[58px] flex-col items-center justify-center rounded-full border border-solid border-[#1f1e1d]/[0.14] bg-white/75 px-5 py-2.5 text-center text-[#1f1f1d] transition-colors hover:bg-white"
                 key={item.slug}
                 onClick={() => onNavigate(item.slug)}
                 type="button"
@@ -83,7 +83,7 @@ export default function DocsLanding({ navigation, onNavigate }: DocsLandingProps
             Search the documentation above, or pick a path to start exploring Yak Ops.
           </p>
           <a
-            className="mt-5 inline-flex h-11 items-center gap-2 rounded-full border border-[#1f1e1d]/40 px-5 text-sm font-semibold text-[#1f1f1d] transition-colors hover:bg-white/40"
+            className="mt-5 inline-flex h-11 items-center gap-2 rounded-full border border-solid border-[#1f1e1d]/40 px-5 text-sm font-semibold text-[#1f1f1d] transition-colors hover:bg-white/40"
             href="#docs-catalog"
           >
             Browse all documentation
@@ -108,7 +108,7 @@ export default function DocsLanding({ navigation, onNavigate }: DocsLandingProps
             }
             return (
               <button
-                className="group min-h-[190px] rounded-2xl border border-[#d8d5cd] bg-[#faf9f5] p-7 text-left text-[#1f1f1d] transition-colors hover:border-[#a9a59b]"
+                className="group min-h-[190px] rounded-2xl border border-solid border-[#d8d5cd] bg-[#faf9f5] p-7 text-left text-[#1f1f1d] transition-colors hover:border-[#a9a59b]"
                 key={section.title}
                 onClick={() => onNavigate(firstItem.slug)}
                 type="button"

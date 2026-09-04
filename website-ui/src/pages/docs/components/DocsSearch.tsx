@@ -93,7 +93,7 @@ export default function DocsSearch({ onSelect, onUnauthorized, className }: Docs
 
   return (
     <div className={`relative ${className ?? ''}`}>
-      <div className="flex h-9 items-center rounded-xl border border-[#cfcac0] bg-[#faf9f5] px-3 text-[#66645f] transition-colors focus-within:border-[#98948a]">
+      <div className="flex h-9 items-center rounded-xl border border-solid border-[#cfcac0] bg-[#faf9f5] px-3 text-[#66645f] transition-colors focus-within:border-[#98948a]">
         <SearchIcon />
         <input
           aria-label="Search documentation"
@@ -114,10 +114,10 @@ export default function DocsSearch({ onSelect, onUnauthorized, className }: Docs
       </div>
 
       {open && query.trim() ? (
-        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border border-[#dedbd2] bg-white p-2 shadow-[0_18px_48px_rgba(20,20,19,0.14)]">
+        <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl border border-solid border-[#dedbd2] bg-white p-2 shadow-[0_18px_48px_rgba(20,20,19,0.14)]">
           {loading ? (
             <div className="flex min-h-20 items-center justify-center gap-2 text-sm text-[#77756f]">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#d9d6ce] border-t-[#55544f]" />
+              <span className="h-4 w-4 animate-spin rounded-full border-2 border-solid border-[#d9d6ce] border-t-[#55544f]" />
               <span>Searching…</span>
             </div>
           ) : hits.length ? (

@@ -71,7 +71,7 @@ export default function DocsHeader({
   onUnauthorized,
 }: DocsHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 border-b border-[#1f1e1d]/[0.08] bg-[#faf9f5]/95 text-[#1f1f1d] backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-solid border-[#1f1e1d]/[0.08] bg-[#faf9f5]/95 text-[#1f1f1d] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[80rem] items-center gap-4 px-5 lg:px-8">
         <div className="flex min-w-0 flex-1 items-center lg:min-w-[230px] lg:flex-none">
           <button
@@ -95,7 +95,7 @@ export default function DocsHeader({
           <DocsSearch className="w-full max-w-[410px]" onSelect={onNavigate} onUnauthorized={onUnauthorized} />
           <div
             aria-label="Ask Assistant is coming soon"
-            className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl border border-[#cfcac0] bg-[#faf9f5] px-3.5 text-sm text-[#55544f]"
+            className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl border border-solid border-[#cfcac0] bg-[#faf9f5] px-3.5 text-sm text-[#55544f]"
             title="Coming soon"
           >
             <SearchSparkleIcon />
@@ -126,7 +126,7 @@ export default function DocsHeader({
         </div>
       </div>
 
-      <div className="border-t border-[#1f1e1d]/[0.035]">
+      <div className="border-t border-solid border-[#1f1e1d]/[0.035]">
         <nav
           aria-label="Documentation sections"
           className="mx-auto flex h-12 max-w-[80rem] items-stretch gap-6 overflow-x-auto px-5 text-sm [scrollbar-width:none] lg:px-8 [&::-webkit-scrollbar]:hidden"

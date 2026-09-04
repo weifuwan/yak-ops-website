@@ -42,7 +42,7 @@ function DocsBootState() {
 
 function DocsErrorState({ message }: { message: string }) {
   return (
-    <div className="rounded-2xl border border-[#d9a99a] bg-[#fff4f0] px-5 py-4 text-sm text-[#7a3425]">
+    <div className="rounded-2xl border border-solid border-[#d9a99a] bg-[#fff4f0] px-5 py-4 text-sm text-[#7a3425]">
       <div className="font-semibold">Documentation is temporarily unavailable</div>
       <div className="mt-1 leading-6 opacity-80">{message}</div>
     </div>
