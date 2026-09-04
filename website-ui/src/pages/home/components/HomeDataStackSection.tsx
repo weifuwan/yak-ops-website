@@ -161,12 +161,11 @@ export default function HomeDataStackSection() {
             className="max-w-[31rem] lg:max-w-none"
           >
             <h2 className="m-0 text-[clamp(2.25rem,1.946429rem+1.517857vw,3.3125rem)] font-medium leading-[1.04] tracking-[-0.025em] text-[#181817] [font-family:'Yak_Serif',Georgia,sans-serif]">
-              Works with your data stack
+              Built to fit your stack
             </h2>
 
             <p className="mb-0 mt-6 text-[clamp(1rem,0.964286rem+0.178571vw,1.125rem)] leading-[1.62] text-[#66645F] [font-family:'Yak_Sans',Arial,sans-serif]">
-              Keep the infrastructure you already use. Yak Ops connects engines,
-              storage, task runtimes, and alerting through one operating context.
+              Connect the tools already running your data. Yak Ops gives them one place to work together.
             </p>
 
             <a
