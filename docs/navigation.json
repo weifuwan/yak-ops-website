@@ -15,56 +15,6 @@
           "description": "用一条最短路径理解数据从接入到治理的完整链路。"
         }
       ]
-    },
-    {
-      "title": "数据集成",
-      "items": [
-        {
-          "slug": "data-integration/overview",
-          "title": "数据集成概览",
-          "description": "理解离线同步、实时同步与运行记录之间的关系。"
-        }
-      ]
-    },
-    {
-      "title": "数据开发",
-      "items": [
-        {
-          "slug": "data-development/overview",
-          "title": "数据开发概览",
-          "description": "理解开发任务、执行上下文与运行反馈的基本边界。"
-        }
-      ]
-    },
-    {
-      "title": "数据质量",
-      "items": [
-        {
-          "slug": "data-quality/overview",
-          "title": "数据质量概览",
-          "description": "从质控规则、运行结果到质量总览建立统一视角。"
-        }
-      ]
-    },
-    {
-      "title": "数据血缘",
-      "items": [
-        {
-          "slug": "lineage/overview",
-          "title": "数据血缘概览",
-          "description": "理解上下游关系、影响分析与血缘阅读方式。"
-        }
-      ]
-    },
-    {
-      "title": "部署与运行",
-      "items": [
-        {
-          "slug": "deployment/overview",
-          "title": "部署与运行概览",
-          "description": "先掌握组件边界、配置原则与上线前检查项。"
-        }
-      ]
     }
   ]
 }
