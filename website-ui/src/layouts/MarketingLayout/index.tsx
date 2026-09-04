@@ -1,5 +1,9 @@
 import { Outlet } from '@umijs/max';
-import type { CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
+import type {
+  CSSProperties,
+  KeyboardEvent as ReactKeyboardEvent,
+  MouseEvent as ReactMouseEvent,
+} from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   getCurrentWebsiteUser,
@@ -157,7 +161,7 @@ export default function MarketingLayout() {
     toggleAccountMenu();
   };
 
-  const handleHeaderKeyDownCapture = (event: React.KeyboardEvent<HTMLElement>) => {
+  const handleHeaderKeyDownCapture = (event: ReactKeyboardEvent<HTMLElement>) => {
     if (sessionState !== 'authenticated' || event.key !== ' ') {
       return;
     }
