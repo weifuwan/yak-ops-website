@@ -108,7 +108,7 @@ export default function HomeDataStackSection() {
   }, [shouldReduceMotion]);
 
   return (
-    <section className="relative border-t border-solid border-[#E3E0D7] bg-[#FAF9F5]">
+    <section className="relative border-t bg-[#FAF9F5]">
       <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.72fr)] lg:gap-[clamp(4rem,2.857143rem+5.714286vw,8rem)]">
           <motion.div

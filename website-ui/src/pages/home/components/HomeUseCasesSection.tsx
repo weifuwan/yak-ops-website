@@ -14,7 +14,7 @@ export default function HomeUseCasesSection() {
     HOME_USE_CASES.find((item) => item.id === activeId) ?? HOME_USE_CASES[0];
 
   return (
-    <section className="relative border-t border-solid border-[#F0EEE6] bg-white">
+    <section className="relative border-t  bg-white">
       <div className="h-[clamp(6rem,5.42857rem+2.85714vw,8rem)]" />
 
       <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem]">

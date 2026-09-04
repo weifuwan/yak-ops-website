@@ -39,7 +39,7 @@ export default function HomeDataLifecycleSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative border-t border-solid border-[#D9D6CD] bg-[#F0EEE6] text-[#181817]">
+    <section className="relative border-t  bg-[#F0EEE6] text-[#181817]">
       <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
@@ -52,9 +52,6 @@ export default function HomeDataLifecycleSection() {
           className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(20rem,0.62fr)] lg:items-end lg:gap-20"
         >
           <div>
-            <p className="m-0 text-[12px] font-medium uppercase tracking-[0.18em] text-[#88857D] [font-family:'Yak_Sans',Arial,sans-serif]">
-              The data lifecycle
-            </p>
 
             <h2 className="m-0 mt-5 max-w-[13ch] text-[clamp(2.75rem,2.178571rem+2.857143vw,4.75rem)] font-medium leading-[1.02] tracking-[-0.03em] [font-family:'Yak_Serif',Georgia,sans-serif]">
               One platform. Every step.
@@ -62,8 +59,7 @@ export default function HomeDataLifecycleSection() {
           </div>
 
           <p className="m-0 max-w-[36rem] text-[clamp(1.05rem,0.985714rem+0.321429vw,1.275rem)] leading-[1.6] text-[#66645F] [font-family:'Yak_Sans',Arial,sans-serif] lg:justify-self-end">
-            From the first connection to a trusted data service, Yak Ops keeps the
-            context around your data work connected instead of scattering it across tools.
+            From first connection to trusted data service, Yak Ops keeps your data work connected end to end.
           </p>
         </motion.div>
 
