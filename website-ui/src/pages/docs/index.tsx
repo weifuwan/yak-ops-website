@@ -20,7 +20,7 @@ const docsSlugFromPath = (pathname: string) => pathname.replace(/^\/docs\/?/, ''
 function DocsBootState() {
   return (
     <div className="min-h-screen bg-[#faf9f5] px-6 py-10">
-      <div className="mx-auto max-w-[80rem] animate-pulse">
+      <div className="mx-auto max-w-[80rem]">
         <div className="h-10 w-52 rounded-xl bg-[#e5e2da]" />
         <div className="mt-16 grid grid-cols-[260px_minmax(0,1fr)] gap-14">
           <div className="space-y-3">
@@ -215,7 +215,7 @@ export default function DocsPage() {
           <main className="min-w-0 flex-1 py-10 lg:px-8 xl:px-12">
             <div className="mx-auto max-w-[760px]">
               {documentLoading ? (
-                <div className="animate-pulse space-y-4 pt-2">
+                <div className="space-y-4 pt-2">
                   <div className="h-4 w-24 rounded bg-[#e5e2da]" />
                   <div className="h-11 w-3/4 rounded-xl bg-[#e2dfd7]" />
                   <div className="h-4 rounded bg-[#ebe8e1]" />
@@ -234,7 +234,7 @@ export default function DocsPage() {
                   <div className="mt-14 grid grid-cols-1 gap-3 border-t border-solid border-[#ddd9d0] pt-7 sm:grid-cols-2">
                     {previousDocument ? (
                       <button
-                        className="group flex min-h-[86px] items-center gap-3 rounded-xl border border-solid border-[#ddd9d0] bg-transparent px-4 py-3 text-left transition-colors hover:border-[#aaa69d]"
+                        className="group flex min-h-[86px] items-center gap-3 rounded-xl border border-solid border-[#ddd9d0] bg-transparent px-4 py-3 text-left hover:border-[#aaa69d]"
                         onClick={() => navigateToDoc(previousDocument.slug)}
                         type="button"
                       >
@@ -250,7 +250,7 @@ export default function DocsPage() {
 
                     {nextDocument ? (
                       <button
-                        className="group flex min-h-[86px] items-center justify-end gap-3 rounded-xl border border-solid border-[#ddd9d0] bg-transparent px-4 py-3 text-right transition-colors hover:border-[#aaa69d]"
+                        className="group flex min-h-[86px] items-center justify-end gap-3 rounded-xl border border-solid border-[#ddd9d0] bg-transparent px-4 py-3 text-right hover:border-[#aaa69d]"
                         onClick={() => navigateToDoc(nextDocument.slug)}
                         type="button"
                       >
