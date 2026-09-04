@@ -103,7 +103,7 @@ export default function DocsHeader({
           <YakTab
             activeKey={isLanding ? 'welcome' : 'start'}
             animated={false}
-            className="min-w-[150px]"
+            className="w-full"
             items={tabs}
             onChange={handleTabChange}
           />
