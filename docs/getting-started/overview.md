@@ -1,22 +1,74 @@
 # Yak Ops Overview
 
-Yak Ops is built for data engineering and data governance. It brings data ingestion, development, quality, lineage, and operations into one coherent workflow. The documentation site requires authentication, while the source remains in Git so documentation can be reviewed, rolled back, and evolved alongside the code.
+Yak Ops is an open-source data operations platform for building, moving,
+governing, and delivering data through a unified workflow.
 
-## What to learn first
+## What is Yak Ops?
 
-The first documentation pass intentionally keeps only two essential entry points:
+Yak Ops brings common data operations into one place, helping teams connect
+data sources, build pipelines, monitor data quality, understand lineage,
+and expose data for downstream use.
 
-- **Yak Ops Overview**: understand the product positioning, capability boundaries, and documentation structure.
-- **Quick Start**: build a complete mental model of how data moves through Yak Ops from ingestion to usable results.
+Instead of treating integration, development, quality, and governance as
+separate tools, Yak Ops connects them around the lifecycle of data.
 
-Dedicated chapters for individual modules will be added only when the content is ready, rather than publishing empty navigation placeholders in advance.
+## Who is Yak Ops for?
 
-> The documentation describes product boundaries and how to think about using Yak Ops. Implementation details that are still changing quickly are not frozen early just to make the documentation look complete.
+Yak Ops is designed for:
 
-## Recommended reading order
+- Data engineers building and operating data pipelines
+- Platform teams managing shared data infrastructure
+- Data teams improving quality and governance
+- Developers integrating data services into applications
 
-If you are new to Yak Ops, read this overview first and then continue to **Quick Start**. These two pages are enough to establish the first layer of understanding. Future module documentation will extend the same structure.
+## What can you do with Yak Ops?
 
-## How the documentation stays trustworthy
+With Yak Ops, you can:
 
-The documentation is not generated dynamically from a database, and the frontend does not maintain a second copy. `docs/` is the single source of truth, while `navigation.json` explicitly defines the navigation order. The content is packaged only with the backend artifact and delivered through an authentication-protected API.
+- Connect databases and data sources
+- Run batch and real-time synchronization
+- Build and schedule data workflows
+- Monitor data quality
+- Explore datasets and lineage
+- Publish and operate data services
+
+## How Yak Ops fits together
+
+A typical workflow looks like this:
+
+Data source
+→ Data integration
+→ Data development
+→ Data quality
+→ Data assets
+→ Data services
+
+Each part of the platform is connected, so operational context,
+quality results, and lineage can be understood together.
+
+## Core concepts
+
+### Data source
+A system that provides data to Yak Ops.
+
+### Workflow
+A set of tasks that defines how data is processed or moved.
+
+### Dataset
+A logical representation of data managed or produced by Yak Ops.
+
+### Data quality
+Rules and checks used to determine whether data meets expectations.
+
+### Data lineage
+Relationships that show where data comes from and what depends on it.
+
+## Where to go next
+
+If you're new to Yak Ops, continue with:
+
+- Quick Start — understand the shortest end-to-end workflow
+- Data Integration — learn how data enters the platform
+- Workflows — learn how tasks are orchestrated
+- Data Quality — learn how data is validated
+- Data Lineage — understand dependencies and impact

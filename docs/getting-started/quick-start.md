@@ -1,39 +1,87 @@
 # Quick Start
 
-This page does not try to fill the screen with buttons and configuration options. It first connects the core Yak Ops workflow end to end. When you move into a specific module, you can then use the corresponding chapter for task-level details.
+Get your first Yak Ops workflow running in a few minutes.
 
-## A typical data flow
+In this guide, you will connect a data source, create a simple
+synchronization task, run it, and verify the result.
 
-You can think of day-to-day work as the following path:
+## Prerequisites
 
-```text
-Data source
-  ↓
-Batch sync / real-time sync
-  ↓
-Data development and transformation
-  ↓
-Data quality checks
-  ↓
-Quality results / run history / lineage
-```
+Before you begin, make sure you have:
 
-These steps are not isolated feature pages. Sync tasks answer **how data arrives**, development tasks answer **how data is produced or transformed**, quality checks answer **whether the result meets expectations**, and lineage answers **who will be affected by a change**.
+- A running Yak Ops instance
+- Access to a supported database
+- A valid database account
+- Permission to create and run workflows
 
-## Confirm three things before you start
+## 1. Sign in to Yak Ops
 
-### Is the data source clear?
+Open Yak Ops in your browser and sign in with your account.
 
-Confirm which system the data comes from, how frequently it changes, and whether the workload requires incremental or real-time processing. Different freshness requirements lead to different synchronization methods and runtime strategies.
+After signing in, you will enter the main workspace.
 
-### How do you determine whether the task succeeded?
+## 2. Add a data source
 
-Do not judge success only by whether a task finished running. Define acceptance criteria such as row counts, field completeness, business rules, and downstream usability as well.
+Go to **Data Sources** and create your first connection.
 
-### Where do you investigate when something goes wrong?
+For example, connect a MySQL database.
 
-Start with the sequence **task → run history → result → upstream/downstream**. Future Yak Ops documentation will follow the same troubleshooting flow whenever possible instead of explaining controls on individual screens in isolation.
+You will need:
 
-## Next step
+- Host
+- Port
+- Database
+- Username
+- Password
 
-For now, use this flow to build an overall mental model. Documentation for data integration, data development, data quality, data lineage, deployment, and other modules will be added as standalone entry points once the content is ready.
+Test the connection before saving it.
+
+## 3. Create a synchronization task
+
+Go to **Data Integration** and create a new batch synchronization task.
+
+Select:
+
+- Source data source
+- Source table
+- Target data source
+- Target table
+
+Keep the first workflow simple. You only need enough configuration
+to move a small amount of data successfully.
+
+## 4. Run the task
+
+Save the task and click **Run**.
+
+Yak Ops will create a new execution record for the workflow.
+
+## 5. Check the result
+
+Open the run details and confirm:
+
+- The task completed successfully
+- Data was written to the target
+- Row counts look reasonable
+- No unexpected errors were reported
+
+## What you just completed
+
+You have now completed your first Yak Ops data workflow:
+
+Source
+→ Sync task
+→ Execution
+→ Result
+
+This same flow is the foundation for more advanced workflows in Yak Ops.
+
+## Next steps
+
+Continue with:
+
+- Data Sources
+- Batch Synchronization
+- Workflows
+- Scheduling
+- Data Quality

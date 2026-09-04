@@ -98,7 +98,7 @@ export default function DocsHeader({
         </div>
       </div>
 
-      <div className="pb-10">
+      <div>
         <div className="mx-auto flex h-12 max-w-[92rem] items-end px-5 lg:px-8">
           <YakTab
             activeKey={isLanding ? 'welcome' : 'start'}
