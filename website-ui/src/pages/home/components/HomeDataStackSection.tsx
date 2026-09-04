@@ -108,9 +108,11 @@ export default function HomeDataStackSection() {
   }, [shouldReduceMotion]);
 
   return (
-    <section className="relative border-t bg-[#FAF9F5]">
-      <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.72fr)] lg:gap-[clamp(4rem,2.857143rem+5.714286vw,8rem)]">
+    <section className="relative border-t bg-[#FFFFFF]">
+      <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem]
+       py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.72fr)] 
+        lg:gap-[clamp(4rem,2.857143rem+5.714286vw,8rem)]">
           <motion.div
             initial={
               shouldReduceMotion
@@ -126,7 +128,7 @@ export default function HomeDataStackSection() {
               duration: shouldReduceMotion ? 0.2 : 0.72,
               ease: HOME_EASE,
             }}
-            className="rounded-[clamp(1.5rem,1.071429rem+2.142857vw,3rem)] bg-[#F0EEE6] px-[clamp(1rem,0.571429rem+2.142857vw,3rem)] py-[clamp(2rem,1.571429rem+2.142857vw,3.5rem)]"
+            className="rounded-[clamp(1.5rem,1.071429rem+2.142857vw,3rem)] bg-[#FAF9F5] px-[clamp(1rem,0.571429rem+2.142857vw,3rem)] py-[clamp(2rem,1.571429rem+2.142857vw,3.5rem)]"
           >
             <div
               className="grid grid-cols-3 gap-x-[clamp(0.5rem,0.214286rem+1.428571vw,1.5rem)] gap-y-[clamp(0.8rem,0.571429rem+1.142857vw,1.6rem)]"
