@@ -39,7 +39,7 @@ export default function HomeDataLifecycleSection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative border-t border-solid border-[#2B2A27] bg-[#181817] text-[#F7F5EE]">
+    <section className="relative border-t border-solid border-[#D9D6CD] bg-[#F0EEE6] text-[#181817]">
       <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
@@ -49,25 +49,28 @@ export default function HomeDataLifecycleSection() {
             duration: shouldReduceMotion ? 0.2 : 0.7,
             ease: HOME_EASE,
           }}
-          className="flex flex-col items-center text-center"
+          className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(20rem,0.62fr)] lg:items-end lg:gap-20"
         >
-          <p className="m-0 text-[13px] font-medium uppercase tracking-[0.18em] text-[#A9A69E] [font-family:'Yak_Sans',Arial,sans-serif]">
-            The data lifecycle
-          </p>
+          <div>
+            <p className="m-0 text-[12px] font-medium uppercase tracking-[0.18em] text-[#88857D] [font-family:'Yak_Sans',Arial,sans-serif]">
+              The data lifecycle
+            </p>
 
-          <h2 className="m-0 mt-5 text-[clamp(2.5rem,2.035714rem+2.321429vw,4.125rem)] font-medium leading-[1.04] tracking-[-0.025em] [font-family:'Yak_Serif',Georgia,sans-serif]">
-            One platform. Every step.
-          </h2>
+            <h2 className="m-0 mt-5 max-w-[13ch] text-[clamp(2.75rem,2.178571rem+2.857143vw,4.75rem)] font-medium leading-[1.02] tracking-[-0.03em] [font-family:'Yak_Serif',Georgia,sans-serif]">
+              One platform. Every step.
+            </h2>
+          </div>
 
-          <p className="mb-0 mt-5 max-w-[42rem] text-[clamp(1.05rem,0.985714rem+0.321429vw,1.275rem)] leading-[1.55] text-[#B9B6AE] [font-family:'Yak_Sans',Arial,sans-serif]">
-            From the first connection to a trusted data service, Yak Ops keeps the operating context together.
+          <p className="m-0 max-w-[36rem] text-[clamp(1.05rem,0.985714rem+0.321429vw,1.275rem)] leading-[1.6] text-[#66645F] [font-family:'Yak_Sans',Arial,sans-serif] lg:justify-self-end">
+            From the first connection to a trusted data service, Yak Ops keeps the
+            context around your data work connected instead of scattering it across tools.
           </p>
         </motion.div>
 
         <div className="relative mt-[clamp(5rem,4.428571rem+2.857143vw,7rem)]">
           <div
             aria-hidden="true"
-            className="absolute left-0 right-0 top-[15px] hidden h-px bg-[#3A3935] lg:block"
+            className="absolute left-0 right-0 top-[15px] hidden h-px bg-[#D0CCC2] lg:block"
           />
 
           <div className="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14 lg:grid-cols-6 lg:gap-x-0 lg:gap-y-0">
@@ -92,7 +95,7 @@ export default function HomeDataLifecycleSection() {
                 className="relative lg:px-5 xl:px-6"
               >
                 <div className="relative z-10 flex h-[30px] items-center lg:block">
-                  <span className="flex h-[30px] w-[30px] items-center justify-center rounded-full border border-solid border-[#514F49] bg-[#181817] text-[10px] font-medium tracking-[0.08em] text-[#D6D2C8] [font-family:'Yak_Sans',Arial,sans-serif]">
+                  <span className="flex h-[30px] w-[30px] items-center justify-center rounded-full border border-solid border-[#BBB7AD] bg-[#F0EEE6] text-[10px] font-medium tracking-[0.08em] text-[#6C6962] [font-family:'Yak_Sans',Arial,sans-serif]">
                     {step.number}
                   </span>
                 </div>
@@ -101,7 +104,7 @@ export default function HomeDataLifecycleSection() {
                   {step.title}
                 </h3>
 
-                <p className="mb-0 mt-3 max-w-[29ch] text-[14px] leading-[1.65] text-[#AAA79F] [font-family:'Yak_Sans',Arial,sans-serif]">
+                <p className="mb-0 mt-3 max-w-[29ch] text-[14px] leading-[1.65] text-[#6C6962] [font-family:'Yak_Sans',Arial,sans-serif]">
                   {step.description}
                 </p>
               </motion.article>
