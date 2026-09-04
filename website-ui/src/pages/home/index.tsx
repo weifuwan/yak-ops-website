@@ -1,6 +1,7 @@
 "use client";
 
 import HomeCapabilitiesSection from "./components/HomeCapabilitiesSection";
+import HomeClosingSection from "./components/HomeClosingSection";
 import HomeDataLifecycleSection from "./components/HomeDataLifecycleSection";
 import HomeDataStackSection from "./components/HomeDataStackSection";
 import HomeHeroSection from "./components/HomeHeroSection";
@@ -14,6 +15,7 @@ export default function HomePage() {
       <HomeUseCasesSection />
       <HomeDataLifecycleSection />
       <HomeDataStackSection />
+      <HomeClosingSection />
     </main>
   );
 }
