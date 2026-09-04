@@ -7,31 +7,7 @@ export default function HomeCapabilitiesSection() {
     <section style={{ background: "#F0EEE6" }}>
       <div style={{ background: "#D1CFC5", height: 1 }} />
 
-      <div style={{ width: "100%", height: 128 }} />
-
-      <div
-        style={{ height: 96, width: 96 }}
-        className="flex min-w-full max-w-[16ch] flex-col items-center justify-center text-left"
-      >
-        <WorkflowCodeVisual
-          width="100%"
-          height="100%"
-          foregroundColor="#181817"
-          accentColor="#ff6b3d"
-          cycleDuration={3.8}
-        />
-      </div>
-
-      <div className="mb-3 flex min-w-full max-w-[16ch] flex-col items-center justify-center text-left [font-family:'Yak_Serif',Georgia,sans-serif]">
-        <h1 className="mb-0 leading-[62px]">
-          <span className="text-[clamp(2.25rem,1.75rem+2.5vw,4rem)]">
-            Where data gets to work.
-          </span>
-        </h1>
-      </div>
-
-      <DesktopDownloadLinks />
-
+     
       <div className="relative overflow-hidden">
         <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
           <div className="flex flex-col items-center text-center">
