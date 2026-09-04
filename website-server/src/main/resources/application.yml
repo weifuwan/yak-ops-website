@@ -7,7 +7,7 @@ spring:
   datasource:
     url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/yak_ops_website?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
     username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:123456}
+    password: ${DB_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
   flyway:
     enabled: true
@@ -55,7 +55,7 @@ yak:
       enabled: true
       url: ${SECURITY_DB_URL:jdbc:mysql://127.0.0.1:3306/yak_ops_website?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
       username: ${SECURITY_DB_USERNAME:root}
-      password: ${SECURITY_DB_PASSWORD:123456}
+      password: ${SECURITY_DB_PASSWORD:}
       driver-class-name: com.mysql.cj.jdbc.Driver
     authentication:
       storage: MEMORY
@@ -65,9 +65,9 @@ yak:
     permission-registration:
       enabled: false
     public-paths:
-      - /api/v1/auth/register
-      - /api/v1/auth/verify-email
-      - /api/v1/auth/resend-verification
+      - /api/v1/auth/register/request-code
+      - /api/v1/auth/register/verify-code
+      - /api/v1/auth/register/complete
       - /api/v1/auth/login
       - /api/v1/auth/forgot-password
       - /api/v1/auth/reset-password
@@ -77,7 +77,8 @@ yak:
 website:
   account:
     public-base-url: ${WEBSITE_PUBLIC_BASE_URL:http://localhost:8000}
-    verification-ttl: 24h
+    registration-code-ttl: 10m
+    registration-setup-ttl: 15m
     reset-password-ttl: 30m
     mail-from: ${WEBSITE_MAIL_FROM:no-reply@yakops.local}
   mail:
