@@ -44,7 +44,7 @@ export default function HomeDataLifecycleSection() {
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.45 }}
+          viewport={{ once: Boolean(shouldReduceMotion), amount: 0.45 }}
           transition={{
             duration: shouldReduceMotion ? 0.2 : 0.7,
             ease: HOME_EASE,
@@ -82,7 +82,7 @@ export default function HomeDataLifecycleSection() {
                       }
                 }
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.35 }}
+                viewport={{ once: Boolean(shouldReduceMotion), amount: 0.35 }}
                 transition={{
                   duration: shouldReduceMotion ? 0.2 : 0.55,
                   delay: shouldReduceMotion ? 0 : index * 0.055,
