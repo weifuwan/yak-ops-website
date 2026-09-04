@@ -57,9 +57,6 @@ export default function DocsLanding({ navigation, onNavigate }: DocsLandingProps
           <h1 className="m-0 max-w-[820px] font-yak-serif text-[42px] font-normal leading-[1.04] tracking-[-0.045em] text-[#171715] sm:text-[52px] lg:text-[58px]">
             What do you want to do with Yak Ops?
           </h1>
-          <p className="mb-0 mt-6 max-w-[620px] text-[15px] leading-6 text-[#686660]">
-            Start with the platform overview, or follow the shortest path to understand the core Yak Ops workflow.
-          </p>
 
           <div className="mt-8 grid w-full max-w-[690px] grid-cols-1 gap-2.5 sm:grid-cols-2">
             {overview ? (

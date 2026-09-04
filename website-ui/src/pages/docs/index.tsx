@@ -209,7 +209,7 @@ export default function DocsPage() {
   const isLanding = !currentSlug;
 
   return (
-    <div className="min-h-screen bg-[#faf9f5] font-yak text-[#1f1f1d]">
+    <div className="min-h-screen bg-[#fdfdf7] font-yak text-[#1f1f1d]">
       <DocsHeader
         isLanding={isLanding}
         navigation={navigation}
@@ -221,7 +221,7 @@ export default function DocsPage() {
       {isLanding ? (
         <DocsLanding navigation={navigation} onNavigate={navigateToDoc} />
       ) : (
-        <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
+        <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8" >
           <aside className="sticky top-28 hidden h-[calc(100vh-7rem)] w-[18rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
             <DocsSidebar activeSlug={currentSlug} navigation={navigation} onNavigate={navigateToDoc} />
           </aside>
