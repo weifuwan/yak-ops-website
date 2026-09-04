@@ -1,8 +1,54 @@
+import { history, useLocation } from '@umijs/max';
+import { useEffect, useState } from 'react';
 import loginLogo from '@/assets/img/logo1.png';
 import loginHeroVideo from '@/assets/video/login-hero3.mp4';
+import { getCurrentWebsiteUser } from '@/services/auth';
+import { getSafeReturnTo } from '@/utils/redirect';
 import LoginPanel from './LoginPanel';
 
+type SessionCheckState = 'checking' | 'guest';
+
 export default function LoginPage() {
+  const location = useLocation();
+  const [sessionState, setSessionState] = useState<SessionCheckState>('checking');
+
+  useEffect(() => {
+    let active = true;
+
+    getCurrentWebsiteUser()
+      .then(() => {
+        if (!active) {
+          return;
+        }
+
+        const requestedReturnTo = getSafeReturnTo(
+          new URLSearchParams(location.search).get('returnTo'),
+        );
+        const destination = requestedReturnTo.startsWith('/login') ? '/' : requestedReturnTo;
+        history.replace(destination);
+      })
+      .catch(() => {
+        if (active) {
+          setSessionState('guest');
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [location.search]);
+
+  if (sessionState === 'checking') {
+    return (
+      <main className="flex h-screen items-center justify-center bg-[#fbfbfa] text-[#171717]">
+        <span
+          aria-label="Checking session"
+          className="h-5 w-5 animate-spin rounded-full border-2 border-[#d7d7d2] border-t-[#171717]"
+        />
+      </main>
+    );
+  }
+
   return (
     <main className="yak-login-page h-screen overflow-y-auto bg-[#fbfbfa] text-[#171717]">
       <div className="mx-auto flex min-h-screen w-full max-w-[1540px] flex-col px-6 py-4 sm:px-10 lg:px-12 lg:pb-6 lg:pt-5 xl:px-16">
