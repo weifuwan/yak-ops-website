@@ -274,7 +274,7 @@ export default function HomeFeatureList() {
               y: 0,
             }}
             viewport={{
-              once: true,
+              once: Boolean(shouldReduceMotion),
               amount: 0.3,
             }}
             transition={{
