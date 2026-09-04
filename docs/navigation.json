@@ -15,6 +15,16 @@
           "description": "Follow the shortest path to understand the complete data flow from ingestion to governance."
         }
       ]
+    },
+    {
+      "title": "Deploy",
+      "items": [
+        {
+          "slug": "deploy/docker-compose",
+          "title": "Docker Compose",
+          "description": "Deploy Yak Ops with a single Docker Compose command."
+        }
+      ]
     }
   ]
 }

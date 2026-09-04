@@ -1,4 +1,4 @@
-import { Link } from '@umijs/max';
+import { Link, useLocation } from '@umijs/max';
 import { YakTab } from '@/components/ui';
 import type { DocsNavigation } from '@/services/docs';
 
@@ -33,6 +33,8 @@ function MenuIcon() {
   );
 }
 
+const docsSlugFromPath = (pathname: string) => pathname.replace(/^\/docs\/?/, '').replace(/\/$/, '');
+
 export default function DocsHeader({
   navigation,
   isLanding,
@@ -40,19 +42,34 @@ export default function DocsHeader({
   onOpenNavigation,
   onWelcome,
 }: DocsHeaderProps) {
-  const startSection = navigation.sections[0];
-  const startSlug = startSection?.items[0]?.slug ?? navigation.defaultSlug;
-  const tabs = [
-    { key: 'welcome', label: 'Welcome' },
-    { key: 'start', label: startSection?.title ?? 'Getting Started' },
-  ];
+  const location = useLocation();
+  const currentSlug = docsSlugFromPath(location.pathname);
+  const sectionTabs = navigation.sections.map((section, sectionIndex) => ({
+    key: `section-${sectionIndex}`,
+    label: section.title,
+  }));
+  const activeSectionIndex = navigation.sections.findIndex((section) =>
+    section.items.some((item) => item.slug === currentSlug),
+  );
+  const activeKey = isLanding
+    ? 'welcome'
+    : `section-${activeSectionIndex >= 0 ? activeSectionIndex : 0}`;
+  const tabs = [{ key: 'welcome', label: 'Welcome' }, ...sectionTabs];
 
   const handleTabChange = (key: string) => {
     if (key === 'welcome') {
       onWelcome();
       return;
     }
-    onNavigate(startSlug);
+
+    const sectionIndex = Number(key.replace('section-', ''));
+    const targetSlug = Number.isInteger(sectionIndex)
+      ? navigation.sections[sectionIndex]?.items[0]?.slug
+      : undefined;
+
+    if (targetSlug) {
+      onNavigate(targetSlug);
+    }
   };
 
   return (
@@ -101,7 +118,7 @@ export default function DocsHeader({
       <div>
         <div className="mx-auto flex h-12 max-w-[92rem] items-end px-5 lg:px-8">
           <YakTab
-            activeKey={isLanding ? 'welcome' : 'start'}
+            activeKey={activeKey}
             animated={false}
             className="w-full"
             items={tabs}
