@@ -17,6 +17,9 @@ import MarkdownArticle from './components/MarkdownArticle';
 
 const docsSlugFromPath = (pathname: string) => pathname.replace(/^\/docs\/?/, '').replace(/\/$/, '');
 
+const shouldRedirectToLogin = (error: unknown) =>
+  error instanceof ApiError && (error.status === 401 || error.status === 504);
+
 function DocsErrorState({ message }: { message: string }) {
   return (
     <div className="rounded-2xl border border-solid border-[#d9a99a] bg-[#fff4f0] px-5 py-4 text-sm text-[#7a3425]">
@@ -51,7 +54,7 @@ export default function DocsPage() {
   };
 
   const handleApiError = (error: unknown, fallback: string) => {
-    if (error instanceof ApiError && error.status === 401) {
+    if (shouldRedirectToLogin(error)) {
       redirectToLogin();
       return;
     }
@@ -80,7 +83,7 @@ export default function DocsPage() {
               }
             })
             .catch((error) => {
-              if (!cancelled && error instanceof ApiError && error.status === 401) {
+              if (!cancelled && shouldRedirectToLogin(error)) {
                 redirectToLogin();
               }
             });
