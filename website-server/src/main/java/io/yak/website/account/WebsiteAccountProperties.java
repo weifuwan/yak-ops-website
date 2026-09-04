@@ -7,7 +7,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class WebsiteAccountProperties {
 
     private String publicBaseUrl = "http://localhost:8000";
-    private Duration verificationTtl = Duration.ofHours(24);
+    private Duration registrationCodeTtl = Duration.ofMinutes(10);
+    private Duration registrationSetupTtl = Duration.ofMinutes(15);
     private Duration resetPasswordTtl = Duration.ofMinutes(30);
     private String mailFrom = "no-reply@yakops.local";
 
@@ -19,12 +20,20 @@ public class WebsiteAccountProperties {
         this.publicBaseUrl = publicBaseUrl;
     }
 
-    public Duration getVerificationTtl() {
-        return verificationTtl;
+    public Duration getRegistrationCodeTtl() {
+        return registrationCodeTtl;
     }
 
-    public void setVerificationTtl(Duration verificationTtl) {
-        this.verificationTtl = verificationTtl;
+    public void setRegistrationCodeTtl(Duration registrationCodeTtl) {
+        this.registrationCodeTtl = registrationCodeTtl;
+    }
+
+    public Duration getRegistrationSetupTtl() {
+        return registrationSetupTtl;
+    }
+
+    public void setRegistrationSetupTtl(Duration registrationSetupTtl) {
+        this.registrationSetupTtl = registrationSetupTtl;
     }
 
     public Duration getResetPasswordTtl() {
