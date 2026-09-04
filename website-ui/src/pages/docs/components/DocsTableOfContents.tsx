@@ -59,7 +59,7 @@ export default function DocsTableOfContents({ items }: DocsTableOfContentsProps)
             <a
               aria-current={isActive ? 'location' : undefined}
               className={[
-                'block py-1 transition-colors hover:text-[#20201e]',
+                'block py-1 hover:text-[#20201e]',
                 item.level === 3 ? 'pl-4' : 'pl-0',
                 isActive ? 'font-semibold text-yak-brand' : '',
               ]
