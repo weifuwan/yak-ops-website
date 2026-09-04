@@ -9,11 +9,8 @@ export type HomeUseCaseId =
 
 export interface HomeUseCaseContent {
   id: HomeUseCaseId;
-  eyebrow: string;
-  title: string;
-  description: string;
-  sourceLabel: string;
-  outputLabel: string;
+  prompt: string;
+  stageColor: string;
 }
 
 interface HomeUseCasePreviewProps {
@@ -103,7 +100,7 @@ function Metric({ value, label }: { value: string; label: string }) {
 
 function WorkflowsPreview() {
   return (
-    <WindowShell label="Workflow / daily_revenue_pipeline">
+    <WindowShell label="Generated workflow · daily_revenue_pipeline">
       <div className="flex h-full flex-col justify-center p-5">
         <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-2">
           {["PostgreSQL", "Transform", "Warehouse"].map((label, index) => (
@@ -111,13 +108,19 @@ function WorkflowsPreview() {
               <div className="rounded-lg border border-solid border-[#D1CFC5] p-3">
                 <div className="flex items-center gap-2">
                   <StatusDot tone="success" />
-                  <span className="truncate text-[10px] font-medium text-[#343330]">{label}</span>
+                  <span className="truncate text-[10px] font-medium text-[#343330]">
+                    {label}
+                  </span>
                 </div>
                 <div className="mt-3 h-1.5 rounded-full bg-[#E8E6DC]">
                   <div className="h-full w-3/4 rounded-full bg-[#B0AEA5]" />
                 </div>
               </div>
-              {index < 2 ? <span className="text-[#9C9A92]" aria-hidden="true">→</span> : null}
+              {index < 2 ? (
+                <span className="text-[#9C9A92]" aria-hidden="true">
+                  →
+                </span>
+              ) : null}
             </div>
           ))}
         </div>
@@ -126,9 +129,11 @@ function WorkflowsPreview() {
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2 text-[10px] text-[#343330]">
               <StatusDot tone="running" />
-              Running
+              Scheduled · 02:00 daily
             </span>
-            <span className="text-[9px] text-[#73726C] [font-family:'Yak_Mono',monospace]">03:42 / 04:10</span>
+            <span className="text-[9px] text-[#73726C] [font-family:'Yak_Mono',monospace]">
+              retry ×2
+            </span>
           </div>
           <div className="mt-3 h-1.5 rounded-full bg-[#DEDCD1]">
             <div className="h-full w-[82%] rounded-full bg-[#C96442]" />
@@ -141,22 +146,34 @@ function WorkflowsPreview() {
 
 function IntegrationPreview() {
   return (
-    <WindowShell label="Data integration / customer_360">
+    <WindowShell label="Sync plan · customer_360">
       <div className="grid h-full grid-cols-[0.85fr_1.15fr] items-center gap-4 p-5">
         <div className="space-y-2">
           {["MySQL / orders", "Kafka / events", "S3 / exports"].map((source) => (
-            <div key={source} className="flex items-center justify-between rounded-lg border border-solid border-[#D1CFC5] px-3 py-2.5">
+            <div
+              key={source}
+              className="flex items-center justify-between rounded-lg border border-solid border-[#D1CFC5] px-3 py-2.5"
+            >
               <span className="text-[9px] text-[#343330]">{source}</span>
               <StatusDot tone="success" />
             </div>
           ))}
         </div>
         <div className="rounded-xl bg-[#F0EEE6] p-4">
-          <div className="text-[9px] uppercase tracking-[0.08em] text-[#87867F]">Destination</div>
-          <div className="mt-2 text-[17px] font-medium text-[#181817] [font-family:'Yak_Serif',Georgia,sans-serif]">Customer 360</div>
+          <div className="text-[9px] uppercase tracking-[0.08em] text-[#87867F]">
+            Destination
+          </div>
+          <div className="mt-2 text-[17px] font-medium text-[#181817] [font-family:'Yak_Serif',Georgia,sans-serif]">
+            Customer 360
+          </div>
           <div className="mt-4 grid grid-cols-2 gap-2">
             {["1.2M rows", "3 sources", "CDC on", "2m lag"].map((metric) => (
-              <div key={metric} className="rounded-md bg-white px-2 py-2 text-[9px] text-[#5E5D59]">{metric}</div>
+              <div
+                key={metric}
+                className="rounded-md bg-white px-2 py-2 text-[9px] text-[#5E5D59]"
+              >
+                {metric}
+              </div>
             ))}
           </div>
         </div>
@@ -174,7 +191,7 @@ function QualityPreview() {
   ] as const;
 
   return (
-    <WindowShell label="Data quality / orders_daily">
+    <WindowShell label="Quality report · orders_daily">
       <div className="flex h-full flex-col justify-center p-5">
         <div className="grid grid-cols-3 gap-2">
           <Metric value="98.7%" label="Score" />
@@ -183,7 +200,14 @@ function QualityPreview() {
         </div>
         <div className="mt-4 overflow-hidden rounded-lg border border-solid border-[#D1CFC5]">
           {rules.map(([rule, status], index) => (
-            <div key={rule} className={`flex items-center justify-between px-3 py-2.5 ${index === rules.length - 1 ? "" : "border-b border-solid border-[#E8E6DC]"}`}>
+            <div
+              key={rule}
+              className={`flex items-center justify-between px-3 py-2.5 ${
+                index === rules.length - 1
+                  ? ""
+                  : "border-b border-solid border-[#E8E6DC]"
+              }`}
+            >
               <span className="flex items-center gap-2 text-[9px] text-[#343330]">
                 <StatusDot tone={status === "Passed" ? "success" : "running"} />
                 {rule}
@@ -199,12 +223,16 @@ function QualityPreview() {
 
 function ServicesPreview() {
   return (
-    <WindowShell label="Data service / customer-profile-api">
+    <WindowShell label="Published API · customer-profile-api">
       <div className="flex h-full flex-col justify-center p-5">
         <div className="rounded-xl border border-solid border-[#D1CFC5] p-4">
           <div className="flex items-center gap-3">
-            <span className="rounded bg-[#181817] px-2 py-1 text-[9px] font-semibold text-white">GET</span>
-            <code className="text-[10px] text-[#343330]">/api/v1/customers/:id</code>
+            <span className="rounded bg-[#181817] px-2 py-1 text-[9px] font-semibold text-white">
+              GET
+            </span>
+            <code className="text-[10px] text-[#343330]">
+              /api/v1/customers/:id
+            </code>
           </div>
           <div className="mt-4 grid grid-cols-3 gap-2">
             <Metric value="API key" label="Authentication" />
@@ -214,7 +242,9 @@ function ServicesPreview() {
         </div>
         <div className="mt-3 rounded-lg bg-[#141413] p-3 [font-family:'Yak_Mono',monospace]">
           <div className="text-[9px] text-[#9C9A92]">200 OK · 42 ms</div>
-          <div className="mt-2 text-[9px] leading-[1.55] text-[#E8E6DC]">{`{"customer_id":"C-1048","segment":"active"}`}</div>
+          <div className="mt-2 text-[9px] leading-[1.55] text-[#E8E6DC]">
+            {`{"customer_id":"C-1048","segment":"active"}`}
+          </div>
         </div>
       </div>
     </WindowShell>
@@ -229,25 +259,36 @@ function OperationsPreview() {
   ] as const;
 
   return (
-    <WindowShell label="Operations / executions">
+    <WindowShell label="Operations summary · last 60 minutes">
       <div className="flex h-full flex-col justify-center p-5">
         <div className="grid grid-cols-3 gap-2">
           <Metric value="99.4%" label="Success rate" />
           <Metric value="18" label="Running" />
-          <Metric value="2.4m" label="Rows / min" />
+          <Metric value="2" label="Needs attention" />
         </div>
         <div className="mt-4 overflow-hidden rounded-lg border border-solid border-[#D1CFC5]">
           <div className="grid grid-cols-[1fr_auto_auto] gap-4 border-b border-solid border-[#E8E6DC] px-3 py-2 text-[8px] uppercase tracking-[0.06em] text-[#87867F]">
-            <span>Job</span><span>Status</span><span>Duration</span>
+            <span>Job</span>
+            <span>Status</span>
+            <span>Duration</span>
           </div>
           {runs.map(([job, status, duration], index) => (
-            <div key={job} className={`grid grid-cols-[1fr_auto_auto] items-center gap-4 px-3 py-2.5 text-[9px] ${index === runs.length - 1 ? "" : "border-b border-solid border-[#E8E6DC]"}`}>
+            <div
+              key={job}
+              className={`grid grid-cols-[1fr_auto_auto] items-center gap-4 px-3 py-2.5 text-[9px] ${
+                index === runs.length - 1
+                  ? ""
+                  : "border-b border-solid border-[#E8E6DC]"
+              }`}
+            >
               <span className="text-[#343330]">{job}</span>
               <span className="flex items-center gap-2 text-[#5E5D59]">
                 <StatusDot tone={status === "Running" ? "running" : "success"} />
                 {status}
               </span>
-              <span className="text-[#87867F] [font-family:'Yak_Mono',monospace]">{duration}</span>
+              <span className="text-[#87867F] [font-family:'Yak_Mono',monospace]">
+                {duration}
+              </span>
             </div>
           ))}
         </div>
@@ -258,20 +299,30 @@ function OperationsPreview() {
 
 function ProductPreview({ id }: { id: HomeUseCaseId }) {
   switch (id) {
-    case "workflows": return <WorkflowsPreview />;
-    case "integration": return <IntegrationPreview />;
-    case "quality": return <QualityPreview />;
-    case "services": return <ServicesPreview />;
-    case "operations": return <OperationsPreview />;
-    default: return null;
+    case "workflows":
+      return <WorkflowsPreview />;
+    case "integration":
+      return <IntegrationPreview />;
+    case "quality":
+      return <QualityPreview />;
+    case "services":
+      return <ServicesPreview />;
+    case "operations":
+      return <OperationsPreview />;
+    default:
+      return null;
   }
 }
 
-function MetadataCard({ title, children }: { title: string; children: ReactNode }) {
+function PromptCard({ prompt }: { prompt: string }) {
   return (
     <div className="flex w-full flex-col gap-2 rounded-xl bg-[#141413] p-4 text-[#FAF9F5]">
-      <div className="text-[11px] font-medium leading-[1.6] [font-family:'Yak_Sans',Arial,sans-serif]">{title}</div>
-      {children}
+      <div className="text-[11px] font-medium leading-[1.6] [font-family:'Yak_Sans',Arial,sans-serif]">
+        Prompt
+      </div>
+      <p className="m-0 text-[11px] leading-[1.6] text-[#B0AEA5] [font-family:'Yak_Sans',Arial,sans-serif]">
+        {prompt}
+      </p>
     </div>
   );
 }
@@ -286,23 +337,8 @@ export default function HomeUseCasePreview({ useCase }: HomeUseCasePreviewProps)
           <ProductPreview id={useCase.id} />
         </div>
 
-        <aside className="flex flex-col justify-center gap-2 px-6 pb-8 sm:px-10 lg:col-start-9 lg:col-end-13 lg:px-0 lg:py-8 lg:pr-16">
-          <MetadataCard title="Prompt">
-            <p className="m-0 text-[11px] leading-[1.6] text-[#B0AEA5] [font-family:'Yak_Sans',Arial,sans-serif]">{useCase.description}</p>
-          </MetadataCard>
-
-          <MetadataCard title="Flow">
-            <div className="rounded-lg border border-solid border-[#3D3D3A] p-2.5 [font-family:'Yak_Sans',Arial,sans-serif]">
-              <div className="flex items-start gap-3">
-                <span className="w-10 shrink-0 text-[10px] text-[#87867F]">From</span>
-                <span className="text-[10px] leading-[1.5] text-[#E8E6DC]">{useCase.sourceLabel}</span>
-              </div>
-              <div className="mt-2 flex items-start gap-3 border-t border-solid border-[#343330] pt-2">
-                <span className="w-10 shrink-0 text-[10px] text-[#87867F]">To</span>
-                <span className="text-[10px] leading-[1.5] text-[#E8E6DC]">{useCase.outputLabel}</span>
-              </div>
-            </div>
-          </MetadataCard>
+        <aside className="flex flex-col justify-center px-6 pb-8 sm:px-10 lg:col-start-9 lg:col-end-13 lg:px-0 lg:py-8 lg:pr-16">
+          <PromptCard prompt={useCase.prompt} />
         </aside>
       </div>
     </div>
