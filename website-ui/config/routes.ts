@@ -98,14 +98,6 @@ export default [
     component: '@/pages/auth/login',
   },
   {
-    path: '/register',
-    component: '@/pages/auth/register',
-  },
-  {
-    path: '/verify-email',
-    component: '@/pages/auth/verify-email',
-  },
-  {
     path: '/forgot-password',
     component: '@/pages/auth/forgot-password',
   },

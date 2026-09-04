@@ -137,7 +137,33 @@ public class WebsiteAccountRepository {
                         rs.getLong("security_user_id")),
                 tokenHash,
                 purpose.name());
-        Optional<TokenRecord> token = tokens.stream().findFirst();
+        return consume(tokens.stream().findFirst());
+    }
+
+    public Optional<TokenRecord> consumeTokenForUser(
+            Long securityUserId,
+            String tokenHash,
+            TokenPurpose purpose) {
+        List<TokenRecord> tokens = jdbcTemplate.query(
+                """
+                SELECT id, security_user_id
+                FROM website_account_token
+                WHERE security_user_id = ?
+                  AND token_hash = ?
+                  AND purpose = ?
+                  AND used_at IS NULL
+                  AND expires_at > CURRENT_TIMESTAMP(3)
+                """,
+                (rs, rowNum) -> new TokenRecord(
+                        rs.getLong("id"),
+                        rs.getLong("security_user_id")),
+                securityUserId,
+                tokenHash,
+                purpose.name());
+        return consume(tokens.stream().findFirst());
+    }
+
+    private Optional<TokenRecord> consume(Optional<TokenRecord> token) {
         if (token.isEmpty()) {
             return Optional.empty();
         }

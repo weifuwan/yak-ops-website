@@ -1,10 +1,19 @@
-export type RegisterAccountPayload = {
+export type RegistrationEmailPayload = {
   email: string;
-  password: string;
   source?: string;
   utmSource?: string;
   utmMedium?: string;
   utmCampaign?: string;
+};
+
+export type VerifyRegistrationCodePayload = {
+  email: string;
+  code: string;
+};
+
+export type CompleteRegistrationPayload = {
+  setupToken: string;
+  password: string;
 };
 
 export type LoginAccountPayload = {
@@ -13,6 +22,11 @@ export type LoginAccountPayload = {
 };
 
 export type AccountMessage = {
+  message: string;
+};
+
+export type RegistrationVerificationResult = {
+  setupToken: string;
   message: string;
 };
 

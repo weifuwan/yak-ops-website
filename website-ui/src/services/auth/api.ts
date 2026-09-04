@@ -1,21 +1,28 @@
 import { apiRequest, postJson } from '@/services/http/client';
 import type {
   AccountMessage,
+  CompleteRegistrationPayload,
   CurrentWebsiteUser,
   LoginAccountPayload,
-  RegisterAccountPayload,
+  RegistrationEmailPayload,
+  RegistrationVerificationResult,
+  VerifyRegistrationCodePayload,
 } from './types';
 
 const AUTH_API = '/api/v1/auth';
 
-export const registerAccount = (payload: RegisterAccountPayload): Promise<AccountMessage> =>
-  postJson<AccountMessage>(`${AUTH_API}/register`, payload);
+export const requestRegistrationCode = (payload: RegistrationEmailPayload): Promise<AccountMessage> =>
+  postJson<AccountMessage>(`${AUTH_API}/register/request-code`, payload);
 
-export const verifyAccountEmail = (token: string): Promise<AccountMessage> =>
-  postJson<AccountMessage>(`${AUTH_API}/verify-email`, { token });
+export const verifyRegistrationCode = (
+  payload: VerifyRegistrationCodePayload,
+): Promise<RegistrationVerificationResult> =>
+  postJson<RegistrationVerificationResult>(`${AUTH_API}/register/verify-code`, payload);
 
-export const resendVerificationEmail = (email: string): Promise<AccountMessage> =>
-  postJson<AccountMessage>(`${AUTH_API}/resend-verification`, { email });
+export const completeRegistration = (
+  payload: CompleteRegistrationPayload,
+): Promise<CurrentWebsiteUser> =>
+  postJson<CurrentWebsiteUser>(`${AUTH_API}/register/complete`, payload);
 
 export const loginAccount = (payload: LoginAccountPayload): Promise<CurrentWebsiteUser> =>
   postJson<CurrentWebsiteUser>(`${AUTH_API}/login`, payload);

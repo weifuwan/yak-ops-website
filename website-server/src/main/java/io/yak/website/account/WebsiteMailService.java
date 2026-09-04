@@ -1,5 +1,6 @@
 package io.yak.website.account;
 
+import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 public interface WebsiteMailService {
 
-    void sendVerification(String email, String verificationUrl);
+    void sendRegistrationCode(String email, String code, Duration validFor);
 
     void sendPasswordReset(String email, String resetUrl);
 }
@@ -25,8 +26,12 @@ class LoggingWebsiteMailService implements WebsiteMailService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggingWebsiteMailService.class);
 
     @Override
-    public void sendVerification(String email, String verificationUrl) {
-        LOGGER.info("[DEV MAIL] Verify Yak Ops account: recipient={}, url={}", email, verificationUrl);
+    public void sendRegistrationCode(String email, String code, Duration validFor) {
+        LOGGER.info(
+                "[DEV MAIL] Yak Ops registration code: recipient={}, code={}, validFor={}",
+                email,
+                code,
+                validFor);
     }
 
     @Override
@@ -50,13 +55,16 @@ class SmtpWebsiteMailService implements WebsiteMailService {
     }
 
     @Override
-    public void sendVerification(String email, String verificationUrl) {
+    public void sendRegistrationCode(String email, String code, Duration validFor) {
+        long minutes = Math.max(1L, validFor.toMinutes());
         send(
                 email,
-                "Verify your Yak Ops account",
-                "Welcome to Yak Ops. Verify your email to activate your account:\n\n"
-                        + verificationUrl
-                        + "\n\nThis link expires in 24 hours.");
+                "Your Yak Ops verification code",
+                "Use this verification code to create your Yak Ops account:\n\n"
+                        + code
+                        + "\n\nThis code expires in "
+                        + minutes
+                        + " minutes. If you did not request this, ignore this email.");
     }
 
     @Override
