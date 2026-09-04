@@ -22,7 +22,7 @@ export default function HomeClosingSection() {
             y: 0,
           }}
           viewport={{
-            once: true,
+            once: Boolean(shouldReduceMotion),
             amount: 0.4,
           }}
           transition={{
