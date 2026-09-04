@@ -11,48 +11,33 @@ import HomeUseCasePreview, {
 const USE_CASES: HomeUseCaseContent[] = [
   {
     id: "workflows",
-    eyebrow: "Workflow orchestration",
-    title: "Build reliable pipelines without hiding the flow.",
-    description:
-      "Model dependencies visually, schedule each step, pass parameters, and keep retries and execution state in one place.",
-    sourceLabel: "PostgreSQL · Orders",
-    outputLabel: "Warehouse · Revenue mart",
+    prompt:
+      "Create a daily revenue workflow. Read orders from PostgreSQL at 02:00, transform revenue metrics, load the warehouse, and retry failed transforms twice.",
+    stageColor: "#CBCADB",
   },
   {
     id: "integration",
-    eyebrow: "Data integration",
-    title: "Move data across systems with a clear contract.",
-    description:
-      "Bring batch, CDC, and event sources into governed destinations while keeping connectors, mappings, and runtime state visible.",
-    sourceLabel: "MySQL · Kafka · S3",
-    outputLabel: "Lakehouse · Customer 360",
+    prompt:
+      "Sync MySQL orders, Kafka customer events, and S3 exports into a Customer 360 dataset. Keep CDC enabled and show source health and sync lag.",
+    stageColor: "#D97757",
   },
   {
     id: "quality",
-    eyebrow: "Data quality",
-    title: "Catch bad data before it reaches the business.",
-    description:
-      "Run validation rules with every pipeline, surface drift and anomalies, and make failed checks easy to trace and review.",
-    sourceLabel: "Orders · Daily partition",
-    outputLabel: "Validated · Trusted dataset",
+    prompt:
+      "Check today's orders dataset for duplicate order IDs, missing amounts, row-count drift, and invalid currencies. Show the overall quality score and anything that needs review.",
+    stageColor: "#BCD1CA",
   },
   {
     id: "services",
-    eyebrow: "Data services",
-    title: "Turn trusted datasets into governed APIs.",
-    description:
-      "Publish data services with authentication, rate limits, access control, blacklists, and auditability built into the delivery path.",
-    sourceLabel: "Customer profile dataset",
-    outputLabel: "REST API · Controlled access",
+    prompt:
+      "Publish the customer profile dataset as GET /api/v1/customers/:id. Require an API key, limit traffic to 600 requests per minute, and enable audit logging.",
+    stageColor: "#EBC9B7",
   },
   {
     id: "operations",
-    eyebrow: "Operations",
-    title: "Operate every data job from one control surface.",
-    description:
-      "Monitor executions, inspect logs, follow metrics and notifications, and understand what changed without jumping between systems.",
-    sourceLabel: "Workflows · Sync · Quality",
-    outputLabel: "Runs · Logs · Alerts",
+    prompt:
+      "Summarize workflow activity from the last hour. Show running jobs, failed jobs, durations, and the metrics I need to investigate first.",
+    stageColor: "#C46686",
   },
 ];
 
@@ -271,7 +256,8 @@ export default function HomeUseCasesSection() {
             delay: shouldReduceMotion ? 0 : 0.08,
             ease: HOME_EASE,
           }}
-          className="mt-4 overflow-hidden rounded-[clamp(1rem,0.714286rem+1.42857vw,2rem)] bg-[#CBCADB] lg:col-start-2 lg:col-end-12"
+          style={{ backgroundColor: activeUseCase.stageColor }}
+          className="mt-4 overflow-hidden rounded-[clamp(1rem,0.714286rem+1.42857vw,2rem)] transition-colors duration-500 lg:col-start-2 lg:col-end-12"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
