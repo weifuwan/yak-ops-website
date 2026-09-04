@@ -1,93 +1,67 @@
+import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { HOME_EASE } from "../constants";
 
-const FEATURES = [
+type Feature = {
+  title: string;
+  description: string;
+  icon: ReactNode;
+};
+
+const FEATURES: Feature[] = [
   {
     title: "Build workflows visually",
     description:
       "Connect sources, transformations, and destinations into clear, maintainable data workflows.",
     icon: (
-      <svg
-        viewBox="0 0 20 20"
-        fill="none"
-        className="h-5 w-5"
-        aria-hidden="true"
-      >
-        <circle
-          cx="5"
-          cy="5"
-          r="2"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        />
-        <circle
-          cx="15"
-          cy="5"
-          r="2"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        />
-        <circle
-          cx="10"
-          cy="15"
-          r="2"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        />
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+        <circle cx="6" cy="6" r="2.25" stroke="currentColor" strokeWidth="1.4" />
+        <circle cx="18" cy="6" r="2.25" stroke="currentColor" strokeWidth="1.4" />
+        <circle cx="12" cy="18" r="2.25" stroke="currentColor" strokeWidth="1.4" />
         <path
-          d="M6.8 6.2L9 12.8M13.2 6.2L11 12.8M7 5H13"
+          d="M8.1 7.2L10.8 15.7M15.9 7.2L13.2 15.7M8.5 6H15.5"
           stroke="currentColor"
-          strokeWidth="1.1"
+          strokeWidth="1.3"
           strokeLinecap="round"
         />
       </svg>
     ),
   },
   {
-    title: "Operate with confidence",
+    title: "Move data reliably",
     description:
-      "Schedule jobs, monitor executions, inspect logs, and keep every data operation visible.",
+      "Run batch and real-time syncs across systems with reusable connectors, transforms, and validation.",
     icon: (
-      <svg
-        viewBox="0 0 20 20"
-        fill="none"
-        className="h-5 w-5"
-        aria-hidden="true"
-      >
-        <path
-          d="M3 16.5H17"
-          stroke="currentColor"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
-        <rect
-          x="4"
-          y="10"
-          width="2.5"
-          height="5"
-          rx="0.7"
-          stroke="currentColor"
-          strokeWidth="1.1"
-        />
-        <rect
-          x="8.75"
-          y="5"
-          width="2.5"
-          height="10"
-          rx="0.7"
-          stroke="currentColor"
-          strokeWidth="1.1"
-        />
-        <rect
-          x="13.5"
-          y="7.5"
-          width="2.5"
-          height="7.5"
-          rx="0.7"
-          stroke="currentColor"
-          strokeWidth="1.1"
-        />
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+        <rect x="3.5" y="5" width="5.5" height="5.5" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
+        <rect x="15" y="13.5" width="5.5" height="5.5" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M9 7.75H15.5C17.2 7.75 18.5 9.1 18.5 10.75V13.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M15.7 11.2L18.5 14L21.3 11.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Keep data trustworthy",
+    description:
+      "Profile datasets, define quality rules, surface anomalies, and keep checks visible before bad data spreads.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+        <path d="M5 6H19M5 12H19M5 18H14" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M3 6L3.8 6.8L5.3 5.3M3 12L3.8 12.8L5.3 11.3M17 18L18.7 19.7L22 16.4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Trace every dependency",
+    description:
+      "Follow lineage across jobs and datasets so teams can understand impact before making a change.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+        <rect x="3" y="4" width="6" height="5" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
+        <rect x="15" y="15" width="6" height="5" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
+        <rect x="15" y="4" width="6" height="5" rx="1.2" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M9 6.5H15M6 9V13C6 15.5 8 17.5 10.5 17.5H15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -96,34 +70,22 @@ const FEATURES = [
     description:
       "Expose trusted data through APIs with authentication, rate limits, governance, and auditability.",
     icon: (
-      <svg
-        viewBox="0 0 20 20"
-        fill="none"
-        className="h-5 w-5"
-        aria-hidden="true"
-      >
-        <rect
-          x="3"
-          y="4"
-          width="14"
-          height="12"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.2"
-        />
-        <path
-          d="M6 8L8 10L6 12"
-          stroke="currentColor"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M11 12H14"
-          stroke="currentColor"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+        <rect x="3" y="4.5" width="18" height="15" rx="2.5" stroke="currentColor" strokeWidth="1.4" />
+        <path d="M7 9L10 12L7 15M13.5 15H17" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Operate with confidence",
+    description:
+      "Schedule jobs, monitor executions, inspect logs and metrics, and keep every data operation visible.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+        <path d="M3 20H21" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <rect x="4.5" y="12.5" width="3.5" height="6" rx="0.9" stroke="currentColor" strokeWidth="1.4" />
+        <rect x="10.25" y="5" width="3.5" height="13.5" rx="0.9" stroke="currentColor" strokeWidth="1.4" />
+        <rect x="16" y="8.5" width="3.5" height="10" rx="0.9" stroke="currentColor" strokeWidth="1.4" />
       </svg>
     ),
   },
@@ -133,59 +95,37 @@ export default function HomeFeatureList() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="flex flex-col">
+    <div className="grid grid-cols-1 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-y-16">
       {FEATURES.map((item, index) => (
-        <motion.div
+        <motion.article
           key={item.title}
           initial={
             shouldReduceMotion
               ? { opacity: 0 }
               : {
                   opacity: 0,
-                  y: 20,
+                  y: 18,
                 }
           }
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{
-            duration: shouldReduceMotion ? 0.2 : 0.65,
-            delay: shouldReduceMotion ? 0 : index * 0.12,
+            duration: shouldReduceMotion ? 0.2 : 0.6,
+            delay: shouldReduceMotion ? 0 : (index % 3) * 0.08,
             ease: HOME_EASE,
           }}
-          className="border-t  py-8 first:mt-0"
+          className="min-h-[214px] border-l border-solid border-[#D1CFC5] px-8 py-3 sm:px-9 lg:px-10 xl:px-12"
         >
-          <div className="flex gap-3 items-center text-[#181817]">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center text-[#5E5D59]">
-              {item.icon}
-            </div>
+          <div className="text-[#6A6964]">{item.icon}</div>
 
-            <h3
-              className="
-                m-0
-                text-[clamp(1.125rem,1rem+0.4vw,1.35rem)]
-                font-medium
-                leading-6
-                [font-family:'Yak_Serif',Georgia,sans-serif]
-              "
-            >
-              {item.title}
-            </h3>
-          </div>
+          <h3 className="m-0 mt-10 text-[clamp(1.2rem,1.08rem+0.35vw,1.45rem)] font-medium leading-[1.2] text-[#181817] [font-family:'Yak_Serif',Georgia,sans-serif]">
+            {item.title}
+          </h3>
 
-          <p
-            className="
-              mb-0
-              mt-4
-              max-w-[31ch]
-              text-[15px]
-              leading-[1.6]
-              text-[#5E5D59]
-              [font-family:'Yak_Sans',Arial,sans-serif]
-            "
-          >
+          <p className="mb-0 mt-3 max-w-[36ch] text-[15px] leading-[1.62] text-[#66645F] [font-family:'Yak_Sans',Arial,sans-serif]">
             {item.description}
           </p>
-        </motion.div>
+        </motion.article>
       ))}
     </div>
   );
