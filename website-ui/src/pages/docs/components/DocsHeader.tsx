@@ -71,7 +71,7 @@ export default function DocsHeader({
   onUnauthorized,
 }: DocsHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 border-b  bg-[#faf9f5]/95 text-[#1f1f1d] backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b  bg-[#FDFDF7] text-[#1f1f1d] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-[92rem] items-center gap-4 px-5 lg:px-8">
         <div className="flex min-w-0 flex-1 items-center lg:min-w-[230px] lg:flex-none">
           <button
@@ -111,7 +111,8 @@ export default function DocsHeader({
         </div>
       </div>
 
-      <div className="border-t " style={{borderTop: "1px solid rgb(31 30 29 / 0.035)"}}>
+      <div className="border-t " style={{borderTop: "1px solid rgb(31 30 29 / 0.035)", 
+        borderBottom: "1px solid rgb(31 30 29 / 0.035)", marginBottom: 40}}>
         <nav
           aria-label="Documentation sections"
           className="mx-auto flex h-12 max-w-[80rem] items-stretch gap-6 overflow-x-auto px-5 text-sm [scrollbar-width:none] lg:px-8 [&::-webkit-scrollbar]:hidden"
