@@ -33,7 +33,7 @@ export default function HomeUseCasesSection() {
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.12 }}
+          viewport={{ once: Boolean(shouldReduceMotion), amount: 0.12 }}
           transition={{
             duration: shouldReduceMotion ? 0.2 : 0.7,
             delay: shouldReduceMotion ? 0 : 0.08,
