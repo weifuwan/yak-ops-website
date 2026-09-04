@@ -162,7 +162,7 @@ export default function HomeDataStackSection() {
             }}
             className="max-w-[31rem] lg:max-w-none"
           >
-            <h2 className="m-0 text-[clamp(2.25rem,1.946429rem+1.517857vw,3.3125rem)] font-medium leading-[1.04] tracking-[-0.025em] text-[#181817] [font-family:'Yak_Serif',Georgia,sans-serif]">
+            <h2 className="m-0 text-[clamp(2.25rem,1.946429rem+1.517857vw,3.3125rem)] font-medium leading-[1.04]  text-[#181817] [font-family:'Yak_Serif',Georgia,sans-serif]">
               Built to fit your stack
             </h2>
 

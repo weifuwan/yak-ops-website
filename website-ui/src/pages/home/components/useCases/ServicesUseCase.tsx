@@ -121,7 +121,7 @@ export default function ServicesUseCase() {
           {/* Header */}
           <div className="flex items-start justify-between gap-4 px-0.5">
             <div className="min-w-0">
-              <div className="text-[14px] font-semibold tracking-[-0.025em] text-[#1B1A18]">
+              <div className="text-[14px] font-semibold text-[#1B1A18]">
                 Customers API
               </div>
 

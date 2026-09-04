@@ -499,7 +499,6 @@ export default function LineageUseCase() {
                   text-[19px]
                   font-medium
                   leading-none
-                  tracking-[-0.025em]
                   text-[#171614]
                   [font-family:'Yak_Serif',Georgia,serif]
                 "

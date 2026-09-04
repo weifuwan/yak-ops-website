@@ -188,7 +188,7 @@ function MetricTile({
       </span>
 
       <div className="min-w-0">
-        <div className="text-[16px] font-semibold tracking-[-0.03em] text-[#24211F]">
+        <div className="text-[16px] font-semibold  text-[#24211F]">
           {value}
         </div>
         <div className="mt-0.5 text-[9px] text-[#878079]">{label}</div>

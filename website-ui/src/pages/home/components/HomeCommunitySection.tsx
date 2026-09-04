@@ -99,7 +99,7 @@ export default function HomeCommunitySection() {
           }}
           className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8"
         >
-          <h2 className="m-0 max-w-[12ch] text-[clamp(2.5rem,2.035714rem+2.321429vw,4.125rem)] font-medium leading-[1.04] tracking-[-0.025em] text-[#181817] lg:col-span-5 [font-family:'Yak_Serif',Georgia,sans-serif]">
+          <h2 className="m-0 max-w-[12ch] text-[clamp(2.5rem,2.035714rem+2.321429vw,4.125rem)] font-medium leading-[1.04]  text-[#181817] lg:col-span-5 [font-family:'Yak_Serif',Georgia,sans-serif]">
             Built with the community
           </h2>
 
