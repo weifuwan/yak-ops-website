@@ -1,22 +1,22 @@
-# Yak Ops 概览
+# Yak Ops Overview
 
-Yak Ops 面向数据工程与数据治理场景，把数据接入、开发、质量、血缘与运行放在同一套工作流里理解。文档站本身需要登录后访问，文档源继续保存在 Git 中，便于和代码一起评审、回滚和演进。
+Yak Ops is built for data engineering and data governance. It brings data ingestion, development, quality, lineage, and operations into one coherent workflow. The documentation site requires authentication, while the source remains in Git so documentation can be reviewed, rolled back, and evolved alongside the code.
 
-## 现在先了解什么
+## What to learn first
 
-第一版文档只保留两条最必要的入口：
+The first documentation pass intentionally keeps only two essential entry points:
 
-- **Yak Ops 概览**：理解产品定位、能力边界和文档组织方式。
-- **快速开始**：先建立一条从数据进入平台到产出结果的完整心智模型。
+- **Yak Ops Overview**: understand the product positioning, capability boundaries, and documentation structure.
+- **Quick Start**: build a complete mental model of how data moves through Yak Ops from ingestion to usable results.
 
-具体模块的独立章节会在内容准备完成后再逐步补充，而不是先把空导航占位放出来。
+Dedicated chapters for individual modules will be added only when the content is ready, rather than publishing empty navigation placeholders in advance.
 
-> 文档描述产品边界和使用思路。仍在快速变化的实现细节不会为了“看起来完整”而提前写死。
+> The documentation describes product boundaries and how to think about using Yak Ops. Implementation details that are still changing quickly are not frozen early just to make the documentation look complete.
 
-## 推荐阅读顺序
+## Recommended reading order
 
-如果你第一次接触 Yak Ops，先读当前这篇概览，再进入「快速开始」。这两篇足以建立第一层认知，后续模块文档会基于同一套结构继续扩展。
+If you are new to Yak Ops, read this overview first and then continue to **Quick Start**. These two pages are enough to establish the first layer of understanding. Future module documentation will extend the same structure.
 
-## 文档如何保持可信
+## How the documentation stays trustworthy
 
-这套文档不从数据库动态生成，也不在前端仓库里维护第二份副本。`docs/` 是唯一内容源，导航顺序由 `navigation.json` 明确声明，内容只会被打进后端制品并通过登录态保护的 API 下发。
+The documentation is not generated dynamically from a database, and the frontend does not maintain a second copy. `docs/` is the single source of truth, while `navigation.json` explicitly defines the navigation order. The content is packaged only with the backend artifact and delivered through an authentication-protected API.
