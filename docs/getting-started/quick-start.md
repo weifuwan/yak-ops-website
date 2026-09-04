@@ -1,39 +1,39 @@
-# 快速开始
+# Quick Start
 
-这一页不试图堆满按钮和参数，而是先把 Yak Ops 的核心链路串起来。真正进入具体模块时，再根据任务类型查看后续补充的对应章节。
+This page does not try to fill the screen with buttons and configuration options. It first connects the core Yak Ops workflow end to end. When you move into a specific module, you can then use the corresponding chapter for task-level details.
 
-## 一条典型的数据链路
+## A typical data flow
 
-可以把日常工作理解成下面这条路径：
+You can think of day-to-day work as the following path:
 
 ```text
-数据源
+Data source
   ↓
-离线同步 / 实时同步
+Batch sync / real-time sync
   ↓
-数据开发与加工
+Data development and transformation
   ↓
-数据质量检查
+Data quality checks
   ↓
-质量结果 / 运行记录 / 血缘关系
+Quality results / run history / lineage
 ```
 
-这几步不是彼此孤立的功能页。同步任务解决“数据如何到达”，开发任务解决“数据如何产生”，质量检查解决“结果是否符合预期”，血缘则回答“这次变化会影响谁”。
+These steps are not isolated feature pages. Sync tasks answer **how data arrives**, development tasks answer **how data is produced or transformed**, quality checks answer **whether the result meets expectations**, and lineage answers **who will be affected by a change**.
 
-## 开始前先确认三件事
+## Confirm three things before you start
 
-### 数据来源是否明确
+### Is the data source clear?
 
-确认数据来自哪个系统、更新频率如何、是否需要增量或实时处理。时效要求不同，后续选择的同步方式和运行策略也会不同。
+Confirm which system the data comes from, how frequently it changes, and whether the workload requires incremental or real-time processing. Different freshness requirements lead to different synchronization methods and runtime strategies.
 
-### 任务结果如何判断成功
+### How do you determine whether the task succeeded?
 
-不要只看任务是否执行结束。还需要明确数据量、字段完整性、业务规则或下游可用性等验收口径。
+Do not judge success only by whether a task finished running. Define acceptance criteria such as row counts, field completeness, business rules, and downstream usability as well.
 
-### 出现问题时从哪里追
+### Where do you investigate when something goes wrong?
 
-优先建立“任务 → 运行记录 → 结果 → 上下游”的排查顺序。Yak Ops 后续文档也会尽量按照这个顺序组织，而不是只解释单个页面上的控件。
+Start with the sequence **task → run history → result → upstream/downstream**. Future Yak Ops documentation will follow the same troubleshooting flow whenever possible instead of explaining controls on individual screens in isolation.
 
-## 下一步
+## Next step
 
-先用这条链路建立整体认知即可。数据集成、数据开发、数据质量、数据血缘和部署等模块会在内容准备完成后，再作为独立文档入口逐步补充。
+For now, use this flow to build an overall mental model. Documentation for data integration, data development, data quality, data lineage, deployment, and other modules will be added as standalone entry points once the content is ready.
