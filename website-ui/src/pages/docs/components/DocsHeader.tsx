@@ -44,7 +44,7 @@ export default function DocsHeader({
   const startSlug = startSection?.items[0]?.slug ?? navigation.defaultSlug;
   const tabs = [
     { key: 'welcome', label: 'Welcome' },
-    { key: 'start', label: startSection?.title ?? '开始' },
+    { key: 'start', label: startSection?.title ?? 'Getting Started' },
   ];
 
   const handleTabChange = (key: string) => {

@@ -24,7 +24,7 @@ function StartCard({
 }) {
   return (
     <button
-      className="flex min-h-[190px] flex-col rounded-2xl border border-solid border-[#d8d5cd] bg-[#faf9f5] p-7 text-left text-[#1f1f1d] hover:border-[#a9a59b]"
+      className="group flex min-h-[190px] flex-col rounded-2xl border border-solid border-[#d8d5cd] bg-[#faf9f5] p-7 text-left text-[#1f1f1d] transition-[background-color,border-color] duration-200 ease-out hover:border-[#a9a59b] hover:bg-white"
       onClick={() => onNavigate(item.slug)}
       type="button"
     >
@@ -34,7 +34,7 @@ function StartCard({
           <div className="font-yak-serif text-[22px] font-medium tracking-[-0.025em]">{item.title}</div>
           <p className="mb-0 mt-2 text-[13px] leading-5 text-[#77756f]">{item.description}</p>
         </div>
-        <span className="shrink-0 text-[#77756f]">
+        <span className="shrink-0 text-[#77756f] transition-transform duration-200 ease-out group-hover:translate-x-1">
           <ArrowRightIcon />
         </span>
       </div>
