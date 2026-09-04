@@ -25,9 +25,25 @@
     box-shadow:
       inset 0 0 0 1px rgb(255 255 255 / 18%),
       0 1px 2px rgb(0 0 0 / 10%);
-    cursor: default;
-    pointer-events: none;
+    cursor: pointer;
     user-select: none;
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      filter 160ms ease;
+  }
+
+  nav + div > a[href='/login']:first-child:hover {
+    filter: brightness(0.96);
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 22%),
+      0 3px 8px rgb(0 0 0 / 14%);
+  }
+
+  nav + div > a[href='/login']:first-child:focus-visible {
+    outline: 2px solid #1f1f1d;
+    outline-offset: 3px;
   }
 
   nav + div > a[href='/login']:first-child::before {
@@ -43,5 +59,154 @@
     line-height: 1;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+  }
+}
+
+.yak-account-menu {
+  position: fixed;
+  z-index: 1400;
+  overflow: hidden;
+  padding: 8px;
+  border: 1px solid #e1ded6;
+  border-radius: 14px;
+  background: #fff;
+  color: #242422;
+  box-shadow:
+    0 1px 2px rgb(17 17 16 / 8%),
+    0 16px 42px rgb(17 17 16 / 16%);
+  font-family: var(--yak-font-marketing);
+  transform-origin: top right;
+  animation: yak-account-menu-in 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.yak-account-menu__identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px 11px;
+}
+
+.yak-account-menu__avatar {
+  display: inline-flex;
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 18%);
+}
+
+.yak-account-menu__identity-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.yak-account-menu__eyebrow {
+  color: #8a8881;
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.yak-account-menu__email {
+  overflow: hidden;
+  color: #292927;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.yak-account-menu__divider {
+  height: 1px;
+  margin: 2px 2px 6px;
+  background: #ece9e2;
+}
+
+.yak-account-menu__logout {
+  display: flex;
+  width: 100%;
+  min-height: 40px;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #30302e;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.yak-account-menu__logout:hover:not(:disabled),
+.yak-account-menu__logout:focus-visible:not(:disabled) {
+  background: #f1efe8;
+  color: #181817;
+  outline: none;
+}
+
+.yak-account-menu__logout:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.yak-account-menu__logout-icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  color: #66645f;
+}
+
+.yak-account-menu__logout-icon svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
+.yak-account-menu__error {
+  margin: 6px 10px 3px;
+  color: #b42318;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+@keyframes yak-account-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yak-account-menu {
+    animation: none;
+  }
+
+  .yak-marketing-header--authenticated nav + div > a[href='/login']:first-child {
+    transition: none;
   }
 }
