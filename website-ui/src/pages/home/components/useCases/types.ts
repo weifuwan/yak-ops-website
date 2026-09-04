@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 
 export type HomeUseCaseId =
+  | "lineage"
   | "workflows"
   | "integration"
   | "quality"

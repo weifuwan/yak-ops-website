@@ -1,16 +1,15 @@
 import { biUseCase } from "./BIUseCase";
 import { integrationUseCase } from "./IntegrationUseCase";
-import { operationsUseCase } from "./OperationsUseCase";
+import { lineageUseCase } from "./LineageUseCase";
 import { qualityUseCase } from "./QualityUseCase";
 import { servicesUseCase } from "./ServicesUseCase";
 import { workflowsUseCase } from "./WorkflowsUseCase";
 
 export const HOME_USE_CASES = [
-  workflowsUseCase,
   integrationUseCase,
+  workflowsUseCase,
   qualityUseCase,
   servicesUseCase,
-  operationsUseCase,
   biUseCase,
 ];
 
