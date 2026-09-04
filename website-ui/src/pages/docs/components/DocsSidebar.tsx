@@ -6,21 +6,22 @@ type DocsSidebarProps = {
   onNavigate: (slug: string) => void;
 };
 
+const itemClassName = (active: boolean) =>
+  active
+    ? 'flex w-full items-start rounded-xl border-0 bg-[#e7e5df] px-4 py-2 text-left text-[13px] font-semibold leading-5 text-[#20201e]'
+    : 'flex w-full items-start rounded-xl border-0 bg-transparent px-4 py-2 text-left text-[13px] font-medium leading-5 text-[#55544f] transition-colors hover:bg-black/[0.035] hover:text-[#20201e]';
+
 export default function DocsSidebar({ navigation, activeSlug, onNavigate }: DocsSidebarProps) {
   return (
-    <nav className="yak-docs-sidebar-nav" aria-label="文档导航">
-      {navigation.sections.map((section) => (
-        <section className="yak-docs-sidebar-section" key={section.title}>
-          <div className="yak-docs-sidebar-section__title">{section.title}</div>
-          <div className="yak-docs-sidebar-section__items">
+    <nav aria-label="Documentation navigation" className="pb-10">
+      {navigation.sections.map((section, sectionIndex) => (
+        <section className={sectionIndex === 0 ? '' : 'mt-7'} key={section.title}>
+          <div className="mb-2.5 px-4 text-[13px] font-semibold leading-5 text-[#20201e]">{section.title}</div>
+          <div className="space-y-0.5">
             {section.items.map((item) => (
               <button
-                className={[
-                  'yak-docs-sidebar-item',
-                  activeSlug === item.slug ? 'yak-docs-sidebar-item--active' : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
+                aria-current={activeSlug === item.slug ? 'page' : undefined}
+                className={itemClassName(activeSlug === item.slug)}
                 key={item.slug}
                 onClick={() => onNavigate(item.slug)}
                 type="button"
