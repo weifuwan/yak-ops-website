@@ -13,14 +13,16 @@ This directory is the source of truth for Yak Ops product documentation. Git is 
 
 ## Current authoring scope
 
-The first documentation pass intentionally keeps only the getting-started section. Additional top-level sections should be added together with reviewed content instead of publishing empty navigation placeholders.
+The current documentation covers getting started and the first deployment path. Additional top-level sections should be added together with reviewed content instead of publishing empty navigation placeholders.
 
 ```text
 docs/
 ├── navigation.json
-└── getting-started/
-    ├── overview.md
-    └── quick-start.md
+├── getting-started/
+│   ├── overview.md
+│   └── quick-start.md
+└── deploy/
+    └── docker-compose.md
 ```
 
 Keep slugs lowercase and stable. Prefer plain-text ATX headings (`#`, `##`, `###`) so table-of-contents anchors remain predictable. Use fenced code blocks with an explicit language when possible.
