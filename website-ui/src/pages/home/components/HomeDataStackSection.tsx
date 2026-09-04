@@ -123,7 +123,7 @@ export default function HomeDataStackSection() {
                   }
             }
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={{ once: Boolean(shouldReduceMotion), amount: 0.25 }}
             transition={{
               duration: shouldReduceMotion ? 0.2 : 0.72,
               ease: HOME_EASE,
@@ -154,7 +154,7 @@ export default function HomeDataStackSection() {
                   }
             }
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.45 }}
+            viewport={{ once: Boolean(shouldReduceMotion), amount: 0.45 }}
             transition={{
               duration: shouldReduceMotion ? 0.2 : 0.72,
               delay: shouldReduceMotion ? 0 : 0.08,
