@@ -71,8 +71,8 @@ export default function DocsHeader({
   onUnauthorized,
 }: DocsHeaderProps) {
   return (
-    <header className="sticky top-0 z-40 border-b border-solid border-[#1f1e1d]/[0.08] bg-[#faf9f5]/95 text-[#1f1f1d] backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-[80rem] items-center gap-4 px-5 lg:px-8">
+    <header className="sticky top-0 z-40 border-b  bg-[#faf9f5]/95 text-[#1f1f1d] backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-[92rem] items-center gap-4 px-5 lg:px-8">
         <div className="flex min-w-0 flex-1 items-center lg:min-w-[230px] lg:flex-none">
           <button
             aria-label="Open documentation navigation"
@@ -85,28 +85,19 @@ export default function DocsHeader({
 
           <Link className="flex min-w-0 items-center gap-2.5" to="/docs">
             <DocsMark />
-            <span className="truncate font-yak-serif text-[27px] font-medium leading-none tracking-[-0.04em]">
+            <span className="truncate font-yak-serif text-[27px] font-medium leading-none ">
               Yak Ops Docs
             </span>
           </Link>
         </div>
 
         <div className="hidden min-w-0 flex-1 items-center justify-center gap-2.5 lg:flex">
-          <DocsSearch className="w-full max-w-[410px]" onSelect={onNavigate} onUnauthorized={onUnauthorized} />
-          <div
-            aria-label="Ask Assistant is coming soon"
-            className="flex h-9 shrink-0 items-center gap-1.5 rounded-xl border border-solid border-[#cfcac0] bg-[#faf9f5] px-3.5 text-sm text-[#55544f]"
-            title="Coming soon"
-          >
-            <SearchSparkleIcon />
-            <span>Ask Assistant</span>
-            <span className="ml-1 text-[11px] font-semibold text-[#88867f]">CTRL I</span>
-          </div>
+         
         </div>
 
         <div className="ml-auto hidden min-w-[230px] items-center justify-end gap-5 text-sm lg:flex">
           <a
-            className="font-medium text-[#55544f] hover:text-[#1f1f1d]"
+            className="font-medium text-[#55544f] "
             href="https://github.com/weifuwan/yak-ops/issues"
             rel="noreferrer noopener"
             target="_blank"
@@ -117,13 +108,10 @@ export default function DocsHeader({
             Go to Yak Ops
             <span aria-hidden="true">›</span>
           </Link>
-          <span className="inline-flex h-8 w-8 items-center justify-center text-[#77756f]" title="System theme">
-            <SystemIcon />
-          </span>
         </div>
       </div>
 
-      <div className="border-t border-solid border-[#1f1e1d]/[0.035]">
+      <div className="border-t " style={{borderTop: "1px solid rgb(31 30 29 / 0.035)"}}>
         <nav
           aria-label="Documentation sections"
           className="mx-auto flex h-12 max-w-[80rem] items-stretch gap-6 overflow-x-auto px-5 text-sm [scrollbar-width:none] lg:px-8 [&::-webkit-scrollbar]:hidden"
