@@ -60,7 +60,7 @@ export default function DocsLanding({ navigation, onNavigate }: DocsLandingProps
           <p className="mb-7 text-[13px] font-medium uppercase tracking-[0.14em] text-[#77756f]">
             Yak Ops Documentation
           </p>
-          <h1 className="m-0 max-w-[820px] font-yak-serif text-[42px] font-normal leading-[1.04] tracking-[-0.045em] text-[#171715] sm:text-[52px] lg:text-[58px]">
+          <h1 className="m-0 max-w-[820px] font-yak-serif text-[42px] font-normal leading-[1.04]  text-[#171715] sm:text-[52px] lg:text-[58px]">
             What do you want to do with Yak Ops?
           </h1>
         </div>
