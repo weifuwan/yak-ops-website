@@ -2,13 +2,15 @@ package io.yak.website.account;
 
 import io.yak.framework.common.Result;
 import io.yak.framework.security.web.PublicEndpoint;
+import io.yak.website.account.WebsiteAccountModels.CompleteRegistrationRequest;
 import io.yak.website.account.WebsiteAccountModels.CurrentUserResponse;
 import io.yak.website.account.WebsiteAccountModels.EmailRequest;
 import io.yak.website.account.WebsiteAccountModels.LoginRequest;
 import io.yak.website.account.WebsiteAccountModels.MessageResponse;
-import io.yak.website.account.WebsiteAccountModels.RegisterRequest;
+import io.yak.website.account.WebsiteAccountModels.RegistrationEmailRequest;
+import io.yak.website.account.WebsiteAccountModels.RegistrationVerificationResponse;
 import io.yak.website.account.WebsiteAccountModels.ResetPasswordRequest;
-import io.yak.website.account.WebsiteAccountModels.VerifyEmailRequest;
+import io.yak.website.account.WebsiteAccountModels.VerifyRegistrationCodeRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -28,27 +30,29 @@ public class WebsiteAccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/request-code")
     @PublicEndpoint
-    public Result<MessageResponse> register(
-            @Valid @RequestBody RegisterRequest request,
+    public Result<MessageResponse> requestRegistrationCode(
+            @Valid @RequestBody RegistrationEmailRequest request,
             HttpServletRequest httpRequest) {
-        return Result.success(accountService.register(request, httpRequest));
+        return Result.success(accountService.requestRegistrationCode(request, httpRequest));
     }
 
-    @PostMapping("/verify-email")
+    @PostMapping("/register/verify-code")
     @PublicEndpoint
-    public Result<MessageResponse> verifyEmail(
-            @Valid @RequestBody VerifyEmailRequest request) {
-        return Result.success(accountService.verifyEmail(request));
+    public Result<RegistrationVerificationResponse> verifyRegistrationCode(
+            @Valid @RequestBody VerifyRegistrationCodeRequest request,
+            HttpServletRequest httpRequest) {
+        return Result.success(accountService.verifyRegistrationCode(request, httpRequest));
     }
 
-    @PostMapping("/resend-verification")
+    @PostMapping("/register/complete")
     @PublicEndpoint
-    public Result<MessageResponse> resendVerification(
-            @Valid @RequestBody EmailRequest request,
-            HttpServletRequest httpRequest) {
-        return Result.success(accountService.resendVerification(request, httpRequest));
+    public Result<CurrentUserResponse> completeRegistration(
+            @Valid @RequestBody CompleteRegistrationRequest request,
+            HttpServletRequest httpRequest,
+            HttpServletResponse httpResponse) {
+        return Result.success(accountService.completeRegistration(request, httpRequest, httpResponse));
     }
 
     @PostMapping("/login")
