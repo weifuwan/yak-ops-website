@@ -1,7 +1,6 @@
 export const MARKETING_GITHUB_URL = 'https://github.com/weifuwan/yak-ops';
 export const MARKETING_GITHUB_RELEASES_URL = `${MARKETING_GITHUB_URL}/releases`;
 export const MARKETING_GITHUB_ISSUES_URL = `${MARKETING_GITHUB_URL}/issues`;
-export const MARKETING_LINK_UP_GITHUB_URL = 'https://github.com/weifuwan/yak-link-up';
 
 export interface MarketingNavLink {
   label: string;
@@ -69,12 +68,6 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
         ],
       },
     ],
-  },
-  {
-    key: 'link-up',
-    label: 'Link-up',
-    kind: 'link',
-    href: '/link-up',
   },
   {
     key: 'docs',
