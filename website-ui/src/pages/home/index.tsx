@@ -6,6 +6,7 @@ import HomeCommunitySection from "./components/HomeCommunitySection";
 import HomeDataLifecycleSection from "./components/HomeDataLifecycleSection";
 import HomeDataStackSection from "./components/HomeDataStackSection";
 import HomeHeroSection from "./components/HomeHeroSection";
+import HomeInActionSection from "./components/HomeInActionSection";
 import HomeUseCasesSection from "./components/HomeUseCasesSection";
 
 export default function HomePage() {
@@ -16,6 +17,7 @@ export default function HomePage() {
       <HomeUseCasesSection />
       <HomeDataLifecycleSection />
       <HomeDataStackSection />
+      <HomeInActionSection />
       <HomeCommunitySection />
       <HomeClosingSection />
     </main>
