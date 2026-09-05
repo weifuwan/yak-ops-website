@@ -25,6 +25,16 @@
           "description": "Deploy Yak Ops with a single Docker Compose command."
         }
       ]
+    },
+    {
+      "title": "Link-up",
+      "items": [
+        {
+          "slug": "link-up/connectors",
+          "title": "Supported Connectors",
+          "description": "See which Source and Sink connectors are currently supported by Link-up."
+        }
+      ]
     }
   ]
 }
