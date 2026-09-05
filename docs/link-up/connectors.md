@@ -1,11 +1,11 @@
 # Supported Connectors
 
-Link-up currently supports the following Source and Sink connectors.
+Link-up currently supports the following Source and Sink systems.
 
-| Connector | Source | Sink |
+| System | Source | Sink |
 | --- | :---: | :---: |
-| JDBC | ✓ | ✓ |
+| MySQL | ✓ | ✓ |
 | HTTP | ✓ | — |
 | Apache Doris | — | ✓ |
 
-A check mark means the connector is currently supported for that role.
+A check mark means the system is currently supported for that role.
