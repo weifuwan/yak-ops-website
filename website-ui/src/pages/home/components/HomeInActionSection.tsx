@@ -91,7 +91,7 @@ export default function HomeInActionSection() {
   };
 
   return (
-    <section className="relative border-t border-solid border-[#E3E0D7] bg-[#FAF9F5] text-[#181817]">
+    <section className="relative border-t bg-[#FAF9F5] text-[#181817]">
       <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
