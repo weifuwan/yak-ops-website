@@ -8,10 +8,6 @@ export default [
         component: '@/pages/home',
       },
       {
-        path: '/link-up',
-        component: '@/pages/link-up',
-      },
-      {
         path: '/product/data-sources',
         component: '@/pages/product/data-sources',
       },
