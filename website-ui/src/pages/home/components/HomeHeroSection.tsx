@@ -78,7 +78,7 @@ export default function HomeHeroSection() {
 
       <div className="flex min-h-[420px] items-center justify-center pb-4 lg:min-h-0 lg:pb-0">
         <div className="relative flex w-full items-center justify-center">
-          <AnimatePresence mode="wait" initial={false}>
+          <AnimatePresence mode="wait">
             <motion.div
               key={visual}
               className="flex w-full items-center justify-center"
