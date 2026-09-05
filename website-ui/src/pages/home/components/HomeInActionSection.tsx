@@ -7,34 +7,34 @@ const STEP_DURATION = 1800;
 
 const DEMO_STEPS = [
   {
-    eyebrow: "Connect",
-    title: "MySQL connected",
-    description: "Reuse a tested datasource and load its metadata into one operating context.",
-    navLabel: "Data sources",
+    label: "Connect",
+    product: "MySQL",
+    title: "Source connected",
+    description: "Reuse a tested datasource and bring metadata into one operating context.",
   },
   {
-    eyebrow: "Move",
+    label: "Move",
+    product: "Link-Up",
     title: "Sync is running",
-    description: "Move orders into Doris with Link-Up while execution state stays visible.",
-    navLabel: "Integration",
+    description: "Move orders into Doris while execution state stays visible from the same workspace.",
   },
   {
-    eyebrow: "Build",
+    label: "Build",
+    product: "Workflow",
     title: "Workflow released",
-    description: "Compose the sync with downstream work, release it, and keep scheduling in the same flow.",
-    navLabel: "Workflows",
+    description: "Compose downstream work, release it, and keep scheduling connected to the data flow.",
   },
   {
-    eyebrow: "Trust",
+    label: "Trust",
+    product: "Quality",
     title: "Quality checks passed",
-    description: "Validate the dataset before bad data can move further downstream.",
-    navLabel: "Data quality",
+    description: "Validate the dataset before bad data can spread into downstream consumers.",
   },
   {
-    eyebrow: "Serve",
+    label: "Serve",
+    product: "API",
     title: "Data is ready to use",
     description: "Publish trusted data for APIs, datasets, and the teams that depend on it.",
-    navLabel: "Data service",
   },
 ] as const;
 
@@ -49,9 +49,9 @@ function ActionIcon() {
   );
 }
 
-function PlayIcon() {
+function PlayIcon({ compact = false }: { compact?: boolean }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" className={compact ? "h-4 w-4" : "h-7 w-7"} aria-hidden="true">
       <path d="M8.5 6.75V17.25L17 12L8.5 6.75Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
     </svg>
   );
@@ -65,16 +65,16 @@ function PauseIcon() {
   );
 }
 
-function ReplayIcon() {
+function ReplayIcon({ compact = false }: { compact?: boolean }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" className={compact ? "h-4 w-4" : "h-7 w-7"} aria-hidden="true">
       <path d="M7.2 8.2H3.8V4.8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M4.2 8.2C5.7 5.8 8.4 4.2 11.5 4.2C15.9 4.2 19.5 7.7 19.5 12C19.5 16.3 15.9 19.8 11.5 19.8C8.2 19.8 5.4 17.9 4.1 15.2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
     </svg>
   );
 }
 
-function StepMark({ index }: { index: number }) {
+function StepIcon({ index }: { index: number }) {
   if (index === 0) {
     return (
       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
@@ -125,28 +125,29 @@ export default function HomeInActionSection() {
   const [activeStep, setActiveStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const isComplete = activeStep === DEMO_STEPS.length - 1 && !isPlaying;
+  const lastStepIndex = DEMO_STEPS.length - 1;
   const currentStep = DEMO_STEPS[activeStep];
+  const isComplete = activeStep === lastStepIndex && !isPlaying;
+  const progress = (activeStep / lastStepIndex) * 100;
 
   useEffect(() => {
     if (!isPlaying) {
       return undefined;
     }
 
-    if (activeStep >= DEMO_STEPS.length - 1) {
-      setIsPlaying(false);
-      return undefined;
-    }
-
     const timer = window.setTimeout(() => {
+      if (activeStep >= lastStepIndex) {
+        setIsPlaying(false);
+        return;
+      }
       setActiveStep((current) => current + 1);
     }, STEP_DURATION);
 
     return () => window.clearTimeout(timer);
-  }, [activeStep, isPlaying]);
+  }, [activeStep, isPlaying, lastStepIndex]);
 
   const startPlayback = () => {
-    if (activeStep === DEMO_STEPS.length - 1) {
+    if (activeStep === lastStepIndex) {
       setActiveStep(0);
     }
     setIsPlaying(true);
@@ -159,8 +160,6 @@ export default function HomeInActionSection() {
     }
     startPlayback();
   };
-
-  const progress = (activeStep / (DEMO_STEPS.length - 1)) * 100;
 
   return (
     <section className="relative border-t border-solid border-[#E3E0D7] bg-[#FAF9F5] text-[#181817]">
@@ -196,7 +195,7 @@ export default function HomeInActionSection() {
           }}
           className="relative mt-[clamp(4.5rem,4.071429rem+2.142857vw,6rem)] overflow-hidden rounded-[clamp(1.5rem,1.071429rem+2.142857vw,3rem)] border border-solid border-[#CFC8BA] bg-[#DED8CB] p-[clamp(0.75rem,0.5rem+1.25vw,1.625rem)]"
         >
-          <div className="relative min-h-[620px] overflow-hidden rounded-[clamp(1rem,0.857143rem+0.714286vw,1.5rem)] border border-solid border-[#D4D0C7] bg-[#F8F7F3] sm:min-h-[560px] lg:aspect-[16/9] lg:min-h-0">
+          <div className="relative min-h-[640px] overflow-hidden rounded-[clamp(1rem,0.857143rem+0.714286vw,1.5rem)] border border-solid border-[#D4D0C7] bg-[#F8F7F3] sm:min-h-[560px] lg:aspect-[16/9] lg:min-h-0">
             <div className="flex h-14 items-center justify-between border-b border-solid border-[#E3E0D8] bg-[#FCFBF8] px-4 sm:px-6">
               <div className="flex items-center gap-3">
                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#181817] text-[10px] font-semibold text-[#F8F7F3] [font-family:'Yak_Sans',Arial,sans-serif]">
@@ -214,32 +213,8 @@ export default function HomeInActionSection() {
               </div>
             </div>
 
-            <div className="grid min-h-[calc(100%-3.5rem)] grid-cols-1 lg:grid-cols-[190px_minmax(0,1fr)_280px]">
-              <aside className="hidden border-r border-solid border-[#E3E0D8] bg-[#F3F1EA] p-4 lg:block">
-                <p className="m-0 px-2 text-[10px] font-medium uppercase tracking-[0.14em] text-[#9A968D] [font-family:'Yak_Sans',Arial,sans-serif]">
-                  Data operations
-                </p>
-                <div className="mt-4 space-y-1.5">
-                  {DEMO_STEPS.map((step, index) => {
-                    const selected = index === activeStep;
-                    return (
-                      <div
-                        key={step.navLabel}
-                        className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[12px] transition-colors duration-300 [font-family:'Yak_Sans',Arial,sans-serif] ${
-                          selected ? "bg-white font-medium text-[#252421]" : "text-[#77746D]"
-                        }`}
-                      >
-                        <span className={selected ? "text-[#C96442]" : "text-[#9A968D]"}>
-                          <StepMark index={index} />
-                        </span>
-                        {step.navLabel}
-                      </div>
-                    );
-                  })}
-                </div>
-              </aside>
-
-              <div className="relative overflow-hidden px-[clamp(1rem,0.571429rem+2.142857vw,2.5rem)] py-[clamp(1.5rem,1.142857rem+1.785714vw,2.75rem)]">
+            <div className="grid min-h-[calc(100%-3.5rem)] grid-cols-1 xl:grid-cols-[minmax(0,1fr)_280px]">
+              <div className="relative overflow-hidden px-[clamp(1rem,0.571429rem+2.142857vw,2.75rem)] pb-24 pt-[clamp(1.5rem,1.142857rem+1.785714vw,2.75rem)] sm:pb-20">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <p className="m-0 text-[11px] font-medium uppercase tracking-[0.14em] text-[#9A968D] [font-family:'Yak_Sans',Arial,sans-serif]">
@@ -257,28 +232,20 @@ export default function HomeInActionSection() {
                 </div>
 
                 <div className="relative mt-[clamp(2.75rem,2.178571rem+2.857143vw,4.75rem)]">
-                  <div className="absolute bottom-[15px] left-[15px] top-[15px] w-px bg-[#D8D4CA] sm:bottom-auto sm:left-[10%] sm:right-[10%] sm:top-[23px] sm:h-px sm:w-auto" />
+                  <div className="absolute bottom-[22px] left-[22px] top-[22px] w-px bg-[#D8D4CA] sm:hidden" />
                   <motion.div
                     aria-hidden="true"
-                    className="absolute left-[15px] top-[15px] w-px origin-top bg-[#C96442] sm:left-[10%] sm:top-[23px] sm:h-px sm:w-[80%] sm:origin-left"
-                    animate={
-                      shouldReduceMotion
-                        ? undefined
-                        : {
-                            scaleY: [0, progress / 100],
-                            scaleX: [0, progress / 100],
-                          }
-                    }
-                    style={
-                      shouldReduceMotion
-                        ? {
-                            height: `${progress}%`,
-                          }
-                        : {
-                            height: "calc(100% - 30px)",
-                          }
-                    }
-                    transition={{ duration: 0.55, ease: HOME_EASE }}
+                    className="absolute bottom-[22px] left-[22px] top-[22px] w-px origin-top bg-[#C96442] sm:hidden"
+                    animate={{ scaleY: progress / 100 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: HOME_EASE }}
+                  />
+
+                  <div className="absolute left-[10%] right-[10%] top-[23px] hidden h-px bg-[#D8D4CA] sm:block" />
+                  <motion.div
+                    aria-hidden="true"
+                    className="absolute left-[10%] top-[23px] hidden h-px w-[80%] origin-left bg-[#C96442] sm:block"
+                    animate={{ scaleX: progress / 100 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: HOME_EASE }}
                   />
 
                   <div className="relative grid grid-cols-1 gap-3 sm:grid-cols-5 sm:gap-2">
@@ -287,25 +254,19 @@ export default function HomeInActionSection() {
                       const complete = index < activeStep;
 
                       return (
-                        <div key={step.eyebrow} className="relative flex items-start gap-4 sm:block sm:text-center">
+                        <div key={step.label} className="relative flex items-start gap-4 sm:block sm:text-center">
                           <motion.div
-                            animate={
-                              shouldReduceMotion
-                                ? undefined
-                                : {
-                                    scale: active ? 1.06 : 1,
-                                  }
-                            }
-                            transition={{ duration: 0.35, ease: HOME_EASE }}
-                            className={`relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border text-[#6E6B64] transition-colors duration-300 sm:mx-auto ${
+                            animate={{ scale: shouldReduceMotion ? 1 : active ? 1.06 : 1 }}
+                            transition={{ duration: shouldReduceMotion ? 0 : 0.35, ease: HOME_EASE }}
+                            className={`relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full border transition-colors duration-300 sm:mx-auto ${
                               active
                                 ? "border-[#C96442] bg-[#FFF8F4] text-[#C96442]"
                                 : complete
                                   ? "border-[#BBB6AA] bg-[#E8E4DA] text-[#4D4B45]"
-                                  : "border-[#D8D4CA] bg-[#F8F7F3]"
+                                  : "border-[#D8D4CA] bg-[#F8F7F3] text-[#77736B]"
                             }`}
                           >
-                            <StepMark index={index} />
+                            <StepIcon index={index} />
                           </motion.div>
 
                           <div className="min-w-0 pt-1 sm:pt-0">
@@ -314,18 +275,10 @@ export default function HomeInActionSection() {
                                 active ? "text-[#C96442]" : "text-[#969188]"
                               }`}
                             >
-                              {step.eyebrow}
+                              {step.label}
                             </p>
                             <p className="m-0 mt-1 text-[12px] font-medium leading-[1.35] text-[#4A4842] sm:px-1 [font-family:'Yak_Sans',Arial,sans-serif]">
-                              {index === 0
-                                ? "MySQL"
-                                : index === 1
-                                  ? "Link-Up"
-                                  : index === 2
-                                    ? "Workflow"
-                                    : index === 3
-                                      ? "Quality"
-                                      : "API"}
+                              {step.product}
                             </p>
                           </div>
                         </div>
@@ -344,7 +297,7 @@ export default function HomeInActionSection() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="m-0 text-[10px] font-medium uppercase tracking-[0.14em] text-[#C96442] [font-family:'Yak_Sans',Arial,sans-serif]">
-                        {currentStep.eyebrow}
+                        {currentStep.label}
                       </p>
                       <p className="m-0 mt-2 text-[clamp(1.15rem,1.078571rem+0.357143vw,1.4rem)] font-medium text-[#252421] [font-family:'Yak_Serif',Georgia,sans-serif]">
                         {currentStep.title}
@@ -420,19 +373,19 @@ export default function HomeInActionSection() {
                 aria-label={isPlaying ? "Pause Yak Ops walkthrough" : isComplete ? "Replay Yak Ops walkthrough" : "Play Yak Ops walkthrough"}
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-solid border-[#D7D3CA] bg-white text-[#5E5B54] transition-colors duration-200 hover:border-[#BEB9AE] hover:text-[#181817]"
               >
-                {isPlaying ? <PauseIcon /> : isComplete ? <ReplayIcon /> : <PlayIcon />}
+                {isPlaying ? <PauseIcon /> : isComplete ? <ReplayIcon compact /> : <PlayIcon compact />}
               </button>
 
               <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#E2DED5]">
                 <motion.div
-                  className="h-full origin-left rounded-full bg-[#C96442]"
+                  className="h-full rounded-full bg-[#C96442]"
                   animate={{ width: `${Math.max(progress, isPlaying && activeStep === 0 ? 4 : progress)}%` }}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.55, ease: HOME_EASE }}
                 />
               </div>
 
               <span className="hidden min-w-[74px] text-right text-[10px] font-medium uppercase tracking-[0.1em] text-[#87837B] sm:block [font-family:'Yak_Sans',Arial,sans-serif]">
-                {currentStep.eyebrow}
+                {currentStep.label}
               </span>
             </div>
           </div>
