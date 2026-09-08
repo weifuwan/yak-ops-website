@@ -4,6 +4,7 @@ import io.yak.framework.common.Result;
 import io.yak.website.docs.DocsModels.DocumentResponse;
 import io.yak.website.docs.DocsModels.NavigationResponse;
 import io.yak.website.docs.DocsModels.SearchResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +31,17 @@ public class ProtectedDocsController {
     }
 
     @GetMapping("/navigation")
-    public ResponseEntity<Result<NavigationResponse>> navigation() {
-        accessGuard.requireVerifiedWebsiteUser();
+    public ResponseEntity<Result<NavigationResponse>> navigation(
+            HttpServletRequest request) {
+        accessGuard.requireVerifiedWebsiteUser(request);
         return ok(catalog.navigation());
     }
 
     @GetMapping("/content")
     public ResponseEntity<Result<DocumentResponse>> content(
-            @RequestParam("slug") String slug) {
-        accessGuard.requireVerifiedWebsiteUser();
+            @RequestParam("slug") String slug,
+            HttpServletRequest request) {
+        accessGuard.requireVerifiedWebsiteUser(request);
         return catalog.document(slug)
                 .map(this::ok)
                 .orElseGet(() -> ResponseEntity
@@ -49,8 +52,9 @@ public class ProtectedDocsController {
 
     @GetMapping("/search")
     public ResponseEntity<Result<SearchResponse>> search(
-            @RequestParam(value = "q", defaultValue = "") String query) {
-        accessGuard.requireVerifiedWebsiteUser();
+            @RequestParam(value = "q", defaultValue = "") String query,
+            HttpServletRequest request) {
+        accessGuard.requireVerifiedWebsiteUser(request);
         if (query != null && query.length() > MAX_SEARCH_QUERY_LENGTH) {
             return ResponseEntity
                     .badRequest()
