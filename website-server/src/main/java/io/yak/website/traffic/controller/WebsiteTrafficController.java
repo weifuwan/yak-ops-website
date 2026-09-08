@@ -1,7 +1,5 @@
 package io.yak.website.traffic.controller;
 
-import io.yak.website.account.domain.WebsiteSessionRegistry;
-import io.yak.website.account.domain.WebsiteUser;
 import io.yak.website.traffic.domain.WebsiteVisitorCookie;
 import io.yak.website.traffic.mapper.WebsiteTrafficDailyMapper;
 import io.yak.website.traffic.model.WebsiteTrafficModels.PageViewRequest;
@@ -24,15 +22,12 @@ public class WebsiteTrafficController {
 
     private final WebsiteTrafficDailyMapper trafficMapper;
     private final WebsiteVisitorCookie visitorCookie;
-    private final WebsiteSessionRegistry sessions;
 
     public WebsiteTrafficController(
             WebsiteTrafficDailyMapper trafficMapper,
-            WebsiteVisitorCookie visitorCookie,
-            WebsiteSessionRegistry sessions) {
+            WebsiteVisitorCookie visitorCookie) {
         this.trafficMapper = trafficMapper;
         this.visitorCookie = visitorCookie;
-        this.sessions = sessions;
     }
 
     @PostMapping("/page-view")
@@ -43,16 +38,12 @@ public class WebsiteTrafficController {
             HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
         String visitorId = visitorCookie.resolve(httpRequest, httpResponse);
-        Long userId = sessions.currentUser(httpRequest)
-                .map(WebsiteUser::getId)
-                .orElse(null);
         LocalDateTime seenAt = LocalDateTime.now();
 
         trafficMapper.recordPageView(
                 seenAt.toLocalDate(),
                 visitorId,
                 request.path(),
-                userId,
                 seenAt);
     }
 }

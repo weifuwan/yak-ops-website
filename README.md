@@ -79,7 +79,7 @@ yakops_visitor (long-lived HttpOnly UUID cookie)
 website_traffic_daily
 ```
 
-`website_traffic_daily` keeps one row per `stat_date + visitor_id + path`. Repeated visits increment `pv_count`, so page PV is `SUM(pv_count)` and page UV is the row count for that date/path. Site-wide UV can be calculated with `COUNT(DISTINCT visitor_id)`. When a visitor is logged in, the row also keeps the website `user_id` for future authenticated/anonymous comparisons.
+`website_traffic_daily` keeps one row per `stat_date + visitor_id + path`. Repeated visits increment `pv_count`, so page PV is `SUM(pv_count)` and page UV is the row count for that date/path. Site-wide UV can be calculated with `COUNT(DISTINCT visitor_id)`.
 
 Only the route pathname is recorded; query strings, URL hashes, IP addresses and user-agent strings are not stored. The visitor cookie lasts 365 days and uses the same production `Secure` switch as the login cookie.
 

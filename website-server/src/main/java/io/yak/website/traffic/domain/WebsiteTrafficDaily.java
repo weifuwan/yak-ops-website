@@ -14,7 +14,6 @@ public class WebsiteTrafficDaily {
     private LocalDate statDate;
     private String visitorId;
     private String path;
-    private Long userId;
     private Integer pvCount;
     private LocalDateTime firstSeenAt;
     private LocalDateTime lastSeenAt;
@@ -27,8 +26,6 @@ public class WebsiteTrafficDaily {
     public void setVisitorId(String visitorId) { this.visitorId = visitorId; }
     public String getPath() { return path; }
     public void setPath(String path) { this.path = path; }
-    public Long getUserId() { return userId; }
-    public void setUserId(Long userId) { this.userId = userId; }
     public Integer getPvCount() { return pvCount; }
     public void setPvCount(Integer pvCount) { this.pvCount = pvCount; }
     public LocalDateTime getFirstSeenAt() { return firstSeenAt; }
