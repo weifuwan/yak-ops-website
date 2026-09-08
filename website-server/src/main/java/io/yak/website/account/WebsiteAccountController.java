@@ -1,7 +1,6 @@
 package io.yak.website.account;
 
 import io.yak.framework.common.Result;
-import io.yak.framework.security.web.PublicEndpoint;
 import io.yak.website.account.WebsiteAccountModels.CompleteRegistrationRequest;
 import io.yak.website.account.WebsiteAccountModels.CurrentUserResponse;
 import io.yak.website.account.WebsiteAccountModels.EmailRequest;
@@ -31,7 +30,6 @@ public class WebsiteAccountController {
     }
 
     @PostMapping("/register/request-code")
-    @PublicEndpoint
     public Result<MessageResponse> requestRegistrationCode(
             @Valid @RequestBody RegistrationEmailRequest request,
             HttpServletRequest httpRequest) {
@@ -39,7 +37,6 @@ public class WebsiteAccountController {
     }
 
     @PostMapping("/register/verify-code")
-    @PublicEndpoint
     public Result<RegistrationVerificationResponse> verifyRegistrationCode(
             @Valid @RequestBody VerifyRegistrationCodeRequest request,
             HttpServletRequest httpRequest) {
@@ -47,7 +44,6 @@ public class WebsiteAccountController {
     }
 
     @PostMapping("/register/complete")
-    @PublicEndpoint
     public Result<CurrentUserResponse> completeRegistration(
             @Valid @RequestBody CompleteRegistrationRequest request,
             HttpServletRequest httpRequest,
@@ -56,7 +52,6 @@ public class WebsiteAccountController {
     }
 
     @PostMapping("/login")
-    @PublicEndpoint
     public Result<CurrentUserResponse> login(
             @Valid @RequestBody LoginRequest request,
             HttpServletRequest httpRequest,
@@ -65,8 +60,8 @@ public class WebsiteAccountController {
     }
 
     @GetMapping("/current")
-    public Result<CurrentUserResponse> current() {
-        return Result.success(accountService.current());
+    public Result<CurrentUserResponse> current(HttpServletRequest request) {
+        return Result.success(accountService.current(request));
     }
 
     @PostMapping("/logout")
@@ -77,7 +72,6 @@ public class WebsiteAccountController {
     }
 
     @PostMapping("/forgot-password")
-    @PublicEndpoint
     public Result<MessageResponse> forgotPassword(
             @Valid @RequestBody EmailRequest request,
             HttpServletRequest httpRequest) {
@@ -85,7 +79,6 @@ public class WebsiteAccountController {
     }
 
     @PostMapping("/reset-password")
-    @PublicEndpoint
     public Result<MessageResponse> resetPassword(
             @Valid @RequestBody ResetPasswordRequest request) {
         return Result.success(accountService.resetPassword(request));
