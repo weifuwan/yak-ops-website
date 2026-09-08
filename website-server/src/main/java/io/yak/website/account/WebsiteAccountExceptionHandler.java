@@ -1,6 +1,6 @@
 package io.yak.website.account;
 
-import io.yak.framework.common.Result;
+import io.yak.website.common.ApiResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class WebsiteAccountExceptionHandler {
 
     @ExceptionHandler(WebsiteAccountException.class)
-    public ResponseEntity<Result<Void>> handleAccountException(
+    public ResponseEntity<ApiResponse<Void>> handleAccountException(
             WebsiteAccountException exception) {
         HttpStatus status = exception.getStatus();
         return ResponseEntity.status(status)
-                .body(Result.fail(status.value(), exception.getMessage()));
+                .body(ApiResponse.fail(status.value(), exception.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Result<Void>> handleValidationException(
+    public ResponseEntity<ApiResponse<Void>> handleValidationException(
             MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult()
                 .getFieldErrors()
@@ -29,13 +29,13 @@ public class WebsiteAccountExceptionHandler {
                 .map(error -> error.getField() + " " + error.getDefaultMessage())
                 .orElse("请求参数无效");
         return ResponseEntity.badRequest()
-                .body(Result.fail(HttpStatus.BAD_REQUEST.value(), message));
+                .body(ApiResponse.fail(HttpStatus.BAD_REQUEST.value(), message));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Result<Void>> handleConstraintViolation(
+    public ResponseEntity<ApiResponse<Void>> handleConstraintViolation(
             ConstraintViolationException exception) {
         return ResponseEntity.badRequest()
-                .body(Result.fail(HttpStatus.BAD_REQUEST.value(), "请求参数无效"));
+                .body(ApiResponse.fail(HttpStatus.BAD_REQUEST.value(), "请求参数无效"));
     }
 }
