@@ -17,6 +17,16 @@
       ]
     },
     {
+      "title": "Features",
+      "items": [
+        {
+          "slug": "features/overview",
+          "title": "Feature Overview",
+          "description": "Browse the main Yak Ops product modules and understand what each area is designed for."
+        }
+      ]
+    },
+    {
       "title": "Deploy",
       "items": [
         {
