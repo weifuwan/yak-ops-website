@@ -33,8 +33,8 @@ export type MarketingNavItem = MarketingMegaNavItem | MarketingDirectNavItem;
 /**
  * 官网顶部导航的单一数据源。
  *
- * Mega Menu 只承担导航职责：分组 + 链接，不在菜单中堆叠产品说明；
- * 开发者页使用独立 marketing URL，Docs 保持独立入口。
+ * Developers 菜单只承担文档导航职责；具体内容统一维护在 Docs 中，
+ * Open Source 链接继续直接指向 GitHub。
  */
 export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
   {
@@ -45,17 +45,17 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
       {
         title: 'GET STARTED',
         items: [
-          { label: 'Quick Start', href: '/developers/quick-start' },
-          { label: 'Deployment Guide', href: '/developers/deployment' },
-          { label: 'Docker', href: '/developers/docker' },
+          { label: 'Quick Start', href: '/docs/getting-started/quick-start' },
+          { label: 'Deployment Guide', href: '/docs/deploy/overview' },
+          { label: 'Docker', href: '/docs/deploy/docker-compose' },
         ],
       },
       {
         title: 'BUILD',
         items: [
-          { label: 'Development Guide', href: '/developers/development' },
-          { label: 'API', href: '/developers/api' },
-          { label: 'Configuration Reference', href: '/developers/configuration' },
+          { label: 'Development Guide', href: '/docs/development/guide' },
+          { label: 'Architecture', href: '/docs/development/architecture' },
+          { label: 'Configuration Reference', href: '/docs/development/configuration' },
         ],
       },
       {
@@ -64,7 +64,7 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
           { label: 'GitHub', href: MARKETING_GITHUB_URL, external: true },
           { label: 'Releases', href: MARKETING_GITHUB_RELEASES_URL, external: true },
           { label: 'Issues', href: MARKETING_GITHUB_ISSUES_URL, external: true },
-          { label: 'Contributing Guide', href: '/developers/contributing' },
+          { label: 'Contributing Guide', href: '/docs/contributing/guide' },
         ],
       },
     ],

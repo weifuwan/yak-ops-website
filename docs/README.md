@@ -13,7 +13,7 @@ This directory is the source of truth for Yak Ops product documentation. Git is 
 
 ## Current authoring scope
 
-The current documentation covers getting started, a lightweight product feature map, deployment, and Link-up connector support. Additional top-level sections should be added together with reviewed content instead of publishing empty navigation placeholders.
+The current documentation covers getting started, a lightweight product feature map, deployment, development basics, Link-up connector support, and contribution guidance. Additional top-level sections should be added together with reviewed content instead of publishing empty navigation placeholders.
 
 ```text
 docs/
@@ -24,9 +24,16 @@ docs/
 ├── features/
 │   └── overview.md
 ├── deploy/
+│   ├── overview.md
 │   └── docker-compose.md
-└── link-up/
-    └── connectors.md
+├── development/
+│   ├── guide.md
+│   ├── architecture.md
+│   └── configuration.md
+├── link-up/
+│   └── connectors.md
+└── contributing/
+    └── guide.md
 ```
 
 Keep slugs lowercase and stable. Prefer plain-text ATX headings (`#`, `##`, `###`) so table-of-contents anchors remain predictable. Use fenced code blocks with an explicit language when possible.
