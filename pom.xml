@@ -25,6 +25,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <yak-framework.version>1.0.0-SNAPSHOT</yak-framework.version>
+        <mybatis-plus.version>3.5.16</mybatis-plus.version>
     </properties>
 
     <modules>
@@ -43,11 +44,6 @@
             <dependency>
                 <groupId>io.yak.framework</groupId>
                 <artifactId>yak-common</artifactId>
-                <version>${yak-framework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.yak.framework</groupId>
-                <artifactId>yak-security-spring-boot-starter</artifactId>
                 <version>${yak-framework.version}</version>
             </dependency>
         </dependencies>
