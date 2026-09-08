@@ -1,17 +1,15 @@
 # Deployment Foundation
 
-PR 1 keeps deployment intentionally small:
+The website deployment foundation stays intentionally small:
 
-- `docker/compose.yaml` starts the local MySQL dependency only;
-- `nginx/default.conf` defines the future production boundary for SPA fallback and backend proxying.
+- `docker/compose.yaml` starts one local MySQL dependency;
+- `nginx/default.conf` defines the production boundary for SPA fallback and backend proxying.
 
-A full application image / production compose stack is deferred until the UI and server packaging contracts are stable.
+The website account model uses the same `yak_ops_website` database and does not require a separate Yak Security database.
 
 ## Alibaba Cloud Enterprise Mail
 
-Production registration and password-reset mail can use the Alibaba Cloud Enterprise Mail account `noreply@yak-ops.com` over SMTP.
-
-Use the following environment variables in the deployment environment:
+Production registration and password-reset mail can use `noreply@yak-ops.com` over Alibaba Cloud Enterprise Mail SMTP.
 
 ```env
 WEBSITE_MAIL_MODE=smtp
@@ -20,14 +18,14 @@ WEBSITE_MAIL_FROM=noreply@yak-ops.com
 MAIL_HOST=smtp.qiye.aliyun.com
 MAIL_PORT=465
 MAIL_USERNAME=noreply@yak-ops.com
-MAIL_PASSWORD=<third-party-client-security-password>
+MAIL_PASSWORD=<smtp-credential>
 MAIL_SMTP_AUTH=true
 MAIL_SSL=true
 MAIL_STARTTLS=false
 ```
 
-The application uses implicit SSL on port `465`; this is different from STARTTLS, so `MAIL_SSL` must be enabled while `MAIL_STARTTLS` remains disabled.
+Port `465` uses implicit SSL rather than STARTTLS.
 
-Before enabling SMTP delivery, make sure the `noreply@yak-ops.com` mailbox has SMTP access enabled in Alibaba Cloud Enterprise Mail. Generate a **third-party client security password** for this mailbox and use that value as `MAIL_PASSWORD` instead of the mailbox web-login password. If the organization has a third-party client access policy, allow this mailbox through that policy as well.
+`MAIL_PASSWORD` is the credential accepted by Alibaba Cloud Enterprise Mail for SMTP. If third-party client security passwords are enabled for the mailbox, use that security password; otherwise the mailbox login password can be used. The administrator's third-party client access policy must also allow `noreply@yak-ops.com`.
 
-Never commit the real password. `.env` and `.env.*` files are ignored by Git except for `.env.example`; keep the actual credential in the deployment environment or secret store and leave `MAIL_PASSWORD` empty in committed examples.
+Never commit the real SMTP credential. Supply it through the deployment environment or secret store.
