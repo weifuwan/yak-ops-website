@@ -1,4 +1,4 @@
-package io.yak.website.account;
+package io.yak.website.account.domain;
 
 import org.springframework.http.HttpStatus;
 

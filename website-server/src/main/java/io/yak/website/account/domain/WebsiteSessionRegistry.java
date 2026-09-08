@@ -1,8 +1,7 @@
-package io.yak.website.account;
+package io.yak.website.account.domain;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.yak.website.account.entity.WebsiteSession;
-import io.yak.website.account.entity.WebsiteUser;
+import io.yak.website.account.config.WebsiteAccountProperties;
 import io.yak.website.account.mapper.WebsiteSessionMapper;
 import io.yak.website.account.mapper.WebsiteUserMapper;
 import jakarta.servlet.http.Cookie;
@@ -14,11 +13,17 @@ import java.util.Optional;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-@Service
-public class WebsiteSessionService {
+/**
+ * Owns the lifecycle of login sessions and short-lived account tokens.
+ *
+ * <p>This is a role component rather than a service layer: it only manages session state,
+ * token persistence and the browser session cookie.</p>
+ */
+@Component
+public class WebsiteSessionRegistry {
 
     private static final int TOKEN_INSERT_ATTEMPTS = 3;
 
@@ -27,7 +32,7 @@ public class WebsiteSessionService {
     private final WebsiteTokenCodec tokenCodec;
     private final WebsiteAccountProperties properties;
 
-    public WebsiteSessionService(
+    public WebsiteSessionRegistry(
             WebsiteSessionMapper sessionMapper,
             WebsiteUserMapper userMapper,
             WebsiteTokenCodec tokenCodec,

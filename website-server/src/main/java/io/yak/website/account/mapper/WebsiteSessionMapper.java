@@ -1,7 +1,7 @@
 package io.yak.website.account.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.yak.website.account.entity.WebsiteSession;
+import io.yak.website.account.domain.WebsiteSession;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,4 +1,4 @@
-package io.yak.website.account;
+package io.yak.website.account.domain;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -7,8 +7,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+/** In-memory abuse guard for the low-volume public website account endpoints. */
 @Component
-public class WebsiteAccountRateLimiter {
+public class WebsiteRateLimiter {
 
     private final Cache<String, AtomicInteger> counters = Caffeine.newBuilder()
             .expireAfterWrite(Duration.ofMinutes(10))

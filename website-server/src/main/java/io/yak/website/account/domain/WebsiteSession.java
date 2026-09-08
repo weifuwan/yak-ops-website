@@ -1,4 +1,4 @@
-package io.yak.website.account.entity;
+package io.yak.website.account.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

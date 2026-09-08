@@ -1,4 +1,4 @@
-package io.yak.website.account;
+package io.yak.website.account.domain;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -7,8 +7,10 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.HexFormat;
 import java.util.Locale;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+/** Generates and hashes opaque website tokens. */
 @Component
 public class WebsiteTokenCodec {
 
@@ -35,9 +37,7 @@ public class WebsiteTokenCodec {
 
     public String hash(String token) {
         if (token == null || token.isBlank()) {
-            throw new WebsiteAccountException(
-                    org.springframework.http.HttpStatus.BAD_REQUEST,
-                    "链接无效或已过期");
+            throw new WebsiteAccountException(HttpStatus.BAD_REQUEST, "链接无效或已过期");
         }
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

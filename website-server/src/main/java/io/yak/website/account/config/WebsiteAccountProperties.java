@@ -1,4 +1,4 @@
-package io.yak.website.account;
+package io.yak.website.account.config;
 
 import java.time.Duration;
 import org.springframework.boot.context.properties.ConfigurationProperties;

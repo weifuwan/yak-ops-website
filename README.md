@@ -9,7 +9,7 @@ This repository is intentionally separated from the Yak Ops admin product. It re
 ```text
 yak-ops-website/
 ├── website-ui/       # React + Umi Max + Ant Design website
-├── website-server/   # Spring Boot website API, account service and protected docs delivery
+├── website-server/   # Spring Boot website API and protected docs delivery
 ├── docs/             # Git-managed documentation source
 ├── deploy/           # local Docker and Nginx deployment foundation
 └── pom.xml            # backend reactor parent
@@ -49,6 +49,19 @@ website_session
 `website_session` stores hashed login session tokens and short-lived `REGISTRATION_CODE`, `REGISTRATION_SETUP` and `RESET_PASSWORD` tokens. Raw tokens are never persisted.
 
 The browser session cookie is `HttpOnly`, `SameSite=Lax` and session-scoped. Local HTTP development leaves `Secure` disabled; HTTPS production must set `WEBSITE_SESSION_COOKIE_SECURE=true`.
+
+The account code follows a role-oriented package layout instead of a generic service layer:
+
+```text
+account/
+├── controller/   # HTTP entry and request-level workflow coordination
+├── config/       # Spring configuration and account properties
+├── model/        # API request/response models
+├── domain/       # website_user/session plus focused roles such as session registry, mailer and token codec
+└── mapper/       # MyBatis Plus persistence boundary
+```
+
+`WebsiteAccountController` is the application entry for registration, login and password recovery. It coordinates small role components directly; there is no `WebsiteAccountService` or `WebsiteSessionService` layer.
 
 The backend uses Spring Boot + MyBatis Plus directly. API responses use the website-owned `{ code, message, data }` envelope, so the backend no longer needs `yak-framework`, Yak Security, Sa-Token or the admin product's department/role/permission/menu/project/resource tables.
 

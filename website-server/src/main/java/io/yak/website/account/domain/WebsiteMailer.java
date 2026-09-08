@@ -1,5 +1,6 @@
-package io.yak.website.account;
+package io.yak.website.account.domain;
 
+import io.yak.website.account.config.WebsiteAccountProperties;
 import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +9,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-public interface WebsiteMailService {
+/** Delivers account emails without exposing transport details to the controller workflow. */
+public interface WebsiteMailer {
 
     void sendRegistrationCode(String email, String code, Duration validFor);
 
@@ -21,9 +23,9 @@ public interface WebsiteMailService {
         name = "mode",
         havingValue = "log",
         matchIfMissing = true)
-class LoggingWebsiteMailService implements WebsiteMailService {
+class LoggingWebsiteMailer implements WebsiteMailer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingWebsiteMailService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingWebsiteMailer.class);
 
     @Override
     public void sendRegistrationCode(String email, String code, Duration validFor) {
@@ -42,12 +44,12 @@ class LoggingWebsiteMailService implements WebsiteMailService {
 
 @Component
 @ConditionalOnProperty(prefix = "website.mail", name = "mode", havingValue = "smtp")
-class SmtpWebsiteMailService implements WebsiteMailService {
+class SmtpWebsiteMailer implements WebsiteMailer {
 
     private final JavaMailSender mailSender;
     private final WebsiteAccountProperties properties;
 
-    SmtpWebsiteMailService(
+    SmtpWebsiteMailer(
             JavaMailSender mailSender,
             WebsiteAccountProperties properties) {
         this.mailSender = mailSender;

@@ -1,33 +1,54 @@
-package io.yak.website.account;
+package io.yak.website.account.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import io.yak.website.account.WebsiteAccountModels.CompleteRegistrationRequest;
-import io.yak.website.account.WebsiteAccountModels.CurrentUserResponse;
-import io.yak.website.account.WebsiteAccountModels.EmailRequest;
-import io.yak.website.account.WebsiteAccountModels.LoginRequest;
-import io.yak.website.account.WebsiteAccountModels.MessageResponse;
-import io.yak.website.account.WebsiteAccountModels.RegistrationEmailRequest;
-import io.yak.website.account.WebsiteAccountModels.RegistrationVerificationResponse;
-import io.yak.website.account.WebsiteAccountModels.ResetPasswordRequest;
-import io.yak.website.account.WebsiteAccountModels.VerifyRegistrationCodeRequest;
-import io.yak.website.account.entity.WebsiteSession;
-import io.yak.website.account.entity.WebsiteUser;
+import io.yak.website.account.config.WebsiteAccountProperties;
+import io.yak.website.account.domain.WebsiteAccountException;
+import io.yak.website.account.domain.WebsiteMailer;
+import io.yak.website.account.domain.WebsiteRateLimiter;
+import io.yak.website.account.domain.WebsiteSession;
+import io.yak.website.account.domain.WebsiteSessionRegistry;
+import io.yak.website.account.domain.WebsiteSessionType;
+import io.yak.website.account.domain.WebsiteTokenCodec;
+import io.yak.website.account.domain.WebsiteUser;
 import io.yak.website.account.mapper.WebsiteUserMapper;
+import io.yak.website.account.model.WebsiteAccountModels.CompleteRegistrationRequest;
+import io.yak.website.account.model.WebsiteAccountModels.CurrentUserResponse;
+import io.yak.website.account.model.WebsiteAccountModels.EmailRequest;
+import io.yak.website.account.model.WebsiteAccountModels.LoginRequest;
+import io.yak.website.account.model.WebsiteAccountModels.MessageResponse;
+import io.yak.website.account.model.WebsiteAccountModels.RegistrationEmailRequest;
+import io.yak.website.account.model.WebsiteAccountModels.RegistrationVerificationResponse;
+import io.yak.website.account.model.WebsiteAccountModels.ResetPasswordRequest;
+import io.yak.website.account.model.WebsiteAccountModels.VerifyRegistrationCodeRequest;
+import io.yak.website.common.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Service
-public class WebsiteAccountService {
+/**
+ * HTTP entry and account workflow coordinator for the public website.
+ *
+ * <p>The website intentionally has no generic service layer. The controller owns the
+ * request-level workflow and collaborates with small role-oriented components such as the
+ * session registry, token codec, rate limiter and mailer.</p>
+ */
+@RestController
+@RequestMapping("/api/v1/auth")
+public class WebsiteAccountController {
 
     private static final int REGISTRATION_CODE_LENGTH = 6;
     private static final int REGISTRATION_CODE_INSERT_ATTEMPTS = 5;
@@ -37,33 +58,34 @@ public class WebsiteAccountService {
             new MessageResponse("如果该邮箱已注册，我们已发送重置密码邮件");
 
     private final WebsiteUserMapper userMapper;
-    private final WebsiteSessionService sessionService;
+    private final WebsiteSessionRegistry sessions;
     private final WebsiteTokenCodec tokenCodec;
-    private final WebsiteMailService mailService;
+    private final WebsiteMailer mailer;
     private final WebsiteAccountProperties properties;
-    private final WebsiteAccountRateLimiter rateLimiter;
+    private final WebsiteRateLimiter rateLimiter;
     private final PasswordEncoder passwordEncoder;
 
-    public WebsiteAccountService(
+    public WebsiteAccountController(
             WebsiteUserMapper userMapper,
-            WebsiteSessionService sessionService,
+            WebsiteSessionRegistry sessions,
             WebsiteTokenCodec tokenCodec,
-            WebsiteMailService mailService,
+            WebsiteMailer mailer,
             WebsiteAccountProperties properties,
-            WebsiteAccountRateLimiter rateLimiter,
+            WebsiteRateLimiter rateLimiter,
             PasswordEncoder passwordEncoder) {
         this.userMapper = userMapper;
-        this.sessionService = sessionService;
+        this.sessions = sessions;
         this.tokenCodec = tokenCodec;
-        this.mailService = mailService;
+        this.mailer = mailer;
         this.properties = properties;
         this.rateLimiter = rateLimiter;
         this.passwordEncoder = passwordEncoder;
     }
 
+    @PostMapping("/register/request-code")
     @Transactional
-    public MessageResponse requestRegistrationCode(
-            RegistrationEmailRequest request,
+    public ApiResponse<MessageResponse> requestRegistrationCode(
+            @Valid @RequestBody RegistrationEmailRequest request,
             HttpServletRequest httpRequest) {
         String email = normalizeEmail(request.email());
         String ip = remoteAddress(httpRequest);
@@ -74,18 +96,18 @@ public class WebsiteAccountService {
         if (user != null && Boolean.TRUE.equals(user.getEmailVerified())) {
             throw new WebsiteAccountException(HttpStatus.CONFLICT, "该邮箱已注册，请直接登录");
         }
-
         if (user == null) {
             user = createPendingUser(email, request);
         }
 
         issueRegistrationCode(user.getId(), email);
-        return REGISTRATION_CODE_SENT;
+        return ApiResponse.success(REGISTRATION_CODE_SENT);
     }
 
+    @PostMapping("/register/verify-code")
     @Transactional
-    public RegistrationVerificationResponse verifyRegistrationCode(
-            VerifyRegistrationCodeRequest request,
+    public ApiResponse<RegistrationVerificationResponse> verifyRegistrationCode(
+            @Valid @RequestBody VerifyRegistrationCodeRequest request,
             HttpServletRequest httpRequest) {
         String email = normalizeEmail(request.email());
         String ip = remoteAddress(httpRequest);
@@ -101,29 +123,31 @@ public class WebsiteAccountService {
         }
 
         String codeHash = registrationCodeHash(user.getId(), request.code());
-        sessionService.consumeHashedForUser(
+        sessions.consumeHashedForUser(
                         user.getId(),
                         codeHash,
                         WebsiteSessionType.REGISTRATION_CODE)
                 .orElseThrow(this::invalidRegistrationCode);
 
         rateLimiter.reset("register-verify-email", email);
-        String setupToken = sessionService.replaceToken(
+        String setupToken = sessions.replaceToken(
                 user.getId(),
                 WebsiteSessionType.REGISTRATION_SETUP,
                 properties.getRegistrationSetupTtl());
-        return new RegistrationVerificationResponse(setupToken, "邮箱验证成功，请设置密码");
+        return ApiResponse.success(new RegistrationVerificationResponse(
+                setupToken,
+                "邮箱验证成功，请设置密码"));
     }
 
+    @PostMapping("/register/complete")
     @Transactional
-    public CurrentUserResponse completeRegistration(
-            CompleteRegistrationRequest request,
+    public ApiResponse<CurrentUserResponse> completeRegistration(
+            @Valid @RequestBody CompleteRegistrationRequest request,
             HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
-        String ip = remoteAddress(httpRequest);
-        rateLimiter.check("register-complete-ip", ip, 30);
+        rateLimiter.check("register-complete-ip", remoteAddress(httpRequest), 30);
 
-        WebsiteSession setupSession = sessionService.consumeToken(
+        WebsiteSession setupSession = sessions.consumeToken(
                         request.setupToken(),
                         WebsiteSessionType.REGISTRATION_SETUP)
                 .orElseThrow(() -> new WebsiteAccountException(
@@ -150,14 +174,15 @@ public class WebsiteAccountService {
             throw new WebsiteAccountException(HttpStatus.INTERNAL_SERVER_ERROR, "注册失败，请稍后重试");
         }
 
-        sessionService.startLoginSession(user.getId(), httpResponse);
+        sessions.startLoginSession(user.getId(), httpResponse);
         rateLimiter.reset("register-code-email", user.getEmail());
-        return toCurrentUser(requireUser(user.getId()));
+        return ApiResponse.success(toCurrentUser(requireUser(user.getId())));
     }
 
+    @PostMapping("/login")
     @Transactional
-    public CurrentUserResponse login(
-            LoginRequest request,
+    public ApiResponse<CurrentUserResponse> login(
+            @Valid @RequestBody LoginRequest request,
             HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
         String email = normalizeEmail(request.email());
@@ -178,30 +203,33 @@ public class WebsiteAccountService {
         update.setLastLoginAt(LocalDateTime.now());
         userMapper.updateById(update);
 
-        sessionService.startLoginSession(user.getId(), httpResponse);
+        sessions.startLoginSession(user.getId(), httpResponse);
         rateLimiter.reset("login-email", email);
-        return toCurrentUser(requireUser(user.getId()));
+        return ApiResponse.success(toCurrentUser(requireUser(user.getId())));
     }
 
-    public CurrentUserResponse current(HttpServletRequest request) {
-        WebsiteUser user = sessionService.currentUser(request)
+    @GetMapping("/current")
+    public ApiResponse<CurrentUserResponse> current(HttpServletRequest request) {
+        WebsiteUser user = sessions.currentUser(request)
                 .orElseThrow(() -> new WebsiteAccountException(
                         HttpStatus.UNAUTHORIZED,
                         "请先登录"));
-        return toCurrentUser(user);
+        return ApiResponse.success(toCurrentUser(user));
     }
 
+    @PostMapping("/logout")
     @Transactional
-    public MessageResponse logout(
+    public ApiResponse<MessageResponse> logout(
             HttpServletRequest request,
             HttpServletResponse response) {
-        sessionService.logout(request, response);
-        return new MessageResponse("已退出登录");
+        sessions.logout(request, response);
+        return ApiResponse.success(new MessageResponse("已退出登录"));
     }
 
+    @PostMapping("/forgot-password")
     @Transactional
-    public MessageResponse forgotPassword(
-            EmailRequest request,
+    public ApiResponse<MessageResponse> forgotPassword(
+            @Valid @RequestBody EmailRequest request,
             HttpServletRequest httpRequest) {
         String email = normalizeEmail(request.email());
         String ip = remoteAddress(httpRequest);
@@ -214,12 +242,14 @@ public class WebsiteAccountService {
                 && StringUtils.hasText(user.getPasswordHash())) {
             issueReset(user);
         }
-        return GENERIC_RESET_RESPONSE;
+        return ApiResponse.success(GENERIC_RESET_RESPONSE);
     }
 
+    @PostMapping("/reset-password")
     @Transactional
-    public MessageResponse resetPassword(ResetPasswordRequest request) {
-        WebsiteSession resetSession = sessionService.consumeToken(
+    public ApiResponse<MessageResponse> resetPassword(
+            @Valid @RequestBody ResetPasswordRequest request) {
+        WebsiteSession resetSession = sessions.consumeToken(
                         request.token(),
                         WebsiteSessionType.RESET_PASSWORD)
                 .orElseThrow(() -> new WebsiteAccountException(
@@ -237,8 +267,8 @@ public class WebsiteAccountService {
         if (userMapper.updateById(update) != 1) {
             throw new WebsiteAccountException(HttpStatus.INTERNAL_SERVER_ERROR, "密码重置失败");
         }
-        sessionService.invalidateLoginSessions(user.getId());
-        return new MessageResponse("密码已重置，请使用新密码登录");
+        sessions.invalidateLoginSessions(user.getId());
+        return ApiResponse.success(new MessageResponse("密码已重置，请使用新密码登录"));
     }
 
     private WebsiteUser createPendingUser(
@@ -274,12 +304,12 @@ public class WebsiteAccountService {
         for (int attempt = 0; attempt < REGISTRATION_CODE_INSERT_ATTEMPTS; attempt++) {
             String code = tokenCodec.generateNumericCode(REGISTRATION_CODE_LENGTH);
             try {
-                sessionService.replaceWithHash(
+                sessions.replaceWithHash(
                         userId,
                         WebsiteSessionType.REGISTRATION_CODE,
                         registrationCodeHash(userId, code),
                         ttl);
-                mailService.sendRegistrationCode(email, code, ttl);
+                mailer.sendRegistrationCode(email, code, ttl);
                 return;
             } catch (DuplicateKeyException collision) {
                 lastCollision = collision;
@@ -296,7 +326,7 @@ public class WebsiteAccountService {
     }
 
     private void issueReset(WebsiteUser user) {
-        String rawToken = sessionService.replaceToken(
+        String rawToken = sessions.replaceToken(
                 user.getId(),
                 WebsiteSessionType.RESET_PASSWORD,
                 properties.getResetPasswordTtl());
@@ -306,7 +336,7 @@ public class WebsiteAccountService {
                 .build()
                 .encode()
                 .toUriString();
-        mailService.sendPasswordReset(user.getEmail(), link);
+        mailer.sendPasswordReset(user.getEmail(), link);
     }
 
     private WebsiteUser findByEmail(String email) {
@@ -335,9 +365,7 @@ public class WebsiteAccountService {
     }
 
     private WebsiteAccountException invalidRegistrationCode() {
-        return new WebsiteAccountException(
-                HttpStatus.BAD_REQUEST,
-                "验证码无效或已过期");
+        return new WebsiteAccountException(HttpStatus.BAD_REQUEST, "验证码无效或已过期");
     }
 
     private String defaultDisplayName(String email) {

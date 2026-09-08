@@ -1,4 +1,4 @@
-package io.yak.website.account;
+package io.yak.website.account.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

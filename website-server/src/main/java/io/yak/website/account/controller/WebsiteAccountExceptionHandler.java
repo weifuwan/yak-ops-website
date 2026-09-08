@@ -1,5 +1,6 @@
-package io.yak.website.account;
+package io.yak.website.account.controller;
 
+import io.yak.website.account.domain.WebsiteAccountException;
 import io.yak.website.common.ApiResponse;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
