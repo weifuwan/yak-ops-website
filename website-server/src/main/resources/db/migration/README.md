@@ -13,6 +13,7 @@ website_session
 stores login sessions plus short-lived registration and password-reset tokens; only token
 hashes are persisted.
 
-`V4__simplify_website_auth.sql` is an intentional development-time reset from the earlier
-Yak Security/RBAC-backed account model. It drops the old website account tables and
-`yak_security_*` tables before creating the two website-owned tables.
+`V2__simplify_website_auth.sql` is an intentional development-time reset from the earlier
+Yak Security/RBAC-backed account model. It drops the old website account tables and any
+legacy `yak_security_*` tables that were created in the website database before creating
+the two website-owned tables.
