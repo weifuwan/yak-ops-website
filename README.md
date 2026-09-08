@@ -2,7 +2,7 @@
 
 Yak Ops Website is the public product website and authenticated developer entry for Yak Ops.
 
-This repository is intentionally separated from the Yak Ops admin product. It reuses Yak Ops engineering conventions and design primitives without bringing the admin product's RBAC/domain model into the website.
+This repository is intentionally separated from the Yak Ops admin product. It reuses Yak Ops engineering conventions and design primitives without bringing the admin product's RBAC/domain model or `yak-framework` runtime dependencies into the website.
 
 ## Repository layout
 
@@ -23,7 +23,7 @@ Protected Docs links pass through the website account boundary and return to the
 
 ## Account architecture
 
-The website deliberately owns a small authentication model instead of depending on the full Yak Security RBAC schema.
+The website deliberately owns a small authentication model instead of depending on Yak Security or the full Yak Ops RBAC schema.
 
 ```text
 email registration
@@ -50,7 +50,7 @@ website_session
 
 The browser session cookie is `HttpOnly`, `SameSite=Lax` and session-scoped. Local HTTP development leaves `Secure` disabled; HTTPS production must set `WEBSITE_SESSION_COOKIE_SECURE=true`.
 
-The backend uses MyBatis Plus for database access. The website does not create or depend on Yak Security department, role, permission, menu, project or resource tables.
+The backend uses Spring Boot + MyBatis Plus directly. API responses use the website-owned `{ code, message, data }` envelope, so the backend no longer needs `yak-framework`, Yak Security, Sa-Token or the admin product's department/role/permission/menu/project/resource tables.
 
 ## Protected docs architecture
 
@@ -84,7 +84,6 @@ GET /api/v1/docs/search?q=质量
 - Java 21
 - Maven 3.9+
 - Docker / Docker Compose
-- Yak Framework `1.0.0-SNAPSHOT` available to Maven locally for the shared `Result` model
 
 ## Local development
 
@@ -126,9 +125,9 @@ The account API is under `/api/v1/auth`. `/current`, `/logout` and `/api/v1/docs
 
 ## Schema reset note
 
-`V4__simplify_website_auth.sql` intentionally removes the earlier Yak Security/RBAC account tables. This project is still in development, so existing development website accounts are reset by that migration rather than carrying forward unnecessary RBAC data.
+`V2__simplify_website_auth.sql` intentionally removes the earlier Yak Security/RBAC-backed account tables. This project is still in development, so existing development website accounts are reset by that migration rather than carrying forward unnecessary RBAC data.
 
-After migration the schema should contain only:
+After migration the website database should contain only the Flyway history table and the two website account tables:
 
 ```text
 flyway_schema_history
