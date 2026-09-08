@@ -24,28 +24,10 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <yak-framework.version>1.0.0-SNAPSHOT</yak-framework.version>
         <mybatis-plus.version>3.5.16</mybatis-plus.version>
     </properties>
 
     <modules>
         <module>website-server</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.yak.framework</groupId>
-                <artifactId>yak-framework-parent</artifactId>
-                <version>${yak-framework.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.yak.framework</groupId>
-                <artifactId>yak-common</artifactId>
-                <version>${yak-framework.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>
