@@ -1,7 +1,7 @@
 package io.yak.website.docs;
 
-import io.yak.website.account.WebsiteSessionService;
-import io.yak.website.account.entity.WebsiteUser;
+import io.yak.website.account.domain.WebsiteSessionRegistry;
+import io.yak.website.account.domain.WebsiteUser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProtectedDocsAccessGuard {
 
-    private final WebsiteSessionService sessionService;
+    private final WebsiteSessionRegistry sessions;
 
-    public ProtectedDocsAccessGuard(WebsiteSessionService sessionService) {
-        this.sessionService = sessionService;
+    public ProtectedDocsAccessGuard(WebsiteSessionRegistry sessions) {
+        this.sessions = sessions;
     }
 
     public WebsiteUser requireVerifiedWebsiteUser(HttpServletRequest request) {
-        return sessionService.currentUser(request)
+        return sessions.currentUser(request)
                 .orElseThrow(() -> new ProtectedDocsException(
                         HttpStatus.UNAUTHORIZED,
                         "请先登录"));
