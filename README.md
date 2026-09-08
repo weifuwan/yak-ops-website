@@ -37,7 +37,7 @@ website_session
 HttpOnly session cookie
 ```
 
-The account database has only two business tables:
+The account model has only two business tables:
 
 ```text
 website_user
@@ -64,6 +64,24 @@ account/
 `WebsiteAccountController` is the application entry for registration, login and password recovery. It coordinates small role components directly; there is no `WebsiteAccountService` or `WebsiteSessionService` layer.
 
 The backend uses Spring Boot + MyBatis Plus directly. API responses use the website-owned `{ code, message, data }` envelope, so the backend no longer needs `yak-framework`, Yak Security, Sa-Token or the admin product's department/role/permission/menu/project/resource tables.
+
+## Traffic metrics
+
+The website records lightweight page-level PV/UV without introducing a separate analytics platform.
+
+```text
+Umi route change
+      ↓
+POST /api/v1/traffic/page-view
+      ↓
+yakops_visitor (long-lived HttpOnly UUID cookie)
+      ↓
+website_traffic_daily
+```
+
+`website_traffic_daily` keeps one row per `stat_date + visitor_id + path`. Repeated visits increment `pv_count`, so page PV is `SUM(pv_count)` and page UV is the row count for that date/path. Site-wide UV can be calculated with `COUNT(DISTINCT visitor_id)`.
+
+Only the route pathname is recorded; query strings, URL hashes, IP addresses and user-agent strings are not stored. The visitor cookie lasts 365 days and uses the same production `Secure` switch as the login cookie.
 
 ## Protected docs architecture
 
@@ -140,12 +158,13 @@ The account API is under `/api/v1/auth`. `/current`, `/logout` and `/api/v1/docs
 
 `V2__simplify_website_auth.sql` intentionally removes the earlier Yak Security/RBAC-backed account tables. This project is still in development, so existing development website accounts are reset by that migration rather than carrying forward unnecessary RBAC data.
 
-After migration the website database should contain only the Flyway history table and the two website account tables:
+After the current migrations the website database contains the Flyway history table, the two account tables and the lightweight daily traffic table:
 
 ```text
 flyway_schema_history
 website_user
 website_session
+website_traffic_daily
 ```
 
 ## Quality checks
