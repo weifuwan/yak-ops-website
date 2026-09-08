@@ -2,22 +2,26 @@
 
 Keep website schema changes in this directory using Flyway versioned migrations.
 
-The website account model is intentionally small:
+The website is still pre-deployment, so the current database starts from a single baseline migration:
+
+```text
+V1__create_account_foundation.sql
+```
+
+V1 creates the complete initial website schema:
 
 ```text
 website_user
 website_session
+website_traffic_daily
 ```
 
 `website_user` stores the website identity and BCrypt password hash. `website_session`
 stores login sessions plus short-lived registration and password-reset tokens; only token
 hashes are persisted.
 
-`V2__simplify_website_auth.sql` is an intentional development-time reset from the earlier
-Yak Security/RBAC-backed account model. It drops the old website account tables and any
-legacy `yak_security_*` tables that were created in the website database before creating
-the two website-owned account tables.
+`website_traffic_daily` stores one aggregate row per day, visitor UUID and route pathname.
+Repeated visits atomically increment `pv_count`, allowing PV and UV to be derived without
+storing raw IP addresses or user-agent strings.
 
-`V3__create_website_traffic_daily.sql` adds the separate `website_traffic_daily` analytics
-table. It stores one aggregate row per day, visitor UUID and route pathname so PV can be
-incremented atomically while UV remains derivable without storing raw IP addresses.
+Create a new Flyway version only after this V1 baseline has been used by a deployed or shared database.

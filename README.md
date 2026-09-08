@@ -154,11 +154,15 @@ The frontend proxies `/api/*` and `/actuator/*` to the backend during local deve
 
 The account API is under `/api/v1/auth`. `/current`, `/logout` and `/api/v1/docs/**` require a valid website session.
 
-## Schema reset note
+## Database schema
 
-`V2__simplify_website_auth.sql` intentionally removes the earlier Yak Security/RBAC-backed account tables. This project is still in development, so existing development website accounts are reset by that migration rather than carrying forward unnecessary RBAC data.
+Because the website has not been deployed yet, the initial schema is consolidated into a single Flyway baseline migration:
 
-After the current migrations the website database contains the Flyway history table, the two account tables and the lightweight daily traffic table:
+```text
+V1__create_account_foundation.sql
+```
+
+A fresh database contains the Flyway history table plus the three website-owned tables:
 
 ```text
 flyway_schema_history
@@ -166,6 +170,8 @@ website_user
 website_session
 website_traffic_daily
 ```
+
+Future schema changes should add V2+ migrations only after this V1 baseline has been used by a deployed or shared database.
 
 ## Quality checks
 
