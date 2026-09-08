@@ -2,4 +2,18 @@
 
 Keep website schema changes in this directory using Flyway versioned migrations.
 
-PR 1 intentionally contains no product tables. The account schema begins with PR 2 so the first migration represents a real domain capability rather than a placeholder table.
+The website account model is intentionally small:
+
+```text
+website_user
+website_session
+```
+
+`website_user` stores the website identity and BCrypt password hash. `website_session`
+stores login sessions plus short-lived registration and password-reset tokens; only token
+hashes are persisted.
+
+`V2__simplify_website_auth.sql` is an intentional development-time reset from the earlier
+Yak Security/RBAC-backed account model. It drops the old website account tables and any
+legacy `yak_security_*` tables that were created in the website database before creating
+the two website-owned tables.

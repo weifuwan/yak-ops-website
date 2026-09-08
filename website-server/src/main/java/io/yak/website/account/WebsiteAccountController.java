@@ -1,7 +1,5 @@
 package io.yak.website.account;
 
-import io.yak.framework.common.Result;
-import io.yak.framework.security.web.PublicEndpoint;
 import io.yak.website.account.WebsiteAccountModels.CompleteRegistrationRequest;
 import io.yak.website.account.WebsiteAccountModels.CurrentUserResponse;
 import io.yak.website.account.WebsiteAccountModels.EmailRequest;
@@ -11,6 +9,7 @@ import io.yak.website.account.WebsiteAccountModels.RegistrationEmailRequest;
 import io.yak.website.account.WebsiteAccountModels.RegistrationVerificationResponse;
 import io.yak.website.account.WebsiteAccountModels.ResetPasswordRequest;
 import io.yak.website.account.WebsiteAccountModels.VerifyRegistrationCodeRequest;
+import io.yak.website.common.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -31,63 +30,57 @@ public class WebsiteAccountController {
     }
 
     @PostMapping("/register/request-code")
-    @PublicEndpoint
-    public Result<MessageResponse> requestRegistrationCode(
+    public ApiResponse<MessageResponse> requestRegistrationCode(
             @Valid @RequestBody RegistrationEmailRequest request,
             HttpServletRequest httpRequest) {
-        return Result.success(accountService.requestRegistrationCode(request, httpRequest));
+        return ApiResponse.success(accountService.requestRegistrationCode(request, httpRequest));
     }
 
     @PostMapping("/register/verify-code")
-    @PublicEndpoint
-    public Result<RegistrationVerificationResponse> verifyRegistrationCode(
+    public ApiResponse<RegistrationVerificationResponse> verifyRegistrationCode(
             @Valid @RequestBody VerifyRegistrationCodeRequest request,
             HttpServletRequest httpRequest) {
-        return Result.success(accountService.verifyRegistrationCode(request, httpRequest));
+        return ApiResponse.success(accountService.verifyRegistrationCode(request, httpRequest));
     }
 
     @PostMapping("/register/complete")
-    @PublicEndpoint
-    public Result<CurrentUserResponse> completeRegistration(
+    public ApiResponse<CurrentUserResponse> completeRegistration(
             @Valid @RequestBody CompleteRegistrationRequest request,
             HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
-        return Result.success(accountService.completeRegistration(request, httpRequest, httpResponse));
+        return ApiResponse.success(accountService.completeRegistration(request, httpRequest, httpResponse));
     }
 
     @PostMapping("/login")
-    @PublicEndpoint
-    public Result<CurrentUserResponse> login(
+    public ApiResponse<CurrentUserResponse> login(
             @Valid @RequestBody LoginRequest request,
             HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
-        return Result.success(accountService.login(request, httpRequest, httpResponse));
+        return ApiResponse.success(accountService.login(request, httpRequest, httpResponse));
     }
 
     @GetMapping("/current")
-    public Result<CurrentUserResponse> current() {
-        return Result.success(accountService.current());
+    public ApiResponse<CurrentUserResponse> current(HttpServletRequest request) {
+        return ApiResponse.success(accountService.current(request));
     }
 
     @PostMapping("/logout")
-    public Result<MessageResponse> logout(
+    public ApiResponse<MessageResponse> logout(
             HttpServletRequest request,
             HttpServletResponse response) {
-        return Result.success(accountService.logout(request, response));
+        return ApiResponse.success(accountService.logout(request, response));
     }
 
     @PostMapping("/forgot-password")
-    @PublicEndpoint
-    public Result<MessageResponse> forgotPassword(
+    public ApiResponse<MessageResponse> forgotPassword(
             @Valid @RequestBody EmailRequest request,
             HttpServletRequest httpRequest) {
-        return Result.success(accountService.forgotPassword(request, httpRequest));
+        return ApiResponse.success(accountService.forgotPassword(request, httpRequest));
     }
 
     @PostMapping("/reset-password")
-    @PublicEndpoint
-    public Result<MessageResponse> resetPassword(
+    public ApiResponse<MessageResponse> resetPassword(
             @Valid @RequestBody ResetPasswordRequest request) {
-        return Result.success(accountService.resetPassword(request));
+        return ApiResponse.success(accountService.resetPassword(request));
     }
 }

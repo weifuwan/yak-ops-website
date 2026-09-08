@@ -1,6 +1,6 @@
 package io.yak.website.docs;
 
-import io.yak.framework.common.Result;
+import io.yak.website.common.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ProtectedDocsExceptionHandler {
 
     @ExceptionHandler(ProtectedDocsException.class)
-    public ResponseEntity<Result<Void>> handleDocsException(
+    public ResponseEntity<ApiResponse<Void>> handleDocsException(
             ProtectedDocsException exception) {
         return ResponseEntity
                 .status(exception.getStatus())
-                .body(Result.fail(
+                .body(ApiResponse.fail(
                         exception.getStatus().value(),
                         exception.getMessage()));
     }

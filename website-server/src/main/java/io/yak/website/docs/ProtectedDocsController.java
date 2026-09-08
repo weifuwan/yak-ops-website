@@ -1,9 +1,10 @@
 package io.yak.website.docs;
 
-import io.yak.framework.common.Result;
+import io.yak.website.common.ApiResponse;
 import io.yak.website.docs.DocsModels.DocumentResponse;
 import io.yak.website.docs.DocsModels.NavigationResponse;
 import io.yak.website.docs.DocsModels.SearchResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,40 +31,45 @@ public class ProtectedDocsController {
     }
 
     @GetMapping("/navigation")
-    public ResponseEntity<Result<NavigationResponse>> navigation() {
-        accessGuard.requireVerifiedWebsiteUser();
+    public ResponseEntity<ApiResponse<NavigationResponse>> navigation(
+            HttpServletRequest request) {
+        accessGuard.requireVerifiedWebsiteUser(request);
         return ok(catalog.navigation());
     }
 
     @GetMapping("/content")
-    public ResponseEntity<Result<DocumentResponse>> content(
-            @RequestParam("slug") String slug) {
-        accessGuard.requireVerifiedWebsiteUser();
+    public ResponseEntity<ApiResponse<DocumentResponse>> content(
+            @RequestParam("slug") String slug,
+            HttpServletRequest request) {
+        accessGuard.requireVerifiedWebsiteUser(request);
         return catalog.document(slug)
                 .map(this::ok)
                 .orElseGet(() -> ResponseEntity
                         .status(HttpStatus.NOT_FOUND)
                         .cacheControl(CacheControl.noStore())
-                        .body(Result.buildNotExist("文档不存在")));
+                        .body(ApiResponse.fail(HttpStatus.NOT_FOUND.value(), "文档不存在")));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Result<SearchResponse>> search(
-            @RequestParam(value = "q", defaultValue = "") String query) {
-        accessGuard.requireVerifiedWebsiteUser();
+    public ResponseEntity<ApiResponse<SearchResponse>> search(
+            @RequestParam(value = "q", defaultValue = "") String query,
+            HttpServletRequest request) {
+        accessGuard.requireVerifiedWebsiteUser(request);
         if (query != null && query.length() > MAX_SEARCH_QUERY_LENGTH) {
             return ResponseEntity
                     .badRequest()
                     .cacheControl(CacheControl.noStore())
-                    .body(Result.buildParamIllegal("搜索关键词不能超过 80 个字符"));
+                    .body(ApiResponse.fail(
+                            HttpStatus.BAD_REQUEST.value(),
+                            "搜索关键词不能超过 80 个字符"));
         }
         return ok(catalog.search(query));
     }
 
-    private <T> ResponseEntity<Result<T>> ok(T data) {
+    private <T> ResponseEntity<ApiResponse<T>> ok(T data) {
         return ResponseEntity
                 .ok()
                 .cacheControl(CacheControl.noStore())
-                .body(Result.success(data));
+                .body(ApiResponse.success(data));
     }
 }
