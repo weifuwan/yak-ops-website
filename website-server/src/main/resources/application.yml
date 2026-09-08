@@ -51,5 +51,9 @@ website:
     session-cookie-name: ${WEBSITE_SESSION_COOKIE_NAME:yakops_web_session}
     session-cookie-secure: ${WEBSITE_SESSION_COOKIE_SECURE:false}
     mail-from: ${WEBSITE_MAIL_FROM:noreply@yak-ops.com}
+  traffic:
+    visitor-cookie-name: yakops_visitor
+    visitor-cookie-max-age: 365d
+    visitor-cookie-secure: ${WEBSITE_SESSION_COOKIE_SECURE:false}
   mail:
     mode: ${WEBSITE_MAIL_MODE:smtp}
