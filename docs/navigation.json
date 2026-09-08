@@ -38,11 +38,6 @@
           "slug": "deploy/docker-compose",
           "title": "Docker Compose",
           "description": "Deploy Yak Ops with a single Docker Compose command."
-        },
-        {
-          "slug": "deploy/nginx-java",
-          "title": "Nginx + Java JAR",
-          "description": "Serve the website frontend with Nginx and run the backend as a standalone Spring Boot JAR."
         }
       ]
     },

@@ -2,7 +2,9 @@
 
 Deploy Yak Ops Website on a Linux host with Nginx serving the frontend and the Spring Boot backend running directly with `java -jar`.
 
-This deployment path intentionally stays simple:
+> This is repository-internal deployment documentation for `yak-ops-website`. It is intentionally kept under `deploy/` instead of `docs/` so it is not exposed as Yak Ops product documentation.
+
+The deployment model stays simple:
 
 ```text
 Browser
@@ -159,7 +161,7 @@ For a simple background process without introducing an additional process manage
 nohup java -jar website-server.jar > website-server.log 2>&1 &
 ```
 
-The backend runs on `127.0.0.1:8080` when `SERVER_PORT=8080`, while Nginx remains the only public entry point.
+The backend listens on port `8080` when `SERVER_PORT=8080`, while Nginx remains the public entry point.
 
 ## Verify the deployment
 
