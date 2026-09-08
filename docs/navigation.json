@@ -30,9 +30,34 @@
       "title": "Deploy",
       "items": [
         {
+          "slug": "deploy/overview",
+          "title": "Deployment Guide",
+          "description": "Choose a deployment path and review the settings that matter before running Yak Ops."
+        },
+        {
           "slug": "deploy/docker-compose",
           "title": "Docker Compose",
           "description": "Deploy Yak Ops with a single Docker Compose command."
+        }
+      ]
+    },
+    {
+      "title": "Development",
+      "items": [
+        {
+          "slug": "development/guide",
+          "title": "Development Guide",
+          "description": "Set up the local toolchain and build the Yak Ops frontend and backend."
+        },
+        {
+          "slug": "development/architecture",
+          "title": "Architecture",
+          "description": "Understand the main Yak Ops layers and how runtime integrations fit behind the control plane."
+        },
+        {
+          "slug": "development/configuration",
+          "title": "Configuration Reference",
+          "description": "Review the most useful environment variables for deployment and local development."
         }
       ]
     },
@@ -43,6 +68,16 @@
           "slug": "link-up/connectors",
           "title": "Supported Connectors",
           "description": "See which Source and Sink connectors are currently supported by Link-up."
+        }
+      ]
+    },
+    {
+      "title": "Open Source",
+      "items": [
+        {
+          "slug": "contributing/guide",
+          "title": "Contributing Guide",
+          "description": "Learn the lightweight contribution flow and expectations for Yak Ops pull requests."
         }
       ]
     }
