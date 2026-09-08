@@ -1,6 +1,6 @@
 package io.yak.website.docs;
 
-import io.yak.framework.common.Result;
+import io.yak.website.common.ApiResponse;
 import io.yak.website.docs.DocsModels.DocumentResponse;
 import io.yak.website.docs.DocsModels.NavigationResponse;
 import io.yak.website.docs.DocsModels.SearchResponse;
@@ -31,14 +31,14 @@ public class ProtectedDocsController {
     }
 
     @GetMapping("/navigation")
-    public ResponseEntity<Result<NavigationResponse>> navigation(
+    public ResponseEntity<ApiResponse<NavigationResponse>> navigation(
             HttpServletRequest request) {
         accessGuard.requireVerifiedWebsiteUser(request);
         return ok(catalog.navigation());
     }
 
     @GetMapping("/content")
-    public ResponseEntity<Result<DocumentResponse>> content(
+    public ResponseEntity<ApiResponse<DocumentResponse>> content(
             @RequestParam("slug") String slug,
             HttpServletRequest request) {
         accessGuard.requireVerifiedWebsiteUser(request);
@@ -47,11 +47,11 @@ public class ProtectedDocsController {
                 .orElseGet(() -> ResponseEntity
                         .status(HttpStatus.NOT_FOUND)
                         .cacheControl(CacheControl.noStore())
-                        .body(Result.buildNotExist("文档不存在")));
+                        .body(ApiResponse.fail(HttpStatus.NOT_FOUND.value(), "文档不存在")));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Result<SearchResponse>> search(
+    public ResponseEntity<ApiResponse<SearchResponse>> search(
             @RequestParam(value = "q", defaultValue = "") String query,
             HttpServletRequest request) {
         accessGuard.requireVerifiedWebsiteUser(request);
@@ -59,15 +59,17 @@ public class ProtectedDocsController {
             return ResponseEntity
                     .badRequest()
                     .cacheControl(CacheControl.noStore())
-                    .body(Result.buildParamIllegal("搜索关键词不能超过 80 个字符"));
+                    .body(ApiResponse.fail(
+                            HttpStatus.BAD_REQUEST.value(),
+                            "搜索关键词不能超过 80 个字符"));
         }
         return ok(catalog.search(query));
     }
 
-    private <T> ResponseEntity<Result<T>> ok(T data) {
+    private <T> ResponseEntity<ApiResponse<T>> ok(T data) {
         return ResponseEntity
                 .ok()
                 .cacheControl(CacheControl.noStore())
-                .body(Result.success(data));
+                .body(ApiResponse.success(data));
     }
 }
