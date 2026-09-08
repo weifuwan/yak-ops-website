@@ -1,6 +1,6 @@
 # Nginx + Java JAR
 
-Deploy Yak Ops Website on a Linux host with Nginx serving the frontend and the Spring Boot backend running directly with `java -jar`.
+Deploy Yak Ops Website on a Linux host with the frontend served by the official `nginx:latest` image and the Spring Boot backend running directly with `java -jar`.
 
 > This is repository-internal deployment documentation for `yak-ops-website`. It is intentionally kept under `deploy/` instead of `docs/` so it is not exposed as Yak Ops product documentation.
 
@@ -10,8 +10,8 @@ The deployment model stays simple:
 Browser
    |
    v
-Nginx :80 / :443
-   |-- /              -> website-ui static files
+nginx:latest :80
+   |-- /              -> website-ui/dist
    `-- /api/*         -> 127.0.0.1:8080
                               |
                               v
@@ -23,12 +23,13 @@ Nginx :80 / :443
 
 ## Prerequisites
 
-Make sure the server has:
+Make sure the Linux server has:
 
 - Node.js 20+
 - Java 21
 - Maven 3.9+
-- Nginx
+- Docker
+- `nginx:latest` image
 - A reachable MySQL instance
 
 ## Build the project
@@ -61,60 +62,11 @@ npm run build
 cd ..
 ```
 
-The production frontend files are generated under:
+The frontend output is generated under:
 
 ```text
 website-ui/dist/
 ```
-
-## Deploy the frontend with Nginx
-
-Create a directory for the static files:
-
-```bash
-sudo mkdir -p /var/www/yak-ops-website
-sudo rsync -a --delete website-ui/dist/ /var/www/yak-ops-website/
-```
-
-Create an Nginx server configuration, for example `/etc/nginx/conf.d/yak-ops-website.conf`:
-
-```nginx
-server {
-    listen 80;
-    server_name your-domain.example.com;
-
-    root /var/www/yak-ops-website;
-    index index.html;
-
-    add_header Referrer-Policy "no-referrer" always;
-    add_header X-Content-Type-Options "nosniff" always;
-    add_header X-Frame-Options "DENY" always;
-
-    location /api/ {
-        proxy_pass http://127.0.0.1:8080;
-        proxy_http_version 1.1;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-Replace `your-domain.example.com` with the real domain name.
-
-Check and reload Nginx:
-
-```bash
-sudo nginx -t
-sudo systemctl reload nginx
-```
-
-The `try_files` fallback is required because the frontend uses client-side routing. Requests such as `/login`, `/register`, and `/docs/...` must still return `index.html` when they are opened directly in the browser.
 
 ## Configure the backend
 
@@ -155,13 +107,49 @@ Start the backend directly:
 java -jar website-server.jar
 ```
 
-For a simple background process without introducing an additional process manager:
+For a simple background process:
 
 ```bash
 nohup java -jar website-server.jar > website-server.log 2>&1 &
 ```
 
-The backend listens on port `8080` when `SERVER_PORT=8080`, while Nginx remains the public entry point.
+The backend listens on port `8080` when `SERVER_PORT=8080`.
+
+## Run the frontend with `nginx:latest`
+
+The repository already contains the complete Nginx configuration:
+
+```text
+deploy/nginx/nginx.conf
+```
+
+It serves the SPA from `/usr/share/nginx/html` and proxies `/api/*` to `127.0.0.1:8080`.
+
+From the repository root, start Nginx with one Docker command:
+
+```bash
+docker run -d \
+  --name yak-ops-website-nginx \
+  --restart unless-stopped \
+  --network host \
+  -v "$(pwd)/website-ui/dist:/usr/share/nginx/html:ro" \
+  -v "$(pwd)/deploy/nginx/nginx.conf:/etc/nginx/nginx.conf:ro" \
+  nginx:latest
+```
+
+`--network host` is intentional. The Java backend runs directly on the Linux host, so host networking allows the Nginx container to proxy `/api/*` to `127.0.0.1:8080` without an extra Docker network or `host.docker.internal` mapping.
+
+Because host networking is used, do not add `-p 80:80`. Make sure port `80` on the host is available before starting the container.
+
+The Nginx configuration also contains the SPA fallback:
+
+```nginx
+location / {
+    try_files $uri $uri/ /index.html;
+}
+```
+
+This is required for routes such as `/login`, `/register`, and `/docs/...` when they are opened directly in the browser.
 
 ## Verify the deployment
 
@@ -173,13 +161,19 @@ curl http://127.0.0.1:8080/actuator/health
 
 A healthy backend should return a response with `"status":"UP"`.
 
-Check Nginx:
+Check the Nginx container:
 
 ```bash
-curl -I http://your-domain.example.com/
+docker ps --filter name=yak-ops-website-nginx
 ```
 
-Then open the site in a browser and verify that frontend pages load and `/api/*` requests are proxied successfully.
+Check the website:
+
+```bash
+curl -I http://127.0.0.1/
+```
+
+Then open the public domain in a browser and verify that frontend pages load and `/api/*` requests are proxied successfully.
 
 ## Upgrade
 
@@ -195,19 +189,12 @@ npm run build
 cd ..
 ```
 
-Replace the deployed frontend files:
-
-```bash
-sudo rsync -a --delete website-ui/dist/ /var/www/yak-ops-website/
-sudo systemctl reload nginx
-```
-
-Replace the backend JAR and restart the existing Java process:
+Replace and restart the backend JAR:
 
 ```bash
 sudo cp website-server/target/website-server-1.0.0-SNAPSHOT.jar /opt/yak-ops-website/website-server.jar
-cd /opt/yak-ops-website
-java -jar website-server.jar
 ```
 
-This guide intentionally keeps the runtime model to Nginx plus a standalone Spring Boot JAR. A systemd unit, container runtime, or process supervisor can be added later if automatic restart and boot-time startup are required.
+The frontend is bind-mounted into the Nginx container. After rebuilding the frontend, recreate the Nginx container with the same `docker run` command when necessary so the container uses the latest build and configuration.
+
+This deployment intentionally keeps the runtime model small: one `nginx:latest` container for the frontend and one standalone Spring Boot JAR for the backend.
