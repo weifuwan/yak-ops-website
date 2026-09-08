@@ -56,20 +56,4 @@ public final class WebsiteAccountModels {
             String displayName,
             boolean emailVerified) {
     }
-
-    public record Profile(
-            Long id,
-            Long securityUserId,
-            String email,
-            boolean emailVerified) {
-    }
-
-    public record TokenRecord(Long id, Long securityUserId) {
-    }
-
-    public enum TokenPurpose {
-        REGISTRATION_CODE,
-        REGISTRATION_SETUP,
-        RESET_PASSWORD
-    }
 }
