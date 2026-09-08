@@ -3,7 +3,8 @@
 The website deployment foundation stays intentionally small:
 
 - `docker/compose.yaml` starts one local MySQL dependency;
-- `nginx/default.conf` defines the production boundary for SPA fallback and backend proxying.
+- `nginx/nginx.conf` is mounted directly into the official `nginx:latest` container and defines the SPA fallback plus backend proxying;
+- `nginx-java.md` documents the production-style runtime model: Nginx in Docker and the backend started with `java -jar`.
 
 The website account model uses the same `yak_ops_website` database and does not require a separate Yak Security database.
 
