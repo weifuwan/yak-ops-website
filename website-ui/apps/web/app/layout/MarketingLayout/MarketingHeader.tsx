@@ -1,13 +1,9 @@
-import brandLogo from "@/assets/img/logo2.png";
-import {
-  MARKETING_HEADER_ACTIONS,
-  MARKETING_NAV_ITEMS,
-  type MarketingMegaNavItem,
-} from "@/config/marketingNavigation";
-import { Link } from "react-router-dom";
-import type { ReactNode } from "react";
-import { useState } from "react";
-import "./index.less";
+import brandLogo from '@/assets/img/logo2.png';
+import { MARKETING_HEADER_ACTIONS, MARKETING_NAV_ITEMS, type MarketingMegaNavItem } from '@/config/marketingNavigation';
+import { Link } from 'react-router-dom';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
+import './index.less';
 
 interface MarketingLinkProps {
   href: string;
@@ -24,35 +20,23 @@ interface NavDropdownProps {
 }
 
 const MENU_WIDTH_BY_COLUMNS: Record<number, string> = {
-  1: "w-[24rem]",
-  2: "w-[38rem]",
-  3: "w-[50rem]",
-  4: "w-[56rem]",
+  1: 'w-[24rem]',
+  2: 'w-[38rem]',
+  3: 'w-[50rem]',
+  4: 'w-[56rem]',
 };
 
 const MENU_GRID_BY_COLUMNS: Record<number, string> = {
-  1: "grid-cols-1",
-  2: "grid-cols-2",
-  3: "grid-cols-3",
-  4: "grid-cols-4",
+  1: 'grid-cols-1',
+  2: 'grid-cols-2',
+  3: 'grid-cols-3',
+  4: 'grid-cols-4',
 };
 
-function MarketingLink({
-  href,
-  external = false,
-  className,
-  children,
-  onClick,
-}: MarketingLinkProps) {
+function MarketingLink({ href, external = false, className, children, onClick }: MarketingLinkProps) {
   if (external) {
     return (
-      <a
-        className={className}
-        href={href}
-        onClick={onClick}
-        rel="noreferrer"
-        target="_blank"
-      >
+      <a className={className} href={href} onClick={onClick} rel="noreferrer" target="_blank">
         {children}
       </a>
     );
@@ -76,7 +60,7 @@ function ChevronDown({ open = false }: { open?: boolean }) {
         transition-transform
         duration-[750ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
-        ${open ? "rotate-180" : "rotate-0"}
+        ${open ? 'rotate-180' : 'rotate-0'}
       `}
     >
       <svg
@@ -134,32 +118,17 @@ function BrandLogo() {
         focus-visible:outline-[#B8C7DD]
       "
     >
-      <img
-        src={brandLogo}
-        alt="Yak Ops"
-        className="block h-auto w-full select-none object-contain"
-        draggable={false}
-      />
+      <img src={brandLogo} alt="Yak Ops" className="block h-auto w-full select-none object-contain" draggable={false} />
     </Link>
   );
 }
 
-function MegaMenu({
-  item,
-  closeMenu,
-}: {
-  item: MarketingMegaNavItem;
-  closeMenu: () => void;
-}) {
+function MegaMenu({ item, closeMenu }: { item: MarketingMegaNavItem; closeMenu: () => void }) {
   const [hoveredLinkKey, setHoveredLinkKey] = useState<string | null>(null);
 
-  const columnCount = Math.min(
-    Math.max(item.columns.length, 1),
-    4,
-  );
+  const columnCount = Math.min(Math.max(item.columns.length, 1), 4);
 
-  const gridClass =
-    MENU_GRID_BY_COLUMNS[columnCount] ?? "grid-cols-1";
+  const gridClass = MENU_GRID_BY_COLUMNS[columnCount] ?? 'grid-cols-1';
 
   return (
     <div
@@ -185,7 +154,7 @@ function MegaMenu({
             columnIndex === 0
               ? undefined
               : {
-                  borderLeft: "1px solid #E4E7EC",
+                  borderLeft: '1px solid #E4E7EC',
                 }
           }
         >
@@ -202,24 +171,14 @@ function MegaMenu({
             {column.title}
           </div>
 
-          <ul
-            className="m-0 list-none p-0"
-            onMouseLeave={() => setHoveredLinkKey(null)}
-          >
+          <ul className="m-0 list-none p-0" onMouseLeave={() => setHoveredLinkKey(null)}>
             {column.items.map((link) => {
               const linkKey = `${column.title}-${link.label}`;
 
-              const isDimmed =
-                hoveredLinkKey !== null &&
-                hoveredLinkKey !== linkKey;
+              const isDimmed = hoveredLinkKey !== null && hoveredLinkKey !== linkKey;
 
               return (
-                <li
-                  key={linkKey}
-                  onMouseEnter={() =>
-                    setHoveredLinkKey(linkKey)
-                  }
-                >
+                <li key={linkKey} onMouseEnter={() => setHoveredLinkKey(linkKey)}>
                   <MarketingLink
                     className={`
                       -mx-3
@@ -246,11 +205,7 @@ function MegaMenu({
 
                       motion-reduce:transition-none
 
-                      ${
-                        isDimmed
-                          ? "!text-[#98A2B3]"
-                          : "!text-[#344054]"
-                      }
+                      ${isDimmed ? '!text-[#98A2B3]' : '!text-[#344054]'}
                     `}
                     external={link.external}
                     href={link.href}
@@ -258,9 +213,7 @@ function MegaMenu({
                   >
                     <span>{link.label}</span>
 
-                    {link.external && (
-                      <ExternalLinkIcon />
-                    )}
+                    {link.external && <ExternalLinkIcon />}
                   </MarketingLink>
                 </li>
               );
@@ -272,20 +225,12 @@ function MegaMenu({
   );
 }
 
-function NavDropdown({
-  item,
-  openMenu,
-  setOpenMenu,
-}: NavDropdownProps) {
+function NavDropdown({ item, openMenu, setOpenMenu }: NavDropdownProps) {
   const open = openMenu === item.key;
 
-  const columnCount = Math.min(
-    Math.max(item.columns.length, 1),
-    4,
-  );
+  const columnCount = Math.min(Math.max(item.columns.length, 1), 4);
 
-  const widthClass =
-    MENU_WIDTH_BY_COLUMNS[columnCount] ?? "w-[42rem]";
+  const widthClass = MENU_WIDTH_BY_COLUMNS[columnCount] ?? 'w-[42rem]';
 
   return (
     <li className="flex items-center">
@@ -326,15 +271,9 @@ function NavDropdown({
             focus-visible:bg-[#F5F7FA]
             focus-visible:text-[#101828]
 
-            ${
-              open
-                ? "bg-[#F5F7FA] text-[#101828]"
-                : ""
-            }
+            ${open ? 'bg-[#F5F7FA] text-[#101828]' : ''}
           `}
-          onClick={() =>
-            setOpenMenu(open ? null : item.key)
-          }
+          onClick={() => setOpenMenu(open ? null : item.key)}
         >
           <span>{item.label}</span>
           <ChevronDown open={open} />
@@ -349,11 +288,7 @@ function NavDropdown({
             -translate-x-1/2
             pt-2
             ${widthClass}
-            ${
-              open
-                ? "pointer-events-auto"
-                : "pointer-events-none"
-            }
+            ${open ? 'pointer-events-auto' : 'pointer-events-none'}
           `}
         >
           <div
@@ -364,18 +299,11 @@ function NavDropdown({
               duration-[750ms]
               ease-[cubic-bezier(0.16,1,0.3,1)]
 
-              ${
-                open
-                  ? "grid-rows-[1fr] opacity-100"
-                  : "grid-rows-[0fr] opacity-0"
-              }
+              ${open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
             `}
           >
             <div className="min-h-0 overflow-hidden">
-              <MegaMenu
-                item={item}
-                closeMenu={() => setOpenMenu(null)}
-              />
+              <MegaMenu item={item} closeMenu={() => setOpenMenu(null)} />
             </div>
           </div>
         </div>
@@ -451,8 +379,7 @@ const GET_STARTED_LINK_CLASS_NAME = `
 `;
 
 export default function MarketingHeader() {
-  const [openMenu, setOpenMenu] =
-    useState<string | null>(null);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
     <div
@@ -467,15 +394,12 @@ export default function MarketingHeader() {
         [container:threshold-large/inline-size]
       "
       style={{
-        fontFamily: "var(--yak-font-marketing)",
+        fontFamily: 'var(--yak-font-marketing)',
       }}
     >
       <BrandLogo />
 
-      <nav
-        className="ml-auto flex h-full items-center"
-        aria-label="Primary navigation"
-      >
+      <nav className="ml-auto flex h-full items-center" aria-label="Primary navigation">
         <ul
           className="
             m-0
@@ -489,28 +413,14 @@ export default function MarketingHeader() {
           "
         >
           {MARKETING_NAV_ITEMS.map((item) =>
-            item.kind === "mega" ? (
-              <NavDropdown
-                item={item}
-                key={item.key}
-                openMenu={openMenu}
-                setOpenMenu={setOpenMenu}
-              />
+            item.kind === 'mega' ? (
+              <NavDropdown item={item} key={item.key} openMenu={openMenu} setOpenMenu={setOpenMenu} />
             ) : (
-              <li
-                className="flex items-center"
-                key={item.key}
-              >
-                <MarketingLink
-                  className={NAV_LINK_CLASS_NAME}
-                  external={item.external}
-                  href={item.href}
-                >
+              <li className="flex items-center" key={item.key}>
+                <MarketingLink className={NAV_LINK_CLASS_NAME} external={item.external} href={item.href}>
                   <span>{item.label}</span>
 
-                  {item.external && (
-                    <ExternalLinkIcon />
-                  )}
+                  {item.external && <ExternalLinkIcon />}
                 </MarketingLink>
               </li>
             ),

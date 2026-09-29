@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { UseCaseResultSurface } from "./shared";
-import type { HomeUseCaseDefinition } from "./types";
+import { UseCaseResultSurface } from './shared';
+import type { HomeUseCaseDefinition } from './types';
 
 const GMV_DATA = [86, 94, 101, 98, 112, 121, 136, 149];
 
 const FUNNEL_DATA = [
-  { label: "Visits", value: 128400, rate: 100, color: "#D97757" },
-  { label: "Product views", value: 84620, rate: 66, color: "#E08A68" },
-  { label: "Add to cart", value: 21980, rate: 17.1, color: "#E99E7F" },
-  { label: "Checkout", value: 11240, rate: 8.8, color: "#F0B59D" },
-  { label: "Orders", value: 7284, rate: 5.7, color: "#C96442" },
+  { label: 'Visits', value: 128400, rate: 100, color: '#D97757' },
+  { label: 'Product views', value: 84620, rate: 66, color: '#E08A68' },
+  { label: 'Add to cart', value: 21980, rate: 17.1, color: '#E99E7F' },
+  { label: 'Checkout', value: 11240, rate: 8.8, color: '#F0B59D' },
+  { label: 'Orders', value: 7284, rate: 5.7, color: '#C96442' },
 ] as const;
 
 function BIIcon() {
@@ -24,23 +24,13 @@ function BIIcon() {
   );
 }
 
-function KpiCard({
-  label,
-  value,
-  trend,
-  tone,
-}: {
-  label: string;
-  value: string;
-  trend: string;
-  tone: "up" | "down";
-}) {
+function KpiCard({ label, value, trend, tone }: { label: string; value: string; trend: string; tone: 'up' | 'down' }) {
   return (
     <div className="rounded-lg bg-[#F7F3EE] px-3 py-2.5">
       <div className="text-[8px] uppercase tracking-[0.06em] text-[#87867F]">{label}</div>
       <div className="mt-1 text-[18px] leading-none text-[#181817]">{value}</div>
-      <div className={`mt-1.5 text-[8px] ${tone === "up" ? "text-[#29705B]" : "text-[#A5482A]"}`}>
-        {tone === "up" ? "↑" : "↓"} {trend}
+      <div className={`mt-1.5 text-[8px] ${tone === 'up' ? 'text-[#29705B]' : 'text-[#A5482A]'}`}>
+        {tone === 'up' ? '↑' : '↓'} {trend}
       </div>
     </div>
   );
@@ -56,15 +46,12 @@ function GMVBarChart() {
   const chartHeight = chartBottom - chartTop;
   const ticks = [80, 95, 110, 125, 140, 155];
 
-  const valueToY = (value: number) =>
-    chartTop + ((maxValue - value) / (maxValue - minValue)) * chartHeight;
+  const valueToY = (value: number) => chartTop + ((maxValue - value) / (maxValue - minValue)) * chartHeight;
 
   return (
     <div className="rounded-lg border border-solid border-[#E3DED7] p-3">
       <div className="flex items-center justify-between gap-4">
-        <div className="text-[8px] uppercase tracking-[0.08em] text-[#5E5D59]">
-          GMV — last 8 weeks
-        </div>
+        <div className="text-[8px] uppercase tracking-[0.08em] text-[#5E5D59]">GMV — last 8 weeks</div>
         <div className="text-[8px] text-[#9A7464]">USD · thousands</div>
       </div>
 
@@ -112,9 +99,9 @@ function GMVBarChart() {
                 width="24"
                 height={active ? height + 4 : height}
                 rx="3"
-                fill={active || latest ? "#C96442" : "#E7A58C"}
+                fill={active || latest ? '#C96442' : '#E7A58C'}
                 opacity={hoveredBar === null || active ? 1 : 0.48}
-                style={{ transition: "all 160ms ease" }}
+                style={{ transition: 'all 160ms ease' }}
               />
 
               <text x={x + 12} y="204" textAnchor="middle" fontSize="8" fill="#73726C">
@@ -143,9 +130,7 @@ function ConversionFunnelChart() {
   return (
     <div className="rounded-lg border border-solid border-[#E3DED7] p-3">
       <div className="flex items-center justify-between gap-3">
-        <div className="text-[8px] uppercase tracking-[0.08em] text-[#5E5D59]">
-          Conversion funnel
-        </div>
+        <div className="text-[8px] uppercase tracking-[0.08em] text-[#5E5D59]">Conversion funnel</div>
         <div className="text-[8px] text-[#9A7464]">Weekly</div>
       </div>
 
@@ -166,14 +151,12 @@ function ConversionFunnelChart() {
             >
               <div className="mb-1 flex items-center justify-between gap-3">
                 <span
-                  className={`text-[8px] transition-colors ${
-                    active ? "font-medium text-[#181817]" : "text-[#5E5D59]"
-                  }`}
+                  className={`text-[8px] transition-colors ${active ? 'font-medium text-[#181817]' : 'text-[#5E5D59]'}`}
                 >
                   {step.label}
                 </span>
 
-                <span className={`text-[8px] ${active ? "text-[#181817]" : "text-[#87867F]"}`}>
+                <span className={`text-[8px] ${active ? 'text-[#181817]' : 'text-[#87867F]'}`}>
                   {step.value.toLocaleString()}
                 </span>
               </div>
@@ -185,13 +168,11 @@ function ConversionFunnelChart() {
                     width: `${Math.max(step.rate, 16)}%`,
                     backgroundColor: step.color,
                     opacity: hoveredStep === null || active ? 1 : 0.42,
-                    transform: active ? "scaleY(1.08)" : "scaleY(1)",
-                    transformOrigin: "left center",
+                    transform: active ? 'scaleY(1.08)' : 'scaleY(1)',
+                    transformOrigin: 'left center',
                   }}
                 >
-                  <span className="text-[8px] font-medium text-white">
-                    {step.rate}%
-                  </span>
+                  <span className="text-[8px] font-medium text-white">{step.rate}%</span>
                 </div>
               </div>
             </button>
@@ -200,9 +181,7 @@ function ConversionFunnelChart() {
       </div>
 
       <div className="mt-3 rounded-lg bg-[#F7F3EE] p-2.5">
-        <div className="text-[8px] uppercase tracking-[0.06em] text-[#87867F]">
-          Checkout → order
-        </div>
+        <div className="text-[8px] uppercase tracking-[0.06em] text-[#87867F]">Checkout → order</div>
         <div className="mt-1 flex items-end justify-between gap-3">
           <div className="text-[16px] leading-none text-[#181817]">64.8%</div>
           <div className="text-[8px] text-[#29705B]">↑ 3.2% vs last week</div>
@@ -221,9 +200,7 @@ export default function BIUseCase() {
             <h3 className="m-0 text-[18px] font-medium leading-[1.15] text-[#141413] [font-family:'Yak_Serif',Georgia,sans-serif]">
               Weekly commerce performance
             </h3>
-            <p className="mt-1 text-[8px] text-[#5E5D59]">
-              Yak Ops Commerce · Aug 25–31, 2026
-            </p>
+            <p className="mt-1 text-[8px] text-[#5E5D59]">Yak Ops Commerce · Aug 25–31, 2026</p>
           </div>
 
           <div className="flex gap-1.5">
@@ -237,24 +214,9 @@ export default function BIUseCase() {
         </div>
 
         <div className="mt-3 grid grid-cols-3 gap-2">
-          <KpiCard
-            label="GMV"
-            value="$149.2k"
-            trend="9.6% vs last week"
-            tone="up"
-          />
-          <KpiCard
-            label="Orders"
-            value="7,284"
-            trend="7.8% vs last week"
-            tone="up"
-          />
-          <KpiCard
-            label="Refund rate"
-            value="2.3%"
-            trend="0.4% vs last week"
-            tone="down"
-          />
+          <KpiCard label="GMV" value="$149.2k" trend="9.6% vs last week" tone="up" />
+          <KpiCard label="Orders" value="7,284" trend="7.8% vs last week" tone="up" />
+          <KpiCard label="Refund rate" value="2.3%" trend="0.4% vs last week" tone="down" />
         </div>
 
         <div className="mt-3 grid min-h-0 flex-1 grid-cols-[1.35fr_0.85fr] gap-3">
@@ -267,11 +229,11 @@ export default function BIUseCase() {
 }
 
 export const biUseCase: HomeUseCaseDefinition = {
-  id: "bi",
-  label: "BI",
+  id: 'bi',
+  label: 'BI',
   prompt:
-    "Build a weekly ecommerce performance dashboard. Show GMV, orders, refund rate, the eight-week GMV trend, and a conversion funnel from visits to completed orders. Make every chart interactive so I can inspect exact values.",
-  stageColor: "#DFA083",
+    'Build a weekly ecommerce performance dashboard. Show GMV, orders, refund rate, the eight-week GMV trend, and a conversion funnel from visits to completed orders. Make every chart interactive so I can inspect exact values.',
+  stageColor: '#DFA083',
   Icon: BIIcon,
   Result: BIUseCase,
 };

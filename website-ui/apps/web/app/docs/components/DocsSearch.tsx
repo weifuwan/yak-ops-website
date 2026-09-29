@@ -129,14 +129,18 @@ export default function DocsSearch({ onSelect, onUnauthorized, className }: Docs
                   onMouseDown={(event) => event.preventDefault()}
                   type="button"
                 >
-                  <div className="text-[11px] font-semibold uppercase tracking-[0.06em] text-yak-brand">{hit.section}</div>
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.06em] text-yak-brand">
+                    {hit.section}
+                  </div>
                   <div className="mt-0.5 text-sm font-semibold text-[#242421]">{hit.title}</div>
                   <div className="mt-1 line-clamp-2 text-xs leading-5 text-[#77756f]">{hit.snippet}</div>
                 </button>
               ))}
             </div>
           ) : (
-            <div className="flex min-h-20 items-center justify-center text-sm text-[#77756f]">No matching documentation</div>
+            <div className="flex min-h-20 items-center justify-center text-sm text-[#77756f]">
+              No matching documentation
+            </div>
           )}
         </div>
       ) : null}

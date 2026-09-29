@@ -1,17 +1,16 @@
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
-import { HOME_EASE } from "../constants";
-import HomeUseCasesHeader from "./useCases/HomeUseCasesHeader";
-import HomeUseCaseStage from "./useCases/HomeUseCaseStage";
-import HomeUseCasesTabs from "./useCases/HomeUseCasesTabs";
-import { HOME_USE_CASES, type HomeUseCaseId } from "./useCases";
+import { HOME_EASE } from '../constants';
+import HomeUseCasesHeader from './useCases/HomeUseCasesHeader';
+import HomeUseCaseStage from './useCases/HomeUseCaseStage';
+import HomeUseCasesTabs from './useCases/HomeUseCasesTabs';
+import { HOME_USE_CASES, type HomeUseCaseId } from './useCases';
 
 export default function HomeUseCasesSection() {
   const [activeId, setActiveId] = useState<HomeUseCaseId>(HOME_USE_CASES[0].id);
   const shouldReduceMotion = useReducedMotion();
-  const activeUseCase =
-    HOME_USE_CASES.find((item) => item.id === activeId) ?? HOME_USE_CASES[0];
+  const activeUseCase = HOME_USE_CASES.find((item) => item.id === activeId) ?? HOME_USE_CASES[0];
 
   return (
     <section className="relative border-t  bg-white">
@@ -24,11 +23,7 @@ export default function HomeUseCasesSection() {
       <div className="h-[clamp(6rem,5.42857rem+2.85714vw,8rem)]" />
 
       <div className="mx-auto grid w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] grid-cols-1 gap-y-0 lg:grid-cols-12 lg:gap-x-8">
-        <HomeUseCasesTabs
-          activeId={activeId}
-          useCases={HOME_USE_CASES}
-          onChange={setActiveId}
-        />
+        <HomeUseCasesTabs activeId={activeId} useCases={HOME_USE_CASES} onChange={setActiveId} />
 
         <motion.div
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}

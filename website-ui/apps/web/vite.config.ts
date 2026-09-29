@@ -13,9 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': webRoot,
-      '@yak-ops-website/yak-ui': fileURLToPath(
-        new URL('../../packages/yak-ui/src/index.ts', import.meta.url),
-      ),
+      '@yak-ops-website/yak-ui': fileURLToPath(new URL('../../packages/yak-ui/src/index.ts', import.meta.url)),
     },
   },
   server: {

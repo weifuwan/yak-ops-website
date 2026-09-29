@@ -1,4 +1,4 @@
-import heroImage from "@/assets/homepage-hero-data-core.png";
+import heroImage from '@/assets/homepage-hero-data-core.png';
 
 export default function HomeHeroSection() {
   return (

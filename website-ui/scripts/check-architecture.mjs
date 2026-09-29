@@ -66,12 +66,7 @@ if (rootRuntimeDependencies.length > 0) {
   fail(`workspace root must not own runtime dependencies: ${rootRuntimeDependencies.join(', ')}`);
 }
 
-const forbiddenRootDevDependencies = new Set([
-  '@biomejs/biome',
-  '@umijs/max',
-  'cross-env',
-  'less',
-]);
+const forbiddenRootDevDependencies = new Set(['@biomejs/biome', '@umijs/max', 'cross-env', 'less']);
 
 for (const dependency of Object.keys(rootPackage.devDependencies ?? {})) {
   if (forbiddenRootDevDependencies.has(dependency)) {
@@ -115,10 +110,7 @@ const directFetchPattern = /\b(?:globalThis\.|window\.)?fetch\s*\(/;
 const legacyAliasPattern = /['"]@\/(?:services|components|styles|layouts|pages)\//;
 const umiImportPattern = /['"]@umijs\/max['"]/;
 
-const directFetchOwners = new Set([
-  'apps/web/service/http/client.ts',
-  'apps/web/service/traffic/api.ts',
-]);
+const directFetchOwners = new Set(['apps/web/service/http/client.ts', 'apps/web/service/traffic/api.ts']);
 
 for (const path of files) {
   const relativePath = toRelativePath(path);

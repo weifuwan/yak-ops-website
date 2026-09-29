@@ -1,18 +1,13 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 const STATUS_STYLES = {
-  success: "bg-[#4D7C5B]",
-  running: "bg-[#C96442]",
-  neutral: "bg-[#9C9A92]",
+  success: 'bg-[#4D7C5B]',
+  running: 'bg-[#C96442]',
+  neutral: 'bg-[#9C9A92]',
 } as const;
 
 export function StatusDot({ tone }: { tone: keyof typeof STATUS_STYLES }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`inline-block h-2 w-2 rounded-full ${STATUS_STYLES[tone]}`}
-    />
-  );
+  return <span aria-hidden="true" className={`inline-block h-2 w-2 rounded-full ${STATUS_STYLES[tone]}`} />;
 }
 
 export function Metric({ value, label }: { value: string; label: string }) {

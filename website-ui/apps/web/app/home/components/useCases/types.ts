@@ -1,13 +1,6 @@
-import type { ComponentType } from "react";
+import type { ComponentType } from 'react';
 
-export type HomeUseCaseId =
-  | "lineage"
-  | "workflows"
-  | "integration"
-  | "quality"
-  | "services"
-  | "operations"
-  | "bi";
+export type HomeUseCaseId = 'lineage' | 'workflows' | 'integration' | 'quality' | 'services' | 'operations' | 'bi';
 
 export interface HomeUseCaseDefinition {
   id: HomeUseCaseId;

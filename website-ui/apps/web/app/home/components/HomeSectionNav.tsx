@@ -1,21 +1,18 @@
 const SECTION_NAV_ITEMS = [
-  "产品价值",
-  "产品概览",
-  "核心能力",
-  "拓展阅读",
-  "应用场景",
-  "客户案例",
-  "相关推荐",
-  "常见问题",
+  '产品价值',
+  '产品概览',
+  '核心能力',
+  '拓展阅读',
+  '应用场景',
+  '客户案例',
+  '相关推荐',
+  '常见问题',
 ] as const;
 
 export default function HomeSectionNav() {
   return (
     <div className="bg-white">
-      <nav
-        aria-label="Homepage sections"
-        className="mx-auto hidden justify-center px-6 py-6 md:flex"
-      >
+      <nav aria-label="Homepage sections" className="mx-auto hidden justify-center px-6 py-6 md:flex">
         <div className="inline-flex items-center gap-1 rounded-full bg-black/5 px-2 py-2 backdrop-blur-xl">
           {SECTION_NAV_ITEMS.map((label) => (
             <button

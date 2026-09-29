@@ -81,11 +81,7 @@ export default function WorkflowCodeVisual({
           strokeLinecap="round"
           strokeLinejoin="round"
           vectorEffect="non-scaling-stroke"
-          animate={
-            shouldReduceMotion
-              ? undefined
-              : { rotate: [0, 2.5, 0, -2.5, 0], y: [0, -0.7, 0] }
-          }
+          animate={shouldReduceMotion ? undefined : { rotate: [0, 2.5, 0, -2.5, 0], y: [0, -0.7, 0] }}
           transition={{
             delay: 1.2,
             duration: 4.2,

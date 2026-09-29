@@ -1,13 +1,12 @@
-import DesktopDownloadLinks from "./DesktopDownloadLinks";
-import HomeFeatureList from "./HomeFeatureList";
-import WorkflowCodeVisual from "./WorkflowCodeVisual";
+import DesktopDownloadLinks from './DesktopDownloadLinks';
+import HomeFeatureList from './HomeFeatureList';
+import WorkflowCodeVisual from './WorkflowCodeVisual';
 
 export default function HomeCapabilitiesSection() {
   return (
-    <section style={{ background: "#F0EEE6" }}>
-      <div style={{ background: "#D1CFC5", height: 1 }} />
+    <section style={{ background: '#F0EEE6' }}>
+      <div style={{ background: '#D1CFC5', height: 1 }} />
 
-     
       <div className="relative overflow-hidden">
         <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
           <div className="flex flex-col items-center text-center">

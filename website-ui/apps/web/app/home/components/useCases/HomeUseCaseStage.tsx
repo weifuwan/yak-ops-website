@@ -1,4 +1,4 @@
-import type { HomeUseCaseDefinition } from "./types";
+import type { HomeUseCaseDefinition } from './types';
 
 function ReferenceTexture() {
   return (
@@ -9,8 +9,16 @@ function ReferenceTexture() {
       className="pointer-events-none absolute inset-0 h-full w-full text-white/10"
       aria-hidden="true"
     >
-      <path d="M-40 560C110 485 198 610 330 520C480 418 452 232 635 270C805 306 840 474 1015 396C1165 329 1205 194 1515 178" stroke="currentColor" strokeWidth="5" />
-      <path d="M-70 145C108 226 204 104 365 174C540 250 508 404 704 346C882 294 918 120 1098 176C1252 224 1314 333 1518 260" stroke="currentColor" strokeWidth="5" />
+      <path
+        d="M-40 560C110 485 198 610 330 520C480 418 452 232 635 270C805 306 840 474 1015 396C1165 329 1205 194 1515 178"
+        stroke="currentColor"
+        strokeWidth="5"
+      />
+      <path
+        d="M-70 145C108 226 204 104 365 174C540 250 508 404 704 346C882 294 918 120 1098 176C1252 224 1314 333 1518 260"
+        stroke="currentColor"
+        strokeWidth="5"
+      />
       <path d="M160 -80C252 62 180 190 286 318C374 424 510 490 552 736" stroke="currentColor" strokeWidth="5" />
       <path d="M1030 -60C918 94 952 212 1004 314C1060 423 1180 505 1192 744" stroke="currentColor" strokeWidth="5" />
     </svg>

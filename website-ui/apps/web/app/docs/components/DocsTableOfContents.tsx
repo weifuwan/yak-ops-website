@@ -8,7 +8,12 @@ type DocsTableOfContentsProps = {
 function TocIcon() {
   return (
     <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 18 18">
-      <path d="M2.75 3.75H15.25M2.75 9H8.25M2.75 14.25H15.25" stroke="currentColor" strokeLinecap="round" strokeWidth="1.4" />
+      <path
+        d="M2.75 3.75H15.25M2.75 9H8.25M2.75 14.25H15.25"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.4"
+      />
     </svg>
   );
 }

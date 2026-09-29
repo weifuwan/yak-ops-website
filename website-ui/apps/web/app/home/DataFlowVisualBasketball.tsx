@@ -211,14 +211,10 @@ export default function DataFlowVisualBasketball({
       role={role ?? (isDecorative ? undefined : 'img')}
       focusable={focusable}
       aria-label={ariaLabel}
-      aria-labelledby={
-        ariaLabelledBy ?? (!isDecorative && !ariaLabel ? titleId : undefined)
-      }
+      aria-labelledby={ariaLabelledBy ?? (!isDecorative && !ariaLabel ? titleId : undefined)}
       aria-hidden={ariaHidden ?? (isDecorative ? true : undefined)}
     >
-      {!isDecorative && !ariaLabel && (
-        <title id={titleId}>Animated minimalist basketball illustration</title>
-      )}
+      {!isDecorative && !ariaLabel && <title id={titleId}>Animated minimalist basketball illustration</title>}
 
       <defs>
         <clipPath id={ballClipId}>
@@ -227,60 +223,24 @@ export default function DataFlowVisualBasketball({
       </defs>
 
       {/* Minimal running figure, drawn once and then held in place. */}
-      <g
-        fill="none"
-        stroke={foregroundColor}
-        strokeWidth="14"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <g fill="none" stroke={foregroundColor} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round">
         {FIGURE_PATHS.map((path) => (
-          <motion.path
-            key={path.d}
-            d={path.d}
-            {...getDrawMotion(path.start, path.end)}
-          />
+          <motion.path key={path.d} d={path.d} {...getDrawMotion(path.start, path.end)} />
         ))}
 
-        <motion.circle
-          cx="298"
-          cy="266"
-          r="51"
-          transform="rotate(-90 298 266)"
-          {...getDrawMotion(0.1, 0.34)}
-        />
+        <motion.circle cx="298" cy="266" r="51" transform="rotate(-90 298 266)" {...getDrawMotion(0.1, 0.34)} />
       </g>
 
       {/* Compact rim and hand-drawn net from the reference. */}
-      <g
-        fill="none"
-        stroke={foregroundColor}
-        strokeWidth="14"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <g fill="none" stroke={foregroundColor} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round">
         {HOOP_FRAME_PATHS.map((path) => (
-          <motion.path
-            key={path.d}
-            d={path.d}
-            {...getDrawMotion(path.start, path.end)}
-          />
+          <motion.path key={path.d} d={path.d} {...getDrawMotion(path.start, path.end)} />
         ))}
       </g>
 
-      <g
-        fill="none"
-        stroke={foregroundColor}
-        strokeWidth="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <g fill="none" stroke={foregroundColor} strokeWidth="10" strokeLinecap="round" strokeLinejoin="round">
         {NET_PATHS.map((path) => (
-          <motion.path
-            key={path.d}
-            d={path.d}
-            {...getDrawMotion(path.start, path.end)}
-          />
+          <motion.path key={path.d} d={path.d} {...getDrawMotion(path.start, path.end)} />
         ))}
       </g>
 
@@ -313,11 +273,7 @@ export default function DataFlowVisualBasketball({
         strokeLinejoin="round"
       >
         {BALL_SEAM_PATHS.map((path) => (
-          <motion.path
-            key={path.d}
-            d={path.d}
-            {...getDrawMotion(path.start, path.end)}
-          />
+          <motion.path key={path.d} d={path.d} {...getDrawMotion(path.start, path.end)} />
         ))}
       </g>
     </svg>

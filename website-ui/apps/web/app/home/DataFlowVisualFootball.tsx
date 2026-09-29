@@ -185,9 +185,7 @@ export default function DataFlowVisualFootball({
       aria-labelledby={ariaLabelledBy ?? (!isDecorative && !ariaLabel ? titleId : undefined)}
       aria-hidden={ariaHidden ?? (isDecorative ? true : undefined)}
     >
-      {!isDecorative && !ariaLabel && (
-        <title id={titleId}>Animated football kick illustration</title>
-      )}
+      {!isDecorative && !ariaLabel && <title id={titleId}>Animated football kick illustration</title>}
 
       <motion.ellipse
         cx="390"
@@ -209,19 +207,9 @@ export default function DataFlowVisualFootball({
         style={{ transformOrigin: '390px 625px' }}
       />
 
-      <g
-        fill="none"
-        stroke={foregroundColor}
-        strokeWidth="14"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <g fill="none" stroke={foregroundColor} strokeWidth="14" strokeLinecap="round" strokeLinejoin="round">
         {BODY_PATHS.map((path) => (
-          <motion.path
-            key={path.d}
-            d={path.d}
-            {...getDrawMotion(path.start, path.end)}
-          />
+          <motion.path key={path.d} d={path.d} {...getDrawMotion(path.start, path.end)} />
         ))}
       </g>
 
@@ -256,19 +244,9 @@ export default function DataFlowVisualFootball({
         {...getDrawMotion(0.72, 0.9)}
       />
 
-      <g
-        fill="none"
-        stroke={foregroundColor}
-        strokeWidth="10"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+      <g fill="none" stroke={foregroundColor} strokeWidth="10" strokeLinecap="round" strokeLinejoin="round">
         {BALL_PANEL_PATHS.map((path) => (
-          <motion.path
-            key={path.d}
-            d={path.d}
-            {...getDrawMotion(path.start, path.end)}
-          />
+          <motion.path key={path.d} d={path.d} {...getDrawMotion(path.start, path.end)} />
         ))}
       </g>
 

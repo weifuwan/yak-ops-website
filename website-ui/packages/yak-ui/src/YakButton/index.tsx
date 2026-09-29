@@ -6,12 +6,7 @@ export type YakButtonProps = ButtonProps & {
   effect?: 'default' | 'glass';
 };
 
-export default function YakButton({
-  className,
-  iconOnly = false,
-  effect = 'default',
-  ...props
-}: YakButtonProps) {
+export default function YakButton({ className, iconOnly = false, effect = 'default', ...props }: YakButtonProps) {
   return (
     <Button
       {...props}

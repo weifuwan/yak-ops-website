@@ -51,9 +51,7 @@ export default function DocsHeader({
   const activeSectionIndex = navigation.sections.findIndex((section) =>
     section.items.some((item) => item.slug === currentSlug),
   );
-  const activeKey = isLanding
-    ? 'welcome'
-    : `section-${activeSectionIndex >= 0 ? activeSectionIndex : 0}`;
+  const activeKey = isLanding ? 'welcome' : `section-${activeSectionIndex >= 0 ? activeSectionIndex : 0}`;
   const tabs = [{ key: 'welcome', label: 'Welcome' }, ...sectionTabs];
 
   const handleTabChange = (key: string) => {
@@ -63,9 +61,7 @@ export default function DocsHeader({
     }
 
     const sectionIndex = Number(key.replace('section-', ''));
-    const targetSlug = Number.isInteger(sectionIndex)
-      ? navigation.sections[sectionIndex]?.items[0]?.slug
-      : undefined;
+    const targetSlug = Number.isInteger(sectionIndex) ? navigation.sections[sectionIndex]?.items[0]?.slug : undefined;
 
     if (targetSlug) {
       onNavigate(targetSlug);
@@ -117,13 +113,7 @@ export default function DocsHeader({
 
       <div>
         <div className="mx-auto flex h-12 max-w-[92rem] items-end px-5 lg:px-8">
-          <YakTab
-            activeKey={activeKey}
-            animated={false}
-            className="w-full"
-            items={tabs}
-            onChange={handleTabChange}
-          />
+          <YakTab activeKey={activeKey} animated={false} className="w-full" items={tabs} onChange={handleTabChange} />
         </div>
       </div>
     </header>
