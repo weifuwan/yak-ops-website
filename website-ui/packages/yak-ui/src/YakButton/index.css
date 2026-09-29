@@ -1,4 +1,4 @@
-.yak-button.ant-btn {
+.yak-button {
   --yak-button-height: 34px;
   --yak-button-radius: 10px;
 
@@ -11,10 +11,14 @@
   padding: 0 13px;
   border: 1px solid transparent;
   border-radius: var(--yak-button-radius);
+  box-sizing: border-box;
   box-shadow: none;
+  cursor: pointer;
+  font: inherit;
   font-size: 13px;
   font-weight: 500;
   line-height: 1;
+  text-decoration: none;
   transition:
     color 160ms ease,
     background-color 160ms ease,
@@ -23,22 +27,36 @@
     transform 120ms ease;
 }
 
-.yak-button.ant-btn .ant-btn-icon {
+.yak-button__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
-.yak-button.ant-btn:focus-visible {
+.yak-button__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: yak-button-spin 0.8s linear infinite;
+}
+
+.yak-button:focus-visible {
   outline: 0;
   box-shadow: 0 0 0 3px rgba(37, 40, 50, 0.12);
 }
 
-.yak-button.ant-btn:not(:disabled):not(.ant-btn-disabled):active {
+.yak-button:not([data-disabled]):active {
   transform: translateY(1px);
 }
 
-.yak-button.ant-btn.ant-btn-sm {
+.yak-button[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.46;
+}
+
+.yak-button--small {
   --yak-button-height: 28px;
   --yak-button-radius: 8px;
 
@@ -47,7 +65,7 @@
   font-size: 12px;
 }
 
-.yak-button.ant-btn.ant-btn-lg {
+.yak-button--large {
   --yak-button-height: 40px;
   --yak-button-radius: 11px;
 
@@ -56,69 +74,75 @@
   font-size: 14px;
 }
 
-.yak-button.ant-btn.yak-button--icon-only {
+.yak-button--icon-only {
   width: var(--yak-button-height);
   min-width: var(--yak-button-height);
   padding: 0;
 }
 
-.yak-button.ant-btn:disabled,
-.yak-button.ant-btn.ant-btn-disabled {
-  opacity: 0.46;
+.yak-button--block {
+  width: 100%;
 }
 
-.yak-button.ant-btn-default,
-.yak-button.ant-btn-dashed {
+.yak-button--default,
+.yak-button--dashed {
   border-color: transparent;
   color: #292c35;
   background: #f4f4f6;
 }
 
-.yak-button.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover,
-.yak-button.ant-btn-dashed:not(:disabled):not(.ant-btn-disabled):hover {
+.yak-button--dashed {
+  border-style: dashed;
+  border-color: #d7d8dd;
+}
+
+.yak-button--default:not([data-disabled]):hover,
+.yak-button--dashed:not([data-disabled]):hover {
   border-color: transparent;
   color: #1f222a;
   background: #ededf0;
 }
 
-.yak-button.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active,
-.yak-button.ant-btn-dashed:not(:disabled):not(.ant-btn-disabled):active {
-  border-color: transparent;
+.yak-button--dashed:not([data-disabled]):hover {
+  border-color: #c7c9cf;
+}
+
+.yak-button--default:not([data-disabled]):active,
+.yak-button--dashed:not([data-disabled]):active {
   color: #181a20;
   background: #e5e5e9;
 }
 
-.yak-button.ant-btn-primary {
+.yak-button--primary {
   border-color: #292c35;
   color: #fff;
   background: #292c35;
 }
 
-.yak-button.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+.yak-button--primary:not([data-disabled]):hover {
   border-color: #1f222a;
   color: #fff;
   background: #1f222a;
 }
 
-.yak-button.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active {
+.yak-button--primary:not([data-disabled]):active {
   border-color: #17191f;
   color: #fff;
   background: #17191f;
 }
 
-.yak-button.ant-btn-text {
+.yak-button--text {
   border-color: transparent;
   color: #667085;
   background: transparent;
 }
 
-.yak-button.ant-btn-text:not(:disabled):not(.ant-btn-disabled):hover {
-  border-color: transparent;
+.yak-button--text:not([data-disabled]):hover {
   color: #292c35;
   background: #f4f4f6;
 }
 
-.yak-button.ant-btn-link {
+.yak-button--link {
   height: auto;
   min-height: 0;
   padding: 0;
@@ -128,24 +152,35 @@
   background: transparent;
 }
 
-.yak-button.ant-btn-link:not(:disabled):not(.ant-btn-disabled):hover {
+.yak-button--link:not([data-disabled]):hover {
   color: #252832;
   background: transparent;
 }
 
-.yak-button.ant-btn-dangerous:not(.ant-btn-primary) {
+.yak-button--danger {
   border-color: transparent;
   color: #d92d20;
   background: #fff1f2;
 }
 
-.yak-button.ant-btn-primary.ant-btn-dangerous {
+.yak-button--danger:not([data-disabled]):hover {
+  color: #b42318;
+  background: #ffe4e7;
+}
+
+.yak-button--danger-primary {
   border-color: #d92d20;
   color: #fff;
   background: #d92d20;
 }
 
-.yak-button.ant-btn.yak-button--glass {
+.yak-button--danger-primary:not([data-disabled]):hover {
+  border-color: #b42318;
+  color: #fff;
+  background: #b42318;
+}
+
+.yak-button--glass {
   position: relative;
   overflow: hidden;
   border-color: transparent;
@@ -160,7 +195,7 @@
     box-shadow 140ms ease;
 }
 
-.yak-button.ant-btn.yak-button--glass:not(:disabled):not(.ant-btn-disabled):hover {
+.yak-button--glass:not([data-disabled]):hover {
   border-color: transparent;
   color: #292c35;
   background: rgba(37, 40, 50, 0.055);
@@ -168,13 +203,24 @@
   -webkit-backdrop-filter: blur(3px);
 }
 
-.yak-button.ant-btn.yak-button--glass:not(:disabled):not(.ant-btn-disabled):active {
+.yak-button--glass:not([data-disabled]):active {
   color: #1f222a;
   background: rgba(37, 40, 50, 0.085);
   transform: none;
 }
 
-.yak-button.ant-btn.yak-button--glass:focus-visible {
-  outline: 0;
+.yak-button--glass:focus-visible {
   box-shadow: 0 0 0 3px rgba(37, 40, 50, 0.08);
+}
+
+@keyframes yak-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yak-button__spinner {
+    animation: none;
+  }
 }

@@ -1,6 +1,4 @@
-import DesktopDownloadLinks from './DesktopDownloadLinks';
 import HomeFeatureList from './HomeFeatureList';
-import WorkflowCodeVisual from './WorkflowCodeVisual';
 
 export default function HomeCapabilitiesSection() {
   return (

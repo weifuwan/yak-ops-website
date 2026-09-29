@@ -7,8 +7,11 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "class-variance-authority": "^0.7.1"
+  },
   "peerDependencies": {
-    "antd": "^5.25.4",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   }

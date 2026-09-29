@@ -3,7 +3,7 @@ import { MARKETING_HEADER_ACTIONS, MARKETING_NAV_ITEMS, type MarketingMegaNavIte
 import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { useState } from 'react';
-import './index.less';
+import './index.css';
 
 interface MarketingLinkProps {
   href: string;

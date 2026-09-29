@@ -72,7 +72,7 @@ function ArrowIcon(props: IconProps) {
  * It is kept as line art so the visual remains consistent with the rest
  * of the Yak Ops homepage illustration.
  */
-function PostgreSQLIcon(props: IconProps) {
+function PostgreSQLIcon(_props: IconProps) {
   return (
     <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1744" width="32" height="32">
       <path

@@ -75,6 +75,41 @@ for (const dependency of Object.keys(rootPackage.devDependencies ?? {})) {
   }
 }
 
+const appPackage = JSON.parse(readFileSync(join(root, 'apps', 'web', 'package.json'), 'utf8'));
+const yakUiPackage = JSON.parse(readFileSync(join(root, 'packages', 'yak-ui', 'package.json'), 'utf8'));
+const forbiddenUiDependencies = new Set(['antd', '@ant-design/icons', 'antd-style']);
+
+const declaredDependencies = (pkg) =>
+  Object.keys({
+    ...pkg.dependencies,
+    ...pkg.devDependencies,
+    ...pkg.peerDependencies,
+  });
+
+for (const [owner, pkg] of [
+  ['apps/web', appPackage],
+  ['packages/yak-ui', yakUiPackage],
+]) {
+  for (const dependency of declaredDependencies(pkg)) {
+    if (forbiddenUiDependencies.has(dependency)) {
+      fail(`${owner} declares retired AntD dependency: ${dependency}`);
+    }
+  }
+}
+
+if (!Object.prototype.hasOwnProperty.call(yakUiPackage.dependencies ?? {}, '@base-ui/react')) {
+  fail('packages/yak-ui must own @base-ui/react');
+}
+
+if (Object.prototype.hasOwnProperty.call(appPackage.dependencies ?? {}, '@base-ui/react')) {
+  fail('apps/web must consume Base UI through packages/yak-ui');
+}
+
+const lockFileContent = readFileSync(join(root, 'package-lock.json'), 'utf8');
+if (/["/]antd(?:["/@-]|\\b)|@ant-design\/|antd-style/i.test(lockFileContent)) {
+  fail('package-lock.json still contains retired AntD packages');
+}
+
 const sourceExtensions = new Set(['.js', '.jsx', '.mjs', '.ts', '.tsx', '.json']);
 const ignoredDirectoryNames = new Set(['assets', 'dist', 'node_modules', 'public']);
 const files = [];
@@ -109,7 +144,10 @@ const serviceAppImportPattern = /(?:from\s+|import\s*\()\s*['"]@\/app\//;
 const appHttpImportPattern = /(?:from\s+|import\s*\()\s*['"]@\/service\/http(?:\/|['"])/;
 const directFetchPattern = /\b(?:globalThis\.|window\.)?fetch\s*\(/;
 const legacyAliasPattern = /['"]@\/(?:services|components|styles|layouts|pages)\//;
-const umiImportPattern = /['"]@umijs\/max['"]/;
+const umiImportPattern = /(?:from\s+|import\s*\()\s*['"]@umijs\/max['"]/;
+const antdImportPattern =
+  /(?:from\s+|import\s*\()\s*['"](?:antd(?:\/|['"])|@ant-design\/icons(?:['"]|\/)|antd-style(?:['"]|\/))/;
+const baseUiImportPattern = /(?:from\s+|import\s*\()\s*['"]@base-ui\/react/;
 
 const directFetchOwners = new Set(['apps/web/service/http/client.ts', 'apps/web/service/traffic/api.ts']);
 
@@ -135,6 +173,14 @@ for (const path of files) {
 
   if (umiImportPattern.test(content)) {
     fail(`${relativePath} imports retired Umi runtime code`);
+  }
+
+  if (antdImportPattern.test(content)) {
+    fail(`${relativePath} imports retired AntD code`);
+  }
+
+  if (!relativePath.startsWith('packages/yak-ui/') && baseUiImportPattern.test(content)) {
+    fail(`${relativePath} imports @base-ui/react outside packages/yak-ui`);
   }
 }
 
