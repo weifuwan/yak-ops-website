@@ -1,6 +1,6 @@
 # Yak Ops Website
 
-Yak Ops Website is the public product website and authenticated developer entry for Yak Ops.
+Yak Ops Website is the public product website and developer entry for Yak Ops.
 
 This repository is intentionally separated from the Yak Ops admin product. It reuses Yak Ops engineering conventions and design primitives without bringing the admin product's RBAC/domain model or `yak-framework` runtime dependencies into the website.
 
@@ -8,7 +8,7 @@ This repository is intentionally separated from the Yak Ops admin product. It re
 
 ```text
 yak-ops-website/
-├── website-ui/       # React + Umi Max + Ant Design website
+├── website-ui/       # React + Vite workspace + Ant Design website
 ├── website-server/   # Spring Boot website API and protected docs delivery
 ├── docs/             # Git-managed documentation source
 ├── deploy/           # local Docker and Nginx deployment foundation
@@ -70,7 +70,7 @@ The backend uses Spring Boot + MyBatis Plus directly. API responses use the webs
 The website records lightweight page-level PV/UV without introducing a separate analytics platform.
 
 ```text
-Umi route change
+React Router route change
       ↓
 POST /api/v1/traffic/page-view
       ↓

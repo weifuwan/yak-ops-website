@@ -1,5 +1,5 @@
 import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
-import { Link } from '@umijs/max';
+import { Link } from 'react-router-dom';
 import { isValidElement, type ReactNode, useState } from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';

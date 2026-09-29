@@ -4,7 +4,7 @@ import {
   MARKETING_NAV_ITEMS,
   type MarketingMegaNavItem,
 } from "@/config/marketingNavigation";
-import { Link } from "@umijs/max";
+import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import "./index.less";

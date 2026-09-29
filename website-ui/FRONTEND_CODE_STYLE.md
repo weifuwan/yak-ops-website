@@ -2,7 +2,7 @@
 
 The website inherits the engineering rules of `yak-ops-ui`, but keeps marketing, account and docs concerns isolated from the admin product.
 
-Core rule: **pages compose, components render, hooks own state/behaviour, services own backend communication, and Yak Components own shared visual language.**
+Core rule: **pages compose, components render, hooks own state/behaviour, services own backend communication, and Yak Components own shared visual language.**\n\nThe Vite application entry, router and build configuration live under `apps/web`. During the staged architecture migration, existing page/layout/service implementation remains under `src` and is consumed through the `@` alias; ownership migration follows in a separate PR.
 
 ## Structure
 
