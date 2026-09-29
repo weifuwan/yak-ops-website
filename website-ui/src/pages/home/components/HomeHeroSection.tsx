@@ -67,7 +67,7 @@ export default function HomeHeroSection() {
           <div className="relative aspect-[16/10] w-full max-w-[760px] overflow-hidden rounded-[24px] border border-solid border-[#C9D9EE] bg-white/50 shadow-[0_28px_80px_rgba(67,104,154,0.16)] backdrop-blur-sm">
             <div className="absolute inset-5 rounded-[18px] border border-dashed border-[#AFC7E8] bg-[linear-gradient(145deg,rgba(255,255,255,0.78),rgba(225,238,255,0.72))]">
               <div className="absolute left-[9%] top-[18%] h-[26%] w-[38%] rounded-[18px] border border-solid border-white/80 bg-white/70 shadow-sm" />
-              <div className="absolute right-[8%] top-[12%] h-[38%] w-[35%] rounded-full bg-[#72A8FF]/22 blur-2xl" />
+              <div className="absolute right-[8%] top-[12%] h-[38%] w-[35%] rounded-full bg-[#72A8FF]/20 blur-2xl" />
               <div className="absolute bottom-[17%] right-[10%] h-[32%] w-[52%] rounded-[22px] border border-solid border-white/80 bg-white/65 shadow-sm" />
 
               <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
