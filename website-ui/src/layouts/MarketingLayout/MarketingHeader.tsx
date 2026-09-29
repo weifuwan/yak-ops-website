@@ -72,7 +72,7 @@ function ChevronDown({ open = false }: { open?: boolean }) {
         aspect-square
         w-4
         flex-none
-        text-[#6F6F6B]
+        text-[#667085]
         transition-transform
         duration-[750ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
@@ -131,7 +131,7 @@ function BrandLogo() {
         outline-offset-4
         focus-visible:outline
         focus-visible:outline-2
-        focus-visible:outline-[#C9C4B8]
+        focus-visible:outline-[#B8C7DD]
       "
     >
       <img
@@ -173,7 +173,7 @@ function MegaMenu({
         bg-white
         px-7
         py-5
-        text-[#242422]
+        text-[#344054]
         shadow-[0_1px_2px_rgba(17,17,16,0.08),0_14px_40px_rgba(17,17,16,0.14)]
       `}
     >
@@ -185,7 +185,7 @@ function MegaMenu({
             columnIndex === 0
               ? undefined
               : {
-                  borderLeft: "1px solid #E2E0DA",
+                  borderLeft: "1px solid #E4E7EC",
                 }
           }
         >
@@ -196,7 +196,7 @@ function MegaMenu({
               font-normal
               leading-5
               tracking-[0.01em]
-              text-[#8A8881]
+              text-[#98A2B3]
             "
           >
             {column.title}
@@ -237,19 +237,19 @@ function MegaMenu({
                       duration-[220ms]
                       ease-[cubic-bezier(0.16,1,0.3,1)]
 
-                      hover:!bg-[#F1EFE8]
-                      hover:!text-[#242422]
+                      hover:!bg-[#F5F7FA]
+                      hover:!text-[#344054]
 
-                      focus-visible:!bg-[#F1EFE8]
-                      focus-visible:!text-[#242422]
+                      focus-visible:!bg-[#F5F7FA]
+                      focus-visible:!text-[#344054]
                       focus-visible:outline-none
 
                       motion-reduce:transition-none
 
                       ${
                         isDimmed
-                          ? "!text-[#8A8881]"
-                          : "!text-[#242422]"
+                          ? "!text-[#98A2B3]"
+                          : "!text-[#344054]"
                       }
                     `}
                     external={link.external}
@@ -314,21 +314,21 @@ function NavDropdown({
             py-2
             text-[15px]
             leading-5
-            text-[#242422]
+            text-[#344054]
             outline-none
 
             transition-[background-color,color]
             duration-200
 
-            hover:bg-[#F1EFE8]
-            hover:text-[#181817]
+            hover:bg-[#F5F7FA]
+            hover:text-[#101828]
 
-            focus-visible:bg-[#F1EFE8]
-            focus-visible:text-[#181817]
+            focus-visible:bg-[#F5F7FA]
+            focus-visible:text-[#101828]
 
             ${
               open
-                ? "bg-[#F1EFE8] text-[#181817]"
+                ? "bg-[#F5F7FA] text-[#101828]"
                 : ""
             }
           `}
@@ -397,18 +397,18 @@ const NAV_LINK_CLASS_NAME = `
 
   text-[15px]
   leading-5
-  text-[#242422]
+  text-[#344054]
 
   no-underline
 
   transition-[background-color,color]
   duration-200
 
-  hover:bg-[#F1EFE8]
-  hover:!text-[#181817]
+  hover:bg-[#F5F7FA]
+  hover:!text-[#101828]
 
-  focus-visible:bg-[#F1EFE8]
-  focus-visible:!text-[#181817]
+  focus-visible:bg-[#F5F7FA]
+  focus-visible:!text-[#101828]
   focus-visible:outline-none
 `;
 
@@ -423,7 +423,7 @@ const LOGIN_LINK_CLASS_NAME = `
 
   border
   border-solid
-  border-[#D8D5CC]
+  border-[#D0D5DD]
 
   bg-transparent
 
@@ -432,7 +432,7 @@ const LOGIN_LINK_CLASS_NAME = `
   text-[15px]
   font-medium
   leading-none
-  text-[#30302E]
+  text-[#344054]
 
   no-underline
 
@@ -440,13 +440,13 @@ const LOGIN_LINK_CLASS_NAME = `
   duration-200
   ease-out
 
-  hover:border-[#C7C1B5]
-  hover:bg-[#ECE8DF]
-  hover:!text-[#181817]
+  hover:border-[#98A2B3]
+  hover:bg-[#F9FAFB]
+  hover:!text-[#101828]
 
-  focus-visible:border-[#C7C1B5]
-  focus-visible:bg-[#ECE8DF]
-  focus-visible:!text-[#181817]
+  focus-visible:border-[#98A2B3]
+  focus-visible:bg-[#F9FAFB]
+  focus-visible:!text-[#101828]
   focus-visible:outline-none
 `;
 
@@ -461,9 +461,9 @@ const GET_STARTED_LINK_CLASS_NAME = `
 
   border
   border-solid
-  border-[#1F1F1D]
+  border-[#0B5CFF]
 
-  bg-[#1F1F1D]
+  bg-[#0B5CFF]
 
   px-4
 
@@ -478,12 +478,12 @@ const GET_STARTED_LINK_CLASS_NAME = `
   duration-200
   ease-out
 
-  hover:border-[#000000]
-  hover:bg-[#000000]
+  hover:border-[#004CE6]
+  hover:bg-[#004CE6]
   hover:!text-white
 
-  focus-visible:border-[#000000]
-  focus-visible:bg-[#000000]
+  focus-visible:border-[#004CE6]
+  focus-visible:bg-[#004CE6]
   focus-visible:!text-white
   focus-visible:outline-none
 `;
