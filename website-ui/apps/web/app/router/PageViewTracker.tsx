@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { trackPageView } from '@/services/traffic';
+import { trackPageView } from '@/service/traffic';
 
 export default function PageViewTracker() {
   const location = useLocation();

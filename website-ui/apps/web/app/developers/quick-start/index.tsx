@@ -1,0 +1,5 @@
+import MarketingPlaceholderPage from '@/app/marketing/MarketingPlaceholderPage';
+
+export default function QuickStartPage() {
+  return <MarketingPlaceholderPage eyebrow="GET STARTED" title="快速开始" />;
+}

@@ -4,7 +4,8 @@
   "private": true,
   "description": "Yak Ops website frontend workspace",
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "build": "vite build --config apps/web/vite.config.ts",

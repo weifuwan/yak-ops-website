@@ -4,14 +4,16 @@ import { defineConfig } from 'vite';
 
 const webRoot = fileURLToPath(new URL('.', import.meta.url));
 const workspaceRoot = fileURLToPath(new URL('../..', import.meta.url));
-const legacySourceRoot = fileURLToPath(new URL('../../src', import.meta.url));
 
 export default defineConfig({
   root: webRoot,
-  publicDir: fileURLToPath(new URL('../../public', import.meta.url)),
+  publicDir: fileURLToPath(new URL('./public', import.meta.url)),
   resolve: {
     alias: {
-      '@': legacySourceRoot,
+      '@': webRoot,
+      '@yak-ops-website/yak-ui': fileURLToPath(
+        new URL('../../packages/yak-ui/src/index.ts', import.meta.url),
+      ),
     },
   },
   server: {

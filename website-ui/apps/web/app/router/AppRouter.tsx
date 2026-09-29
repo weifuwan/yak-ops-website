@@ -1,27 +1,27 @@
 import { Route, Routes } from 'react-router-dom';
 
-import MarketingLayout from '@/layouts/MarketingLayout';
-import ApiPage from '@/pages/developers/api';
-import ConfigurationPage from '@/pages/developers/configuration';
-import ContributingPage from '@/pages/developers/contributing';
-import DeploymentPage from '@/pages/developers/deployment';
-import DevelopmentPage from '@/pages/developers/development';
-import DockerPage from '@/pages/developers/docker';
-import QuickStartPage from '@/pages/developers/quick-start';
-import DocsPage from '@/pages/docs';
-import HomePage from '@/pages/home';
-import BatchSyncPage from '@/pages/product/batch-sync';
-import DataAssetsPage from '@/pages/product/data-assets';
-import DataDevelopmentPage from '@/pages/product/data-development';
-import DataQualityPage from '@/pages/product/data-quality';
-import DataServicesPage from '@/pages/product/data-services';
-import DataSourcesPage from '@/pages/product/data-sources';
-import DatasetsPage from '@/pages/product/datasets';
-import LineagePage from '@/pages/product/lineage';
-import MetricsPage from '@/pages/product/metrics';
-import RealtimeSyncPage from '@/pages/product/realtime-sync';
-import SchedulingPage from '@/pages/product/scheduling';
-import WorkflowsPage from '@/pages/product/workflows';
+import ApiPage from '@/app/developers/api';
+import ConfigurationPage from '@/app/developers/configuration';
+import ContributingPage from '@/app/developers/contributing';
+import DeploymentPage from '@/app/developers/deployment';
+import DevelopmentPage from '@/app/developers/development';
+import DockerPage from '@/app/developers/docker';
+import QuickStartPage from '@/app/developers/quick-start';
+import DocsPage from '@/app/docs';
+import HomePage from '@/app/home';
+import MarketingLayout from '@/app/layout/MarketingLayout';
+import BatchSyncPage from '@/app/product/batch-sync';
+import DataAssetsPage from '@/app/product/data-assets';
+import DataDevelopmentPage from '@/app/product/data-development';
+import DataQualityPage from '@/app/product/data-quality';
+import DataServicesPage from '@/app/product/data-services';
+import DataSourcesPage from '@/app/product/data-sources';
+import DatasetsPage from '@/app/product/datasets';
+import LineagePage from '@/app/product/lineage';
+import MetricsPage from '@/app/product/metrics';
+import RealtimeSyncPage from '@/app/product/realtime-sync';
+import SchedulingPage from '@/app/product/scheduling';
+import WorkflowsPage from '@/app/product/workflows';
 
 export default function AppRouter() {
   return (
