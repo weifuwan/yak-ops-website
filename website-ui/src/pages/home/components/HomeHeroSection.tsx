@@ -1,4 +1,4 @@
-import heroImage from "@/assets/ChatGPT_图像_2026年9月29日_12_45_30.png";
+import heroImage from "@/assets/homepage-hero-data-core.png";
 
 export default function HomeHeroSection() {
   return (
