@@ -1,4 +1,3 @@
-import type { ThemeConfig } from 'antd';
 import type { CSSProperties } from 'react';
 
 /**
@@ -44,17 +43,3 @@ export const BRAND_CSS_VARIABLES = {
   '--yak-brand-color-border': BRAND_COLOR_BORDER,
   '--yak-brand-color-outline': BRAND_COLOR_OUTLINE,
 } as CSSProperties;
-
-export const BRAND_THEME: ThemeConfig = {
-  token: {
-    colorPrimary: BRAND_COLOR,
-    colorPrimaryHover: BRAND_COLOR_HOVER,
-    colorPrimaryActive: BRAND_COLOR_ACTIVE,
-
-    colorPrimaryBg: BRAND_COLOR_SOFT,
-    colorPrimaryBgHover: BRAND_COLOR_SOFT_HOVER,
-    colorPrimaryBorder: BRAND_COLOR_BORDER,
-
-    controlOutline: BRAND_COLOR_OUTLINE,
-  },
-};

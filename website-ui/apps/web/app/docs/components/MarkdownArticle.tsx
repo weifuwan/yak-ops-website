@@ -1,4 +1,4 @@
-import { CheckOutlined, CopyOutlined } from '@ant-design/icons';
+import { Check, Copy } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { isValidElement, type ReactNode, useState } from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
@@ -60,7 +60,7 @@ function CodeBlock({ children }: { children?: ReactNode }) {
         onClick={handleCopy}
         type="button"
       >
-        {copied ? <CheckOutlined /> : <CopyOutlined />}
+        {copied ? <Check /> : <Copy />}
         <span>{copied ? 'Copied' : 'Copy'}</span>
       </button>
       <pre className="m-0 overflow-x-auto bg-transparent p-5 font-yak-mono text-[13px] leading-6 text-inherit [&_code]:bg-transparent [&_code]:p-0 [&_code]:text-inherit">
