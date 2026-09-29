@@ -1,266 +1,118 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { getDocsDocument, getDocsNavigation, type DocsDocument, type DocsNavigation } from '@/service/docs';
+import { getDocsDocument, type DocsDocument } from '@/service/docs';
 import { extractDocsToc } from '@/utils/docs';
 
 import DocsHeader from './components/DocsHeader';
-import DocsLanding from './components/DocsLanding';
 import DocsSidebar from './components/DocsSidebar';
 import DocsTableOfContents from './components/DocsTableOfContents';
 import MarkdownArticle from './components/MarkdownArticle';
 
+const DEFAULT_DOC_SLUG = 'deploy/docker-compose';
 const docsSlugFromPath = (pathname: string) => pathname.replace(/^\/docs\/?/, '').replace(/\/$/, '');
 
 function DocsErrorState({ message }: { message: string }) {
   return (
-    <div className="rounded-2xl border border-solid border-[#d9a99a] bg-[#fff4f0] px-5 py-4 text-sm text-[#7a3425]">
+    <div className="rounded-xl border border-solid border-[#FECACA] bg-[#FEF2F2] px-5 py-4 text-sm text-[#991B1B]">
       <div className="font-semibold">Documentation is temporarily unavailable</div>
       <div className="mt-1 leading-6 opacity-80">{message}</div>
     </div>
   );
 }
 
-function ArrowLeftIcon() {
-  return <span aria-hidden="true">←</span>;
-}
-
-function ArrowRightIcon() {
-  return <span aria-hidden="true">→</span>;
-}
-
 export default function DocsPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const currentSlug = docsSlugFromPath(location.pathname);
-  const [navigation, setNavigation] = useState<DocsNavigation>();
+  const requestedSlug = docsSlugFromPath(location.pathname);
   const [documentData, setDocumentData] = useState<DocsDocument>();
-  const [bootLoading, setBootLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const documentCacheRef = useRef(new Map<string, DocsDocument>());
-
-  const handleApiError = (error: unknown, fallback: string) => {
-    setErrorMessage(error instanceof Error ? error.message : fallback);
-  };
 
   useEffect(() => {
-    let cancelled = false;
-    setBootLoading(true);
-    setErrorMessage(undefined);
-
-    getDocsNavigation()
-      .then((docsNavigation) => {
-        if (cancelled) {
-          return;
-        }
-
-        setNavigation(docsNavigation);
-
-        if (!currentSlug) {
-          void getDocsDocument(docsNavigation.defaultSlug)
-            .then((docsDocument) => {
-              if (!cancelled) {
-                documentCacheRef.current.set(docsNavigation.defaultSlug, docsDocument);
-              }
-            })
-            .catch(() => undefined);
-        }
-      })
-      .catch((error) => {
-        if (!cancelled) {
-          handleApiError(error, 'Failed to initialize documentation');
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setBootLoading(false);
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!navigation || !currentSlug) {
-      setDocumentData(undefined);
-      return undefined;
-    }
-
-    const cachedDocument = documentCacheRef.current.get(currentSlug);
-    if (cachedDocument) {
-      setErrorMessage(undefined);
-      setDocumentData(cachedDocument);
-      window.scrollTo({ top: 0, behavior: 'auto' });
-      return undefined;
+    if (requestedSlug && requestedSlug !== DEFAULT_DOC_SLUG) {
+      navigate('/docs', { replace: true });
+      return;
     }
 
     let cancelled = false;
+    setLoading(true);
     setErrorMessage(undefined);
-    setDocumentData(undefined);
 
-    getDocsDocument(currentSlug)
+    getDocsDocument(DEFAULT_DOC_SLUG)
       .then((docsDocument) => {
         if (!cancelled) {
-          documentCacheRef.current.set(currentSlug, docsDocument);
           setDocumentData(docsDocument);
           window.scrollTo({ top: 0, behavior: 'auto' });
         }
       })
       .catch((error) => {
         if (!cancelled) {
-          handleApiError(error, 'Failed to load documentation');
+          setDocumentData(undefined);
+          setErrorMessage(error instanceof Error ? error.message : 'Failed to load documentation');
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setLoading(false);
         }
       });
 
     return () => {
       cancelled = true;
     };
-  }, [navigation, currentSlug]);
+  }, [navigate, requestedSlug]);
 
   const toc = useMemo(() => (documentData ? extractDocsToc(documentData.markdown) : []), [documentData]);
 
-  const navigateToDoc = async (slug: string) => {
+  const navigateToDockerCompose = () => {
     setMobileNavOpen(false);
-    if (slug === currentSlug) {
-      return;
-    }
-
-    const cachedDocument = documentCacheRef.current.get(slug);
-    if (cachedDocument) {
-      setErrorMessage(undefined);
-      setDocumentData(cachedDocument);
-      navigate(`/docs/${slug}`);
-      window.scrollTo({ top: 0, behavior: 'auto' });
-      return;
-    }
-
-    try {
-      const docsDocument = await getDocsDocument(slug);
-      documentCacheRef.current.set(slug, docsDocument);
-      setErrorMessage(undefined);
-      setDocumentData(docsDocument);
-      navigate(`/docs/${slug}`);
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    } catch (error) {
-      handleApiError(error, 'Failed to load documentation');
+    if (location.pathname !== '/docs/deploy/docker-compose') {
+      navigate('/docs/deploy/docker-compose');
     }
   };
-
-  const navigateToWelcome = () => {
-    setMobileNavOpen(false);
-    setErrorMessage(undefined);
-    setDocumentData(undefined);
-    if (!currentSlug) {
-      return;
-    }
-    navigate('/docs');
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  };
-
-  if (bootLoading && !navigation) {
-    return <div className="min-h-screen bg-[#faf9f5]" />;
-  }
-
-  if (!navigation) {
-    return (
-      <div className="min-h-screen bg-[#faf9f5] px-6 py-10">
-        <div className="mx-auto max-w-3xl">
-          <DocsErrorState message={errorMessage || 'Please try again later.'} />
-        </div>
-      </div>
-    );
-  }
-
-  const previousDocument = documentData?.previous;
-  const nextDocument = documentData?.next;
-  const isLanding = !currentSlug;
 
   return (
-    <div className="min-h-screen bg-[#fdfdf7] font-yak text-[#1f1f1d]">
-      <DocsHeader
-        isLanding={isLanding}
-        navigation={navigation}
-        onNavigate={navigateToDoc}
-        onOpenNavigation={() => setMobileNavOpen(true)}
-        onWelcome={navigateToWelcome}
-      />
+    <div className="min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]">
+      <DocsHeader onOpenNavigation={() => setMobileNavOpen(true)} />
 
-      {isLanding ? (
-        <DocsLanding navigation={navigation} onNavigate={navigateToDoc} />
-      ) : (
-        <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
-          <aside className="sticky top-[9.5rem] hidden h-[calc(100vh-9.5rem)] w-[18rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
-            <DocsSidebar activeSlug={currentSlug} navigation={navigation} onNavigate={navigateToDoc} />
-          </aside>
+      <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
+        <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
+          <DocsSidebar onNavigate={navigateToDockerCompose} />
+        </aside>
 
-          <main className="min-w-0 flex-1 py-10 lg:px-8 xl:px-12">
-            <div className="mx-auto max-w-[760px]">
-              {errorMessage ? (
-                <DocsErrorState message={errorMessage} />
-              ) : documentData ? (
-                <>
-                  <div className="mb-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-yak-brand">
-                    {documentData.section}
-                  </div>
-                  <MarkdownArticle markdown={documentData.markdown} />
+        <main className="min-w-0 flex-1 py-9 lg:px-8 xl:px-10">
+          <div className="mx-auto max-w-[760px]">
+            {loading ? (
+              <div className="min-h-[360px]" />
+            ) : errorMessage ? (
+              <DocsErrorState message={errorMessage} />
+            ) : documentData ? (
+              <MarkdownArticle markdown={documentData.markdown} />
+            ) : null}
+          </div>
+        </main>
 
-                  <div className="mt-14 flex flex-col gap-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-                    {previousDocument ? (
-                      <button
-                        className="group inline-flex min-w-0 items-center gap-2 border-0 bg-transparent p-0 text-left text-sm font-semibold text-[#55544f] transition-colors duration-200 hover:text-[#1f1f1d]"
-                        onClick={() => navigateToDoc(previousDocument.slug)}
-                        type="button"
-                      >
-                        <span className="shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-1">
-                          <ArrowLeftIcon />
-                        </span>
-                        <span className="truncate">{previousDocument.title}</span>
-                      </button>
-                    ) : (
-                      <span />
-                    )}
-
-                    {nextDocument ? (
-                      <button
-                        className="group ml-auto inline-flex min-w-0 items-center justify-end gap-2 border-0 bg-transparent p-0 text-right text-sm font-semibold text-[#55544f] transition-colors duration-200 hover:text-[#1f1f1d]"
-                        onClick={() => navigateToDoc(nextDocument.slug)}
-                        type="button"
-                      >
-                        <span className="truncate">{nextDocument.title}</span>
-                        <span className="shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-1">
-                          <ArrowRightIcon />
-                        </span>
-                      </button>
-                    ) : null}
-                  </div>
-                </>
-              ) : null}
-            </div>
-          </main>
-
-          <aside className="sticky top-[9.5rem] hidden h-[calc(100vh-9.5rem)] w-[16.5rem] shrink-0 overflow-y-auto py-10 pl-8 xl:block">
-            <DocsTableOfContents items={toc} />
-          </aside>
-        </div>
-      )}
+        <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block">
+          <DocsTableOfContents items={toc} />
+        </aside>
+      </div>
 
       {mobileNavOpen ? (
         <div className="fixed inset-0 z-[60] lg:hidden">
           <button
             aria-label="Close documentation navigation"
-            className="absolute inset-0 h-full w-full border-0 bg-black/25"
+            className="absolute inset-0 h-full w-full cursor-pointer border-0 bg-black/25"
             onClick={() => setMobileNavOpen(false)}
             type="button"
           />
-          <aside className="absolute inset-y-0 left-0 flex w-[310px] max-w-[86vw] flex-col bg-[#faf9f5] shadow-[18px_0_50px_rgba(20,20,19,0.16)]">
-            <div className="flex h-16 items-center justify-between border-b border-solid border-[#e1ded6] px-5">
-              <span className="font-yak-serif text-xl font-medium">Yak Ops Docs</span>
+          <aside className="absolute inset-y-0 left-0 flex w-[300px] max-w-[86vw] flex-col bg-[#F5F5F5] shadow-[18px_0_50px_rgba(24,24,27,0.16)]">
+            <div className="flex h-16 items-center justify-between border-b border-solid border-[#E4E4E7] px-5">
+              <span className="text-[15px] font-semibold">Getting Started</span>
               <button
                 aria-label="Close navigation"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border-0 bg-transparent text-xl text-[#66645f] hover:bg-black/[0.04]"
+                className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border-0 bg-transparent text-xl text-[#71717A] hover:bg-black/[0.04]"
                 onClick={() => setMobileNavOpen(false)}
                 type="button"
               >
@@ -268,7 +120,7 @@ export default function DocsPage() {
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-4 py-6">
-              <DocsSidebar activeSlug={currentSlug} navigation={navigation} onNavigate={navigateToDoc} />
+              <DocsSidebar onNavigate={navigateToDockerCompose} />
             </div>
           </aside>
         </div>
