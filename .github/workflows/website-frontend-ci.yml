@@ -31,9 +31,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22.13'
+          cache: npm
+          cache-dependency-path: website-ui/package-lock.json
 
       - name: Install dependencies
-        run: npm install --ignore-scripts
+        run: npm ci --ignore-scripts
 
       - name: Frontend format
         run: npm run format:check

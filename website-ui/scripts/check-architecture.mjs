@@ -31,6 +31,7 @@ for (const path of forbiddenPaths) {
 
 const requiredPaths = [
   'ARCHITECTURE.md',
+  'package-lock.json',
   'FRONTEND_CODE_STYLE.md',
   'docs/tooling.md',
   'apps/web/app/App.tsx',

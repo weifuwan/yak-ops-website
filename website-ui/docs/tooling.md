@@ -119,4 +119,4 @@ CI 禁止执行 `format` 或 `lint:fix` 自动修改源码。
 
 官网前端统一使用 npm workspaces。
 
-当前 CI 使用 `npm install` 安装依赖；仓库完成 lockfile 收口后可切换到 `npm ci`。不要重新引入 Yarn lockfile。
+前端提交 `package-lock.json` 作为 npm 依赖锁定文件。CI 使用 `npm ci --ignore-scripts` 按 lockfile 安装依赖。新增或修改依赖后必须同步更新 lockfile；不要重新引入 Yarn lockfile。
