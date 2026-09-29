@@ -412,44 +412,6 @@ const NAV_LINK_CLASS_NAME = `
   focus-visible:outline-none
 `;
 
-const LOGIN_LINK_CLASS_NAME = `
-  inline-flex
-  h-[40px]
-  items-center
-  justify-center
-  whitespace-nowrap
-
-  rounded-[9px]
-
-  border
-  border-solid
-  border-[#D0D5DD]
-
-  bg-transparent
-
-  px-4
-
-  text-[15px]
-  font-medium
-  leading-none
-  text-[#344054]
-
-  no-underline
-
-  transition-[background-color,border-color,color]
-  duration-200
-  ease-out
-
-  hover:border-[#98A2B3]
-  hover:bg-[#F9FAFB]
-  hover:!text-[#101828]
-
-  focus-visible:border-[#98A2B3]
-  focus-visible:bg-[#F9FAFB]
-  focus-visible:!text-[#101828]
-  focus-visible:outline-none
-`;
-
 const GET_STARTED_LINK_CLASS_NAME = `
   inline-flex
   h-[40px]
@@ -557,13 +519,6 @@ export default function MarketingHeader() {
       </nav>
 
       <div className="flex flex-none items-center gap-2">
-        <MarketingLink
-          className={LOGIN_LINK_CLASS_NAME}
-          href={MARKETING_HEADER_ACTIONS.login}
-        >
-          Login
-        </MarketingLink>
-
         <MarketingLink
           href={MARKETING_HEADER_ACTIONS.startUsing}
           className={`${GET_STARTED_LINK_CLASS_NAME} yak-get-started-link`}
