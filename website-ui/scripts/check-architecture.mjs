@@ -81,9 +81,9 @@ const forbiddenUiDependencies = new Set(['antd', '@ant-design/icons', 'antd-styl
 
 const declaredDependencies = (pkg) =>
   Object.keys({
-    ...(pkg.dependencies ?? {}),
-    ...(pkg.devDependencies ?? {}),
-    ...(pkg.peerDependencies ?? {}),
+    ...pkg.dependencies,
+    ...pkg.devDependencies,
+    ...pkg.peerDependencies,
   });
 
 for (const [owner, pkg] of [
