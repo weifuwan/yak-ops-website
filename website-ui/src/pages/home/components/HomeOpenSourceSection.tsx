@@ -3,11 +3,13 @@ const OPEN_SOURCE_LINKS = [
     label: "GitHub",
     description: "Read the source, open an issue, or contribute.",
     href: "https://github.com/weifuwan/yak-ops",
+    internal: false,
   },
   {
     label: "v1.0.0 Release",
     description: "Download the verified distribution and release evidence.",
     href: "https://github.com/weifuwan/yak-ops/releases/tag/v1.0.0",
+    internal: false,
   },
   {
     label: "Documentation",
