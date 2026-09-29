@@ -72,7 +72,8 @@ export default function HomeProductSection() {
               className={[
                 "group relative min-h-[250px] p-[clamp(1.75rem,1.5rem+1.25vw,2.75rem)] text-[#101828] no-underline transition-colors duration-200 hover:bg-[#F6F9FF]",
                 index % 2 === 0 ? "lg:border-r lg:border-solid lg:border-[#E4E7EC]" : "",
-                index < 2 ? "border-b border-solid border-[#E4E7EC]" : "",
+                index < PRODUCTS.length - 1 ? "border-b border-solid border-[#E4E7EC]" : "",
+                index === 2 ? "lg:border-b-0" : "",
               ].join(" ")}
             >
               <div className="flex items-start justify-between gap-5">
