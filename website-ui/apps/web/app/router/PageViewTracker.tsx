@@ -5,7 +5,7 @@ import { trackPageView } from '@/services/traffic';
 
 export default function PageViewTracker() {
   const location = useLocation();
-  const lastTrackedPath = useRef<string>();
+  const lastTrackedPath = useRef<string | undefined>(undefined);
 
   useEffect(() => {
     const path = location.pathname || '/';

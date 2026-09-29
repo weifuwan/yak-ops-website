@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, type ThemeConfig } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import { BRAND_COLOR, BRAND_THEME } from '@/styles/brand';
 import AppRouter from './router/AppRouter';
 import PageViewTracker from './router/PageViewTracker';
 
-const WEBSITE_THEME = {
+const WEBSITE_THEME: ThemeConfig = {
   ...BRAND_THEME,
   cssVar: true,
   token: {
