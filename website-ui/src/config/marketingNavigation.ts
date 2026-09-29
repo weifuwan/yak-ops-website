@@ -85,6 +85,5 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
 ];
 
 export const MARKETING_HEADER_ACTIONS = {
-  login: '/login',
   startUsing: '/docs',
 } as const;
