@@ -497,7 +497,7 @@ export default function MarketingHeader() {
       className="
         mx-auto
         flex
-        h-[84px]
+        h-[60px]
         w-[calc(100%-clamp(2rem,calc(1.428571rem+2.857143vw),4rem)*2)]
         max-w-[90rem]
         items-center
