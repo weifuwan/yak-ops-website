@@ -30,9 +30,9 @@ class DocsCatalogTest {
     }
 
     @Test
-    void searchReturnsSeedDocumentation() {
-        assertThat(catalog.search("质量").hits())
+    void searchReturnsDockerComposeGuide() {
+        assertThat(catalog.search("Docker").hits())
                 .extracting(DocsModels.SearchHit::slug)
-                .contains("data-quality/overview");
+                .contains("deploy/docker-compose");
     }
 }
