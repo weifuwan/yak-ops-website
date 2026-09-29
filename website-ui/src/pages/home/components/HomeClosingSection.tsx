@@ -1,4 +1,4 @@
-import { Link } from "@umijs/max";
+import { Link } from "react-router-dom";
 
 export default function HomeClosingSection() {
   return (

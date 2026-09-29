@@ -1,4 +1,4 @@
-import { Outlet } from '@umijs/max';
+import { Outlet } from 'react-router-dom';
 import MarketingHeader from './MarketingHeader';
 import './index.less';
 

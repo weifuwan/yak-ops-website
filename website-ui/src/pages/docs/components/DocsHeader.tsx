@@ -1,4 +1,4 @@
-import { Link, useLocation } from '@umijs/max';
+import { Link, useLocation } from 'react-router-dom';
 import { YakTab } from '@/components/ui';
 import type { DocsNavigation } from '@/services/docs';
 

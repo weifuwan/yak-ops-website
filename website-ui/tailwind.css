@@ -1,5 +1,5 @@
 /*
- * Umi Max injects this file through its Tailwind CSS plugin.
+ * Vite processes this file through Tailwind CSS.
  * Preflight stays disabled in tailwind.config.js so Ant Design and the
  * existing Less foundation keep ownership of global element styles.
  */

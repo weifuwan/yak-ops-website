@@ -1,14 +1,14 @@
-import { history, useLocation } from '@umijs/max';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { getCurrentWebsiteUser, logoutAccount, type CurrentWebsiteUser } from '@/services/auth';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import {
   getDocsDocument,
   getDocsNavigation,
   type DocsDocument,
   type DocsNavigation,
 } from '@/services/docs';
-import { ApiError } from '@/services/http/client';
 import { extractDocsToc } from '@/utils/docs';
+
 import DocsHeader from './components/DocsHeader';
 import DocsLanding from './components/DocsLanding';
 import DocsSidebar from './components/DocsSidebar';
@@ -16,9 +16,6 @@ import DocsTableOfContents from './components/DocsTableOfContents';
 import MarkdownArticle from './components/MarkdownArticle';
 
 const docsSlugFromPath = (pathname: string) => pathname.replace(/^\/docs\/?/, '').replace(/\/$/, '');
-
-const shouldRedirectToLogin = (error: unknown) =>
-  error instanceof ApiError && (error.status === 401 || error.status === 504);
 
 function DocsErrorState({ message }: { message: string }) {
   return (
@@ -39,25 +36,16 @@ function ArrowRightIcon() {
 
 export default function DocsPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const currentSlug = docsSlugFromPath(location.pathname);
   const [navigation, setNavigation] = useState<DocsNavigation>();
-  const [currentUser, setCurrentUser] = useState<CurrentWebsiteUser>();
   const [documentData, setDocumentData] = useState<DocsDocument>();
   const [bootLoading, setBootLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const documentCacheRef = useRef(new Map<string, DocsDocument>());
 
-  const redirectToLogin = () => {
-    const returnTo = `${location.pathname}${location.search}`;
-    history.replace(`/login?returnTo=${encodeURIComponent(returnTo)}`);
-  };
-
   const handleApiError = (error: unknown, fallback: string) => {
-    if (shouldRedirectToLogin(error)) {
-      redirectToLogin();
-      return;
-    }
     setErrorMessage(error instanceof Error ? error.message : fallback);
   };
 
@@ -66,27 +54,22 @@ export default function DocsPage() {
     setBootLoading(true);
     setErrorMessage(undefined);
 
-    Promise.all([getCurrentWebsiteUser(), getDocsNavigation()])
-      .then(([user, docsNavigation]) => {
+    getDocsNavigation()
+      .then((docsNavigation) => {
         if (cancelled) {
           return;
         }
 
-        setCurrentUser(user);
         setNavigation(docsNavigation);
 
         if (!currentSlug) {
-          getDocsDocument(docsNavigation.defaultSlug)
+          void getDocsDocument(docsNavigation.defaultSlug)
             .then((docsDocument) => {
               if (!cancelled) {
                 documentCacheRef.current.set(docsNavigation.defaultSlug, docsDocument);
               }
             })
-            .catch((error) => {
-              if (!cancelled && shouldRedirectToLogin(error)) {
-                redirectToLogin();
-              }
-            });
+            .catch(() => undefined);
         }
       })
       .catch((error) => {
@@ -157,7 +140,7 @@ export default function DocsPage() {
     if (cachedDocument) {
       setErrorMessage(undefined);
       setDocumentData(cachedDocument);
-      history.push(`/docs/${slug}`);
+      navigate(`/docs/${slug}`);
       window.scrollTo({ top: 0, behavior: 'auto' });
       return;
     }
@@ -167,7 +150,7 @@ export default function DocsPage() {
       documentCacheRef.current.set(slug, docsDocument);
       setErrorMessage(undefined);
       setDocumentData(docsDocument);
-      history.push(`/docs/${slug}`);
+      navigate(`/docs/${slug}`);
       window.scrollTo({ top: 0, behavior: 'auto' });
     } catch (error) {
       handleApiError(error, 'Failed to load documentation');
@@ -181,16 +164,8 @@ export default function DocsPage() {
     if (!currentSlug) {
       return;
     }
-    history.push('/docs');
+    navigate('/docs');
     window.scrollTo({ top: 0, behavior: 'auto' });
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logoutAccount();
-    } finally {
-      history.replace('/login?returnTo=%2Fdocs');
-    }
   };
 
   if (bootLoading && !navigation) {
@@ -302,16 +277,6 @@ export default function DocsPage() {
             </div>
             <div className="flex-1 overflow-y-auto px-4 py-6">
               <DocsSidebar activeSlug={currentSlug} navigation={navigation} onNavigate={navigateToDoc} />
-            </div>
-            <div className="border-t border-solid border-[#e1ded6] p-4">
-              <div className="mb-3 truncate text-xs text-[#77756f]">{currentUser?.email || 'Signed in'}</div>
-              <button
-                className="w-full rounded-xl border border-solid border-[#d8d5cd] bg-transparent px-4 py-2.5 text-left text-sm font-semibold text-[#333330] hover:bg-black/[0.035]"
-                onClick={handleLogout}
-                type="button"
-              >
-                Sign out
-              </button>
             </div>
           </aside>
         </div>
