@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { isDocsUnauthorizedError, searchDocs, type DocsSearchHit } from '@/service/docs';
+import { searchDocs, type DocsSearchHit } from '@/service/docs';
 
 type DocsSearchProps = {
   onSelect: (slug: string) => void;
-  onUnauthorized: () => void;
   className?: string;
 };
 
@@ -16,7 +15,7 @@ function SearchIcon() {
   );
 }
 
-export default function DocsSearch({ onSelect, onUnauthorized, className }: DocsSearchProps) {
+export default function DocsSearch({ onSelect, className }: DocsSearchProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState('');
   const [hits, setHits] = useState<DocsSearchHit[]>([]);
@@ -61,11 +60,7 @@ export default function DocsSearch({ onSelect, onUnauthorized, className }: Docs
             setHits(response.hits);
           }
         })
-        .catch((error) => {
-          if (!cancelled && isDocsUnauthorizedError(error)) {
-            onUnauthorized();
-            return;
-          }
+        .catch(() => {
           if (!cancelled) {
             setHits([]);
           }

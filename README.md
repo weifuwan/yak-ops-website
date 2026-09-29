@@ -9,7 +9,7 @@ This repository is intentionally separated from the Yak Ops admin product. It re
 ```text
 yak-ops-website/
 ├── website-ui/       # React + Vite workspace + Ant Design website
-├── website-server/   # Spring Boot website API and protected docs delivery
+├── website-server/   # Spring Boot website API and public docs delivery
 ├── docs/             # Git-managed documentation source
 ├── deploy/           # local Docker and Nginx deployment foundation
 └── pom.xml            # backend reactor parent
@@ -19,7 +19,7 @@ yak-ops-website/
 
 The public page uses the existing Yak Ops warm background, dark ink and `#fe2c55` brand accent. Brand red is intentionally sparse and limited to primary actions, active flow states and quality highlights.
 
-Protected Docs links pass through the website account boundary and return to the requested document after login.
+Documentation is public and can be opened directly without a website account or session.
 
 ## Account architecture
 
@@ -83,17 +83,15 @@ website_traffic_daily
 
 Only the route pathname is recorded; query strings, URL hashes, IP addresses and user-agent strings are not stored. The visitor cookie lasts 365 days and uses the same production `Secure` switch as the login cookie.
 
-## Protected docs architecture
+## Docs architecture
 
 `docs/` is the only documentation content source. It is never imported into `website-ui` or copied into the public frontend bundle.
 
 ```text
 Git-reviewed docs/
       ↓ Maven resources
-backend protected-docs/ classpath
+backend docs/ classpath
       ↓ startup-validated navigation allowlist
-website_session
-      ↓ verified website_user
 /api/v1/docs/**
       ↓
 React Markdown docs experience
@@ -101,7 +99,7 @@ React Markdown docs experience
 
 `docs/navigation.json` controls ordering and acts as the addressable-content allowlist. Missing documents, duplicate/unsafe slugs and an invalid default document fail backend startup.
 
-Protected docs APIs:
+Public docs APIs:
 
 ```text
 GET /api/v1/docs/navigation
@@ -142,17 +140,9 @@ npm run dev
 
 The frontend proxies `/api/*` and `/actuator/*` to the backend during local development.
 
-## Account routes
+## Account API
 
-```text
-/register
-/verify-email
-/login
-/forgot-password
-/reset-password
-```
-
-The account API is under `/api/v1/auth`. `/current`, `/logout` and `/api/v1/docs/**` require a valid website session.
+The backend account API remains under `/api/v1/auth`. `/current` and `/logout` require a valid website session. The public website no longer exposes login or password-recovery routes, and `/api/v1/docs/**` is public.
 
 ## Database schema
 

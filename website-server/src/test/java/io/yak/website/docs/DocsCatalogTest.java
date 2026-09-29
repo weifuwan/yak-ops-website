@@ -6,13 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ProtectedDocsCatalogTest {
+class DocsCatalogTest {
 
-    private ProtectedDocsCatalog catalog;
+    private DocsCatalog catalog;
 
     @BeforeEach
     void setUp() {
-        catalog = new ProtectedDocsCatalog(new ObjectMapper());
+        catalog = new DocsCatalog(new ObjectMapper());
     }
 
     @Test

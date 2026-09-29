@@ -31,9 +31,9 @@ import org.springframework.util.StringUtils;
  * parameters are never converted directly to filesystem or classpath paths.</p>
  */
 @Component
-public class ProtectedDocsCatalog {
+public class DocsCatalog {
 
-    private static final String DOCS_ROOT = "protected-docs/";
+    private static final String DOCS_ROOT = "docs/";
     private static final int SEARCH_RESULT_LIMIT = 12;
     private static final Pattern SAFE_SLUG =
             Pattern.compile("^[a-z0-9][a-z0-9/_-]*$");
@@ -47,7 +47,7 @@ public class ProtectedDocsCatalog {
     private final List<DocEntry> orderedDocs;
     private final Map<String, Integer> positionBySlug;
 
-    public ProtectedDocsCatalog(ObjectMapper objectMapper) {
+    public DocsCatalog(ObjectMapper objectMapper) {
         NavigationResponse source = readNavigation(objectMapper);
         CatalogState state = buildCatalog(source);
         this.navigation = state.navigation();
@@ -119,21 +119,21 @@ public class ProtectedDocsCatalog {
     private NavigationResponse readNavigation(ObjectMapper objectMapper) {
         ClassPathResource resource = new ClassPathResource(DOCS_ROOT + "navigation.json");
         if (!resource.exists()) {
-            throw new IllegalStateException("Missing protected docs navigation.json");
+            throw new IllegalStateException("Missing docs navigation.json");
         }
         try (InputStream input = resource.getInputStream()) {
             return objectMapper.readValue(input, NavigationResponse.class);
         } catch (IOException exception) {
-            throw new IllegalStateException("Failed to read protected docs navigation", exception);
+            throw new IllegalStateException("Failed to read docs navigation", exception);
         }
     }
 
     private CatalogState buildCatalog(NavigationResponse source) {
         if (source == null || !StringUtils.hasText(source.defaultSlug())) {
-            throw new IllegalStateException("Protected docs defaultSlug must not be blank");
+            throw new IllegalStateException("Docs defaultSlug must not be blank");
         }
         if (source.sections() == null || source.sections().isEmpty()) {
-            throw new IllegalStateException("Protected docs sections must not be empty");
+            throw new IllegalStateException("Docs sections must not be empty");
         }
 
         Set<String> seenSlugs = new HashSet<>();
@@ -144,11 +144,11 @@ public class ProtectedDocsCatalog {
 
         for (NavigationSection section : source.sections()) {
             if (section == null || !StringUtils.hasText(section.title())) {
-                throw new IllegalStateException("Protected docs section title must not be blank");
+                throw new IllegalStateException("Docs section title must not be blank");
             }
             if (section.items() == null || section.items().isEmpty()) {
                 throw new IllegalStateException(
-                        "Protected docs section must contain items: " + section.title());
+                        "Docs section must contain items: " + section.title());
             }
 
             List<NavigationItem> items = new ArrayList<>();
@@ -171,7 +171,7 @@ public class ProtectedDocsCatalog {
         String defaultSlug = source.defaultSlug().trim();
         if (!docs.containsKey(defaultSlug)) {
             throw new IllegalStateException(
-                    "Protected docs defaultSlug is not declared in navigation: " + defaultSlug);
+                    "Docs defaultSlug is not declared in navigation: " + defaultSlug);
         }
 
         return new CatalogState(
@@ -185,17 +185,17 @@ public class ProtectedDocsCatalog {
         if (item == null
                 || !StringUtils.hasText(item.slug())
                 || !StringUtils.hasText(item.title())) {
-            throw new IllegalStateException("Protected docs item slug/title must not be blank");
+            throw new IllegalStateException("Docs item slug/title must not be blank");
         }
         String slug = item.slug().trim();
         if (!SAFE_SLUG.matcher(slug).matches()
                 || slug.contains("..")
                 || slug.contains("//")
                 || slug.endsWith("/")) {
-            throw new IllegalStateException("Unsafe protected docs slug: " + slug);
+            throw new IllegalStateException("Unsafe docs slug: " + slug);
         }
         if (!seenSlugs.add(slug)) {
-            throw new IllegalStateException("Duplicate protected docs slug: " + slug);
+            throw new IllegalStateException("Duplicate docs slug: " + slug);
         }
     }
 
@@ -211,12 +211,12 @@ public class ProtectedDocsCatalog {
         ClassPathResource resource = new ClassPathResource(DOCS_ROOT + slug + ".md");
         if (!resource.exists()) {
             throw new IllegalStateException(
-                    "Protected docs navigation references a missing document: " + slug);
+                    "Docs navigation references a missing document: " + slug);
         }
         try (InputStream input = resource.getInputStream()) {
             return new String(input.readAllBytes(), StandardCharsets.UTF_8);
         } catch (IOException exception) {
-            throw new IllegalStateException("Failed to read protected document: " + slug, exception);
+            throw new IllegalStateException("Failed to read document: " + slug, exception);
         }
     }
 
