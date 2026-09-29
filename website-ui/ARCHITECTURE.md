@@ -115,7 +115,7 @@ packages/yak-ui/src/
 └── index.ts
 ```
 
-Ant Design 目前仍是这些 Primitive 的底层实现。去 AntD 不属于本次架构迁移。
+Base UI 是这些 Primitive 的底层交互实现，并且只能由 `packages/yak-ui` 直接依赖。App / 页面不得直接 import `@base-ui/react`，也不得重新引入 AntD。
 
 页面禁止复制 YakButton / YakTab 形成第二套实现。
 
@@ -131,7 +131,7 @@ assets/ → 构建期 import 的字体、图片等
 public/ → 不经 Vite transform 的静态文件
 ```
 
-`@/*` 只指向 `apps/web/*`，不再指向 legacy `src`。Tailwind CSS 4 通过 Vite Plugin 接入；官网保留无 Preflight 策略，避免基础样式重置影响现有 Ant Design。
+`@/*` 只指向 `apps/web/*`，不再指向 legacy `src`。Tailwind CSS 4 通过 Vite Plugin 接入；官网保留无 Preflight 策略，基础元素样式由 `global.css` 显式管理，避免影响 Yak UI 与营销页面现有视觉。
 
 ## Legacy Source Rule
 
