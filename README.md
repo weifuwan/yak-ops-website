@@ -191,4 +191,4 @@ mvn -pl website-server test
 
 ## Design-system rule
 
-The website inherits Yak Ops brand tokens and Yak Components while keeping a separate, lower-density marketing presentation. Shared product UI primitives belong under `website-ui/src/components/ui`; website page-specific presentation remains with its page or layout.
+The website inherits Yak Ops brand tokens and Yak Components while keeping a separate, lower-density marketing presentation. Shared website UI primitives belong under `website-ui/packages/yak-ui`; website page-specific presentation remains with its owning `apps/web/app/<domain>` module.

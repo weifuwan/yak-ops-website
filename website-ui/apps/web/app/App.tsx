@@ -2,7 +2,7 @@ import { ConfigProvider, type ThemeConfig } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { BrowserRouter } from 'react-router-dom';
 
-import { BRAND_COLOR, BRAND_THEME } from '@/styles/brand';
+import { BRAND_COLOR, BRAND_THEME } from '@/themes/brand';
 
 import AppRouter from './router/AppRouter';
 import PageViewTracker from './router/PageViewTracker';

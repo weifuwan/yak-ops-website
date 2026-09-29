@@ -1,70 +1,109 @@
 # Yak Ops Website Frontend Standard
 
-The website inherits the engineering rules of `yak-ops-ui`, but keeps marketing, account and docs concerns isolated from the admin product.
+The website follows the same ownership model as `yak-ops-ui`, while keeping marketing and docs concerns isolated from the admin product.
 
-Core rule: **pages compose, components render, hooks own state/behaviour, services own backend communication, and Yak Components own shared visual language.**\n\nThe Vite application entry, router and build configuration live under `apps/web`. During the staged architecture migration, existing page/layout/service implementation remains under `src` and is consumed through the `@` alias; ownership migration follows in a separate PR.
+Core rule: **app owns product/page behavior, service owns backend communication, infrastructure stays at the Web Root, and shared visual primitives belong to Yak UI.**
 
 ## Structure
 
 ```text
-src/
-├── assets/                     # global website assets
-├── components/
-│   ├── ui/                     # Yak Design System primitives
-│   └── shared/                 # stable cross-feature components
-├── layouts/                    # Marketing / Auth / Docs shells
-├── pages/
-│   └── <module>/
-│       ├── index.tsx
-│       ├── components/
+website-ui/
+├── apps/
+│   └── web/
+│       ├── app/
+│       ├── service/
+│       ├── utils/
+│       ├── themes/
+│       ├── types/
 │       ├── hooks/
-│       ├── constants.ts
-│       ├── types.ts
-│       └── assets/
-├── services/                   # backend API boundaries only
-├── styles/                     # brand tokens and global theme
-└── global.less
+│       ├── context/
+│       ├── config/
+│       ├── constants/
+│       ├── assets/
+│       ├── public/
+│       ├── main.tsx
+│       └── vite.config.ts
+├── packages/
+│   └── yak-ui/
+├── package.json
+└── tsconfig.json
 ```
 
-Do not create empty role directories. Code stays with its owning module until reuse is proven.
+Do not create empty role directories. Code stays with its owner until a real cross-page need appears.
+
+## Ownership
+
+- `apps/web/app/<domain>`: page UI, local state, local components and presentation.
+- `apps/web/app/layout`: shared website shell.
+- `apps/web/app/router`: route composition and route-level behaviors.
+- `apps/web/service/<domain>`: backend API and backend contract.
+- `apps/web/service/http`: HTTP transport.
+- `apps/web/utils`: business-agnostic helpers.
+- `apps/web/themes`: global theme and CSS foundation.
+- `apps/web/config`: stable navigation/runtime configuration.
+- `apps/web/assets`: bundled assets.
+- `apps/web/public`: raw static assets.
+- `packages/yak-ui`: reusable UI primitives without page business meaning.
+
+## Dependency Rule
+
+Keep the dependency direction:
+
+```text
+app → service → http
+```
+
+App may also depend on Web Root infrastructure and `@yak-ops-website/yak-ui`.
+
+Service must not import `app/**`.
 
 ## Components
 
-Use a Yak Component when one exists. Ant Design remains the underlying UI system, but pages should not create a second button/tab/input visual language beside Yak Components.
+Use a Yak UI primitive when one exists.
 
-Website-only presentation belongs in page/layout components; product business components from `yak-ops-ui` are not copied into this repository.
+Website-only presentation belongs in the owning page/layout. Product business components from `yak-ops-ui` are not copied into this repository.
 
-Marketing product previews are illustrative presentation components, not duplicated admin business components. Keep them under the owning marketing page until reuse is proven.
+Marketing product previews are illustrative presentation components, not duplicated admin business components.
+
+Ant Design remains the current underlying UI system. Replacing AntD is a separate change and must not be mixed into ordinary page work.
 
 ## Services
 
-All HTTP access belongs under `src/services`. Pages, components and hooks do not hard-code API URLs or call `fetch` / `request` directly.
+All HTTP access belongs under `apps/web/service`.
 
-Account/auth and protected Docs already have dedicated service boundaries. Public marketing pages should remain backend-independent unless a real public-data requirement appears; do not add anonymous API calls only to make the homepage feel dynamic.
+Pages, components and hooks do not create a second HTTP Client.
+
+Public marketing pages remain backend-independent unless there is a real public-data requirement.
 
 ## Styling
 
 Prefer this order:
 
 ```text
-Yak Component -> design token / Tailwind utility -> module class -> dynamic inline style
+Yak UI -> design token / Tailwind utility -> owning stylesheet -> dynamic inline style
 ```
 
-Tailwind CSS is available for layout, spacing, typography, responsive states and other small compositional utilities. Keep complex component states, pseudo-elements and Ant Design overrides in the owning Less stylesheet.
+Tailwind Preflight remains disabled. `apps/web/themes/global.less` owns global element resets and typography.
 
-Tailwind Preflight is intentionally disabled. `src/global.less` remains the owner of global element resets and base typography so Tailwind cannot unexpectedly reset Ant Design or existing website styles.
+Prefer Yak theme utilities mapped in `tailwind.config.js` over repeated hard-coded brand values when a token already exists.
 
-Prefer the Yak theme utilities mapped in `tailwind.config.js` (`text-yak-brand`, `bg-yak-page`, `border-yak-border`, `font-yak`, etc.) over arbitrary hard-coded brand colors. Keep Tailwind class names statically discoverable; use explicit variant maps instead of constructing class names such as `bg-${tone}` at runtime.
+Marketing pages may use lower-density editorial layouts than the Yak Ops admin product while preserving the same interaction quality.
 
-Marketing pages may use lower-density editorial layouts than the Yak Ops admin product, while preserving the same brand color, typography family, interaction quality and component primitives.
+## Must Not
 
-Use brand red as an accent rather than a surface. Motion should clarify entry, flow or state and must respect `prefers-reduced-motion`.
+- Recreate `website-ui/src`.
+- Recreate `src/pages`, `src/layouts`, `src/services` or `src/components`.
+- Put backend request code directly in `app/**`.
+- Create a second HTTP transport.
+- Copy YakButton / YakTab into page domains.
+- Introduce Redux / Zustand for local page state without a demonstrated cross-page need.
+- Mix tooling replacement, AntD removal or visual redesign into a directory-only architecture change.
 
-## Quality gate
+## Quality Gate
 
 ```bash
 npm run lint
 npm run build
 ```
 
-New code must pass Biome and TypeScript before merge.
+The deterministic architecture enforcement script is handled in the tooling alignment PR.
