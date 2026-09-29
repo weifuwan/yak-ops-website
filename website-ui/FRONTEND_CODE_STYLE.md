@@ -65,7 +65,7 @@ Website-only presentation belongs in the owning page/layout. Product business co
 
 Marketing product previews are illustrative presentation components, not duplicated admin business components.
 
-Ant Design remains the current underlying UI system. Replacing AntD is a separate change and must not be mixed into ordinary page work.
+Base UI is the headless interaction foundation owned by `packages/yak-ui`. App and page code consume Yak UI only; direct `@base-ui/react`, `antd`, `@ant-design/icons` and `antd-style` imports are forbidden.
 
 ## Services
 
@@ -97,7 +97,7 @@ Marketing pages may use lower-density editorial layouts than the Yak Ops admin p
 - Create a second HTTP transport.
 - Copy YakButton / YakTab into page domains.
 - Introduce Redux / Zustand for local page state without a demonstrated cross-page need.
-- Mix tooling replacement, AntD removal or visual redesign into a directory-only architecture change.
+- Reintroduce AntD or bypass Yak UI by importing Base UI directly from App / page code.
 
 ## Tooling
 
