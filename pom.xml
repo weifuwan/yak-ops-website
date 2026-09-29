@@ -17,7 +17,7 @@
     <packaging>pom</packaging>
 
     <name>Yak Ops Website</name>
-    <description>Yak Ops public website, authenticated documentation and account foundation</description>
+    <description>Yak Ops public website, public documentation and account foundation</description>
 
     <properties>
         <java.version>21</java.version>

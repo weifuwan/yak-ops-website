@@ -4,7 +4,6 @@ import io.yak.website.common.ApiResponse;
 import io.yak.website.docs.DocsModels.DocumentResponse;
 import io.yak.website.docs.DocsModels.NavigationResponse;
 import io.yak.website.docs.DocsModels.SearchResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,35 +12,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-/** Authenticated documentation delivery API. */
+/** Public documentation delivery API. */
 @RestController
 @RequestMapping("/api/v1/docs")
-public class ProtectedDocsController {
+public class DocsController {
 
     private static final int MAX_SEARCH_QUERY_LENGTH = 80;
 
-    private final ProtectedDocsCatalog catalog;
-    private final ProtectedDocsAccessGuard accessGuard;
+    private final DocsCatalog catalog;
 
-    public ProtectedDocsController(
-            ProtectedDocsCatalog catalog,
-            ProtectedDocsAccessGuard accessGuard) {
+    public DocsController(DocsCatalog catalog) {
         this.catalog = catalog;
-        this.accessGuard = accessGuard;
     }
 
     @GetMapping("/navigation")
-    public ResponseEntity<ApiResponse<NavigationResponse>> navigation(
-            HttpServletRequest request) {
-        accessGuard.requireVerifiedWebsiteUser(request);
+    public ResponseEntity<ApiResponse<NavigationResponse>> navigation() {
         return ok(catalog.navigation());
     }
 
     @GetMapping("/content")
     public ResponseEntity<ApiResponse<DocumentResponse>> content(
-            @RequestParam("slug") String slug,
-            HttpServletRequest request) {
-        accessGuard.requireVerifiedWebsiteUser(request);
+            @RequestParam("slug") String slug) {
         return catalog.document(slug)
                 .map(this::ok)
                 .orElseGet(() -> ResponseEntity
@@ -52,9 +43,7 @@ public class ProtectedDocsController {
 
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<SearchResponse>> search(
-            @RequestParam(value = "q", defaultValue = "") String query,
-            HttpServletRequest request) {
-        accessGuard.requireVerifiedWebsiteUser(request);
+            @RequestParam(value = "q", defaultValue = "") String query) {
         if (query != null && query.length() > MAX_SEARCH_QUERY_LENGTH) {
             return ResponseEntity
                     .badRequest()
