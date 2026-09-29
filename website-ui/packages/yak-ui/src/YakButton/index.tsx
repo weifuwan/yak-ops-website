@@ -1,5 +1,5 @@
 import { Button, type ButtonProps } from 'antd';
-import './index.less';
+import './index.css';
 
 export type YakButtonProps = ButtonProps & {
   iconOnly?: boolean;

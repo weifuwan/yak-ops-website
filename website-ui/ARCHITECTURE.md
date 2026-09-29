@@ -124,14 +124,14 @@ Ant Design 目前仍是这些 Primitive 的底层实现。去 AntD 不属于本�
 ```text
 themes/
 ├── brand.ts
-├── global.less
+├── global.css
 └── tailwind.css
 
 assets/ → 构建期 import 的字体、图片等
 public/ → 不经 Vite transform 的静态文件
 ```
 
-`@/*` 只指向 `apps/web/*`，不再指向 legacy `src`。
+`@/*` 只指向 `apps/web/*`，不再指向 legacy `src`。Tailwind CSS 4 通过 Vite Plugin 接入；官网保留无 Preflight 策略，避免基础样式重置影响现有 Ant Design。
 
 ## Legacy Source Rule
 
@@ -148,12 +148,28 @@ website-ui/src/components
 
 新页面能力必须进入 `apps/web/app`。
 
+## Architecture Enforcement
+
+```bash
+npm run architecture:check
+```
+
+物理 gate 保护：
+
+- 禁止恢复 legacy `src`、根 `public`、Umi / Biome / Less / Tailwind 3 PostCSS 配置。
+- `packages` 当前只允许 `yak-ui`。
+- Workspace root 不拥有 runtime dependencies。
+- 保持 `app → service → http`。
+- App 不直接依赖 `service/http`。
+- Service 不反向依赖 App。
+- 原生 `fetch` 只允许由明确 service transport owner 使用。
+
 ## Verification
 
 ```bash
 cd website-ui
-npm run lint
+npm run check
 npm run build
 ```
 
-Tooling 与物理 Architecture Gate 在后续独立 PR 收口，不与本次目录迁移混合。
+CI 将 format / lint / typecheck / architecture / build 拆成独立 gate。

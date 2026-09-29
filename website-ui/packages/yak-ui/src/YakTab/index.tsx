@@ -1,5 +1,5 @@
 import { Tabs, type TabsProps } from 'antd';
-import './index.less';
+import './index.css';
 
 export type YakTabProps = TabsProps;
 

@@ -1,0 +1,180 @@
+.yak-button.ant-btn {
+  --yak-button-height: 34px;
+  --yak-button-radius: 10px;
+
+  display: inline-flex;
+  height: var(--yak-button-height);
+  min-height: var(--yak-button-height);
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 13px;
+  border: 1px solid transparent;
+  border-radius: var(--yak-button-radius);
+  box-shadow: none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms ease;
+}
+
+.yak-button.ant-btn .ant-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yak-button.ant-btn:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(37, 40, 50, 0.12);
+}
+
+.yak-button.ant-btn:not(:disabled):not(.ant-btn-disabled):active {
+  transform: translateY(1px);
+}
+
+.yak-button.ant-btn.ant-btn-sm {
+  --yak-button-height: 28px;
+  --yak-button-radius: 8px;
+
+  gap: 6px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.yak-button.ant-btn.ant-btn-lg {
+  --yak-button-height: 40px;
+  --yak-button-radius: 11px;
+
+  gap: 8px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.yak-button.ant-btn.yak-button--icon-only {
+  width: var(--yak-button-height);
+  min-width: var(--yak-button-height);
+  padding: 0;
+}
+
+.yak-button.ant-btn:disabled,
+.yak-button.ant-btn.ant-btn-disabled {
+  opacity: 0.46;
+}
+
+.yak-button.ant-btn-default,
+.yak-button.ant-btn-dashed {
+  border-color: transparent;
+  color: #292c35;
+  background: #f4f4f6;
+}
+
+.yak-button.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover,
+.yak-button.ant-btn-dashed:not(:disabled):not(.ant-btn-disabled):hover {
+  border-color: transparent;
+  color: #1f222a;
+  background: #ededf0;
+}
+
+.yak-button.ant-btn-default:not(:disabled):not(.ant-btn-disabled):active,
+.yak-button.ant-btn-dashed:not(:disabled):not(.ant-btn-disabled):active {
+  border-color: transparent;
+  color: #181a20;
+  background: #e5e5e9;
+}
+
+.yak-button.ant-btn-primary {
+  border-color: #292c35;
+  color: #fff;
+  background: #292c35;
+}
+
+.yak-button.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  border-color: #1f222a;
+  color: #fff;
+  background: #1f222a;
+}
+
+.yak-button.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active {
+  border-color: #17191f;
+  color: #fff;
+  background: #17191f;
+}
+
+.yak-button.ant-btn-text {
+  border-color: transparent;
+  color: #667085;
+  background: transparent;
+}
+
+.yak-button.ant-btn-text:not(:disabled):not(.ant-btn-disabled):hover {
+  border-color: transparent;
+  color: #292c35;
+  background: #f4f4f6;
+}
+
+.yak-button.ant-btn-link {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: #4a4f59;
+  background: transparent;
+}
+
+.yak-button.ant-btn-link:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #252832;
+  background: transparent;
+}
+
+.yak-button.ant-btn-dangerous:not(.ant-btn-primary) {
+  border-color: transparent;
+  color: #d92d20;
+  background: #fff1f2;
+}
+
+.yak-button.ant-btn-primary.ant-btn-dangerous {
+  border-color: #d92d20;
+  color: #fff;
+  background: #d92d20;
+}
+
+.yak-button.ant-btn.yak-button--glass {
+  position: relative;
+  overflow: hidden;
+  border-color: transparent;
+  color: #4a4f59;
+  background: rgba(255, 255, 255, 0);
+  box-shadow: none;
+  transform: none;
+  transition:
+    color 140ms ease,
+    background-color 140ms ease,
+    backdrop-filter 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.yak-button.ant-btn.yak-button--glass:not(:disabled):not(.ant-btn-disabled):hover {
+  border-color: transparent;
+  color: #292c35;
+  background: rgba(37, 40, 50, 0.055);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.yak-button.ant-btn.yak-button--glass:not(:disabled):not(.ant-btn-disabled):active {
+  color: #1f222a;
+  background: rgba(37, 40, 50, 0.085);
+  transform: none;
+}
+
+.yak-button.ant-btn.yak-button--glass:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(37, 40, 50, 0.08);
+}

@@ -1,8 +1,24 @@
-/*
- * Vite processes this file through Tailwind CSS.
- * Preflight stays disabled in tailwind.config.js so Ant Design and the
- * existing Less foundation keep ownership of global element styles.
- */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@source "../app";
+@source "../../../../packages/yak-ui/src";
+
+@theme inline {
+  --color-yak-brand: var(--yak-brand-color);
+  --color-yak-brand-hover: var(--yak-brand-color-hover);
+  --color-yak-brand-soft: var(--yak-brand-color-soft);
+  --color-yak-page: var(--yak-page-background);
+  --color-yak-text: var(--yak-text-primary);
+  --color-yak-muted: var(--yak-text-secondary);
+  --color-yak-border: var(--yak-border-color);
+
+  --font-sans: var(--yak-font-sans);
+  --font-serif: var(--yak-font-serif);
+  --font-mono: var(--yak-font-mono);
+  --font-yak: var(--yak-font-sans);
+  --font-yak-serif: var(--yak-font-serif);
+  --font-yak-mono: var(--yak-font-mono);
+}

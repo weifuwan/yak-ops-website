@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
 const webRoot = fileURLToPath(new URL('.', import.meta.url));
@@ -8,6 +9,7 @@ const workspaceRoot = fileURLToPath(new URL('../..', import.meta.url));
 export default defineConfig({
   root: webRoot,
   publicDir: fileURLToPath(new URL('./public', import.meta.url)),
+  plugins: [tailwindcss()],
   resolve: {
     alias: {
       '@': webRoot,

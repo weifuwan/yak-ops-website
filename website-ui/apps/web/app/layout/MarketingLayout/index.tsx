@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import MarketingHeader from './MarketingHeader';
-import './index.less';
+import './index.css';
 
 export default function MarketingLayout() {
   return (

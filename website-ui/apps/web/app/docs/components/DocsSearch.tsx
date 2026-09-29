@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { searchDocs, type DocsSearchHit } from '@/service/docs';
-import { ApiError } from '@/service/http/client';
+import { isDocsUnauthorizedError, searchDocs, type DocsSearchHit } from '@/service/docs';
 
 type DocsSearchProps = {
   onSelect: (slug: string) => void;
@@ -63,7 +62,7 @@ export default function DocsSearch({ onSelect, onUnauthorized, className }: Docs
           }
         })
         .catch((error) => {
-          if (!cancelled && error instanceof ApiError && error.status === 401) {
+          if (!cancelled && isDocsUnauthorizedError(error)) {
             onUnauthorized();
             return;
           }

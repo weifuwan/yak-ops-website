@@ -83,9 +83,9 @@ Prefer this order:
 Yak UI -> design token / Tailwind utility -> owning stylesheet -> dynamic inline style
 ```
 
-Tailwind Preflight remains disabled. `apps/web/themes/global.less` owns global element resets and typography.
+Tailwind Preflight remains disabled. `apps/web/themes/global.css` owns global element resets and typography.
 
-Prefer Yak theme utilities mapped in `tailwind.config.js` over repeated hard-coded brand values when a token already exists.
+Prefer Yak theme utilities declared through Tailwind 4 CSS-first `@theme inline` over repeated hard-coded brand values when a token already exists.
 
 Marketing pages may use lower-density editorial layouts than the Yak Ops admin product while preserving the same interaction quality.
 
@@ -99,11 +99,40 @@ Marketing pages may use lower-density editorial layouts than the Yak Ops admin p
 - Introduce Redux / Zustand for local page state without a demonstrated cross-page need.
 - Mix tooling replacement, AntD removal or visual redesign into a directory-only architecture change.
 
-## Quality Gate
+## Tooling
 
-```bash
-npm run lint
-npm run build
+Frontend tooling owner:
+
+```text
+Vite 6
+Tailwind CSS 4 + @tailwindcss/vite
+TypeScript 5.9
+Oxlint
+Oxfmt
+Node architecture check
 ```
 
-The deterministic architecture enforcement script is handled in the tooling alignment PR.
+Do not reintroduce Umi, Biome, Tailwind 3 PostCSS configuration, Less or Yarn.
+
+## Physical Quality Gate
+
+```text
+format:check
+    ↓
+lint
+    ↓
+typecheck
+    ↓
+architecture:check
+    ↓
+build
+```
+
+CI checks only; it does not run formatter or lint auto-fix commands.
+
+Local aggregate verification:
+
+```bash
+npm run check
+npm run build
+```
