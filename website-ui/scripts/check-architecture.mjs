@@ -144,7 +144,7 @@ const serviceAppImportPattern = /(?:from\s+|import\s*\()\s*['"]@\/app\//;
 const appHttpImportPattern = /(?:from\s+|import\s*\()\s*['"]@\/service\/http(?:\/|['"])/;
 const directFetchPattern = /\b(?:globalThis\.|window\.)?fetch\s*\(/;
 const legacyAliasPattern = /['"]@\/(?:services|components|styles|layouts|pages)\//;
-const umiImportPattern = /['"]@umijs\/max['"]/;
+const umiImportPattern = /(?:from\s+|import\s*\()\s*['"]@umijs\/max['"]/;
 const antdImportPattern =
   /(?:from\s+|import\s*\()\s*['"](?:antd(?:\/|['"])|@ant-design\/icons(?:['"]|\/)|antd-style(?:['"]|\/))/;
 const baseUiImportPattern = /(?:from\s+|import\s*\()\s*['"]@base-ui\/react/;
