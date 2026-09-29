@@ -1,6 +1,5 @@
 import { biUseCase } from './BIUseCase';
 import { integrationUseCase } from './IntegrationUseCase';
-import { lineageUseCase } from './LineageUseCase';
 import { qualityUseCase } from './QualityUseCase';
 import { servicesUseCase } from './ServicesUseCase';
 import { workflowsUseCase } from './WorkflowsUseCase';
