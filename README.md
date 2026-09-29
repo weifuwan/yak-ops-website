@@ -111,7 +111,7 @@ GET /api/v1/docs/search?q=质量
 
 ## Prerequisites
 
-- Node.js 20+
+- Node.js 22.13+
 - Java 21
 - Maven 3.9+
 - Docker / Docker Compose

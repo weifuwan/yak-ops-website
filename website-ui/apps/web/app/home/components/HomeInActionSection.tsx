@@ -1,41 +1,16 @@
-import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
-import loginHeroVideo from "@/assets/video/login-hero3.mp4";
-import { HOME_EASE } from "../constants";
+import loginHeroVideo from '@/assets/video/login-hero3.mp4';
+import { HOME_EASE } from '../constants';
 
 function ActionIcon() {
   return (
     <svg viewBox="0 0 48 48" fill="none" className="h-12 w-12" aria-hidden="true">
-      <rect
-        x="8"
-        y="9"
-        width="25"
-        height="30"
-        rx="3"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M14 17H27M14 23H25M14 29H22"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <circle
-        cx="31.5"
-        cy="30.5"
-        r="7.5"
-        fill="#FAF9F5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M37 36L42 41"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
+      <rect x="8" y="9" width="25" height="30" rx="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M14 17H27M14 23H25M14 29H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="31.5" cy="30.5" r="7.5" fill="#FAF9F5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M37 36L42 41" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -43,12 +18,7 @@ function ActionIcon() {
 function PlayIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-8 w-8" aria-hidden="true">
-      <path
-        d="M8.5 6.75V17.25L17 12L8.5 6.75Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
+      <path d="M8.5 6.75V17.25L17 12L8.5 6.75Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -56,12 +26,7 @@ function PlayIcon() {
 function PauseIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7" aria-hidden="true">
-      <path
-        d="M9 7V17M15 7V17"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-      />
+      <path d="M9 7V17M15 7V17" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
     </svg>
   );
 }
@@ -112,7 +77,8 @@ export default function HomeInActionSection() {
           </h2>
 
           <p className="mb-0 mt-6 max-w-[46rem] text-[clamp(1.05rem,0.985714rem+0.321429vw,1.275rem)] leading-[1.6] text-[#66645F] [font-family:'Yak_Sans',Arial,sans-serif]">
-            See how Yak Ops brings data operations into one place, from connecting data to running and operating workflows.
+            See how Yak Ops brings data operations into one place, from connecting data to running and operating
+            workflows.
           </p>
         </motion.div>
 
@@ -145,11 +111,9 @@ export default function HomeInActionSection() {
           <button
             type="button"
             onClick={togglePlayback}
-            aria-label={isPlaying ? "Pause Yak Ops video" : "Play Yak Ops video"}
+            aria-label={isPlaying ? 'Pause Yak Ops video' : 'Play Yak Ops video'}
             className={`absolute left-1/2 top-1/2 flex h-[78px] w-[78px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-solid border-black/10 bg-[#FAF9F5]/95 text-[#5F5B53] shadow-[0_8px_24px_rgba(24,24,23,0.08)] backdrop-blur-sm transition-all duration-200 hover:scale-[1.03] hover:text-[#181817] ${
-              isPlaying
-                ? "opacity-0 group-hover:opacity-100 focus:opacity-100"
-                : "opacity-100"
+              isPlaying ? 'opacity-0 group-hover:opacity-100 focus:opacity-100' : 'opacity-100'
             }`}
           >
             {isPlaying ? <PauseIcon /> : <PlayIcon />}

@@ -1,8 +1,8 @@
-import type { KeyboardEvent } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import type { KeyboardEvent } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
-import { HOME_EASE } from "../../constants";
-import type { HomeUseCaseDefinition, HomeUseCaseId } from "./types";
+import { HOME_EASE } from '../../constants';
+import type { HomeUseCaseDefinition, HomeUseCaseId } from './types';
 
 interface HomeUseCasesTabsProps {
   activeId: HomeUseCaseId;
@@ -10,33 +10,22 @@ interface HomeUseCasesTabsProps {
   onChange: (id: HomeUseCaseId) => void;
 }
 
-export default function HomeUseCasesTabs({
-  activeId,
-  useCases,
-  onChange,
-}: HomeUseCasesTabsProps) {
+export default function HomeUseCasesTabs({ activeId, useCases, onChange }: HomeUseCasesTabsProps) {
   const shouldReduceMotion = useReducedMotion();
 
-  const handleTabKeyDown = (
-    event: KeyboardEvent<HTMLButtonElement>,
-    currentIndex: number,
-  ) => {
-    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, currentIndex: number) => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
       return;
     }
 
     event.preventDefault();
-    const direction =
-      event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
-    const nextIndex =
-      (currentIndex + direction + useCases.length) % useCases.length;
+    const direction = event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1;
+    const nextIndex = (currentIndex + direction + useCases.length) % useCases.length;
     const nextUseCase = useCases[nextIndex];
 
     onChange(nextUseCase.id);
     window.requestAnimationFrame(() => {
-      document
-        .getElementById(`home-use-case-tab-${nextUseCase.id}`)
-        ?.focus();
+      document.getElementById(`home-use-case-tab-${nextUseCase.id}`)?.focus();
     });
   };
 
@@ -69,9 +58,7 @@ export default function HomeUseCasesTabs({
               onClick={() => onChange(item.id)}
               onKeyDown={(event) => handleTabKeyDown(event, index)}
               className={`flex h-10 shrink-0 appearance-none items-center justify-center gap-2 rounded-xl border-0 py-2 pl-3 pr-4 text-[12px] font-normal transition-[background-color,color] duration-200 [font-family:'Yak_Sans',Arial,sans-serif] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C96442] ${
-                active
-                  ? "bg-white text-[#141413]"
-                  : "bg-transparent text-[#5E5D59] hover:bg-white hover:text-[#141413]"
+                active ? 'bg-white text-[#141413]' : 'bg-transparent text-[#5E5D59] hover:bg-white hover:text-[#141413]'
               }`}
             >
               <Icon />

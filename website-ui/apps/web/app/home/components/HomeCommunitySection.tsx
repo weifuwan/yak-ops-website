@@ -1,6 +1,6 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from 'framer-motion';
 
-import { HOME_EASE } from "../constants";
+import { HOME_EASE } from '../constants';
 
 type CommunityMember = {
   nickname: string;
@@ -12,35 +12,29 @@ type CommunityMember = {
 
 const COMMUNITY_MEMBERS: CommunityMember[] = [
   {
-    nickname: "weifuwan",
-    role: "Maintainer",
-    statement: "Building Yak Ops in the open, one data workflow at a time.",
-    avatar: "https://avatars.githubusercontent.com/u/78582861?v=4",
-    href: "https://github.com/weifuwan",
+    nickname: 'weifuwan',
+    role: 'Maintainer',
+    statement: 'Building Yak Ops in the open, one data workflow at a time.',
+    avatar: 'https://avatars.githubusercontent.com/u/78582861?v=4',
+    href: 'https://github.com/weifuwan',
   },
   {
-    nickname: "gitfortian",
-    role: "Community contributor",
-    statement: "Bringing real workflow, sync, and product scenarios into the roadmap.",
-    avatar: "https://avatars.githubusercontent.com/u/52306466?v=4",
-    href: "https://github.com/gitfortian",
+    nickname: 'gitfortian',
+    role: 'Community contributor',
+    statement: 'Bringing real workflow, sync, and product scenarios into the roadmap.',
+    avatar: 'https://avatars.githubusercontent.com/u/52306466?v=4',
+    href: 'https://github.com/gitfortian',
   },
   {
-    nickname: "titainic",
-    role: "Community contributor",
-    statement: "Pushing Yak Ops toward stronger Hive support across connection, SQL, and lineage.",
-    avatar: "https://avatars.githubusercontent.com/u/10671288?v=4",
-    href: "https://github.com/titainic",
+    nickname: 'titainic',
+    role: 'Community contributor',
+    statement: 'Pushing Yak Ops toward stronger Hive support across connection, SQL, and lineage.',
+    avatar: 'https://avatars.githubusercontent.com/u/10671288?v=4',
+    href: 'https://github.com/titainic',
   },
 ];
 
-function CommunityCard({
-  member,
-  duplicate = false,
-}: {
-  member: CommunityMember;
-  duplicate?: boolean;
-}) {
+function CommunityCard({ member, duplicate = false }: { member: CommunityMember; duplicate?: boolean }) {
   return (
     <a
       href={member.href}
@@ -55,18 +49,11 @@ function CommunityCard({
       </p>
 
       <div className="flex items-center gap-3">
-        <img
-          src={member.avatar}
-          alt=""
-          loading="lazy"
-          className="h-11 w-11 shrink-0 rounded-full object-cover"
-        />
+        <img src={member.avatar} alt="" loading="lazy" className="h-11 w-11 shrink-0 rounded-full object-cover" />
 
         <div className="min-w-0 [font-family:'Yak_Sans',Arial,sans-serif]">
           <div className="flex items-center gap-2">
-            <span className="truncate text-[14px] font-medium text-[#353431]">
-              {member.nickname}
-            </span>
+            <span className="truncate text-[14px] font-medium text-[#353431]">{member.nickname}</span>
             <span
               aria-hidden="true"
               className="text-[12px] text-[#8A877F] transition-transform duration-300 group-hover:translate-x-0.5"
@@ -74,9 +61,7 @@ function CommunityCard({
               ↗
             </span>
           </div>
-          <p className="mb-0 mt-0.5 text-[12px] leading-5 text-[#77746D]">
-            {member.role}
-          </p>
+          <p className="mb-0 mt-0.5 text-[12px] leading-5 text-[#77746D]">{member.role}</p>
         </div>
       </div>
     </a>
@@ -105,8 +90,8 @@ export default function HomeCommunitySection() {
 
           <div className="max-w-[34rem] lg:col-span-5 lg:col-start-8 lg:pt-2">
             <p className="m-0 text-[clamp(1rem,0.964286rem+0.178571vw,1.125rem)] leading-[1.65] text-[#66645F] [font-family:'Yak_Sans',Arial,sans-serif]">
-              Yak Ops grows through the people who use it, test it, report real
-              problems, and help shape what comes next.
+              Yak Ops grows through the people who use it, test it, report real problems, and help shape what comes
+              next.
             </p>
 
             <a
@@ -124,10 +109,8 @@ export default function HomeCommunitySection() {
         <div
           className="mt-[clamp(4.5rem,4.071429rem+2.142857vw,6rem)] overflow-hidden"
           style={{
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
-            maskImage:
-              "linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)",
+            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
+            maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
           }}
         >
           <motion.div
@@ -136,7 +119,7 @@ export default function HomeCommunitySection() {
               shouldReduceMotion
                 ? undefined
                 : {
-                    x: ["0%", "-50%"],
+                    x: ['0%', '-50%'],
                   }
             }
             transition={
@@ -144,7 +127,7 @@ export default function HomeCommunitySection() {
                 ? undefined
                 : {
                     duration: 24,
-                    ease: "linear",
+                    ease: 'linear',
                     repeat: Number.POSITIVE_INFINITY,
                   }
             }
@@ -155,11 +138,7 @@ export default function HomeCommunitySection() {
 
             {!shouldReduceMotion &&
               COMMUNITY_MEMBERS.map((member) => (
-                <CommunityCard
-                  key={`community-b-${member.nickname}`}
-                  member={member}
-                  duplicate
-                />
+                <CommunityCard key={`community-b-${member.nickname}`} member={member} duplicate />
               ))}
           </motion.div>
         </div>

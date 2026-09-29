@@ -1,11 +1,11 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from 'framer-motion';
 
-import { HOME_EASE } from "../constants";
+import { HOME_EASE } from '../constants';
 
 const DOWNLOAD_OPTIONS = [
-  { label: "macOS", delay: 0.48 },
-  { label: "Windows", delay: 0.58 },
-  { label: "Windows (arm64)", delay: 0.68 },
+  { label: 'macOS', delay: 0.48 },
+  { label: 'Windows', delay: 0.58 },
+  { label: 'Windows (arm64)', delay: 0.68 },
 ];
 
 const DOWNLOAD_BUTTON_CLASS = `

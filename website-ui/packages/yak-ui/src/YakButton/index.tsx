@@ -1,17 +1,12 @@
 import { Button, type ButtonProps } from 'antd';
-import './index.less';
+import './index.css';
 
 export type YakButtonProps = ButtonProps & {
   iconOnly?: boolean;
   effect?: 'default' | 'glass';
 };
 
-export default function YakButton({
-  className,
-  iconOnly = false,
-  effect = 'default',
-  ...props
-}: YakButtonProps) {
+export default function YakButton({ className, iconOnly = false, effect = 'default', ...props }: YakButtonProps) {
   return (
     <Button
       {...props}

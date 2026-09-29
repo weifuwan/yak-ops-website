@@ -1,0 +1,72 @@
+.yak-tabs.ant-tabs-top > .ant-tabs-nav {
+  min-height: 35px;
+  margin: 0;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav::before {
+  border-bottom: 1px solid #eceef2;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-nav-list {
+  gap: 20px;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab,
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
+  position: relative;
+  height: 35px;
+  margin: 0 !important;
+  padding: 0 0 8px;
+  color: #858a93;
+  font-size: 13px;
+  font-weight: 400;
+  transition: none !important;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 1;
+  height: 3px;
+  border-radius: 0;
+  background: #252832;
+  content: '';
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: none !important;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active::after {
+  transform: scaleX(1);
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab:hover {
+  color: #4a4f59;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab-btn {
+  transition: none !important;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #292c35 !important;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar {
+  display: none;
+}
+
+.yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-extra-content {
+  align-self: flex-end;
+}
+
+@media (min-width: 640px) {
+  .yak-tabs.ant-tabs-top > .ant-tabs-nav .ant-tabs-nav-list {
+    gap: 28px;
+  }
+}

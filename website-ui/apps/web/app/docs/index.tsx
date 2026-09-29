@@ -1,12 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import {
-  getDocsDocument,
-  getDocsNavigation,
-  type DocsDocument,
-  type DocsNavigation,
-} from '@/service/docs';
+import { getDocsDocument, getDocsNavigation, type DocsDocument, type DocsNavigation } from '@/service/docs';
 import { extractDocsToc } from '@/utils/docs';
 
 import DocsHeader from './components/DocsHeader';
@@ -125,10 +120,7 @@ export default function DocsPage() {
     };
   }, [navigation, currentSlug]);
 
-  const toc = useMemo(
-    () => (documentData ? extractDocsToc(documentData.markdown) : []),
-    [documentData],
-  );
+  const toc = useMemo(() => (documentData ? extractDocsToc(documentData.markdown) : []), [documentData]);
 
   const navigateToDoc = async (slug: string) => {
     setMobileNavOpen(false);

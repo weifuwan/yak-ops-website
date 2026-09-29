@@ -63,8 +63,8 @@
 }
 
 :root {
-  --yak-brand-color: #D97757;
-  --yak-brand-color-hover: #D97757;
+  --yak-brand-color: #d97757;
+  --yak-brand-color-hover: #d97757;
   --yak-brand-color-soft: rgba(254, 44, 85, 0.06);
   --yak-font-sans: 'Yak Sans', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --yak-font-marketing: 'Yak Web', 'Yak Sans', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -78,47 +78,49 @@
   --yak-border-color: #e7e5df;
 }
 
-html,
-body,
-#root {
-  min-height: 100%;
-  margin: 0;
-}
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    margin: 0;
+  }
 
-html {
-  font-family: var(--yak-font-sans);
-}
+  html {
+    font-family: var(--yak-font-sans);
+  }
 
-body {
-  color: var(--yak-text-primary);
-  background: var(--yak-page-background);
-  font-family: var(--yak-font-family);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    color: var(--yak-text-primary);
+    background: var(--yak-page-background);
+    font-family: var(--yak-font-family);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-}
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+  }
 
-code,
-kbd,
-pre,
-samp {
-  font-family: var(--yak-font-mono);
-}
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--yak-font-mono);
+  }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }

@@ -25,7 +25,7 @@ nginx:latest :80
 
 Make sure the Linux server has:
 
-- Node.js 20+
+- Node.js 22.13+
 - Java 21
 - Maven 3.9+
 - Docker

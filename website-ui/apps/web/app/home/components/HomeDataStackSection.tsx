@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
-import { HOME_EASE } from "../constants";
+import { HOME_EASE } from '../constants';
 
 type IntegrationLogo = {
   name: string;
@@ -12,34 +12,26 @@ const VISIBLE_SLOT_COUNT = 9;
 const ROTATION_INTERVAL = 1500;
 
 const INTEGRATION_LOGOS: IntegrationLogo[] = [
-  { name: "MySQL", image: "/images/integrations/MySQL.png" },
-  { name: "Oracle", image: "/images/integrations/Oracle.png" },
-  { name: "Doris", image: "/images/integrations/doris.png" },
-  { name: "HDFS", image: "/images/integrations/HDFS.png" },
-  { name: "Flink CDC", image: "/images/integrations/flink-cdc.png" },
-  { name: "Spark", image: "/images/integrations/spark_logo.png" },
-  { name: "Java", image: "/images/integrations/java.png" },
-  { name: "Python", image: "/images/integrations/Python.png" },
-  { name: "DingTalk", image: "/images/integrations/dingtalk.png" },
-  { name: "KingBase", image: "/images/integrations/KingBase.png" },
-  { name: "Dameng", image: "/images/integrations/dameng.png" },
+  { name: 'MySQL', image: '/images/integrations/MySQL.png' },
+  { name: 'Oracle', image: '/images/integrations/Oracle.png' },
+  { name: 'Doris', image: '/images/integrations/doris.png' },
+  { name: 'HDFS', image: '/images/integrations/HDFS.png' },
+  { name: 'Flink CDC', image: '/images/integrations/flink-cdc.png' },
+  { name: 'Spark', image: '/images/integrations/spark_logo.png' },
+  { name: 'Java', image: '/images/integrations/java.png' },
+  { name: 'Python', image: '/images/integrations/Python.png' },
+  { name: 'DingTalk', image: '/images/integrations/dingtalk.png' },
+  { name: 'KingBase', image: '/images/integrations/KingBase.png' },
+  { name: 'Dameng', image: '/images/integrations/dameng.png' },
 ];
 
-function LogoSlot({
-  logo,
-  shouldReduceMotion,
-}: {
-  logo: IntegrationLogo;
-  shouldReduceMotion: boolean;
-}) {
+function LogoSlot({ logo, shouldReduceMotion }: { logo: IntegrationLogo; shouldReduceMotion: boolean }) {
   return (
     <div
       className="relative h-[84px] overflow-hidden sm:h-[92px] lg:h-[104px]"
       style={{
-        WebkitMaskImage:
-          "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
-        maskImage:
-          "linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)",
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)',
+        maskImage: 'linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%)',
       }}
     >
       <AnimatePresence initial={false} mode="sync">
@@ -96,9 +88,7 @@ export default function HomeDataStackSection() {
       const slotIndex = nextSlotRef.current;
       const nextLogo = INTEGRATION_LOGOS[nextLogoRef.current];
 
-      setVisibleLogos((current) =>
-        current.map((logo, index) => (index === slotIndex ? nextLogo : logo)),
-      );
+      setVisibleLogos((current) => current.map((logo, index) => (index === slotIndex ? nextLogo : logo)));
 
       nextSlotRef.current = (slotIndex + 1) % VISIBLE_SLOT_COUNT;
       nextLogoRef.current = (nextLogoRef.current + 1) % INTEGRATION_LOGOS.length;
@@ -109,10 +99,14 @@ export default function HomeDataStackSection() {
 
   return (
     <section className="relative border-t bg-[#FFFFFF]">
-      <div className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem]
-       py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.72fr)] 
-        lg:gap-[clamp(4rem,2.857143rem+5.714286vw,8rem)]">
+      <div
+        className="mx-auto w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem]
+       py-[clamp(7rem,6.142857rem+4.285714vw,10rem)]"
+      >
+        <div
+          className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(18rem,0.72fr)] 
+        lg:gap-[clamp(4rem,2.857143rem+5.714286vw,8rem)]"
+        >
           <motion.div
             initial={
               shouldReduceMotion
@@ -135,11 +129,7 @@ export default function HomeDataStackSection() {
               aria-label="Yak Ops data stack integrations"
             >
               {visibleLogos.map((logo, index) => (
-                <LogoSlot
-                  key={`integration-slot-${index}`}
-                  logo={logo}
-                  shouldReduceMotion={shouldReduceMotion}
-                />
+                <LogoSlot key={`integration-slot-${index}`} logo={logo} shouldReduceMotion={shouldReduceMotion} />
               ))}
             </div>
           </motion.div>

@@ -1,7 +1,7 @@
-import brandLogo from "@/assets/img/logo2.png";
-import { motion, useReducedMotion } from "framer-motion";
+import brandLogo from '@/assets/img/logo2.png';
+import { motion, useReducedMotion } from 'framer-motion';
 
-import { HOME_EASE } from "../constants";
+import { HOME_EASE } from '../constants';
 
 const CENTER = {
   x: 460,
@@ -10,63 +10,63 @@ const CENTER = {
 
 const GROUPS = [
   {
-    title: "Workflow orchestration",
+    title: 'Workflow orchestration',
     x: 210,
     y: 215,
     nodes: [
-      { label: "Scheduling", x: 122, y: 80 },
-      { label: "DAGs", x: 52, y: 195 },
-      { label: "Dependencies", x: 175, y: 335 },
-      { label: "Retries", x: 345, y: 130 },
-      { label: "Parameters", x: 330, y: 265 },
+      { label: 'Scheduling', x: 122, y: 80 },
+      { label: 'DAGs', x: 52, y: 195 },
+      { label: 'Dependencies', x: 175, y: 335 },
+      { label: 'Retries', x: 345, y: 130 },
+      { label: 'Parameters', x: 330, y: 265 },
     ],
   },
   {
-    title: "Data integration",
+    title: 'Data integration',
     x: 660,
     y: 175,
     nodes: [
-      { label: "Connectors", x: 650, y: 48 },
-      { label: "Batch sync", x: 815, y: 110 },
-      { label: "CDC", x: 845, y: 235 },
-      { label: "Transforms", x: 715, y: 305 },
-      { label: "Destinations", x: 565, y: 280 },
+      { label: 'Connectors', x: 650, y: 48 },
+      { label: 'Batch sync', x: 815, y: 110 },
+      { label: 'CDC', x: 845, y: 235 },
+      { label: 'Transforms', x: 715, y: 305 },
+      { label: 'Destinations', x: 565, y: 280 },
     ],
   },
   {
-    title: "Data quality",
+    title: 'Data quality',
     x: 735,
     y: 430,
     nodes: [
-      { label: "Validation", x: 870, y: 350 },
-      { label: "Rules", x: 870, y: 485 },
-      { label: "Alerts", x: 750, y: 560 },
-      { label: "Profiling", x: 625, y: 510 },
-      { label: "Reports", x: 620, y: 395 },
+      { label: 'Validation', x: 870, y: 350 },
+      { label: 'Rules', x: 870, y: 485 },
+      { label: 'Alerts', x: 750, y: 560 },
+      { label: 'Profiling', x: 625, y: 510 },
+      { label: 'Reports', x: 620, y: 395 },
     ],
   },
   {
-    title: "Data services",
+    title: 'Data services',
     x: 565,
     y: 620,
     nodes: [
-      { label: "APIs", x: 720, y: 665 },
-      { label: "Authentication", x: 600, y: 725 },
-      { label: "Rate limits", x: 445, y: 720 },
-      { label: "Blacklists", x: 425, y: 610 },
-      { label: "Access control", x: 555, y: 545 },
+      { label: 'APIs', x: 720, y: 665 },
+      { label: 'Authentication', x: 600, y: 725 },
+      { label: 'Rate limits', x: 445, y: 720 },
+      { label: 'Blacklists', x: 425, y: 610 },
+      { label: 'Access control', x: 555, y: 545 },
     ],
   },
   {
-    title: "Operations",
+    title: 'Operations',
     x: 215,
     y: 570,
     nodes: [
-      { label: "Monitoring", x: 80, y: 480 },
-      { label: "Logs", x: 55, y: 620 },
-      { label: "Audit", x: 165, y: 710 },
-      { label: "Notifications", x: 335, y: 675 },
-      { label: "Metrics", x: 345, y: 530 },
+      { label: 'Monitoring', x: 80, y: 480 },
+      { label: 'Logs', x: 55, y: 620 },
+      { label: 'Audit', x: 165, y: 710 },
+      { label: 'Notifications', x: 335, y: 675 },
+      { label: 'Metrics', x: 345, y: 530 },
     ],
   },
 ];
@@ -147,9 +147,7 @@ export default function YakCapabilitiesMap() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{
                 duration: shouldReduceMotion ? 0 : 0.6,
-                delay: shouldReduceMotion
-                  ? 0
-                  : 0.65 + groupIndex * 0.1 + nodeIndex * 0.045,
+                delay: shouldReduceMotion ? 0 : 0.65 + groupIndex * 0.1 + nodeIndex * 0.045,
                 ease: HOME_EASE,
               }}
             />
@@ -176,13 +174,7 @@ export default function YakCapabilitiesMap() {
             }}
             style={{ transformOrigin: `${group.x}px ${group.y}px` }}
           >
-            <circle
-              cx={group.x}
-              cy={group.y}
-              r="53"
-              fill="#F5F4ED"
-              opacity="0.96"
-            />
+            <circle cx={group.x} cy={group.y} r="53" fill="#F5F4ED" opacity="0.96" />
             <text
               x={group.x}
               y={group.y + 4}
@@ -213,19 +205,11 @@ export default function YakCapabilitiesMap() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{
                 duration: shouldReduceMotion ? 0 : 0.45,
-                delay: shouldReduceMotion
-                  ? 0
-                  : 0.8 + groupIndex * 0.1 + nodeIndex * 0.045,
+                delay: shouldReduceMotion ? 0 : 0.8 + groupIndex * 0.1 + nodeIndex * 0.045,
                 ease: HOME_EASE,
               }}
             >
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r="28"
-                fill="#F5F4ED"
-                opacity="0.95"
-              />
+              <circle cx={node.x} cy={node.y} r="28" fill="#F5F4ED" opacity="0.95" />
               <text
                 x={node.x}
                 y={node.y + 4}
@@ -241,13 +225,7 @@ export default function YakCapabilitiesMap() {
           )),
         )}
 
-        <circle
-          cx={CENTER.x}
-          cy={CENTER.y}
-          r="112"
-          fill="#F5F4ED"
-          opacity="0.96"
-        />
+        <circle cx={CENTER.x} cy={CENTER.y} r="112" fill="#F5F4ED" opacity="0.96" />
 
         <motion.g
           initial={

@@ -1,49 +1,14 @@
-import { UseCaseResultSurface } from "./shared";
-import type { HomeUseCaseDefinition } from "./types";
+import { UseCaseResultSurface } from './shared';
+import type { HomeUseCaseDefinition } from './types';
 
 function LineageIcon() {
   return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
-      <circle
-        cx="4"
-        cy="5"
-        r="1.5"
-        stroke="currentColor"
-        strokeWidth="1.1"
-      />
-      <circle
-        cx="4"
-        cy="15"
-        r="1.5"
-        stroke="currentColor"
-        strokeWidth="1.1"
-      />
-      <circle
-        cx="10"
-        cy="10"
-        r="1.7"
-        stroke="currentColor"
-        strokeWidth="1.1"
-      />
-      <circle
-        cx="16"
-        cy="5"
-        r="1.5"
-        stroke="currentColor"
-        strokeWidth="1.1"
-      />
-      <circle
-        cx="16"
-        cy="15"
-        r="1.5"
-        stroke="currentColor"
-        strokeWidth="1.1"
-      />
+    <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5" aria-hidden="true">
+      <circle cx="4" cy="5" r="1.5" stroke="currentColor" strokeWidth="1.1" />
+      <circle cx="4" cy="15" r="1.5" stroke="currentColor" strokeWidth="1.1" />
+      <circle cx="10" cy="10" r="1.7" stroke="currentColor" strokeWidth="1.1" />
+      <circle cx="16" cy="5" r="1.5" stroke="currentColor" strokeWidth="1.1" />
+      <circle cx="16" cy="15" r="1.5" stroke="currentColor" strokeWidth="1.1" />
 
       <path
         d="M5.4 5.8L8.5 8.8M5.4 14.2L8.5 11.2M11.6 8.8L14.6 5.8M11.6 11.2L14.6 14.2"
@@ -72,38 +37,22 @@ function LiveGraphBadge() {
     >
       <span className="h-1.5 w-1.5 rounded-full bg-[#B96F84]" />
 
-      <span className="text-[8px] font-medium text-[#9D6272]">
-        Live graph
-      </span>
+      <span className="text-[8px] font-medium text-[#9D6272]">Live graph</span>
     </div>
   );
 }
 
-function HeaderMetric({
-  value,
-  label,
-}: {
-  value: string;
-  label: string;
-}) {
+function HeaderMetric({ value, label }: { value: string; label: string }) {
   return (
     <div className="min-w-[54px] text-left">
-      <div className="text-[18px] leading-none tracking-[-0.04em] text-[#1D1C1A]">
-        {value}
-      </div>
+      <div className="text-[18px] leading-none tracking-[-0.04em] text-[#1D1C1A]">{value}</div>
 
-      <div className="mt-1.5 text-[8px] text-[#96928C]">
-        {label}
-      </div>
+      <div className="mt-1.5 text-[8px] text-[#96928C]">{label}</div>
     </div>
   );
 }
 
-function GraphColumnLabel({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function GraphColumnLabel({ children }: { children: React.ReactNode }) {
   return (
     <div
       className="
@@ -120,11 +69,7 @@ function GraphColumnLabel({
   );
 }
 
-function LineageNode({
-  name,
-}: {
-  name: string;
-}) {
+function LineageNode({ name }: { name: string }) {
   return (
     <div
       className="
@@ -201,21 +146,11 @@ function SelectedModel() {
       </div>
 
       <div className="mt-4">
-        <ModelRow
-          label="Owner"
-          value="Data Platform"
-          first
-        />
+        <ModelRow label="Owner" value="Data Platform" first />
 
-        <ModelRow
-          label="Updated"
-          value="5 min ago"
-        />
+        <ModelRow label="Updated" value="5 min ago" />
 
-        <ModelRow
-          label="Columns"
-          value="84"
-        />
+        <ModelRow label="Columns" value="84" />
       </div>
 
       {/* connection anchors */}
@@ -248,15 +183,7 @@ function SelectedModel() {
   );
 }
 
-function ModelRow({
-  label,
-  value,
-  first = false,
-}: {
-  label: string;
-  value: string;
-  first?: boolean;
-}) {
+function ModelRow({ label, value, first = false }: { label: string; value: string; first?: boolean }) {
   return (
     <div
       className={`
@@ -265,16 +192,10 @@ function ModelRow({
         justify-between
         gap-3
         py-2.5
-        ${
-          first
-            ? ""
-            : "border-t border-white/[0.09]"
-        }
+        ${first ? '' : 'border-t border-white/[0.09]'}
       `}
     >
-      <span className="text-[7px] text-[#99948F]">
-        {label}
-      </span>
+      <span className="text-[7px] text-[#99948F]">{label}</span>
 
       <span
         className="
@@ -319,17 +240,11 @@ function LineageGraph() {
           px-2
         "
       >
-        <GraphColumnLabel>
-          Upstream
-        </GraphColumnLabel>
+        <GraphColumnLabel>Upstream</GraphColumnLabel>
 
-        <GraphColumnLabel>
-          Model
-        </GraphColumnLabel>
+        <GraphColumnLabel>Model</GraphColumnLabel>
 
-        <GraphColumnLabel>
-          Downstream
-        </GraphColumnLabel>
+        <GraphColumnLabel>Downstream</GraphColumnLabel>
       </div>
 
       {/* graph */}
@@ -403,21 +318,9 @@ function LineageGraph() {
           />
 
           {/* subtle selected accents */}
-          <path
-            d="M405 150H432"
-            fill="none"
-            stroke="#C6798E"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
+          <path d="M405 150H432" fill="none" stroke="#C6798E" strokeWidth="1.4" strokeLinecap="round" />
 
-          <path
-            d="M568 150H595"
-            fill="none"
-            stroke="#C6798E"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
+          <path d="M568 150H595" fill="none" stroke="#C6798E" strokeWidth="1.4" strokeLinecap="round" />
         </svg>
 
         <div
@@ -469,17 +372,11 @@ function LineageGraph() {
 
       {/* footer */}
       <div className="mt-1 text-center">
-        <span className="text-[7px] text-[#918D87]">
-          2 upstream dependencies
-        </span>
+        <span className="text-[7px] text-[#918D87]">2 upstream dependencies</span>
 
-        <span className="mx-2 text-[#C7C3BD]">
-          ·
-        </span>
+        <span className="mx-2 text-[#C7C3BD]">·</span>
 
-        <span className="text-[7px] text-[#918D87]">
-          2 downstream consumers
-        </span>
+        <span className="text-[7px] text-[#918D87]">2 downstream consumers</span>
       </div>
     </div>
   );
@@ -509,18 +406,13 @@ export default function LineageUseCase() {
               <LiveGraphBadge />
             </div>
 
-            <p className="mt-2 text-[8px] text-[#8B8781]">
-              Trace upstream and downstream dependencies
-            </p>
+            <p className="mt-2 text-[8px] text-[#8B8781]">Trace upstream and downstream dependencies</p>
           </div>
 
           {/* metrics */}
           <div className="flex shrink-0 items-start">
             <div className="pr-5">
-              <HeaderMetric
-                value="128"
-                label="assets"
-              />
+              <HeaderMetric value="128" label="assets" />
             </div>
 
             <div
@@ -530,10 +422,7 @@ export default function LineageUseCase() {
                 px-5
               "
             >
-              <HeaderMetric
-                value="6"
-                label="upstream"
-              />
+              <HeaderMetric value="6" label="upstream" />
             </div>
 
             <div
@@ -543,10 +432,7 @@ export default function LineageUseCase() {
                 pl-5
               "
             >
-              <HeaderMetric
-                value="12"
-                label="downstream"
-              />
+              <HeaderMetric value="12" label="downstream" />
             </div>
           </div>
         </div>
@@ -561,12 +447,12 @@ export default function LineageUseCase() {
 }
 
 export const lineageUseCase: HomeUseCaseDefinition = {
-  id: "lineage",
-  label: "Lineage",
+  id: 'lineage',
+  label: 'Lineage',
   prompt:
-    "Show the lineage for customer_360. Let me trace upstream sources, downstream consumers, and inspect the impacted assets.",
+    'Show the lineage for customer_360. Let me trace upstream sources, downstream consumers, and inspect the impacted assets.',
 
-  stageColor: "#D9A7B5",
+  stageColor: '#D9A7B5',
 
   Icon: LineageIcon,
   Result: LineageUseCase,

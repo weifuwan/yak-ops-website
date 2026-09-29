@@ -78,11 +78,7 @@ const markdownComponents: Components = {
     }
     const external = Boolean(href && /^(https?:)?\/\//.test(href));
     return (
-      <a
-        href={href}
-        rel={external ? 'noreferrer noopener' : undefined}
-        target={external ? '_blank' : undefined}
-      >
+      <a href={href} rel={external ? 'noreferrer noopener' : undefined} target={external ? '_blank' : undefined}>
         {children}
       </a>
     );

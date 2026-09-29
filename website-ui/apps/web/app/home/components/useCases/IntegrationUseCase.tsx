@@ -1,14 +1,9 @@
-import { UseCaseResultSurface } from "./shared";
-import type { HomeUseCaseDefinition } from "./types";
+import { UseCaseResultSurface } from './shared';
+import type { HomeUseCaseDefinition } from './types';
 
 function IntegrationIcon() {
   return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      className="h-5 w-5"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 20 20" fill="none" className="h-5 w-5" aria-hidden="true">
       <circle cx="10" cy="10" r="6.5" stroke="currentColor" strokeWidth="1.1" />
       <path
         d="M3.9 7.7H16.1M3.9 12.3H16.1M10 3.5C11.8 5.4 12.7 7.6 12.7 10C12.7 12.4 11.8 14.6 10 16.5M10 3.5C8.2 5.4 7.3 7.6 7.3 10C7.3 12.4 8.2 14.6 10 16.5"
@@ -30,12 +25,7 @@ function MySqlIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path
-        d="M7.4 9.2c-.7 1.5-.7 3 0 4.5"
-        stroke="#3E7C9C"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
+      <path d="M7.4 9.2c-.7 1.5-.7 3 0 4.5" stroke="#3E7C9C" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -76,16 +66,8 @@ function DatabaseIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden="true">
       <ellipse cx="12" cy="6" rx="6.2" ry="2.7" stroke="currentColor" strokeWidth="1.4" />
-      <path
-        d="M5.8 6v6c0 1.5 2.8 2.7 6.2 2.7s6.2-1.2 6.2-2.7V6"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <path
-        d="M5.8 12v5.8c0 1.5 2.8 2.7 6.2 2.7s6.2-1.2 6.2-2.7V12"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
+      <path d="M5.8 6v6c0 1.5 2.8 2.7 6.2 2.7s6.2-1.2 6.2-2.7V6" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M5.8 12v5.8c0 1.5 2.8 2.7 6.2 2.7s6.2-1.2 6.2-2.7V12" stroke="currentColor" strokeWidth="1.4" />
     </svg>
   );
 }
@@ -142,12 +124,7 @@ function ClockIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-4 w-4" aria-hidden="true">
       <circle cx="12" cy="12" r="7.2" stroke="currentColor" strokeWidth="1.4" />
-      <path
-        d="M12 8.2V12l2.8 1.7"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
+      <path d="M12 8.2V12l2.8 1.7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
 }
@@ -158,9 +135,9 @@ type Source = {
 };
 
 const sources: Source[] = [
-  { name: "MySQL / orders", icon: <MySqlIcon /> },
-  { name: "Kafka / events", icon: <KafkaIcon /> },
-  { name: "S3 / exports", icon: <S3Icon /> },
+  { name: 'MySQL / orders', icon: <MySqlIcon /> },
+  { name: 'Kafka / events', icon: <KafkaIcon /> },
+  { name: 'S3 / exports', icon: <S3Icon /> },
 ];
 
 function HealthPill() {
@@ -172,15 +149,7 @@ function HealthPill() {
   );
 }
 
-function MetricTile({
-  icon,
-  value,
-  label,
-}: {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-}) {
+function MetricTile({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
     <div className="flex items-center gap-2.5 rounded-[11px] border border-[#E6E1D8] bg-white px-3 py-3 shadow-[0_5px_14px_rgba(40,30,22,0.035)]">
       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#FBE9DF] text-[#534B45]">
@@ -188,9 +157,7 @@ function MetricTile({
       </span>
 
       <div className="min-w-0">
-        <div className="text-[16px] font-semibold  text-[#24211F]">
-          {value}
-        </div>
+        <div className="text-[16px] font-semibold  text-[#24211F]">{value}</div>
         <div className="mt-0.5 text-[9px] text-[#878079]">{label}</div>
       </div>
     </div>
@@ -219,12 +186,7 @@ function FlowLines() {
         strokeWidth="2.2"
         strokeLinecap="round"
       />
-      <path
-        d="M0 110H173"
-        stroke="url(#integration-flow)"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
+      <path d="M0 110H173" stroke="url(#integration-flow)" strokeWidth="2.2" strokeLinecap="round" />
       <path
         d="M0 176H58C82 176 85 164 85 144V130C85 116 94 110 111 110H173"
         stroke="url(#integration-flow)"
@@ -232,13 +194,7 @@ function FlowLines() {
         strokeLinecap="round"
       />
 
-      <path
-        d="m166 101 10 9-10 9"
-        stroke="#D97757"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="m166 101 10 9-10 9" stroke="#D97757" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -260,9 +216,7 @@ export default function IntegrationUseCase() {
                     {source.icon}
                   </span>
 
-                  <span className="truncate text-[11px] font-medium text-[#2F2D29]">
-                    {source.name}
-                  </span>
+                  <span className="truncate text-[11px] font-medium text-[#2F2D29]">{source.name}</span>
                 </div>
 
                 <HealthPill />
@@ -277,9 +231,7 @@ export default function IntegrationUseCase() {
 
           {/* Destination */}
           <div className="rounded-[18px] border border-[#E6DFD4] bg-[#F7F3EC] p-5 shadow-[0_14px_34px_rgba(56,37,27,0.065)]">
-            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#C76A4B]">
-              Destination
-            </div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#C76A4B]">Destination</div>
 
             <div className="mt-2 text-[23px] font-medium leading-none text-[#24211F] [font-family:'Yak_Serif',Georgia,serif]">
               Customer 360
@@ -299,11 +251,11 @@ export default function IntegrationUseCase() {
 }
 
 export const integrationUseCase: HomeUseCaseDefinition = {
-  id: "integration",
-  label: "Integrate",
+  id: 'integration',
+  label: 'Integrate',
   prompt:
-    "Sync MySQL orders, Kafka customer events, and S3 exports into a Customer 360 dataset. Keep CDC enabled and show source health and sync lag.",
-  stageColor: "#D97757",
+    'Sync MySQL orders, Kafka customer events, and S3 exports into a Customer 360 dataset. Keep CDC enabled and show source health and sync lag.',
+  stageColor: '#D97757',
   Icon: IntegrationIcon,
   Result: IntegrationUseCase,
 };
