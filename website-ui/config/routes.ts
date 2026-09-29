@@ -89,16 +89,4 @@ export default [
     path: '/docs/*',
     component: '@/pages/docs',
   },
-  {
-    path: '/login',
-    component: '@/pages/auth/login',
-  },
-  {
-    path: '/forgot-password',
-    component: '@/pages/auth/forgot-password',
-  },
-  {
-    path: '/reset-password',
-    component: '@/pages/auth/reset-password',
-  },
 ];
