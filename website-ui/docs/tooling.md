@@ -71,7 +71,7 @@ npm run check
 
 Tailwind 4 通过 `@tailwindcss/vite` 接入，不再维护 PostCSS 配置和 Tailwind 3 `content` 配置。
 
-官网继续禁用 Preflight，以避免改变现有 Ant Design 与官网基础样式。入口 CSS 只导入：
+官网继续禁用 Preflight，基础元素样式由 `apps/web/themes/global.css` 显式管理，避免基础 reset 改变 Yak UI 与营销页面现有视觉。入口 CSS 只导入：
 
 ```text
 tailwindcss/theme.css
