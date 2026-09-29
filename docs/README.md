@@ -1,6 +1,6 @@
 # Yak Ops Docs Source
 
-This directory is the source of truth for Yak Ops product documentation. Git is the documentation CMS: every content change is reviewed through a pull request, while public delivery is owned by `website-server`.
+This directory is the source of truth for Yak Ops public documentation. Git is the documentation CMS: every content change is reviewed through a pull request, while public delivery is owned by `website-server`.
 
 ## Public delivery contract
 
@@ -8,39 +8,34 @@ This directory is the source of truth for Yak Ops product documentation. Git is 
 - Maven copies this directory into the backend artifact at `docs/`.
 - Only Markdown files declared in `navigation.json` are addressable through `/api/v1/docs/**`.
 - A missing file, duplicate slug, unsafe slug or invalid `defaultSlug` fails backend startup.
-- Documentation responses use `Cache-Control: no-store` so stale content is not retained by shared caches.
+- Documentation responses use `Cache-Control: no-store`.
 - Raw HTML in Markdown is intentionally not rendered by the frontend.
 
-## Current authoring scope
+## Current public scope
 
-The current documentation covers getting started, a lightweight product feature map, deployment, development basics, Link-up connector support, and contribution guidance. Additional top-level sections should be added together with reviewed content instead of publishing empty navigation placeholders.
+The public documentation is intentionally minimal for the current release and exposes one guide:
 
 ```text
 docs/
 ├── navigation.json
-├── getting-started/
-│   ├── overview.md
-│   └── quick-start.md
-├── features/
-│   └── overview.md
-├── deploy/
-│   ├── overview.md
-│   └── docker-compose.md
-├── development/
-│   ├── guide.md
-│   ├── architecture.md
-│   └── configuration.md
-├── link-up/
-│   └── connectors.md
-└── contributing/
-    └── guide.md
+└── deploy/
+    └── docker-compose.md
 ```
+
+The only published path is:
+
+```text
+Getting Started
+└── Docker Compose
+```
+
+Additional documents should be added only when their content is ready and the navigation is intentionally expanded.
 
 Keep slugs lowercase and stable. Prefer plain-text ATX headings (`#`, `##`, `###`) so table-of-contents anchors remain predictable. Use fenced code blocks with an explicit language when possible.
 
-New documents become visible only after both steps are complete:
+A new public document becomes visible only after both steps are complete:
 
 1. add the Markdown file under `docs/`;
 2. add its slug/title/description to `navigation.json`.
 
-The navigation file is deliberately explicit rather than filesystem-derived. It defines ordering and also acts as the server-side allowlist for published content.
+The navigation file is explicit rather than filesystem-derived. It defines ordering and acts as the server-side allowlist for published content.
