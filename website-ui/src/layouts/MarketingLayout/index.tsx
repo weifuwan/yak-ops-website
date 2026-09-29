@@ -265,14 +265,14 @@ export default function MarketingLayout() {
           visible
           transform-none
           border-b
-          border-[#e8e6dc]
-          bg-[#faf9f5]
+          border-[#E4E7EC]
+          bg-white
           opacity-100
           ${sessionState === 'checking' ? 'yak-marketing-header--session-checking' : ''}
           ${sessionState === 'authenticated' ? 'yak-marketing-header--authenticated' : ''}
         `}
         style={{
-          borderBottom: '0.0625rem solid #e8e6dc',
+          borderBottom: '0.0625rem solid #E4E7EC',
           ...avatarStyle,
         }}
         onClickCapture={handleHeaderClickCapture}
