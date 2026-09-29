@@ -10,4 +10,3 @@ export const getDocsDocument = (slug: string): Promise<DocsDocument> =>
 
 export const searchDocs = (query: string): Promise<DocsSearchResponse> =>
   apiRequest<DocsSearchResponse>(`${DOCS_API}/search?q=${encodeURIComponent(query)}`);
-
