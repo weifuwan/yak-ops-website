@@ -1,24 +1,18 @@
 "use client";
 
-import HomeCapabilitiesSection from "./components/HomeCapabilitiesSection";
 import HomeClosingSection from "./components/HomeClosingSection";
-import HomeCommunitySection from "./components/HomeCommunitySection";
-import HomeDataLifecycleSection from "./components/HomeDataLifecycleSection";
-import HomeDataStackSection from "./components/HomeDataStackSection";
 import HomeHeroSection from "./components/HomeHeroSection";
-import HomeInActionSection from "./components/HomeInActionSection";
-import HomeUseCasesSection from "./components/HomeUseCasesSection";
+import HomeOpenSourceSection from "./components/HomeOpenSourceSection";
+import HomeProductSection from "./components/HomeProductSection";
+import HomeValueSection from "./components/HomeValueSection";
 
 export default function HomePage() {
   return (
-    <main className="min-h-[calc(100vh-84px)] overflow-hidden bg-[#faf9f5] text-[#181817] [font-family:var(--yak-font-marketing)]">
+    <main className="min-h-[calc(100vh-84px)] overflow-hidden bg-white text-[#101828] [font-family:var(--yak-font-marketing)]">
       <HomeHeroSection />
-      <HomeCapabilitiesSection />
-      <HomeUseCasesSection />
-      <HomeDataLifecycleSection />
-      <HomeDataStackSection />
-      <HomeInActionSection />
-      <HomeCommunitySection />
+      <HomeValueSection />
+      <HomeProductSection />
+      <HomeOpenSourceSection />
       <HomeClosingSection />
     </main>
   );
