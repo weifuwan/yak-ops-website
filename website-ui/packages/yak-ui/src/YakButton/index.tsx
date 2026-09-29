@@ -8,10 +8,7 @@ import './index.css';
 export type YakButtonType = 'default' | 'primary' | 'dashed' | 'text' | 'link';
 export type YakButtonSize = 'small' | 'middle' | 'large';
 
-export type YakButtonProps = Omit<
-  BaseButtonNS.Props,
-  'children' | 'className' | 'disabled' | 'render' | 'type'
-> & {
+export type YakButtonProps = Omit<BaseButtonNS.Props, 'children' | 'className' | 'disabled' | 'render' | 'type'> & {
   block?: boolean;
   children?: ReactNode;
   className?: string;
