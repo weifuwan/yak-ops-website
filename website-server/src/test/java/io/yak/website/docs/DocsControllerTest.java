@@ -30,15 +30,15 @@ class DocsControllerTest {
     @Test
     void documentIsAvailableWithoutSession() throws Exception {
         mockMvc.perform(get("/api/v1/docs/content")
-                        .queryParam("slug", "getting-started/quick-start"))
+                        .queryParam("slug", "deploy/docker-compose"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200))
-                .andExpect(jsonPath("$.data.slug").value("getting-started/quick-start"));
+                .andExpect(jsonPath("$.data.slug").value("deploy/docker-compose"));
     }
 
     @Test
     void searchIsAvailableWithoutSession() throws Exception {
-        mockMvc.perform(get("/api/v1/docs/search").queryParam("q", "质量"))
+        mockMvc.perform(get("/api/v1/docs/search").queryParam("q", "Docker"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200));
     }

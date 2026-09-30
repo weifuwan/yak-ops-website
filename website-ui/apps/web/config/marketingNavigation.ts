@@ -44,19 +44,7 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
     columns: [
       {
         title: 'GET STARTED',
-        items: [
-          { label: 'Quick Start', href: '/docs/getting-started/quick-start' },
-          { label: 'Deployment Guide', href: '/docs/deploy/overview' },
-          { label: 'Docker', href: '/docs/deploy/docker-compose' },
-        ],
-      },
-      {
-        title: 'BUILD',
-        items: [
-          { label: 'Development Guide', href: '/docs/development/guide' },
-          { label: 'Architecture', href: '/docs/development/architecture' },
-          { label: 'Configuration Reference', href: '/docs/development/configuration' },
-        ],
+        items: [{ label: 'Docker Compose', href: '/docs/deploy/docker-compose' }],
       },
       {
         title: 'OPEN SOURCE',
@@ -64,7 +52,6 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
           { label: 'GitHub', href: MARKETING_GITHUB_URL, external: true },
           { label: 'Releases', href: MARKETING_GITHUB_RELEASES_URL, external: true },
           { label: 'Issues', href: MARKETING_GITHUB_ISSUES_URL, external: true },
-          { label: 'Contributing Guide', href: '/docs/contributing/guide' },
         ],
       },
     ],

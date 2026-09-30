@@ -52,8 +52,8 @@ export default function DocsTableOfContents({ items }: DocsTableOfContentsProps)
   }
 
   return (
-    <nav aria-label="On this page" className="text-[13px] leading-5 text-[#77756f]">
-      <div className="mb-2 flex items-center gap-2 font-semibold text-[#3d3d39]">
+    <nav aria-label="On this page" className="text-[13px] leading-5 text-[#71717A]">
+      <div className="mb-2 flex items-center gap-2 font-semibold text-[#3F3F46]">
         <TocIcon />
         <span>On this page</span>
       </div>
@@ -64,9 +64,9 @@ export default function DocsTableOfContents({ items }: DocsTableOfContentsProps)
             <a
               aria-current={isActive ? 'location' : undefined}
               className={[
-                'block py-1 hover:text-[#20201e]',
+                'block py-1 hover:text-[#18181B]',
                 item.level === 3 ? 'pl-4' : 'pl-0',
-                isActive ? 'font-semibold text-yak-brand' : '',
+                isActive ? 'font-medium text-[#18181B]' : '',
               ]
                 .filter(Boolean)
                 .join(' ')}

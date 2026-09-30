@@ -1,83 +1,13 @@
 {
-  "defaultSlug": "getting-started/overview",
+  "defaultSlug": "deploy/docker-compose",
   "sections": [
     {
       "title": "Getting Started",
       "items": [
         {
-          "slug": "getting-started/overview",
-          "title": "Yak Ops Overview",
-          "description": "Understand the product positioning, capability boundaries, and recommended reading order for Yak Ops."
-        },
-        {
-          "slug": "getting-started/quick-start",
-          "title": "Quick Start",
-          "description": "Follow the shortest path to understand the complete data flow from ingestion to governance."
-        }
-      ]
-    },
-    {
-      "title": "Features",
-      "items": [
-        {
-          "slug": "features/overview",
-          "title": "Feature Overview",
-          "description": "Browse the main Yak Ops product modules and understand what each area is designed for."
-        }
-      ]
-    },
-    {
-      "title": "Deploy",
-      "items": [
-        {
-          "slug": "deploy/overview",
-          "title": "Deployment Guide",
-          "description": "Choose a deployment path and review the settings that matter before running Yak Ops."
-        },
-        {
           "slug": "deploy/docker-compose",
           "title": "Docker Compose",
-          "description": "Deploy Yak Ops with a single Docker Compose command."
-        }
-      ]
-    },
-    {
-      "title": "Development",
-      "items": [
-        {
-          "slug": "development/guide",
-          "title": "Development Guide",
-          "description": "Set up the local toolchain and build the Yak Ops frontend and backend."
-        },
-        {
-          "slug": "development/architecture",
-          "title": "Architecture",
-          "description": "Understand the main Yak Ops layers and how runtime integrations fit behind the control plane."
-        },
-        {
-          "slug": "development/configuration",
-          "title": "Configuration Reference",
-          "description": "Review the most useful environment variables for deployment and local development."
-        }
-      ]
-    },
-    {
-      "title": "Link-up",
-      "items": [
-        {
-          "slug": "link-up/connectors",
-          "title": "Supported Connectors",
-          "description": "See which Source and Sink connectors are currently supported by Link-up."
-        }
-      ]
-    },
-    {
-      "title": "Open Source",
-      "items": [
-        {
-          "slug": "contributing/guide",
-          "title": "Contributing Guide",
-          "description": "Learn the lightweight contribution flow and expectations for Yak Ops pull requests."
+          "description": "Deploy Yak Ops with Docker Compose."
         }
       ]
     }
