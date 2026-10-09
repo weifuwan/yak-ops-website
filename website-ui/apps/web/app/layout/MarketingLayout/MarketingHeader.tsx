@@ -106,11 +106,7 @@ function MenuItemLink({
 
 function MegaMenu({ item, onNavigate }: { item: MarketingMegaNavItem; onNavigate: () => void }) {
   return (
-    <div
-      aria-label={item.label}
-      className="yak-marketing-mega-menu"
-      id={'yak-marketing-menu-' + item.key}
-    >
+    <div aria-label={item.label} className="yak-marketing-mega-menu" id={'yak-marketing-menu-' + item.key}>
       <aside className="yak-marketing-mega-aside">
         <span className="yak-marketing-menu-eyebrow">YAK OPS</span>
         <strong className="yak-marketing-mega-aside-title">
@@ -211,9 +207,7 @@ export default function MarketingHeader() {
     setMobileOpen(false);
   };
 
-  const openedItem = MARKETING_NAV_ITEMS.find(
-    (item) => item.kind === 'mega' && item.key === openMenu,
-  );
+  const openedItem = MARKETING_NAV_ITEMS.find((item) => item.kind === 'mega' && item.key === openMenu);
   const activeMegaMenu = openedItem?.kind === 'mega' ? openedItem : null;
   const isDark = pathname === '/' && !isScrolled && !openMenu && !mobileOpen;
 
