@@ -158,7 +158,7 @@ const antdImportPattern =
   /(?:from\s+|import\s*\()\s*['"](?:antd(?:\/|['"])|@ant-design\/icons(?:['"]|\/)|antd-style(?:['"]|\/))/;
 const baseUiImportPattern = /(?:from\s+|import\s*\()\s*['"]@base-ui\/react/;
 const appStylesheetImportPattern =
-  /(?:\bimport\s*(?:[\s\S]{0,100}?\sfrom\s*)?|\brequire\s*\(\s*)['"][^'"]+\.(?:css|scss|sass|less|styl|pcss)(?:\?[^'"]*)?['"]/;
+  /(?:\bimport\s*(?:\(\s*|(?:[\s\S]{0,100}?\sfrom\s*)?)|\brequire\s*\(\s*)['"][^'"]+\.(?:css|scss|sass|less|styl|pcss)(?:\?[^'"]*)?['"]/;
 
 const directFetchOwners = new Set(['apps/web/service/http/client.ts', 'apps/web/service/traffic/api.ts']);
 
