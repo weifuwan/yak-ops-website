@@ -128,7 +128,11 @@ function MenuItemLink({
 
 function MegaMenu({ item, onNavigate }: { item: MarketingMegaNavItem; onNavigate: () => void }) {
   return (
-    <div aria-label={item.label} className="grid max-h-[calc(100vh-85px)] grid-cols-[270px_minmax(0,1fr)] overflow-hidden rounded-[20px] border border-[#e7ebf1] bg-white text-[#162044] shadow-[0_18px_45px_rgba(22,32,68,0.14)] transition-[opacity,transform] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] starting:-translate-y-2 starting:opacity-0 motion-reduce:transition-none" id={'yak-marketing-menu-' + item.key}>
+    <div
+      aria-label={item.label}
+      className="grid max-h-[calc(100vh-85px)] grid-cols-[270px_minmax(0,1fr)] overflow-hidden rounded-[20px] border border-[#e7ebf1] bg-white text-[#162044] shadow-[0_18px_45px_rgba(22,32,68,0.14)] transition-[opacity,transform] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] starting:-translate-y-2 starting:opacity-0 motion-reduce:transition-none"
+      id={'yak-marketing-menu-' + item.key}
+    >
       <aside className="flex min-w-0 flex-col bg-[linear-gradient(145deg,#f4f6fa_10%,#e8f0f9_100%)] px-6 py-7">
         <span className={`${MENU_EYEBROW_CLASS} mb-4`}>YAK OPS</span>
         <strong className="text-[22px] font-semibold leading-[1.3] text-[#162044]">
@@ -245,8 +249,21 @@ export default function MarketingHeader() {
       ref={headerRef}
     >
       <div className="relative mx-auto grid h-[60px] w-full max-w-[1440px] grid-cols-[minmax(140px,1fr)_auto_minmax(140px,1fr)] items-center px-[clamp(24px,4vw,64px)] max-lg:grid-cols-[minmax(0,1fr)_auto] max-[560px]:px-5">
-        <MarketingLink className="inline-flex w-[140px] max-w-full items-center rounded-md outline-offset-4 max-[560px]:w-[124px]" href="/" onClick={closeAllMenus}>
-          <img alt="Yak Ops" draggable={false} src={brandLogo} className={isDark ? 'block h-auto w-full object-contain brightness-0 invert transition-[filter] duration-[240ms]' : 'block h-auto w-full object-contain transition-[filter] duration-[240ms]'} />
+        <MarketingLink
+          className="inline-flex w-[140px] max-w-full items-center rounded-md outline-offset-4 max-[560px]:w-[124px]"
+          href="/"
+          onClick={closeAllMenus}
+        >
+          <img
+            alt="Yak Ops"
+            draggable={false}
+            src={brandLogo}
+            className={
+              isDark
+                ? 'block h-auto w-full object-contain brightness-0 invert transition-[filter] duration-[240ms]'
+                : 'block h-auto w-full object-contain transition-[filter] duration-[240ms]'
+            }
+          />
         </MarketingLink>
 
         <nav aria-label="Primary navigation" className="h-full max-lg:hidden">
@@ -312,7 +329,11 @@ export default function MarketingHeader() {
       </div>
 
       {mobileOpen && (
-        <nav aria-label="Mobile navigation" className="absolute inset-x-0 top-full flex max-h-[calc(100vh-60px)] flex-col overflow-y-auto border-t border-[#e6e8eb] bg-white px-6 pt-3 pb-6 text-[#162044] shadow-[0_16px_32px_rgba(22,32,68,0.1)] transition-[opacity,transform] duration-200 starting:-translate-y-2 starting:opacity-0 motion-reduce:transition-none" id="yak-marketing-mobile-menu">
+        <nav
+          aria-label="Mobile navigation"
+          className="absolute inset-x-0 top-full flex max-h-[calc(100vh-60px)] flex-col overflow-y-auto border-t border-[#e6e8eb] bg-white px-6 pt-3 pb-6 text-[#162044] shadow-[0_16px_32px_rgba(22,32,68,0.1)] transition-[opacity,transform] duration-200 starting:-translate-y-2 starting:opacity-0 motion-reduce:transition-none"
+          id="yak-marketing-mobile-menu"
+        >
           {MARKETING_NAV_ITEMS.map((item) =>
             item.kind === 'mega' ? (
               <div className="border-b border-[#edf0f5]" key={item.key}>
