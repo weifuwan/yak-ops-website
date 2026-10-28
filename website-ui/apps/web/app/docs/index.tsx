@@ -78,7 +78,7 @@ export default function DocsPage() {
       <DocsHeader onOpenNavigation={() => setMobileNavOpen(true)} />
 
       <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
-        <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
+        <aside className="sticky top-24 hidden h-[calc(100vh-6rem)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
           <DocsSidebar onNavigate={navigateToDockerCompose} />
         </aside>
 
@@ -94,7 +94,7 @@ export default function DocsPage() {
           </div>
         </main>
 
-        <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block">
+        <aside className="sticky top-24 hidden h-[calc(100vh-6rem)] w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block">
           <DocsTableOfContents items={toc} />
         </aside>
       </div>
