@@ -99,9 +99,7 @@ function EcosystemRow({
               <FlowConnector begin={connectorPhases[index]} reducedMotion={reducedMotion} />
             </div>
           )}
-          <div
-            className="flex min-h-[76px] w-full flex-col justify-center rounded-xl border border-[#DFE6F3] bg-white px-3 py-3 text-center shadow-[0_4px_18px_rgba(42,69,110,0.035)] sm:min-h-[82px]"
-          >
+          <div className="flex min-h-[76px] w-full flex-col justify-center rounded-xl border border-[#DFE6F3] bg-white px-3 py-3 text-center shadow-[0_4px_18px_rgba(42,69,110,0.035)] sm:min-h-[82px]">
             <p className="m-0 text-[14px] leading-5 font-semibold text-[#1E2A47] sm:text-[15px]">{item.name}</p>
             <p className="m-0 mt-1 text-xs leading-4 text-[#7985A0] sm:text-[13px]">{item.description}</p>
           </div>
@@ -116,13 +114,7 @@ function EcosystemRow({
   );
 }
 
-function CapabilityCards({
-  items,
-  compact = false,
-}: {
-  items: readonly Capability[];
-  compact?: boolean;
-}) {
+function CapabilityCards({ items, compact = false }: { items: readonly Capability[]; compact?: boolean }) {
   return (
     <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {items.map((item) => (
@@ -169,13 +161,9 @@ export default function YakOpsProductPanorama() {
 
       <EcosystemRow items={connectedSystems} position="above" reducedMotion={reducedMotion} />
 
-      <div
-        className="rounded-[22px] border-[1.5px] border-[#2F6FED] bg-[linear-gradient(135deg,#EAF2FF_0%,#F0F3FD_62%,#E7F4FC_100%)] p-3 shadow-[0_14px_45px_rgba(43,94,162,0.055)] sm:p-5 lg:p-6"
-      >
+      <div className="rounded-[22px] border-[1.5px] border-[#2F6FED] bg-[linear-gradient(135deg,#EAF2FF_0%,#F0F3FD_62%,#E7F4FC_100%)] p-3 shadow-[0_14px_45px_rgba(43,94,162,0.055)] sm:p-5 lg:p-6">
         <div className="mb-5 flex flex-col gap-1.5 px-1 sm:flex-row sm:items-center sm:gap-4">
-          <p className="m-0 shrink-0 text-[21px] leading-tight font-bold tracking-[0.075em] text-[#172B52]">
-            YAK OPS
-          </p>
+          <p className="m-0 shrink-0 text-[21px] leading-tight font-bold tracking-[0.075em] text-[#172B52]">YAK OPS</p>
           <span aria-hidden="true" className="hidden h-6 w-px bg-[#ABBBD3] sm:block" />
           <p className="m-0 text-[13px] leading-5 text-[#4B5E7D] sm:text-[15px]">
             Unified Data Development &amp; Governance Platform
