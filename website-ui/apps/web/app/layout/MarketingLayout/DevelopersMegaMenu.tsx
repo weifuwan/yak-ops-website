@@ -49,9 +49,7 @@ function DeveloperLink({ link, onNavigate }: { link: MarketingNavLink; onNavigat
           <span className="mt-1 block text-[14px] leading-[1.35] text-[#82829e]">{link.description}</span>
         )}
       </span>
-      {link.external && (
-        <ArrowUpRight aria-hidden="true" className="shrink-0 self-start text-[#9ca5b5]" size={13} />
-      )}
+      {link.external && <ArrowUpRight aria-hidden="true" className="shrink-0 self-start text-[#9ca5b5]" size={13} />}
     </>
   );
 
@@ -127,9 +125,7 @@ export default function DevelopersMegaMenu({ onNavigate }: { onNavigate: () => v
       <div className="m-4 ml-0 min-w-0 rounded-2xl bg-white/50 px-6 py-7">
         <div className="grid grid-cols-2 gap-x-8">
           <section className="min-w-0">
-            <h2 className="m-0 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">
-              DEPLOYMENT
-            </h2>
+            <h2 className="m-0 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">DEPLOYMENT</h2>
             <div className="mt-4 flex flex-col gap-5">
               {MARKETING_DEVELOPER_GUIDES.slice(0, 2).map((link) => (
                 <DeveloperLink key={link.href} link={link} onNavigate={onNavigate} />
@@ -137,9 +133,7 @@ export default function DevelopersMegaMenu({ onNavigate }: { onNavigate: () => v
             </div>
           </section>
           <section className="min-w-0">
-            <h2 className="m-0 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">
-              DEVELOPMENT
-            </h2>
+            <h2 className="m-0 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">DEVELOPMENT</h2>
             <div className="mt-4 flex flex-col gap-5">
               {MARKETING_DEVELOPER_GUIDES.slice(2).map((link) => (
                 <DeveloperLink key={link.href} link={link} onNavigate={onNavigate} />

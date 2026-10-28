@@ -61,15 +61,7 @@ const DOCS_TABS: readonly DocsTab[] = [
   { label: 'Deployment', href: '/developers/deployment', description: 'Deployment options and setup' },
 ];
 
-function DocsTabLink({
-  item,
-  active,
-  onClick,
-}: {
-  item: DocsTab;
-  active: boolean;
-  onClick?: () => void;
-}) {
+function DocsTabLink({ item, active, onClick }: { item: DocsTab; active: boolean; onClick?: () => void }) {
   const className = [
     'group relative flex h-10 shrink-0 items-center gap-2 whitespace-nowrap text-sm font-medium no-underline transition-colors duration-150',
     active
@@ -84,7 +76,9 @@ function DocsTabLink({
         aria-hidden="true"
         className={[
           'absolute bottom-0 left-0 h-px w-full transition-colors',
-          active ? 'bg-[#2563eb] dark:bg-blue-400' : 'bg-transparent group-hover:bg-gray-200 dark:group-hover:bg-gray-700',
+          active
+            ? 'bg-[#2563eb] dark:bg-blue-400'
+            : 'bg-transparent group-hover:bg-gray-200 dark:group-hover:bg-gray-700',
         ].join(' ')}
       />
     </>
@@ -152,9 +146,7 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
     const query = searchQuery.trim().toLowerCase();
     const available = query
       ? DOCS_TABS.filter(
-          (item) =>
-            item.label.toLowerCase().includes(query) ||
-            item.description.toLowerCase().includes(query),
+          (item) => item.label.toLowerCase().includes(query) || item.description.toLowerCase().includes(query),
         )
       : DOCS_TABS.slice(0, activePanel === 'assistant' ? 5 : 8);
 
@@ -221,7 +213,10 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
                 <span className="truncate">AI 2.0</span>
                 <ChevronRight
                   aria-hidden="true"
-                  className={['h-3 w-3 shrink-0 text-gray-400 transition-transform', versionOpen ? 'rotate-[270deg]' : 'rotate-90'].join(' ')}
+                  className={[
+                    'h-3 w-3 shrink-0 text-gray-400 transition-transform',
+                    versionOpen ? 'rotate-[270deg]' : 'rotate-90',
+                  ].join(' ')}
                   strokeWidth={2}
                 />
               </button>
@@ -235,7 +230,9 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
                     <span>AI 2.0</span>
                     <Check aria-label="Current version" className="text-blue-600 dark:text-blue-400" size={15} />
                   </div>
-                  <div className="px-3 pb-2 text-xs text-gray-500 dark:text-gray-400">Current documentation version</div>
+                  <div className="px-3 pb-2 text-xs text-gray-500 dark:text-gray-400">
+                    Current documentation version
+                  </div>
                   <Link
                     className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-gray-700 no-underline hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                     onClick={() => setVersionOpen(false)}
@@ -261,7 +258,11 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
               type="button"
             >
               <span className="flex min-w-0 items-center gap-2">
-                <Search aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-700 dark:text-gray-400" strokeWidth={1.6} />
+                <Search
+                  aria-hidden="true"
+                  className="h-4 w-4 shrink-0 text-gray-700 dark:text-gray-400"
+                  strokeWidth={1.6}
+                />
                 <span className="truncate">Search...</span>
               </span>
               <span className="flex-none text-xs font-semibold">Ctrl K</span>
@@ -276,7 +277,11 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
               }}
               type="button"
             >
-              <Sparkles aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-700 dark:text-gray-400" strokeWidth={1.6} />
+              <Sparkles
+                aria-hidden="true"
+                className="h-4 w-4 shrink-0 text-gray-700 dark:text-gray-400"
+                strokeWidth={1.6}
+              />
               <span className="whitespace-nowrap text-sm text-gray-500 dark:text-white/50">Ask Assistant</span>
               <span className="flex-none text-xs font-semibold text-gray-500 dark:text-white/50">Ctrl+I</span>
             </button>
@@ -380,11 +385,7 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
         <div className="mx-auto flex h-full max-w-[90rem] overflow-x-auto px-4 lg:px-5">
           <div className="flex h-full min-w-max items-center gap-x-6 px-1">
             {DOCS_TABS.map((item) => (
-              <DocsTabLink
-                active={activeTab?.label === item.label}
-                item={item}
-                key={item.label}
-              />
+              <DocsTabLink active={activeTab?.label === item.label} item={item} key={item.label} />
             ))}
           </div>
         </div>
@@ -479,7 +480,9 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
                         <BookOpen aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-400" />
                         <span className="min-w-0 flex-1">
                           <span className="block font-medium">{item.label}</span>
-                          <span className="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">{item.description}</span>
+                          <span className="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">
+                            {item.description}
+                          </span>
                         </span>
                         <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-400" />
                       </a>
@@ -492,7 +495,9 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
                         <BookOpen aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-400" />
                         <span className="min-w-0 flex-1">
                           <span className="block font-medium">{item.label}</span>
-                          <span className="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">{item.description}</span>
+                          <span className="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">
+                            {item.description}
+                          </span>
                         </span>
                         <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-gray-400" />
                       </Link>
