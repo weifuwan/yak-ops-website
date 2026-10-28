@@ -24,6 +24,7 @@ export interface MarketingNavLink {
   label: string;
   href: string;
   icon?: MarketingNavIcon;
+  description?: string;
   external?: boolean;
 }
 
@@ -48,6 +49,93 @@ export interface MarketingDirectNavItem {
 }
 
 export type MarketingNavItem = MarketingMegaNavItem | MarketingDirectNavItem;
+
+/**
+ * Original Collate Resources menu content, retained as a reference until
+ * Yak Ops has its own resource articles and landing pages.
+ */
+export const MARKETING_RESOURCE_LINKS: readonly MarketingNavLink[] = [
+  { label: 'Case Studies', href: 'https://www.getcollate.io/case-studies', external: true },
+  { label: 'Learning Center', href: 'https://www.getcollate.io/learning-center', external: true },
+  { label: 'Events', href: 'https://www.getcollate.io/events', external: true },
+  { label: 'Compare', href: 'https://www.getcollate.io/learning-center/resource/compare', external: true },
+  { label: 'Newsroom', href: 'https://www.getcollate.io/newsroom', external: true },
+];
+
+export const MARKETING_RESOURCE_ARTICLES: readonly MarketingNavLink[] = [
+  {
+    label: 'Context Engineering',
+    description: 'Curate context to make AI outputs accurate',
+    href: 'https://www.getcollate.io/learning-center/context-engineering',
+    external: true,
+  },
+  {
+    label: 'Data Catalog',
+    description: 'Finding and accessing data is changing',
+    href: 'https://www.getcollate.io/learning-center/data-catalog',
+    external: true,
+  },
+  {
+    label: 'Metadata Management',
+    description: 'Enrich data context, discoverability, and governance',
+    href: 'https://www.getcollate.io/learning-center/metadata-management',
+    external: true,
+  },
+  {
+    label: 'Data Integration',
+    description: 'Unify data across sources for seamless access',
+    href: 'https://www.getcollate.io/learning-center/data-integration',
+    external: true,
+  },
+  {
+    label: 'Data Quality',
+    description: 'Ensure trustworthy, accurate data for stakeholders',
+    href: 'https://www.getcollate.io/learning-center/data-quality',
+    external: true,
+  },
+  {
+    label: 'Data Observability',
+    description: 'Improve data reliability and performance',
+    href: 'https://www.getcollate.io/learning-center/data-observability',
+    external: true,
+  },
+  {
+    label: 'Data Lineage',
+    description: 'Understand how data flows across your systems',
+    href: 'https://www.getcollate.io/learning-center/data-lineage',
+    external: true,
+  },
+  {
+    label: 'Data Governance',
+    description: 'Reduce risk, ensure data compliance',
+    href: 'https://www.getcollate.io/learning-center/data-governance',
+    external: true,
+  },
+  {
+    label: 'Data Mesh',
+    description: 'Decentralized, domain-driven ownership at scale',
+    href: 'https://www.getcollate.io/learning-center/data-mesh',
+    external: true,
+  },
+  {
+    label: 'Data Management',
+    description: 'Organize, store, and maintain data effectively',
+    href: 'https://www.getcollate.io/learning-center/data-management',
+    external: true,
+  },
+  {
+    label: 'Data Warehouse',
+    description: 'Centralize, organize, and analyze data at scale',
+    href: 'https://www.getcollate.io/learning-center/data-warehouse',
+    external: true,
+  },
+  {
+    label: 'Data Lake',
+    description: 'Flexible storage for raw and structured data',
+    href: 'https://www.getcollate.io/learning-center/data-lake',
+    external: true,
+  },
+];
 
 /**
  * 官网 Header 导航的单一数据源。
@@ -112,6 +200,15 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
     label: 'Docs',
     kind: 'link',
     href: '/docs',
+  },
+  {
+    key: 'resources',
+    label: 'Resources',
+    kind: 'mega',
+    columns: [
+      { title: 'RESOURCES', items: MARKETING_RESOURCE_LINKS },
+      { title: 'ARTICLES', items: MARKETING_RESOURCE_ARTICLES },
+    ],
   },
   {
     key: 'github',

@@ -1,5 +1,6 @@
 import brandLogo from '@/assets/img/logo2.png';
 import ProductsMegaMenu from './ProductsMegaMenu';
+import ResourcesMegaMenu from './ResourcesMegaMenu';
 import {
   MARKETING_HEADER_ACTIONS,
   MARKETING_NAV_ITEMS,
@@ -277,7 +278,7 @@ export default function MarketingHeader() {
                     aria-controls={openMenu === item.key ? 'yak-marketing-menu-' + item.key : undefined}
                     aria-expanded={openMenu === item.key}
                     aria-haspopup="true"
-                    className={`${NAV_LINK_CLASS} ${isDark ? NAV_LINK_DARK_CLASS : NAV_LINK_LIGHT_CLASS} ${openMenu === item.key ? (isDark ? 'border-white/40 bg-white/10 text-white' : 'border-[#d9dfe8] bg-[#f7f8fb] text-[#162044]') : ''}`}
+                    className={`${NAV_LINK_CLASS} ${isDark ? NAV_LINK_DARK_CLASS : NAV_LINK_LIGHT_CLASS} ${item.key === 'resources' ? (isDark ? 'border-white/50' : 'border-[#a3a8b6]') : ''} ${openMenu === item.key ? (isDark ? 'border-white/40 bg-white/10 text-white' : 'border-[#d9dfe8] bg-[#f7f8fb] text-[#162044]') : ''}`}
                     onClick={() => setOpenMenu(openMenu === item.key ? null : item.key)}
                     onMouseEnter={() => setOpenMenu(item.key)}
                     type="button"
@@ -327,6 +328,8 @@ export default function MarketingHeader() {
           <div className="absolute top-full left-1/2 z-[2] hidden w-[1096px] max-w-[calc(100vw-32px)] -translate-x-1/2 lg:block">
             {activeMegaMenu.key === 'products' ? (
               <ProductsMegaMenu onNavigate={closeAllMenus} />
+            ) : activeMegaMenu.key === 'resources' ? (
+              <ResourcesMegaMenu onNavigate={closeAllMenus} />
             ) : (
               <MegaMenu item={activeMegaMenu} onNavigate={closeAllMenus} />
             )}
