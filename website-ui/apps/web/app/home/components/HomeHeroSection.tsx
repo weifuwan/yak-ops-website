@@ -57,11 +57,9 @@ export default function HomeHeroSection() {
           <div className="mx-auto w-full max-w-[600px] lg:mr-0">
             <div className="rounded-2xl border border-white/15 bg-[#0b1935]/70 px-4 pt-7 pb-4 backdrop-blur-md sm:px-7 sm:pt-10 sm:pb-6">
               <p className="m-0 flex items-center justify-center gap-3 text-white sm:gap-5">
-                <span className="shrink-0 text-[56px] leading-none font-bold text-[#FFE500] sm:text-[80px]">4×</span>
-                <span className="text-[27px] leading-[1.12] font-semibold sm:text-[36px]">
-                  Faster
-                  <br />
-                  Delivery
+                <span className="shrink-0 text-[48px] leading-none font-bold text-[#FFE500] sm:text-[80px]">4×</span>
+                <span className="whitespace-nowrap text-[23px] leading-none font-semibold sm:text-[36px]">
+                  Faster Delivery
                 </span>
               </p>
 
