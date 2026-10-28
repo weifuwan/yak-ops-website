@@ -29,3 +29,16 @@
     transform: translateX(-50%);
   }
 }
+
+/* Carousel content slides into place, matching the documentation reference. */
+@keyframes release-carousel-slide-next {
+  0% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

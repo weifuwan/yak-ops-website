@@ -146,51 +146,110 @@ const updates = [
     action: 'Explore workflows',
     icon: Workflow,
   },
+  {
+    title: 'Data Quality',
+    eyebrow: 'EXPLORE YAK OPS',
+    description: 'Explore quality checks and monitoring to help teams keep data reliable and ready to use.',
+    href: '/product/data-quality',
+    action: 'Explore data quality',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Data Lineage',
+    eyebrow: 'EXPLORE YAK OPS',
+    description: 'Understand how data moves between sources, tasks, and downstream workflows.',
+    href: '/product/lineage',
+    action: 'Explore data lineage',
+    icon: GitBranch,
+  },
 ] as const;
 
-function PipelineIllustration() {
+function PipelineIllustration({ title }: { title: string }) {
   return (
     <div
       aria-hidden="true"
-      className="relative mx-auto w-full max-w-[480px] overflow-hidden rounded-xl border border-[#d8e6fc] bg-white/90 shadow-[0_18px_45px_rgba(36,77,159,0.12)]"
+      className="mx-auto w-full max-w-[525px] overflow-hidden rounded-[12px] border-[3px] border-[#c8d8fc] bg-white shadow-[0_15px_32px_rgba(38,75,158,0.12)]"
     >
-      <div className="flex h-9 items-center gap-2 border-b border-[#e8eef8] bg-white px-3">
-        <span className="h-2 w-2 rounded-full bg-[#c9dafa]" />
-        <span className="h-2 w-2 rounded-full bg-[#c9dafa]" />
-        <span className="h-2 w-2 rounded-full bg-[#c9dafa]" />
-        <span className="ml-3 h-2 w-24 rounded-full bg-[#e9eef7]" />
-        <span className="ml-auto h-4 w-14 rounded-full bg-[#e3efff]" />
-      </div>
-      <div className="grid grid-cols-[82px_minmax(0,1fr)] sm:grid-cols-[105px_minmax(0,1fr)]">
-        <div className="flex flex-col gap-3 border-r border-[#e8eef8] bg-[#f7faff] px-3 py-5">
-          <span className="h-2 w-3/4 rounded bg-[#bdd8fd]" />
-          <span className="h-2 w-full rounded bg-[#e0e8f5]" />
-          <span className="h-2 w-4/5 rounded bg-[#e0e8f5]" />
-          <span className="h-2 w-3/4 rounded bg-[#e0e8f5]" />
-          <span className="mt-4 h-2 w-full rounded bg-[#e0e8f5]" />
-          <span className="h-2 w-4/5 rounded bg-[#e0e8f5]" />
-        </div>
-        <div className="min-w-0 px-4 py-4 sm:px-5">
-          <div className="flex items-center justify-between gap-3">
-            <span className="h-2.5 w-32 max-w-[60%] rounded bg-[#c4d8f4]" />
-            <span className="h-5 w-14 rounded-md bg-[#dceafe]" />
+      <div className="grid h-[258px] grid-cols-[85px_minmax(0,1fr)] sm:h-[284px] sm:grid-cols-[105px_minmax(0,1fr)]">
+        <aside className="flex min-w-0 flex-col border-r border-[#e8eef9] bg-[#fbfcff]">
+          <div className="flex h-9 items-center gap-1.5 border-b border-[#e8eef9] px-2.5">
+            <Layers3 aria-hidden="true" className="shrink-0 text-[#0d89e8]" size={14} />
+            <span className="text-[9px] font-bold tracking-wide text-[#253c69]">YAK OPS</span>
           </div>
-          <div className="mt-5 grid grid-cols-3 gap-2">
-            {['Sources', 'Pipelines', 'Tasks'].map((label, index) => (
-              <div className="rounded-lg border border-[#e8eef8] bg-[#fbfdff] px-2 py-2" key={label}>
-                <span className="block text-[9px] font-medium text-[#8d9bb3]">{label}</span>
-                <span className="mt-2 block text-base font-semibold text-[#175dbd]">{[12, 8, 24][index]}</span>
+          <div className="flex flex-col gap-1 px-2 py-3">
+            {['Overview', 'Sources', 'Pipelines', 'Workflows', 'Quality'].map((name, index) => (
+              <div
+                className={
+                  index === 0
+                    ? 'flex h-6 items-center gap-1.5 rounded bg-[#edf4ff] px-1.5 text-[8px] font-medium text-[#2673d2]'
+                    : 'flex h-6 items-center gap-1.5 rounded px-1.5 text-[8px] text-[#8390a6]'
+                }
+                key={name}
+              >
+                <span className={index === 0 ? 'h-2 w-2 rounded-[3px] bg-[#5193f6]' : 'h-2 w-2 rounded-[3px] bg-[#cad7ea]'} />
+                <span className="truncate">{name}</span>
               </div>
             ))}
           </div>
-          <div className="mt-4 flex h-[98px] items-end gap-[7px] rounded-lg bg-[#f7faff] px-3 pb-3 pt-4">
-            {[32, 50, 42, 70, 54, 85, 65, 77, 62, 92, 68, 80].map((value, index) => (
-              <span
-                className="min-w-0 flex-1 rounded-t bg-[linear-gradient(180deg,#319dff,#8fc7ff)]"
-                key={index}
-                style={{ height: value + '%' }}
-              />
-            ))}
+          <div className="mt-auto flex items-center gap-1.5 border-t border-[#edf1f7] px-2 py-2">
+            <span className="h-4 w-4 rounded-full bg-[#d2f7dd]" />
+            <span className="h-1.5 w-10 rounded bg-[#e4eaf4]" />
+          </div>
+        </aside>
+        <div className="min-w-0 overflow-hidden">
+          <div className="flex h-9 items-center justify-between border-b border-[#e8eef9] px-3">
+            <span className="h-1.5 w-20 rounded-full bg-[#e4ecf8]" />
+            <span className="h-4 w-12 rounded bg-[#e5f0ff]" />
+          </div>
+          <div className="px-3 py-2.5 sm:px-4 sm:py-3">
+            <div className="flex items-center justify-between gap-1">
+              <div className="min-w-0">
+                <span className="block truncate text-[10px] font-semibold text-[#314368]">{title}</span>
+                <span className="mt-0.5 block text-[7px] text-[#9caac0]">Workspace overview</span>
+              </div>
+              <span className="shrink-0 rounded bg-[#e7f1ff] px-2 py-1 text-[7px] font-semibold text-[#2385f3]">Dashboard</span>
+            </div>
+            <div className="mt-3 grid grid-cols-3 gap-1.5 sm:gap-2">
+              {[
+                { label: 'Data Sources', count: '21', accent: 'text-[#1882ed]' },
+                { label: 'Active Tasks', count: '16', accent: 'text-[#3470e3]' },
+                { label: 'Workflows', count: '47', accent: 'text-[#169fd0]' },
+              ].map((metric) => (
+                <div className="rounded-[5px] border border-[#e8edf7] p-1.5" key={metric.label}>
+                  <span className="block truncate text-[7px] text-[#8696b2]">{metric.label}</span>
+                  <span className={'mt-1 block text-[15px] leading-none font-semibold ' + metric.accent}>{metric.count}</span>
+                  <span className="mt-1.5 block h-[3px] w-3/4 rounded bg-[#e9f3ff]" />
+                </div>
+              ))}
+            </div>
+            <div className="mt-2 grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-2">
+              <div className="rounded-[5px] border border-[#e8edf7] p-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[7px] font-semibold text-[#5f7297]">Pipeline activity</span>
+                  <span className="h-1 w-8 rounded bg-[#dce8f7]" />
+                </div>
+                <div className="mt-2.5 flex h-[47px] items-end gap-1 sm:h-[61px]">
+                  {[42, 62, 54, 83, 65, 94, 79, 89, 72, 98, 80, 91].map((height, index) => (
+                    <span
+                      className="min-w-0 flex-1 rounded-t-[2px] bg-[linear-gradient(180deg,#359cff,#b2daff)]"
+                      key={index}
+                      style={{ height: height + '%' }}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-[5px] border border-[#e8edf7] p-2">
+                <span className="block text-[7px] font-semibold text-[#5f7297]">Recent activity</span>
+                <div className="mt-3 grid gap-2">
+                  {['Sync completed', 'Quality checked', 'Workflow running'].map((activity, index) => (
+                    <div className="flex items-center gap-1.5" key={activity}>
+                      <span className={index === 2 ? 'h-2 w-2 shrink-0 rounded-full bg-[#f2c45e]' : 'h-2 w-2 shrink-0 rounded-full bg-[#6bd9aa]'} />
+                      <span className="truncate text-[7px] text-[#8795ac]">{activity}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -201,64 +260,72 @@ function PipelineIllustration() {
 function ReleaseCarousel() {
   const [current, setCurrent] = useState(0);
   const slide = updates[current];
-  const Icon = slide.icon;
   const move = (step: number) => setCurrent((index) => (index + step + updates.length) % updates.length);
 
   return (
-    <section aria-label="Featured documentation" className="relative mx-auto mt-0 max-w-[1190px]">
-      <div className="overflow-hidden rounded-[24px] bg-[linear-gradient(110deg,#e1e4ff_0%,#d4efff_55%,#c8f4ff_100%)] px-6 py-9 sm:px-12 sm:py-12">
-        <div className="grid items-center gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
-          <PipelineIllustration />
-          <div className="max-w-[440px]">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/65 px-3 py-1 text-[11px] font-semibold tracking-wide text-[#087bd1]">
-              <Icon aria-hidden="true" size={14} />
-              {slide.eyebrow}
+    <section aria-label="Featured documentation" className="relative mx-auto mt-0 w-full max-w-[1300px]">
+      <div className="relative min-h-[414px] overflow-hidden rounded-[24px] bg-[linear-gradient(135deg,rgba(195,201,252,0.5)_0%,rgba(142,234,252,0.5)_100%)] px-6 pt-12 pb-[68px] sm:px-14 lg:px-[100px] lg:py-12">
+        <div
+          aria-atomic="true"
+          aria-live="polite"
+          className="grid min-w-0 items-center gap-8 animate-[release-carousel-slide-next_450ms_ease] motion-reduce:animate-none lg:grid-cols-2 lg:gap-[50px]"
+          key={current}
+        >
+          <PipelineIllustration title={slide.title} />
+          <div className="min-w-0 text-left">
+            <div className="flex flex-wrap items-center gap-3">
+              <h2 className="m-0 text-[30px] leading-[1.2] font-medium tracking-[-0.025em] text-[#1b2432] sm:text-[32px]">
+                {slide.title}
+              </h2>
+              <span className="inline-flex shrink-0 items-center rounded-full bg-white/75 px-3.5 py-1.5 text-[12px] font-semibold text-[#079aef]">
+                NEW RELEASE
+              </span>
             </div>
-            <h2 className="m-0 text-[clamp(26px,3vw,34px)] leading-[1.18] font-semibold tracking-[-0.03em] text-[#17223d]">
-              {slide.title}
-            </h2>
-            <p className="mt-4 max-w-[40ch] text-[15px] leading-[1.75] text-[#49576b] sm:text-[16px]">
+            <p className="mt-4 max-w-[475px] text-[16px] leading-[1.58] text-[#475563] sm:text-[17px]">
               {slide.description}
             </p>
             <Link
-              className="mt-6 inline-flex items-center gap-2 text-[14px] font-semibold text-[#0768df] no-underline hover:text-[#054dab] hover:underline"
+              className="mt-8 inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full bg-white px-6 text-[16px] font-medium text-[#181b23] no-underline shadow-[0_8px_16px_rgba(49,83,127,0.10)] transition-[background-color,color] hover:bg-[#eef7ff] hover:text-[#096deb] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
               to={slide.href}
             >
-              {slide.action}
-              <ArrowRight aria-hidden="true" size={16} />
+              See what's new
+              <ArrowRight aria-hidden="true" size={17} strokeWidth={1.8} />
             </Link>
           </div>
         </div>
-      </div>
-      <div className="mt-5 flex items-center justify-center gap-4">
+
         <button
-          aria-label="Previous feature"
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#dce7f8] bg-white text-[#26528e] transition-colors hover:bg-[#eaf4ff] focus-visible:outline-2 focus-visible:outline-[#1677ff]"
+          aria-label="Previous update"
+          className="absolute bottom-4 left-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#c8d5fb] bg-white text-[#1b2638] shadow-[0_7px_15px_rgba(39,76,160,0.10)] transition-colors hover:bg-[#f0f7ff] hover:text-[#086cf5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] lg:top-1/2 lg:bottom-auto lg:-translate-y-1/2"
           onClick={() => move(-1)}
           type="button"
         >
-          <ArrowLeft aria-hidden="true" size={17} />
+          <ArrowLeft aria-hidden="true" size={20} strokeWidth={2.2} />
         </button>
-        <div aria-label="Feature slides" className="flex items-center gap-2">
+        <button
+          aria-label="Next update"
+          className="absolute right-4 bottom-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#c8d5fb] bg-white text-[#1b2638] shadow-[0_7px_15px_rgba(39,76,160,0.10)] transition-colors hover:bg-[#f0f7ff] hover:text-[#086cf5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] lg:top-1/2 lg:bottom-auto lg:-translate-y-1/2"
+          onClick={() => move(1)}
+          type="button"
+        >
+          <ArrowRight aria-hidden="true" size={20} strokeWidth={2.2} />
+        </button>
+        <div aria-label="Choose featured update" className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
           {updates.map((update, index) => (
             <button
               aria-current={index === current ? 'true' : undefined}
-              aria-label={'Show ' + update.title}
-              className={index === current ? 'h-2 w-6 rounded-full bg-[#1875ee]' : 'h-2 w-2 rounded-full bg-[#cad9ec] hover:bg-[#9abce9]'}
+              aria-label={'Go to ' + update.title}
+              className={
+                index === current
+                  ? 'h-2 w-2 cursor-pointer rounded-full bg-[#0a71f7] transition-colors'
+                  : 'h-2 w-2 cursor-pointer rounded-full bg-[#b9caf3] transition-colors hover:bg-[#7eaaf3]'
+              }
               key={update.title}
               onClick={() => setCurrent(index)}
               type="button"
             />
           ))}
         </div>
-        <button
-          aria-label="Next feature"
-          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#dce7f8] bg-white text-[#26528e] transition-colors hover:bg-[#eaf4ff] focus-visible:outline-2 focus-visible:outline-[#1677ff]"
-          onClick={() => move(1)}
-          type="button"
-        >
-          <ArrowRight aria-hidden="true" size={17} />
-        </button>
       </div>
     </section>
   );
@@ -267,7 +334,7 @@ function ReleaseCarousel() {
 export default function DocsHome({ onSearch }: DocsHomeProps) {
   return (
     <main className="min-h-screen bg-white pb-28 text-[#192238]">
-      <div className="mx-auto w-full max-w-[1300px] px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8">
         <section className="bg-[radial-gradient(46.63%_44.4%_at_50%_50%,rgba(201,207,255,0.2)_0%,rgba(255,255,255,0.2)_100%)] pt-24 pb-24 text-center">
           <h1 className="m-0 mt-6 text-[clamp(36px,5vw,56px)] leading-[1.2] font-semibold tracking-[-0.03em] text-[#181d27]">
             Unlock the{' '}
