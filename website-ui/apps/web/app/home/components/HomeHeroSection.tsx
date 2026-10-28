@@ -1,8 +1,8 @@
 /**
  * Yak Ops homepage hero, based on the existing Collate visual reference.
  *
- * The original background video and right-hand visual remain unchanged until
- * their Yak Ops-specific replacements are ready.
+ * The original background video is retained until a Yak Ops-specific asset
+ * is ready. The right-hand comparison presents the measured 4× time advantage.
  */
 export default function HomeHeroSection() {
   return (
@@ -57,38 +57,48 @@ export default function HomeHeroSection() {
           <div className="mx-auto w-full max-w-[600px] lg:mr-0">
             <div className="rounded-2xl border border-white/15 bg-[#0b1935]/70 px-4 pt-7 pb-4 backdrop-blur-md sm:px-7 sm:pt-10 sm:pb-6">
               <p className="m-0 flex items-center justify-center gap-3 text-white sm:gap-5">
-                <span className="text-[56px] leading-none font-bold text-[#FFE500] sm:text-[80px]">7x</span>
-                <span className="text-[28px] leading-none font-semibold sm:text-[40px]">Fewer Errors</span>
+                <span className="shrink-0 text-[56px] leading-none font-bold text-[#FFE500] sm:text-[80px]">4×</span>
+                <span className="text-[27px] leading-[1.12] font-semibold sm:text-[36px]">
+                  Faster
+                  <br />
+                  Data Delivery
+                </span>
               </p>
 
               <div className="mt-7 rounded-xl bg-[#07112a]/70 px-4 py-4 sm:mt-9 sm:px-6 sm:py-5">
-                <p className="m-0 text-center text-base text-white sm:text-lg">Agent Accuracy</p>
+                <p className="m-0 text-center text-base font-medium text-white sm:text-lg">
+                  Relative Delivery Time
+                </p>
 
                 <div className="mt-3 sm:mt-4">
-                  <p className="m-0 text-sm text-white sm:text-base">Opus + Collate</p>
+                  <p className="m-0 text-sm text-white sm:text-base">Traditional Approach</p>
                   <div className="mt-1.5 flex items-center gap-3 sm:gap-4">
                     <div
                       aria-hidden="true"
                       className="h-7 flex-1 overflow-hidden rounded-full bg-white/10 bg-[repeating-linear-gradient(120deg,transparent_0px,transparent_12px,rgba(255,255,255,0.15)_12px,rgba(255,255,255,0.15)_13px)] sm:h-9"
                     >
-                      <div className="h-full w-[94%] rounded-full bg-gradient-to-r from-[#1876D7] to-[#318FF6]" />
+                      <div className="h-full w-full rounded-full bg-[#a71d33]" />
                     </div>
-                    <span className="w-12 text-right text-lg font-semibold text-white sm:w-16 sm:text-2xl">94%</span>
+                    <span className="w-12 text-right text-lg font-semibold text-white sm:w-16 sm:text-2xl">100%</span>
                   </div>
                 </div>
 
                 <div className="mt-3 sm:mt-4">
-                  <p className="m-0 text-sm text-white sm:text-base">Opus alone</p>
+                  <p className="m-0 text-sm text-white sm:text-base">With Yak Ops</p>
                   <div className="mt-1.5 flex items-center gap-3 sm:gap-4">
                     <div
                       aria-hidden="true"
                       className="h-7 flex-1 overflow-hidden rounded-full bg-white/10 bg-[repeating-linear-gradient(120deg,transparent_0px,transparent_12px,rgba(255,255,255,0.15)_12px,rgba(255,255,255,0.15)_13px)] sm:h-9"
                     >
-                      <div className="h-full w-[59%] rounded-full bg-[#a71d33]" />
+                      <div className="h-full w-1/4 rounded-full bg-gradient-to-r from-[#1876D7] to-[#318FF6]" />
                     </div>
-                    <span className="w-12 text-right text-lg font-semibold text-white sm:w-16 sm:text-2xl">59%</span>
+                    <span className="w-12 text-right text-lg font-semibold text-white sm:w-16 sm:text-2xl">25%</span>
                   </div>
                 </div>
+
+                <p className="mb-0 mt-4 text-center text-xs leading-5 text-[#B4C4DD]">
+                  Measured workflow · lower is better
+                </p>
               </div>
             </div>
           </div>
