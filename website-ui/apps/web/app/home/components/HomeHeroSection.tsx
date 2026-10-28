@@ -8,7 +8,7 @@
 export default function HomeHeroSection() {
   return (
     <section
-      className="relative -mt-[60px] w-full overflow-hidden bg-[#1f2545] bg-[linear-gradient(105deg,#212642_30%,#093a78_100%)]"
+      className="relative w-full overflow-hidden bg-[#1f2545] bg-[linear-gradient(105deg,#212642_30%,#093a78_100%)]"
       data-hero-section="true"
     >
       <video
