@@ -36,7 +36,7 @@ export default function HomeServiceOptionsSection() {
     <section aria-labelledby="home-service-options-heading" className="relative bg-white">
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 top-[40%] bg-[linear-gradient(180deg,#e2f0ff_0%,#d5e8fc_100%)] md:top-[45%]"
+        className="absolute inset-x-0 bottom-0 top-[40%] bg-[linear-gradient(180deg,#222345_0%,#02468f_57%,#2b8bf3_100%)] md:top-[45%]"
       />
       <div className="relative mx-auto w-full max-w-[1140px] px-4 pt-12 pb-16 sm:px-12 md:pt-16 md:pb-20 lg:px-6">
         <h2
