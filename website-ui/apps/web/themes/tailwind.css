@@ -22,3 +22,10 @@
   --font-yak-serif: var(--yak-font-serif);
   --font-yak-mono: var(--yak-font-mono);
 }
+
+/* Reusable continuous brand strip; page layout remains in Tailwind utilities. */
+@keyframes brand-marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
