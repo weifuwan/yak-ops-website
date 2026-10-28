@@ -1,0 +1,31 @@
+name: Temporary Docs formatter
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/_temporary-docs-format.yml]
+permissions:
+  contents: read
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.13'
+      - name: Install dependencies
+        working-directory: website-ui
+        run: npm ci --ignore-scripts
+      - name: Format changed headers and print
+        working-directory: website-ui
+        run: |
+          npx oxfmt apps/web/app/docs/components/DocsHeader.tsx
+          npx oxfmt apps/web/app/layout/MarketingLayout/DevelopersMegaMenu.tsx
+          echo "DOCS_HEADER_FORMAT_START"
+          base64 -w0 apps/web/app/docs/components/DocsHeader.tsx
+          echo
+          echo "DOCS_HEADER_FORMAT_END"
+          echo "DEVELOPERS_MENU_FORMAT_START"
+          base64 -w0 apps/web/app/layout/MarketingLayout/DevelopersMegaMenu.tsx
+          echo
+          echo "DEVELOPERS_MENU_FORMAT_END"
