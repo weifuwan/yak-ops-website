@@ -17,12 +17,11 @@ export default function ContextPlatformSection({
     <section className={`bg-[#F3F4FB] ${className}`} {...props}>
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-12 lg:px-24 lg:py-16">
         <h2 className="text-center text-[28px] leading-tight tracking-[0.01em] font-normal text-black sm:text-[40px]">
-          Build context once. Use it everywhere.
+          One platform. From data integration to operations.
         </h2>
 
         <p className="mx-auto mt-4 max-w-[600px] text-center text-base leading-6 text-black">
-          Built on OpenMetadata&apos;s open context platform, Collate unifies Metadata, Meaning, and Memory for every
-          agent you build or use.
+          Connect sources, build pipelines, orchestrate workflows, and monitor execution—all in one place.
         </p>
 
         {/* Architecture diagram */}
