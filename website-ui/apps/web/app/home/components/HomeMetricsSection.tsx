@@ -24,13 +24,13 @@ export default function HomeMetricsSection() {
         <div className="mx-auto grid max-w-[900px] grid-cols-1 text-center max-sm:gap-8 sm:grid-cols-3">
           {metrics.map((metric) => (
             <div
-              className="flex flex-col items-center sm:border-r sm:border-[#8b8e99] sm:px-4 sm:last:border-r-0"
+              className="flex flex-col items-center sm:border-r sm:border-[#d9daee] sm:px-4 sm:last:border-r-0"
               key={metric.value}
             >
-              <p className="m-0 bg-gradient-to-b from-[#40577e] to-[#102b57] bg-clip-text pb-1 text-[48px] leading-none font-semibold text-transparent md:text-[56px]">
+              <p className="m-0 bg-gradient-to-b from-[#1e3a5f] to-[#1151a9] bg-clip-text pb-1 text-[48px] leading-none font-semibold text-transparent md:text-[56px]">
                 {metric.value}
               </p>
-              <p className="m-0 mt-2 text-base leading-6 text-[#626779]">
+              <p className="m-0 mt-2 text-base leading-6 text-[#595770]">
                 {metric.lines.map((line) => (
                   <span className="md:block" key={line}>
                     {line}
