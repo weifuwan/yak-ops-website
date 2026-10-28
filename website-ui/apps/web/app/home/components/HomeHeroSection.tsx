@@ -61,7 +61,7 @@ export default function HomeHeroSection() {
                 <span className="text-[27px] leading-[1.12] font-semibold sm:text-[36px]">
                   Faster
                   <br />
-                  Data Delivery
+                  Delivery
                 </span>
               </p>
 
