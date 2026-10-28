@@ -17,12 +17,7 @@ type FlowConnectorProps = {
  * A 200-unit dash pattern avoids a second dash appearing before the first exits.
  * With reduced motion, the centered dash remains visible without an animation.
  */
-function FlowConnector({
-  d,
-  reversed = false,
-  phaseSeconds = 0,
-  reducedMotion,
-}: FlowConnectorProps) {
+function FlowConnector({ d, reversed = false, phaseSeconds = 0, reducedMotion }: FlowConnectorProps) {
   return (
     <g fill="none">
       <path d={d} stroke="#858BAB" strokeWidth="1.4" strokeDasharray="2 4" />
@@ -108,7 +103,12 @@ export default function CollateArchitecture({
           <text x={x} y="48" textAnchor="middle" fontSize="21" fontFamily="Arial, sans-serif" fill="#B5BBD0">
             {['✺', '✳', '⬡', '❀', '▥'][i]}
           </text>
-          <FlowConnector d={`M${x} 70v32`} reversed={i % 2 === 0} phaseSeconds={i * 0.23} reducedMotion={reducedMotion} />
+          <FlowConnector
+            d={`M${x} 70v32`}
+            reversed={i % 2 === 0}
+            phaseSeconds={i * 0.23}
+            reducedMotion={reducedMotion}
+          />
         </g>
       ))}
 
@@ -328,7 +328,12 @@ export default function CollateArchitecture({
       </text>
       {([234, 289, 344, 399, 454, 509, 564] as const).map((x, i) => (
         <g key={x}>
-          <FlowConnector d={`M${x} 658v29`} reversed={i % 2 === 0} phaseSeconds={i * 0.17} reducedMotion={reducedMotion} />
+          <FlowConnector
+            d={`M${x} 658v29`}
+            reversed={i % 2 === 0}
+            phaseSeconds={i * 0.17}
+            reducedMotion={reducedMotion}
+          />
           <rect
             x={x - 17}
             y="701"
