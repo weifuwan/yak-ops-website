@@ -32,8 +32,7 @@ const articles = [
     description:
       'Ask an AI agent any business question ("which regions missed our quarterly revenue plan?"), and it will find a sales table in your data warehouse, write valid SQL, and hand you a number. However, whet…',
     href: '/blog/announcing-collate-20',
-    image:
-      'https://cdn.hashnode.com/res/hashnode/image/upload/v1787503968669/b9269dc5-c527-4103-9159-2c1416e46977.png',
+    image: 'https://cdn.hashnode.com/res/hashnode/image/upload/v1787503968669/b9269dc5-c527-4103-9159-2c1416e46977.png',
   },
 ] as const;
 
