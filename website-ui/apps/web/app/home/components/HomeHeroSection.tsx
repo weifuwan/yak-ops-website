@@ -94,9 +94,6 @@ export default function HomeHeroSection() {
                   </div>
                 </div>
 
-                <p className="mb-0 mt-4 text-center text-xs leading-5 text-[#B4C4DD]">
-                  Measured workflow · lower is better
-                </p>
               </div>
             </div>
           </div>
