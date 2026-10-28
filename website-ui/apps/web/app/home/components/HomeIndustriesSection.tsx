@@ -27,7 +27,6 @@ const financialCustomers = [
 export default function HomeIndustriesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const active = industries[activeIndex];
 
   const selectTab = (index: number) => {
     setActiveIndex(index);
