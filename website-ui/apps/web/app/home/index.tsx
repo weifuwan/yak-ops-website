@@ -2,7 +2,6 @@
 
 import ContextPlatformSection from './components/ContextPlatformSection';
 import HomeHeroSection from './components/HomeHeroSection';
-import HomeSectionNav from './components/HomeSectionNav';
 
 export default function HomePage() {
   return (
