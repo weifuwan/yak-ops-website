@@ -20,11 +20,7 @@ export default function HomeBrandsMarquee() {
       {/* Exactly two identical tracks ensure the -50% translation loops seamlessly. */}
       <div className="flex w-max motion-safe:animate-[brand-marquee-scroll_41.6s_linear_infinite] motion-reduce:animate-none">
         {[0, 1].map((copy) => (
-          <ul
-            aria-hidden={copy === 1}
-            className="m-0 flex shrink-0 list-none p-0"
-            key={copy}
-          >
+          <ul aria-hidden={copy === 1} className="m-0 flex shrink-0 list-none p-0" key={copy}>
             {brands.map((brand) => (
               <li className="flex h-16 w-40 shrink-0 items-center justify-center" key={brand.name}>
                 <img
