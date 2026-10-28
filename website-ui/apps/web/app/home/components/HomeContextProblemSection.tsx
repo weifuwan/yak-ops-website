@@ -52,27 +52,27 @@ export default function HomeContextProblemSection() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:mt-14 lg:mt-16 lg:grid-cols-3 lg:gap-6">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:mt-14 lg:mt-16 lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-6">
           {dataEngineeringProblems.map((problem) => {
             const Illustration = problem.illustration;
 
             return (
               <article
-                className="flex min-w-0 flex-col overflow-hidden rounded-[20px] border border-[#e9f0f8] bg-gradient-to-b from-[#e8f4ff] via-[#f8fbff] to-white"
+                className="flex min-w-0 flex-col overflow-hidden rounded-[20px] border border-[#e9f0f8] bg-gradient-to-b from-[#e8f4ff] via-[#f8fbff] to-white lg:row-span-3 lg:grid lg:grid-rows-[subgrid] lg:gap-0"
                 key={problem.name}
               >
-                <div className="aspect-[416/258] w-full overflow-hidden">
+                <div className="aspect-[416/270] w-full overflow-hidden">
                   <Illustration />
                 </div>
-                <div className="flex flex-1 flex-col px-5 pt-5 pb-8 sm:px-6">
+                <div className="px-5 pt-6 sm:px-6">
                   <p className="m-0 text-[15px] font-medium text-[#167bf7] sm:text-base">{problem.name}</p>
                   <h3 className="m-0 mt-2 text-[20px] leading-[1.35] font-semibold tracking-[-0.015em] text-[#151a23]">
                     {problem.question}
                   </h3>
-                  <p className="mb-0 mt-4 text-[15px] leading-[1.65] text-[#475467] sm:text-base">
-                    {problem.description}
-                  </p>
                 </div>
+                <p className="m-0 px-5 pt-3 pb-8 text-[15px] leading-[1.65] text-[#475467] sm:px-6 sm:text-base">
+                  {problem.description}
+                </p>
               </article>
             );
           })}
