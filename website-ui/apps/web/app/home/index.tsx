@@ -5,7 +5,7 @@ import HomeHeroSection from './components/HomeHeroSection';
 
 export default function HomePage() {
   return (
-    <main className="-mt-[60px] min-h-[calc(100vh-60px)] overflow-hidden bg-white">
+    <main className="-mt-16 min-h-[calc(100vh-64px)] overflow-hidden bg-white">
       <HomeHeroSection />
       <ContextPlatformSection />
     </main>
