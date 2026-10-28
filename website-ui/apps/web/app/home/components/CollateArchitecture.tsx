@@ -91,16 +91,16 @@ export default function CollateArchitecture({
       </defs>
 
       {/* External agents */}
-      <text x="16" y="50" fontFamily="Arial, sans-serif" fontSize="16" fill="#111118">
+      <text x="16" y="50" fontSize="16" fill="#111118">
         External Agents
       </text>
-      <text x="630" y="91" fontFamily="Arial, sans-serif" fontSize="13" fontWeight="600" fill="#82839C">
+      <text x="630" y="91" fontSize="13" fontWeight="600" fill="#82839C">
         MCP, AI SDK
       </text>
       {([265, 328, 390, 453, 515] as const).map((x, i) => (
         <g key={x}>
           <rect x={x - 17} y="25" width="34" height="34" rx="5" fill="#FFFFFF" stroke="#E2E6F6" />
-          <text x={x} y="48" textAnchor="middle" fontSize="21" fontFamily="Arial, sans-serif" fill="#B5BBD0">
+          <text x={x} y="48" textAnchor="middle" fontSize="21" fill="#B5BBD0">
             {['✺', '✳', '⬡', '❀', '▥'][i]}
           </text>
           <FlowConnector
@@ -123,12 +123,12 @@ export default function CollateArchitecture({
         fontSize="19"
         letterSpacing="2.3"
         fontWeight="800"
-        fontFamily="Arial, sans-serif"
+       
         fill="#1F2A4B"
       >
         COLLATE
       </text>
-      <text x="175" y="153" fontSize="16" fontFamily="Arial, sans-serif" fill="#101116">
+      <text x="175" y="153" fontSize="16" fill="#101116">
         The Agentic Data Platform
       </text>
       <text
@@ -137,7 +137,7 @@ export default function CollateArchitecture({
         textAnchor="middle"
         fontSize="13"
         fontStyle="italic"
-        fontFamily="Arial, sans-serif"
+       
         fill="#777D97"
       >
         Continuous learning powered by shared memory
@@ -149,13 +149,13 @@ export default function CollateArchitecture({
         y="233"
         fontSize="17"
         fontWeight="700"
-        fontFamily="Arial, sans-serif"
+       
         textAnchor="middle"
         fill="white"
       >
         Build custom agents
       </text>
-      <text x="207" y="256" fontSize="14" fontFamily="Arial, sans-serif" textAnchor="middle" fill="white">
+      <text x="207" y="256" fontSize="14" textAnchor="middle" fill="white">
         AI Studio | Skills | Plugins
       </text>
       <FlowConnector d="M387 240h36" phaseSeconds={0.32} reducedMotion={reducedMotion} />
@@ -165,16 +165,16 @@ export default function CollateArchitecture({
         y="226"
         fontSize="17"
         fontWeight="700"
-        fontFamily="Arial, sans-serif"
+       
         textAnchor="middle"
         fill="white"
       >
         Collate agents
       </text>
-      <text x="595" y="247" fontSize="13.5" fontFamily="Arial, sans-serif" textAnchor="middle" fill="white">
+      <text x="595" y="247" fontSize="13.5" textAnchor="middle" fill="white">
         AI Automations | Description Agent
       </text>
-      <text x="595" y="265" fontSize="13.5" fontFamily="Arial, sans-serif" textAnchor="middle" fill="white">
+      <text x="595" y="265" fontSize="13.5" textAnchor="middle" fill="white">
         Tiering Agent | Quality Agent | AI Analytics
       </text>
       <text
@@ -182,7 +182,7 @@ export default function CollateArchitecture({
         y="302"
         fontSize="13"
         fontStyle="italic"
-        fontFamily="Arial, sans-serif"
+       
         textAnchor="middle"
         fill="#7C839A"
       >
@@ -199,7 +199,7 @@ export default function CollateArchitecture({
             x={item.x + item.w / 2}
             y="342"
             textAnchor="middle"
-            fontFamily="Arial, sans-serif"
+           
             fontWeight="700"
             fontSize="13.5"
             fill="#161616"
@@ -226,13 +226,13 @@ export default function CollateArchitecture({
         <ellipse cx="12" cy="5" rx="11" ry="5" />
         <path d="M1 5v19q11 12 22 0V5M1 15q11 9 22 0M12 18v10" />
       </g>
-      <text x="76" y="465" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="14" fill="#8254F5">
+      <text x="76" y="465" fontWeight="700" fontSize="14" fill="#8254F5">
         Open
       </text>
-      <text x="76" y="484" fontFamily="Arial, sans-serif" fontWeight="700" fontSize="14" fill="#8254F5">
+      <text x="76" y="484" fontWeight="700" fontSize="14" fill="#8254F5">
         Metadata
       </text>
-      <text x="173" y="475" fontFamily="Arial, sans-serif" fontSize="16" fill="#141414">
+      <text x="173" y="475" fontSize="16" fill="#141414">
         The Open Context Platform | Apache 2.0
       </text>
 
@@ -275,7 +275,7 @@ export default function CollateArchitecture({
             x={item.x + 103.5}
             y="582"
             textAnchor="middle"
-            fontFamily="Arial, sans-serif"
+           
             fontWeight="700"
             fontSize="18"
             fill="#111"
@@ -286,7 +286,7 @@ export default function CollateArchitecture({
             x={item.x + 103.5}
             y="605"
             textAnchor="middle"
-            fontFamily="Arial, sans-serif"
+           
             fontSize="13.5"
             fill="#111"
           >
@@ -297,7 +297,7 @@ export default function CollateArchitecture({
               x={item.x + 103.5}
               y="622"
               textAnchor="middle"
-              fontFamily="Arial, sans-serif"
+             
               fontSize="13.5"
               fill="#111"
             >
@@ -317,13 +317,13 @@ export default function CollateArchitecture({
       ))}
 
       {/* Data systems */}
-      <text x="16" y="692" fontSize="16" fontFamily="Arial, sans-serif" fill="#111">
+      <text x="16" y="692" fontSize="16" fill="#111">
         Data &amp; Semantic
       </text>
-      <text x="16" y="712" fontSize="16" fontFamily="Arial, sans-serif" fill="#111">
+      <text x="16" y="712" fontSize="16" fill="#111">
         Sources, Systems
       </text>
-      <text x="16" y="732" fontSize="16" fontFamily="Arial, sans-serif" fill="#111">
+      <text x="16" y="732" fontSize="16" fill="#111">
         of Knowledge
       </text>
       {([234, 289, 344, 399, 454, 509, 564] as const).map((x, i) => (
@@ -344,7 +344,7 @@ export default function CollateArchitecture({
             stroke="#E3E9F6"
             filter={`url(#${shadow})`}
           />
-          <text x={x} y="725" fontFamily="Arial, sans-serif" fontSize="22" fill="#AEB6CE" textAnchor="middle">
+          <text x={x} y="725" fontSize="22" fill="#AEB6CE" textAnchor="middle">
             {['▱', '❄', '▲', '▣', '✣', '☁', '♧'][i]}
           </text>
         </g>

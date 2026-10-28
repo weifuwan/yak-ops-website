@@ -35,7 +35,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const HEADER_CLASS =
-  'sticky top-0 z-[1200] w-full border-b [font-family:var(--yak-font-marketing)] transition-[background-color,border-color,color,box-shadow] duration-[240ms] ease-in-out';
+  'sticky top-0 z-[1200] w-full border-b transition-[background-color,border-color,color,box-shadow] duration-[240ms] ease-in-out';
 
 const NAV_LINK_CLASS =
   'inline-flex min-h-9 cursor-pointer items-center justify-center gap-[7px] whitespace-nowrap rounded-full border border-transparent bg-transparent px-[13px] py-2 text-sm font-medium leading-[18px] no-underline transition-[background-color,border-color,color] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#016afb]';

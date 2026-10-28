@@ -16,7 +16,7 @@ export default function ContextPlatformSection({
   return (
     <section className={`bg-[#F3F4FB] ${className}`} {...props}>
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-12 lg:px-24 lg:py-16">
-        <h2 className="text-center text-[28px] leading-tight tracking-[0.01em] text-black sm:text-[40px]">
+        <h2 className="text-center text-[28px] leading-tight tracking-[0.01em] font-normal text-black sm:text-[40px]">
           Build context once. Use it everywhere.
         </h2>
 
