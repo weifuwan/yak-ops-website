@@ -3,7 +3,6 @@
  * The artwork remains readable without motion, and animations pause when
  * their SVGs leave the viewport.
  */
-.yak-problem-illustration .yak-fragmentation-stack,
 .yak-problem-illustration .yak-manual-row,
 .yak-problem-illustration .yak-manual-repeat,
 .yak-problem-illustration .yak-blind-error-marker,
@@ -12,22 +11,7 @@
   transform-origin: center;
 }
 
-/* Staggered depth movement, not separate floating feature icons. */
-.yak-fragmentation-stack--back {
-  animation: yak-stack-back 7s ease-in-out infinite;
-}
-
-.yak-fragmentation-stack--middle {
-  animation: yak-stack-middle 7s ease-in-out infinite;
-}
-
-.yak-fragmentation-stack--front {
-  animation: yak-stack-front 7s ease-in-out infinite;
-}
-
-.yak-fragmentation-row-highlight {
-  animation: yak-stack-focus 7s ease-in-out infinite;
-}
+/* Fragmentation panels use Framer Motion to change physical stack order. */
 
 .yak-manual-row--one {
   animation: yak-check-first 7s ease-in-out infinite;
@@ -61,26 +45,6 @@
 .yak-blind-error-badge,
 .yak-blind-error-log {
   animation: yak-error-highlight 7s ease-in-out infinite;
-}
-
-@keyframes yak-stack-back {
-  0%, 100% { opacity: .82; transform: translate(-2px, 2px); }
-  35%, 75% { opacity: .96; transform: translate(1px, -2px); }
-}
-
-@keyframes yak-stack-middle {
-  0%, 100% { opacity: .86; transform: translate(2px, 2px); }
-  45%, 78% { opacity: 1; transform: translate(-2px, -1px); }
-}
-
-@keyframes yak-stack-front {
-  0%, 100% { transform: translateY(0); }
-  40%, 72% { transform: translateY(-3px); }
-}
-
-@keyframes yak-stack-focus {
-  0%, 20%, 100% { opacity: .18; }
-  42%, 72% { opacity: .82; }
 }
 
 @keyframes yak-check-first {

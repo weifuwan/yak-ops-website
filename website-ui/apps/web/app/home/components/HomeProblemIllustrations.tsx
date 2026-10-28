@@ -1,5 +1,5 @@
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 import './HomeProblemIllustrations.css';
 
@@ -19,140 +19,123 @@ function useIllustrationAnimation() {
  * SVG is kept local so the website does not depend on Collate's external assets.
  */
 
-type FragmentationLayer = 'back' | 'middle' | 'front';
-
 const pipelineRows = [
   { name: 'Source', state: 'Ready', time: '08:42', color: '#6DBCA7' },
   { name: 'Transform', state: 'Running', time: '08:43', color: '#77A7EA' },
   { name: 'Schedule', state: 'Queued', time: '—', color: '#BDCADB' },
 ] as const;
 
-/** A restrained, product-like view of the same workflow in different tools. */
-function FragmentationWindow({
-  x,
-  y,
-  width,
-  height,
-  rotation,
-  layer,
-}: {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  rotation: number;
-  layer: FragmentationLayer;
-}) {
-  const front = layer === 'front';
+const fragmentationPositions = [
+  { x: 76, y: 74, rotate: 0, scale: 1, opacity: 1 },
+  { x: 52, y: 45, rotate: -4, scale: 0.94, opacity: 0.73 },
+  { x: 22, y: 26, rotate: -9, scale: 0.9, opacity: 0.5 },
+] as const;
 
+/**
+ * Each copy of orders_daily represents an independently managed workflow view.
+ * All three copies share the same layout; the foreground row focus differs.
+ */
+function FragmentationWindow({ highlightedRow }: { highlightedRow: number }) {
   return (
-    <g transform={`rotate(${rotation} ${x + width / 2} ${y + height / 2})`}>
-      <g className={`yak-fragmentation-stack yak-fragmentation-stack--${layer}`}>
-        <rect
-          x={x}
-          y={y}
-          width={width}
-          height={height}
-          rx="14"
-          fill="#FFFFFF"
-          stroke={front ? '#BCCDE1' : layer === 'back' ? '#8BB9FA' : '#CEDCEB'}
-          strokeWidth={front ? 2 : 1.5}
-        />
-        <rect x={x + 1} y={y + 1} width={width - 2} height="37" rx="13" fill={front ? '#EAF2FD' : '#F3F7FD'} />
-        <rect x={x + 1} y={y + 25} width={width - 2} height="13" fill={front ? '#EAF2FD' : '#F3F7FD'} />
-        <circle cx={x + 20} cy={y + 19} r="3.3" fill="#B6C7DE" />
-        <text
-          x={x + 33}
-          y={y + 24}
-          fontFamily="Arial, sans-serif"
-          fontSize="13"
-          fontWeight="600"
-          fill={front ? '#253853' : '#8899B1'}
-        >
-          orders_daily
-        </text>
+    <g>
+      <rect x="0" y="0" width="318" height="187" rx="14" fill="#FFFFFF" stroke="#BACDE3" strokeWidth="2" />
+      <rect x="1" y="1" width="316" height="36" rx="13" fill="#EAF2FD" />
+      <rect x="1" y="25" width="316" height="13" fill="#EAF2FD" />
+      <circle cx="19" cy="19" r="3.3" fill="#B6C7DE" />
+      <text x="32" y="24" fontFamily="Arial, sans-serif" fontSize="13" fontWeight="600" fill="#253853">
+        orders_daily
+      </text>
 
-        {front ? (
-          <>
-            {[
-              { label: 'STEP', dx: 18 },
-              { label: 'STATUS', dx: 121 },
-              { label: 'UPDATED', dx: 232 },
-            ].map((column) => (
-              <text
-                key={column.label}
-                x={x + column.dx}
-                y={y + 55}
-                fontFamily="Arial, sans-serif"
-                fontSize="10"
-                fontWeight="600"
-                fill="#8292A7"
-              >
-                {column.label}
-              </text>
-            ))}
-            <path
-              d={`M${x + 17} ${y + 63}H${x + width - 17}`}
-              stroke="#E6ECF4"
-            />
-            <rect
-              className="yak-fragmentation-row-highlight"
-              x={x + 11}
-              y={y + 101}
-              width={width - 22}
-              height="35"
-              rx="5"
-              fill="#EAF3FF"
-            />
-            {pipelineRows.map((row, i) => {
-              const baseline = y + 85 + i * 36;
-              return (
-                <g key={row.name}>
-                  <text x={x + 18} y={baseline} fontFamily="Arial, sans-serif" fontSize="12" fill="#4B5B72">
-                    {row.name}
-                  </text>
-                  <circle cx={x + 123} cy={baseline - 4} r="3" fill={row.color} />
-                  <text x={x + 132} y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#677A93">
-                    {row.state}
-                  </text>
-                  <text x={x + 233} y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#8898AD">
-                    {row.time}
-                  </text>
-                  <path d={`M${x + 17} ${baseline + 13}H${x + width - 17}`} stroke="#E6ECF4" />
-                </g>
-              );
-            })}
-          </>
-        ) : (
-          <>
-            <rect x={x + 18} y={y + 54} width="143" height="7" rx="3.5" fill="#E3EBF6" />
-            <rect x={x + 18} y={y + 72} width="91" height="7" rx="3.5" fill="#EDF2F9" />
-            {[0, 1, 2].map((row) => (
-              <g key={row}>
-                <path
-                  d={`M${x + 17} ${y + 96 + row * 32}H${x + width - 17}`}
-                  stroke="#E5ECF5"
-                />
-                <rect x={x + 22} y={y + 108 + row * 32} width={68 + row * 7} height="6" rx="3" fill="#E4ECF7" />
-                <rect x={x + 127} y={y + 108 + row * 32} width={81 - row * 8} height="6" rx="3" fill="#E8EFF9" />
-              </g>
-            ))}
-          </>
-        )}
-      </g>
+      <text x="18" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill="#8292A7">
+        STEP
+      </text>
+      <text x="121" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill="#8292A7">
+        STATUS
+      </text>
+      <text x="232" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill="#8292A7">
+        UPDATED
+      </text>
+      <path d="M17 63H301" stroke="#E6ECF4" />
+      <rect
+        x="11"
+        y={66 + highlightedRow * 36}
+        width="296"
+        height="34"
+        rx="5"
+        fill="#EAF3FF"
+      />
+
+      {pipelineRows.map((row, index) => {
+        const baseline = 85 + index * 36;
+
+        return (
+          <g key={row.name}>
+            <text x="18" y={baseline} fontFamily="Arial, sans-serif" fontSize="12" fill="#4B5B72">
+              {row.name}
+            </text>
+            <circle cx="123" cy={baseline - 4} r="3" fill={row.color} />
+            <text x="132" y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#677A93">
+              {row.state}
+            </text>
+            <text x="233" y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#8898AD">
+              {row.time}
+            </text>
+            <path d={`M17 ${baseline + 13}H301`} stroke="#E6ECF4" />
+          </g>
+        );
+      })}
     </g>
   );
 }
 
 export function FragmentationIllustration() {
-  const animation = useIllustrationAnimation();
+  const ref = useRef<SVGSVGElement>(null);
+  const visible = useInView(ref, { amount: 0.2 });
+  const reducedMotion = useReducedMotion();
+  const [activePanel, setActivePanel] = useState(0);
+
+  useEffect(() => {
+    if (!visible || reducedMotion) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setActivePanel((current) => (current + 1) % fragmentationPositions.length);
+    }, 2600);
+
+    return () => window.clearInterval(interval);
+  }, [visible, reducedMotion]);
+
+  // SVG painting order matters: draw the back panel first and front panel last.
+  const panels = fragmentationPositions
+    .map((_, index) => ({
+      index,
+      depth: (index - activePanel + fragmentationPositions.length) % fragmentationPositions.length,
+    }))
+    .sort((a, b) => b.depth - a.depth);
 
   return (
-    <svg {...animation} aria-hidden="true" viewBox="0 0 416 270" fill="none">
+    <svg ref={ref} aria-hidden="true" className="h-full w-full" viewBox="0 0 416 270" fill="none">
       <rect width="416" height="270" fill="#E8F4FF" />
-      <FragmentationWindow x={18} y={24} width={295} height={199} rotation={-10} layer="back" />
-      <FragmentationWindow x={57} y={46} width={299} height={197} rotation={-4} layer="middle" />
-      <FragmentationWindow x={76} y={74} width={318} height={187} rotation={0} layer="front" />
+      {panels.map((panel) => {
+        const position = fragmentationPositions[panel.depth];
+
+        return (
+          <motion.g
+            key={panel.index}
+            className="origin-center [transform-box:fill-box]"
+            initial={false}
+            animate={position}
+            transition={
+              reducedMotion
+                ? { duration: 0 }
+                : { duration: 0.85, ease: [0.22, 1, 0.36, 1] }
+            }
+          >
+            <FragmentationWindow highlightedRow={panel.index} />
+          </motion.g>
+        );
+      })}
     </svg>
   );
 }
