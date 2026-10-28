@@ -145,22 +145,22 @@ export default function HomeTestimonialsSection() {
               ))}
             </div>
           </div>
-          <div className="mt-6 flex justify-center gap-1" role="group" aria-label="Choose a testimonial">
-            {testimonials.map((item, index) => (
-              <button
-                aria-current={activeIndex === index ? 'true' : 'false'}
-                aria-label={`Go to testimonial ${index + 1}`}
-                className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border-0 bg-transparent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1265be]"
-                key={item.name}
-                onClick={() => setActiveIndex(index)}
-                type="button"
-              >
-                <span
-                  className={`h-3 w-3 rounded-full transition-colors ${activeIndex === index ? 'bg-[#1454a8]' : 'bg-[#d0d8e5]'}`}
-                />
-              </button>
-            ))}
-          </div>
+        </div>
+        <div className="relative z-10 mt-6 flex justify-center gap-1" role="group" aria-label="Choose a testimonial">
+          {testimonials.map((item, index) => (
+            <button
+              aria-current={activeIndex === index ? 'true' : 'false'}
+              aria-label={`Go to testimonial ${index + 1}`}
+              className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border-0 bg-transparent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1265be]"
+              key={item.name}
+              onClick={() => setActiveIndex(index)}
+              type="button"
+            >
+              <span
+                className={`h-3 w-3 rounded-full transition-colors ${activeIndex === index ? 'bg-[#1454a8]' : 'bg-white/75'}`}
+              />
+            </button>
+          ))}
         </div>
       </div>
     </section>
