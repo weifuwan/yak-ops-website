@@ -302,11 +302,11 @@ export default function MarketingHeader() {
 
         <div className="flex shrink-0 items-center justify-end gap-3">
           <MarketingLink
-            className="inline-flex min-h-[38px] items-center justify-center whitespace-nowrap rounded-lg border border-[#016afb] bg-[#016afb] px-5 text-sm font-semibold leading-none text-white no-underline transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px hover:border-[#0056dc] hover:bg-[#0056dc] hover:text-white focus-visible:border-[#0056dc] focus-visible:bg-[#0056dc] focus-visible:text-white max-[560px]:hidden"
-            href={MARKETING_HEADER_ACTIONS.startUsing}
+            className="inline-flex min-h-[38px] items-center justify-center whitespace-nowrap rounded-lg border border-[#e4233d] bg-[#e4233d] px-5 text-sm font-semibold leading-none text-white no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white max-[560px]:hidden"
+            href="https://www.getcollate.io/contact-sales"
             onClick={closeAllMenus}
           >
-            Get Started
+            Contact Us
           </MarketingLink>
           <button
             aria-controls="yak-marketing-mobile-menu"
