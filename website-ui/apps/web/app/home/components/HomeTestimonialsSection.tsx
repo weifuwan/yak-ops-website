@@ -62,7 +62,7 @@ export default function HomeTestimonialsSection() {
   return (
     <section
       aria-label="Customer testimonials"
-      className="bg-[#e9eff9] py-12 md:py-16"
+      className="bg-[linear-gradient(90deg,#2e90fa_0%,#b5d8ff_65%)] py-12 md:py-16"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -87,7 +87,7 @@ export default function HomeTestimonialsSection() {
                   aria-hidden={activeIndex !== index}
                   aria-label={`${index + 1} of ${testimonials.length}`}
                   aria-roledescription="slide"
-                  className="grid w-full shrink-0 grid-cols-1 bg-gradient-to-r from-[#d6e9ff] to-[#bcd5f8] md:grid-cols-[2fr_3fr]"
+                  className="grid w-full shrink-0 grid-cols-1 bg-[linear-gradient(90deg,#b5d8ff_0%,#eef6fd_100%)] md:grid-cols-[2fr_3fr]"
                   key={item.name}
                   role="group"
                 >
