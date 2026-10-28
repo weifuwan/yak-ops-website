@@ -59,16 +59,16 @@ export default function HomeHeroSection() {
 
           <div className="mx-auto w-full max-w-[600px] lg:mr-0">
             <div className="rounded-2xl border border-white/15 bg-[#0b1935]/70 px-4 pt-7 pb-4 backdrop-blur-md sm:px-7 sm:pt-10 sm:pb-6">
-              <p className="flex items-center justify-center gap-3 text-white sm:gap-5">
+              <p className="m-0 flex items-center justify-center gap-3 text-white sm:gap-5">
                 <span className="text-[56px] leading-none font-bold text-[#FFE500] sm:text-[80px]">7x</span>
                 <span className="text-[28px] leading-none font-semibold sm:text-[40px]">Fewer Errors</span>
               </p>
 
               <div className="mt-7 rounded-xl bg-[#07112a]/70 px-4 py-4 sm:mt-9 sm:px-6 sm:py-5">
-                <p className="text-center text-base text-white sm:text-lg">Agent Accuracy</p>
+                <p className="m-0 text-center text-base text-white sm:text-lg">Agent Accuracy</p>
 
                 <div className="mt-3 sm:mt-4">
-                  <p className="text-sm text-white sm:text-base">Opus + Collate</p>
+                  <p className="m-0 text-sm text-white sm:text-base">Opus + Collate</p>
                   <div className="mt-1.5 flex items-center gap-3 sm:gap-4">
                     <div
                       aria-hidden="true"
@@ -81,7 +81,7 @@ export default function HomeHeroSection() {
                 </div>
 
                 <div className="mt-3 sm:mt-4">
-                  <p className="text-sm text-white sm:text-base">Opus alone</p>
+                  <p className="m-0 text-sm text-white sm:text-base">Opus alone</p>
                   <div className="mt-1.5 flex items-center gap-3 sm:gap-4">
                     <div
                       aria-hidden="true"
