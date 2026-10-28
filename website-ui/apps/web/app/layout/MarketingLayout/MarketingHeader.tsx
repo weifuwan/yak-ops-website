@@ -236,7 +236,8 @@ export default function MarketingHeader() {
 
   const openedItem = MARKETING_NAV_ITEMS.find((item) => item.kind === 'mega' && item.key === openMenu);
   const activeMegaMenu = openedItem?.kind === 'mega' ? openedItem : null;
-  const isDark = pathname === '/' && !isScrolled && !openMenu && !mobileOpen;
+  // Opening a desktop mega menu must not change the homepage header background.
+  const isDark = pathname === '/' && !isScrolled && !mobileOpen;
 
   return (
     <header
@@ -276,7 +277,7 @@ export default function MarketingHeader() {
                     aria-controls={openMenu === item.key ? 'yak-marketing-menu-' + item.key : undefined}
                     aria-expanded={openMenu === item.key}
                     aria-haspopup="true"
-                    className={`${NAV_LINK_CLASS} ${isDark ? NAV_LINK_DARK_CLASS : NAV_LINK_LIGHT_CLASS} ${openMenu === item.key ? 'border-[#d9dfe8] bg-[#f7f8fb] text-[#162044]' : ''}`}
+                    className={`${NAV_LINK_CLASS} ${isDark ? NAV_LINK_DARK_CLASS : NAV_LINK_LIGHT_CLASS} ${openMenu === item.key ? (isDark ? 'border-white/40 bg-white/10 text-white' : 'border-[#d9dfe8] bg-[#f7f8fb] text-[#162044]') : ''}`}
                     onClick={() => setOpenMenu(openMenu === item.key ? null : item.key)}
                     onMouseEnter={() => setOpenMenu(item.key)}
                     type="button"
