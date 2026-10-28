@@ -26,43 +26,56 @@ const pipelineRows = [
 ] as const;
 
 const fragmentationPositions = [
-  { x: 76, y: 74, rotate: 0, scale: 1, opacity: 1 },
-  { x: 52, y: 45, rotate: -4, scale: 0.94, opacity: 0.73 },
-  { x: 22, y: 26, rotate: -9, scale: 0.9, opacity: 0.5 },
+  { x: 76, y: 74, rotate: 0, scale: 1 },
+  { x: 52, y: 45, rotate: -4, scale: 0.94 },
+  { x: 22, y: 26, rotate: -9, scale: 0.9 },
 ] as const;
 
 /**
- * Each copy of orders_daily represents an independently managed workflow view.
- * All three copies share the same layout; the foreground row focus differs.
+ * Opaque, product-like workflow panels. Back panels use a solid neutral surface
+ * rather than opacity, so their contents never look washed out through the stack.
  */
-function FragmentationWindow({ highlightedRow }: { highlightedRow: number }) {
+function FragmentationWindow({
+  highlightedRow,
+  depth,
+}: {
+  highlightedRow: number;
+  depth: number;
+}) {
+  const front = depth === 0;
+  const surface = front ? '#FFFFFF' : '#F8FAFD';
+  const header = front ? '#EDF3FC' : '#F0F4F9';
+  const border = front ? '#AFC4E0' : '#C4D3E4';
+  const primaryText = front ? '#243752' : '#657993';
+  const secondaryText = front ? '#7588A2' : '#8B9BB0';
+  const divider = front ? '#E2EAF4' : '#E7EDF5';
+
   return (
-    <g>
-      <rect x="0" y="0" width="318" height="187" rx="14" fill="#FFFFFF" stroke="#BACDE3" strokeWidth="2" />
-      <rect x="1" y="1" width="316" height="36" rx="13" fill="#EAF2FD" />
-      <rect x="1" y="25" width="316" height="13" fill="#EAF2FD" />
-      <circle cx="19" cy="19" r="3.3" fill="#B6C7DE" />
-      <text x="32" y="24" fontFamily="Arial, sans-serif" fontSize="13" fontWeight="600" fill="#253853">
+    <g filter={front ? 'url(#fragmentation-front-shadow)' : 'url(#fragmentation-back-shadow)'}>
+      <rect x="0" y="0" width="318" height="187" rx="14" fill={surface} stroke={border} strokeWidth={front ? 2 : 1.5} />
+      <path d="M14 1H304C311.18 1 317 6.82 317 14V37H1V14C1 6.82 6.82 1 14 1Z" fill={header} />
+      <circle cx="19" cy="19" r="3.3" fill={front ? '#AFC1D9' : '#C4D1E2'} />
+      <text x="32" y="24" fontFamily="Arial, sans-serif" fontSize="13" fontWeight="600" fill={primaryText}>
         orders_daily
       </text>
 
-      <text x="18" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill="#8292A7">
+      <text x="18" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill={secondaryText}>
         STEP
       </text>
-      <text x="121" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill="#8292A7">
+      <text x="121" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill={secondaryText}>
         STATUS
       </text>
-      <text x="232" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill="#8292A7">
+      <text x="232" y="55" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="600" fill={secondaryText}>
         UPDATED
       </text>
-      <path d="M17 63H301" stroke="#E6ECF4" />
+      <path d="M17 63H301" stroke={divider} />
       <rect
         x="11"
         y={66 + highlightedRow * 36}
         width="296"
         height="34"
         rx="5"
-        fill="#EAF3FF"
+        fill={front ? '#E5EFFF' : '#EDF2F8'}
       />
 
       {pipelineRows.map((row, index) => {
@@ -70,17 +83,17 @@ function FragmentationWindow({ highlightedRow }: { highlightedRow: number }) {
 
         return (
           <g key={row.name}>
-            <text x="18" y={baseline} fontFamily="Arial, sans-serif" fontSize="12" fill="#4B5B72">
+            <text x="18" y={baseline} fontFamily="Arial, sans-serif" fontSize="12" fill={primaryText}>
               {row.name}
             </text>
             <circle cx="123" cy={baseline - 4} r="3" fill={row.color} />
-            <text x="132" y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#677A93">
+            <text x="132" y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill={primaryText}>
               {row.state}
             </text>
-            <text x="233" y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#8898AD">
+            <text x="233" y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill={secondaryText}>
               {row.time}
             </text>
-            <path d={`M17 ${baseline + 13}H301`} stroke="#E6ECF4" />
+            <path d={`M17 ${baseline + 13}H301`} stroke={divider} />
           </g>
         );
       })}
@@ -106,7 +119,7 @@ export function FragmentationIllustration() {
     return () => window.clearInterval(interval);
   }, [visible, reducedMotion]);
 
-  // SVG painting order matters: draw the back panel first and front panel last.
+  // Draw the back panel first and the active, fully opaque panel last.
   const panels = fragmentationPositions
     .map((_, index) => ({
       index,
@@ -116,7 +129,15 @@ export function FragmentationIllustration() {
 
   return (
     <svg ref={ref} aria-hidden="true" className="h-full w-full" viewBox="0 0 416 270" fill="none">
-      <rect width="416" height="270" fill="#E8F4FF" />
+      <defs>
+        <filter id="fragmentation-front-shadow" x="-12%" y="-12%" width="124%" height="132%">
+          <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#34557D" floodOpacity="0.14" />
+        </filter>
+        <filter id="fragmentation-back-shadow" x="-12%" y="-12%" width="124%" height="132%">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#34557D" floodOpacity="0.05" />
+        </filter>
+      </defs>
+      <rect width="416" height="270" fill="#F0F5FB" />
       {panels.map((panel) => {
         const position = fragmentationPositions[panel.depth];
 
@@ -132,7 +153,7 @@ export function FragmentationIllustration() {
                 : { duration: 0.85, ease: [0.22, 1, 0.36, 1] }
             }
           >
-            <FragmentationWindow highlightedRow={panel.index} />
+            <FragmentationWindow highlightedRow={panel.index} depth={panel.depth} />
           </motion.g>
         );
       })}
