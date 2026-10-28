@@ -1,34 +1,28 @@
+import type { HTMLAttributes } from 'react';
 
-import type { HTMLAttributes } from "react";
+import CollateArchitecture from './CollateArchitecture';
 
-import CollateArchitecture from "./CollateArchitecture";
-
-export interface ContextPlatformSectionProps
-  extends HTMLAttributes<HTMLElement> {
+export interface ContextPlatformSectionProps extends HTMLAttributes<HTMLElement> {
   ontologyHref?: string;
   productHref?: string;
 }
 
 export default function ContextPlatformSection({
-  ontologyHref = "/blog/ground-your-ai-in-standards-based-knowledge-with-ontology-explorer",
-  productHref = "/product",
-  className = "",
+  ontologyHref = '/blog/ground-your-ai-in-standards-based-knowledge-with-ontology-explorer',
+  productHref = '/product',
+  className = '',
   ...props
 }: ContextPlatformSectionProps) {
   return (
-    <section
-      className={`bg-[#F3F4FB] ${className}`}
-      {...props}
-    >
+    <section className={`bg-[#F3F4FB] ${className}`} {...props}>
       <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-12 lg:px-24 lg:py-16">
         <h2 className="text-center text-[28px] leading-tight tracking-[0.01em] text-black sm:text-[40px]">
           Build context once. Use it everywhere.
         </h2>
 
         <p className="mx-auto mt-4 max-w-[600px] text-center text-base leading-6 text-black">
-          Built on OpenMetadata&apos;s open context platform,
-          Collate unifies Metadata, Meaning, and Memory
-          for every agent you build or use.
+          Built on OpenMetadata&apos;s open context platform, Collate unifies Metadata, Meaning, and Memory for every
+          agent you build or use.
         </p>
 
         {/* Architecture diagram */}
@@ -52,19 +46,12 @@ export default function ContextPlatformSection({
             >
               <circle cx="5.6" cy="6.7" r="3.1" />
               <circle cx="19.6" cy="7.3" r="2.9" />
-              <circle
-                cx="12.6"
-                cy="17.8"
-                r="3.45"
-                fill="currentColor"
-                stroke="none"
-              />
+              <circle cx="12.6" cy="17.8" r="3.45" fill="currentColor" stroke="none" />
               <path d="m8.7 6.83 8 .35M7.25 9.32l5.35 8.48m5.39-8.09L12.6 17.8" />
             </svg>
 
             <p className="text-sm text-black md:text-base">
-              An Ontology links business terms to the
-              data assets they describe.
+              An Ontology links business terms to the data assets they describe.
             </p>
           </div>
 
@@ -78,12 +65,8 @@ export default function ContextPlatformSection({
         </div>
 
         <p className="mt-8 text-center text-base text-black">
-          Learn more about the{" "}
-          <a
-            href={productHref}
-            rel="noopener noreferrer"
-            className="text-[#1680F8] hover:underline"
-          >
+          Learn more about the{' '}
+          <a href={productHref} rel="noopener noreferrer" className="text-[#1680F8] hover:underline">
             Collate Agentic Data Platform
           </a>
         </p>
