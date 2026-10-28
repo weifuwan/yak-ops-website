@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { getDocsDocument, type DocsDocument } from '@/service/docs';
 import { extractDocsToc } from '@/utils/docs';
 
 import DocsHeader from './components/DocsHeader';
+import DocsHome from './components/DocsHome';
+import DocsRelease2 from './components/DocsRelease2';
 import DocsSidebar from './components/DocsSidebar';
 import DocsTableOfContents from './components/DocsTableOfContents';
 import MarkdownArticle from './components/MarkdownArticle';
@@ -25,13 +27,25 @@ export default function DocsPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const requestedSlug = docsSlugFromPath(location.pathname);
+  const isHome = requestedSlug === '';
+  const isRelease = requestedSlug === 'release-2.0';
   const [documentData, setDocumentData] = useState<DocsDocument>();
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [searchRequest, setSearchRequest] = useState(0);
 
   useEffect(() => {
-    if (requestedSlug && requestedSlug !== DEFAULT_DOC_SLUG) {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    setMobileNavOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    // Home and release overview are real pages; neither loads the article API.
+    if (isHome || isRelease) {
+      return;
+    }
+    if (requestedSlug !== DEFAULT_DOC_SLUG) {
       navigate('/docs', { replace: true });
       return;
     }
@@ -44,7 +58,6 @@ export default function DocsPage() {
       .then((docsDocument) => {
         if (!cancelled) {
           setDocumentData(docsDocument);
-          window.scrollTo({ top: 0, behavior: 'auto' });
         }
       })
       .catch((error) => {
@@ -62,7 +75,7 @@ export default function DocsPage() {
     return () => {
       cancelled = true;
     };
-  }, [navigate, requestedSlug]);
+  }, [navigate, requestedSlug, isHome, isRelease]);
 
   const toc = useMemo(() => (documentData ? extractDocsToc(documentData.markdown) : []), [documentData]);
 
@@ -74,30 +87,39 @@ export default function DocsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]">
-      <DocsHeader onOpenNavigation={() => setMobileNavOpen(true)} />
+    <div className={isHome || isRelease ? 'min-h-screen bg-white font-yak text-[#18181B]' : 'min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]'}>
+      <DocsHeader
+        onOpenNavigation={() => setMobileNavOpen(true)}
+        searchRequest={searchRequest}
+      />
 
-      <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
-        <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
-          <DocsSidebar onNavigate={navigateToDockerCompose} />
-        </aside>
-
-        <main className="min-w-0 flex-1 py-9 lg:px-8 xl:px-10">
-          <div className="mx-auto max-w-[760px]">
-            {loading ? (
-              <div className="min-h-[360px]" />
-            ) : errorMessage ? (
-              <DocsErrorState message={errorMessage} />
-            ) : documentData ? (
-              <MarkdownArticle markdown={documentData.markdown} />
-            ) : null}
-          </div>
-        </main>
-
-        <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block">
-          <DocsTableOfContents items={toc} />
-        </aside>
-      </div>
+      {isHome ? (
+        <DocsHome onSearch={() => setSearchRequest((count) => count + 1)} />
+      ) : isRelease ? (
+        <DocsRelease2 />
+      ) : (
+        <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
+          <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
+            <DocsSidebar onNavigate={navigateToDockerCompose} />
+          </aside>
+  
+          <main className="min-w-0 flex-1 py-9 lg:px-8 xl:px-10">
+            <div className="mx-auto max-w-[760px]">
+              {loading ? (
+                <div className="min-h-[360px]" />
+              ) : errorMessage ? (
+                <DocsErrorState message={errorMessage} />
+              ) : documentData ? (
+                <MarkdownArticle markdown={documentData.markdown} />
+              ) : null}
+            </div>
+          </main>
+  
+          <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block">
+            <DocsTableOfContents items={toc} />
+          </aside>
+        </div>
+      )}
 
       {mobileNavOpen ? (
         <div className="fixed inset-0 z-[60] lg:hidden">
@@ -107,9 +129,9 @@ export default function DocsPage() {
             onClick={() => setMobileNavOpen(false)}
             type="button"
           />
-          <aside className="absolute inset-y-0 left-0 flex w-[300px] max-w-[86vw] flex-col bg-[#F5F5F5] shadow-[18px_0_50px_rgba(24,24,27,0.16)]">
+          <aside className="absolute inset-y-0 left-0 flex w-[300px] max-w-[86vw] flex-col bg-white shadow-[18px_0_50px_rgba(24,24,27,0.16)]">
             <div className="flex h-16 items-center justify-between border-b border-solid border-[#E4E4E7] px-5">
-              <span className="text-[15px] font-semibold">Getting Started</span>
+              <span className="text-[15px] font-semibold">Documentation</span>
               <button
                 aria-label="Close navigation"
                 className="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border-0 bg-transparent text-xl text-[#71717A] hover:bg-black/[0.04]"
@@ -119,6 +141,24 @@ export default function DocsPage() {
                 ×
               </button>
             </div>
+            <nav aria-label="Documentation main pages" className="grid gap-1 border-b border-[#edf0f5] px-4 py-4">
+              <Link
+                aria-current={isHome ? 'page' : undefined}
+                className={isHome ? 'rounded-lg bg-[#ecf6ff] px-3 py-2.5 text-sm font-semibold text-[#086cf5]' : 'rounded-lg px-3 py-2.5 text-sm font-medium text-[#334155] hover:bg-[#f2f6fc]'}
+                onClick={() => setMobileNavOpen(false)}
+                to="/docs"
+              >
+                Home
+              </Link>
+              <Link
+                aria-current={isRelease ? 'page' : undefined}
+                className={isRelease ? 'rounded-lg bg-[#ecf6ff] px-3 py-2.5 text-sm font-semibold text-[#086cf5]' : 'rounded-lg px-3 py-2.5 text-sm font-medium text-[#334155] hover:bg-[#f2f6fc]'}
+                onClick={() => setMobileNavOpen(false)}
+                to="/docs/release-2.0"
+              >
+                Release 2.0
+              </Link>
+            </nav>
             <div className="flex-1 overflow-y-auto px-4 py-6">
               <DocsSidebar onNavigate={navigateToDockerCompose} />
             </div>

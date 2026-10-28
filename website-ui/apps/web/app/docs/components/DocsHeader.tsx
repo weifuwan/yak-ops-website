@@ -17,6 +17,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 type DocsHeaderProps = {
   onOpenNavigation: () => void;
+  searchRequest?: number;
 };
 
 type DocsTab = {
@@ -28,7 +29,7 @@ type DocsTab = {
 
 const DOCS_TABS: readonly DocsTab[] = [
   { label: 'Home', href: '/docs', description: 'Documentation home' },
-  { label: 'Release 2.0', href: '/blog', description: 'Latest product updates and release notes' },
+  { label: 'Release 2.0', href: '/docs/release-2.0', description: 'Yak Ops 2.0 release overview' },
   { label: 'Get Started', href: '/docs/deploy/docker-compose', description: 'Start using Yak Ops' },
   { label: 'Connectors', href: '/product/data-sources', description: 'Connect your data sources' },
   { label: 'Products', href: '/product/data-development', description: 'Explore Yak Ops capabilities' },
@@ -125,7 +126,7 @@ function ActionLink({
   );
 }
 
-export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
+export default function DocsHeader({ onOpenNavigation, searchRequest = 0 }: DocsHeaderProps) {
   const { pathname } = useLocation();
   const [activePanel, setActivePanel] = useState<'search' | 'assistant' | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -179,6 +180,15 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
     setVersionOpen(false);
     setMoreOpen(false);
   }, [pathname]);
+
+  // The documentation home search opens the same dialog as Ctrl/Cmd+K.
+  useEffect(() => {
+    if (searchRequest > 0) {
+      setActivePanel('search');
+      setSearchQuery('');
+      setMoreOpen(false);
+    }
+  }, [searchRequest]);
 
   const closePanel = () => setActivePanel(null);
 
