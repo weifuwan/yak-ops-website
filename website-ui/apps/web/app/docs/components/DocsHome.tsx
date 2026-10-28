@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import DocsConnectors from './DocsConnectors';
+import DocsSummit from './DocsSummit';
 
 type DocsHomeProps = {
   onSearch: () => void;
@@ -442,6 +443,8 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
         </section>
 
         <DocsConnectors />
+
+        <DocsSummit />
 
         <section className="mx-auto mt-24 flex max-w-[1190px] flex-col items-start justify-between gap-7 rounded-[22px] border border-[#e7ecf4] bg-[linear-gradient(110deg,#f8faff,#eff7ff)] px-7 py-8 sm:flex-row sm:items-center sm:px-11 sm:py-10">
           <div className="flex items-start gap-4">
