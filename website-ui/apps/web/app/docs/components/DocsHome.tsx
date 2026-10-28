@@ -310,20 +310,25 @@ function ReleaseCarousel() {
         >
           <ArrowRight aria-hidden="true" size={20} strokeWidth={2.2} />
         </button>
-        <div aria-label="Choose featured update" className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-2">
+        <div aria-label="Choose featured update" className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
           {updates.map((update, index) => (
             <button
               aria-current={index === current ? 'true' : undefined}
               aria-label={'Go to ' + update.title}
-              className={
-                index === current
-                  ? 'h-2 w-2 cursor-pointer rounded-full bg-[#0a71f7] transition-colors'
-                  : 'h-2 w-2 cursor-pointer rounded-full bg-[#b9caf3] transition-colors hover:bg-[#7eaaf3]'
-              }
+              className="inline-flex h-3 w-3 min-w-0 shrink-0 cursor-pointer appearance-none items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
               key={update.title}
               onClick={() => setCurrent(index)}
               type="button"
-            />
+            >
+              <span
+                aria-hidden="true"
+                className={
+                  index === current
+                    ? 'block h-[10px] w-[10px] shrink-0 rounded-full bg-[#086cf5] transition-colors'
+                    : 'block h-2 w-2 shrink-0 rounded-full bg-[#c4d4ff] transition-colors hover:bg-[#8dafed]'
+                }
+              />
+            </button>
           ))}
         </div>
       </div>
