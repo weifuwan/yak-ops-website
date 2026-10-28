@@ -1,6 +1,7 @@
 'use client';
 
 import ContextPlatformSection from './components/ContextPlatformSection';
+import HomeMetricsSection from './components/HomeMetricsSection';
 import HomeBrandsMarquee from './components/HomeBrandsMarquee';
 import HomeContextProblemSection from './components/HomeContextProblemSection';
 import HomeContextRiskSection from './components/HomeContextRiskSection';
@@ -14,6 +15,7 @@ export default function HomePage() {
       <HomeContextProblemSection />
       <HomeContextRiskSection />
       <ContextPlatformSection />
+      <HomeMetricsSection />
     </main>
   );
 }
