@@ -99,7 +99,9 @@ function EcosystemRow({
               <FlowConnector begin={connectorPhases[index]} reducedMotion={reducedMotion} />
             </div>
           )}
-          <div className="flex min-h-[76px] w-full flex-col justify-center rounded-xl border border-[#DFE6F3] bg-white px-3 py-3 text-center shadow-[0_4px_18px_rgba(42,69,110,0.035)] sm:min-h-[82px]">
+          <div
+            className="flex min-h-[76px] w-full flex-col justify-center rounded-xl border border-[#DFE6F3] bg-white px-3 py-3 text-center shadow-[0_4px_18px_rgba(42,69,110,0.035)] sm:min-h-[82px]"
+          >
             <p className="m-0 text-[14px] leading-5 font-semibold text-[#1E2A47] sm:text-[15px]">{item.name}</p>
             <p className="m-0 mt-1 text-xs leading-4 text-[#7985A0] sm:text-[13px]">{item.description}</p>
           </div>
@@ -167,7 +169,9 @@ export default function YakOpsProductPanorama() {
 
       <EcosystemRow items={connectedSystems} position="above" reducedMotion={reducedMotion} />
 
-      <div className="rounded-[22px] border-[1.5px] border-[#2F6FED] bg-[linear-gradient(135deg,#EAF2FF_0%,#F0F3FD_62%,#E7F4FC_100%)] p-3 shadow-[0_14px_45px_rgba(43,94,162,0.055)] sm:p-5 lg:p-6">
+      <div
+        className="rounded-[22px] border-[1.5px] border-[#2F6FED] bg-[linear-gradient(135deg,#EAF2FF_0%,#F0F3FD_62%,#E7F4FC_100%)] p-3 shadow-[0_14px_45px_rgba(43,94,162,0.055)] sm:p-5 lg:p-6"
+      >
         <div className="mb-5 flex flex-col gap-1.5 px-1 sm:flex-row sm:items-center sm:gap-4">
           <p className="m-0 shrink-0 text-[21px] leading-tight font-bold tracking-[0.075em] text-[#172B52]">
             YAK OPS
@@ -178,7 +182,10 @@ export default function YakOpsProductPanorama() {
           </p>
         </div>
 
-        <section aria-labelledby="panorama-develop" className="rounded-[16px] border border-[#B4D1FF] bg-[#DFECFF] p-3 sm:p-4">
+        <section
+          aria-labelledby="panorama-develop"
+          className="rounded-[16px] border border-[#B4D1FF] bg-[#DFECFF] p-3 sm:p-4"
+        >
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="m-0 text-[20px] leading-7 font-semibold text-[#183766] sm:text-[22px]" id="panorama-develop">
               Develop
@@ -194,7 +201,10 @@ export default function YakOpsProductPanorama() {
           <FlowConnector begin="-0.35s" reducedMotion={reducedMotion} />
         </div>
 
-        <section aria-labelledby="panorama-govern" className="rounded-[16px] border border-[#D2C3F5] bg-[#EBE5FA] p-3 sm:p-4">
+        <section
+          aria-labelledby="panorama-govern"
+          className="rounded-[16px] border border-[#D2C3F5] bg-[#EBE5FA] p-3 sm:p-4"
+        >
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="m-0 text-[20px] leading-7 font-semibold text-[#6549A0] sm:text-[22px]" id="panorama-govern">
               Govern
