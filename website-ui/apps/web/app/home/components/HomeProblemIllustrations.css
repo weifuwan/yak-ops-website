@@ -3,39 +3,30 @@
  * The artwork remains readable without motion, and animations pause when
  * their SVGs leave the viewport.
  */
-.yak-problem-illustration .yak-fragmentation-tool,
+.yak-problem-illustration .yak-fragmentation-stack,
 .yak-problem-illustration .yak-manual-row,
 .yak-problem-illustration .yak-manual-repeat,
-.yak-problem-illustration .yak-fragmentation-break,
-.yak-problem-illustration .yak-fragmentation-caption,
 .yak-problem-illustration .yak-blind-error-marker,
 .yak-problem-illustration .yak-blind-data-dot {
   transform-box: fill-box;
   transform-origin: center;
 }
 
-.yak-fragmentation-tool--integration {
-  animation: yak-tool-first 7s ease-in-out infinite;
+/* Staggered depth movement, not separate floating feature icons. */
+.yak-fragmentation-stack--back {
+  animation: yak-stack-back 7s ease-in-out infinite;
 }
 
-.yak-fragmentation-tool--development {
-  animation: yak-tool-second 7s ease-in-out infinite;
+.yak-fragmentation-stack--middle {
+  animation: yak-stack-middle 7s ease-in-out infinite;
 }
 
-.yak-fragmentation-tool--scheduling {
-  animation: yak-tool-third 7s ease-in-out infinite;
+.yak-fragmentation-stack--front {
+  animation: yak-stack-front 7s ease-in-out infinite;
 }
 
-.yak-fragmentation-links {
-  animation: yak-links-flow 7s linear infinite;
-}
-
-.yak-fragmentation-break {
-  animation: yak-broken-link 7s ease-in-out infinite;
-}
-
-.yak-fragmentation-caption {
-  animation: yak-warning-caption 7s ease-in-out infinite;
+.yak-fragmentation-row-highlight {
+  animation: yak-stack-focus 7s ease-in-out infinite;
 }
 
 .yak-manual-row--one {
@@ -72,35 +63,24 @@
   animation: yak-error-highlight 7s ease-in-out infinite;
 }
 
-@keyframes yak-tool-first {
-  0%, 100% { opacity: .65; transform: translateY(6px); }
-  12%, 85% { opacity: 1; transform: translateY(0); }
+@keyframes yak-stack-back {
+  0%, 100% { opacity: .82; transform: translate(-2px, 2px); }
+  35%, 75% { opacity: .96; transform: translate(1px, -2px); }
 }
 
-@keyframes yak-tool-second {
-  0%, 16%, 100% { opacity: .6; transform: translateY(7px); }
-  28%, 85% { opacity: 1; transform: translateY(0); }
+@keyframes yak-stack-middle {
+  0%, 100% { opacity: .86; transform: translate(2px, 2px); }
+  45%, 78% { opacity: 1; transform: translate(-2px, -1px); }
 }
 
-@keyframes yak-tool-third {
-  0%, 32%, 100% { opacity: .6; transform: translateY(7px); }
-  44%, 85% { opacity: 1; transform: translateY(0); }
+@keyframes yak-stack-front {
+  0%, 100% { transform: translateY(0); }
+  40%, 72% { transform: translateY(-3px); }
 }
 
-@keyframes yak-links-flow {
-  0% { stroke-dashoffset: 0; opacity: .5; }
-  55%, 80% { opacity: 1; }
-  100% { stroke-dashoffset: -66; opacity: .5; }
-}
-
-@keyframes yak-broken-link {
-  0%, 45%, 100% { opacity: .3; transform: scale(.85); }
-  55%, 82% { opacity: 1; transform: scale(1.14); }
-}
-
-@keyframes yak-warning-caption {
-  0%, 43%, 100% { opacity: .68; }
-  55%, 88% { opacity: 1; }
+@keyframes yak-stack-focus {
+  0%, 20%, 100% { opacity: .18; }
+  42%, 72% { opacity: .82; }
 }
 
 @keyframes yak-check-first {

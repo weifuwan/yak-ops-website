@@ -19,65 +19,140 @@ function useIllustrationAnimation() {
  * SVG is kept local so the website does not depend on Collate's external assets.
  */
 
+type FragmentationLayer = 'back' | 'middle' | 'front';
+
+const pipelineRows = [
+  { name: 'Source', state: 'Ready', time: '08:42', color: '#6DBCA7' },
+  { name: 'Transform', state: 'Running', time: '08:43', color: '#77A7EA' },
+  { name: 'Schedule', state: 'Queued', time: '—', color: '#BDCADB' },
+] as const;
+
+/** A restrained, product-like view of the same workflow in different tools. */
+function FragmentationWindow({
+  x,
+  y,
+  width,
+  height,
+  rotation,
+  layer,
+}: {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+  layer: FragmentationLayer;
+}) {
+  const front = layer === 'front';
+
+  return (
+    <g transform={`rotate(${rotation} ${x + width / 2} ${y + height / 2})`}>
+      <g className={`yak-fragmentation-stack yak-fragmentation-stack--${layer}`}>
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          rx="14"
+          fill="#FFFFFF"
+          stroke={front ? '#BCCDE1' : layer === 'back' ? '#8BB9FA' : '#CEDCEB'}
+          strokeWidth={front ? 2 : 1.5}
+        />
+        <rect x={x + 1} y={y + 1} width={width - 2} height="37" rx="13" fill={front ? '#EAF2FD' : '#F3F7FD'} />
+        <rect x={x + 1} y={y + 25} width={width - 2} height="13" fill={front ? '#EAF2FD' : '#F3F7FD'} />
+        <circle cx={x + 20} cy={y + 19} r="3.3" fill="#B6C7DE" />
+        <text
+          x={x + 33}
+          y={y + 24}
+          fontFamily="Arial, sans-serif"
+          fontSize="13"
+          fontWeight="600"
+          fill={front ? '#253853' : '#8899B1'}
+        >
+          orders_daily
+        </text>
+
+        {front ? (
+          <>
+            {[
+              { label: 'STEP', dx: 18 },
+              { label: 'STATUS', dx: 121 },
+              { label: 'UPDATED', dx: 232 },
+            ].map((column) => (
+              <text
+                key={column.label}
+                x={x + column.dx}
+                y={y + 55}
+                fontFamily="Arial, sans-serif"
+                fontSize="10"
+                fontWeight="600"
+                fill="#8292A7"
+              >
+                {column.label}
+              </text>
+            ))}
+            <path
+              d={`M${x + 17} ${y + 63}H${x + width - 17}`}
+              stroke="#E6ECF4"
+            />
+            <rect
+              className="yak-fragmentation-row-highlight"
+              x={x + 11}
+              y={y + 101}
+              width={width - 22}
+              height="35"
+              rx="5"
+              fill="#EAF3FF"
+            />
+            {pipelineRows.map((row, i) => {
+              const baseline = y + 85 + i * 36;
+              return (
+                <g key={row.name}>
+                  <text x={x + 18} y={baseline} fontFamily="Arial, sans-serif" fontSize="12" fill="#4B5B72">
+                    {row.name}
+                  </text>
+                  <circle cx={x + 123} cy={baseline - 4} r="3" fill={row.color} />
+                  <text x={x + 132} y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#677A93">
+                    {row.state}
+                  </text>
+                  <text x={x + 233} y={baseline} fontFamily="Arial, sans-serif" fontSize="11" fill="#8898AD">
+                    {row.time}
+                  </text>
+                  <path d={`M${x + 17} ${baseline + 13}H${x + width - 17}`} stroke="#E6ECF4" />
+                </g>
+              );
+            })}
+          </>
+        ) : (
+          <>
+            <rect x={x + 18} y={y + 54} width="143" height="7" rx="3.5" fill="#E3EBF6" />
+            <rect x={x + 18} y={y + 72} width="91" height="7" rx="3.5" fill="#EDF2F9" />
+            {[0, 1, 2].map((row) => (
+              <g key={row}>
+                <path
+                  d={`M${x + 17} ${y + 96 + row * 32}H${x + width - 17}`}
+                  stroke="#E5ECF5"
+                />
+                <rect x={x + 22} y={y + 108 + row * 32} width={68 + row * 7} height="6" rx="3" fill="#E4ECF7" />
+                <rect x={x + 127} y={y + 108 + row * 32} width={81 - row * 8} height="6" rx="3" fill="#E8EFF9" />
+              </g>
+            ))}
+          </>
+        )}
+      </g>
+    </g>
+  );
+}
+
 export function FragmentationIllustration() {
   const animation = useIllustrationAnimation();
 
   return (
     <svg {...animation} aria-hidden="true" viewBox="0 0 416 270" fill="none">
-      <defs>
-        <linearGradient id="fragmentation-surface" x1="208" y1="0" x2="208" y2="258" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#E7F3FF" />
-          <stop offset="1" stopColor="#F5FAFF" />
-        </linearGradient>
-        <filter id="fragmentation-shadow" x="0" y="0" width="416" height="258" filterUnits="userSpaceOnUse">
-          <feDropShadow dx="0" dy="8" stdDeviation="10" floodColor="#4777B5" floodOpacity=".12" />
-        </filter>
-      </defs>
-      <rect width="416" height="270" fill="url(#fragmentation-surface)" />
-      <circle cx="208" cy="109" r="89" stroke="#C7DFF7" strokeDasharray="4 8" />
-      <path className="yak-fragmentation-links" d="M93 126V165H208M208 126V165M323 126V165H208" stroke="#9FBBDE" strokeWidth="2" strokeDasharray="5 6" />
-      <g className="yak-fragmentation-break">
-        <circle cx="208" cy="165" r="7" fill="#F2F8FF" stroke="#E48991" strokeWidth="2" />
-        <path d="M205 162L211 168M211 162L205 168" stroke="#D44B5F" strokeWidth="1.6" strokeLinecap="round" />
-      </g>
-
-      <g filter="url(#fragmentation-shadow)">
-        <g className="yak-fragmentation-tool yak-fragmentation-tool--integration">
-        <rect x="22" y="54" width="118" height="83" rx="12" fill="white" stroke="#D8E7F8" />
-        <rect x="39" y="69" width="24" height="24" rx="7" fill="#E8F2FF" />
-        <path d="M46 76H56M46 81H56M46 86H53" stroke="#2781E7" strokeWidth="1.8" strokeLinecap="round" />
-        <text x="70" y="85" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="600" fill="#263A58">Integration</text>
-        <rect x="39" y="105" width="83" height="5" rx="2.5" fill="#DCE7F6" />
-        <rect x="39" y="117" width="56" height="5" rx="2.5" fill="#E9F0FA" />
-
-        </g>
-        <g className="yak-fragmentation-tool yak-fragmentation-tool--development">
-        <rect x="149" y="32" width="118" height="93" rx="12" fill="white" stroke="#D8E7F8" />
-        <rect x="165" y="48" width="24" height="24" rx="7" fill="#E4F3FA" />
-        <path d="M174 54L170 60L174 66M180 54L184 60L180 66" stroke="#178BA5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="195" y="63" fontFamily="Arial, sans-serif" fontSize="11.5" fontWeight="600" fill="#263A58">Development</text>
-        <rect x="166" y="84" width="81" height="5" rx="2.5" fill="#DCE7F6" />
-        <rect x="166" y="96" width="62" height="5" rx="2.5" fill="#E9F0FA" />
-
-        </g>
-        <g className="yak-fragmentation-tool yak-fragmentation-tool--scheduling">
-        <rect x="276" y="54" width="118" height="83" rx="12" fill="white" stroke="#D8E7F8" />
-        <rect x="293" y="69" width="24" height="24" rx="7" fill="#F0EDFF" />
-        <circle cx="305" cy="81" r="7" stroke="#8873D6" strokeWidth="1.6" />
-        <path d="M305 77V81L308 83" stroke="#8873D6" strokeWidth="1.6" strokeLinecap="round" />
-        <text x="323" y="85" fontFamily="Arial, sans-serif" fontSize="11.5" fontWeight="600" fill="#263A58">Scheduling</text>
-        <rect x="293" y="105" width="83" height="5" rx="2.5" fill="#DCE7F6" />
-        <rect x="293" y="117" width="56" height="5" rx="2.5" fill="#E9F0FA" />
-        </g>
-      </g>
-
-      <g className="yak-fragmentation-caption">
-      <rect x="120" y="188" width="176" height="34" rx="17" fill="#FFFFFF" stroke="#D6E5F8" />
-      <circle cx="140" cy="205" r="6" fill="#E5A6AB" />
-      <text x="153" y="209" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="600" fill="#526887">
-        Disconnected workflow
-      </text>
-      </g>
+      <rect width="416" height="270" fill="#E8F4FF" />
+      <FragmentationWindow x={18} y={24} width={295} height={199} rotation={-10} layer="back" />
+      <FragmentationWindow x={57} y={46} width={299} height={197} rotation={-4} layer="middle" />
+      <FragmentationWindow x={76} y={74} width={318} height={187} rotation={0} layer="front" />
     </svg>
   );
 }
