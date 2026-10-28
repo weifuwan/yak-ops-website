@@ -239,7 +239,7 @@ export default function MarketingHeader() {
 
   return (
     <header
-      className={`${HEADER_CLASS} ${isDark ? 'border-transparent bg-[#162044] text-white' : 'border-[#e6e8eb] bg-white text-[#162044]'}`}
+      className={`${HEADER_CLASS} ${isDark ? 'border-transparent bg-transparent text-white' : 'border-[#e6e8eb] bg-white text-[#162044]'}`}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
           setOpenMenu(null);
@@ -260,7 +260,7 @@ export default function MarketingHeader() {
             src={brandLogo}
             className={
               isDark
-                ? 'block h-auto w-full object-contain brightness-0 invert transition-[filter] duration-[240ms]'
+                ? 'block h-auto w-full object-contain invert mix-blend-screen transition-[filter] duration-[240ms]'
                 : 'block h-auto w-full object-contain transition-[filter] duration-[240ms]'
             }
           />
