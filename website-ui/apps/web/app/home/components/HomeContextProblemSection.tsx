@@ -1,73 +1,81 @@
-const contextProblems = [
+import {
+  BlindSpotsIllustration,
+  FragmentationIllustration,
+  ManualWorkIllustration,
+} from './HomeProblemIllustrations';
+
+const dataEngineeringProblems = [
   {
-    name: 'Metadata',
-    question: 'Which “revenue” table is right?',
-    description: 'Multiple tables. Some are deprecated. The right one isn’t obvious.',
-    illustration: 'metadata.svg',
+    name: 'Fragmentation',
+    question: 'Why does one data workflow need so many tools?',
+    description:
+      'Data integration, development, scheduling, and monitoring are scattered across different systems.',
+    illustration: FragmentationIllustration,
   },
   {
-    name: 'Meaning',
-    question: 'What does "active customer" mean?',
-    description: 'Without a shared ontology and knowledge graph, business terms stay disconnected from data.',
-    illustration: 'meaning.svg',
+    name: 'Manual Work',
+    question: 'Why does delivering data take so long?',
+    description:
+      'Repeated setup, manual configuration, and disconnected workflows slow down every delivery.',
+    illustration: ManualWorkIllustration,
   },
   {
-    name: 'Memory',
-    question: 'Does AI learn from your team?',
-    description: 'Turn team knowledge into context every agent can use.',
-    illustration: 'memory.svg',
+    name: 'Blind Spots',
+    question: "Why is it so hard to know what's happening?",
+    description:
+      'When data pipelines fail, finding the cause often means searching through logs, tasks, and systems.',
+    illustration: BlindSpotsIllustration,
   },
 ] as const;
 
 /**
- * Reference layout for the three parts of the context platform.
- * The original Collate animated SVG assets and copy are intentionally
- * retained until approved Yak Ops content/illustrations are available.
+ * The Yak Ops homepage pain points: disconnected tools, repeated manual work,
+ * and limited visibility across data engineering workflows.
  */
 export default function HomeContextProblemSection() {
   return (
-    <section className="bg-white text-black" aria-labelledby="home-context-problem-heading">
-      <div className="px-20 py-28 max-sm:px-4 max-sm:py-0 md:py-16 lg:px-0 lg:py-24">
-        <div className="flex items-center justify-center max-md:py-10 max-sm:px-0 lg:px-12 xl:px-28 min-[1440px]:px-0">
-          <div className="flex w-full flex-col max-md:mt-10 max-md:max-w-full min-[1440px]:max-w-[1440px] min-[1440px]:self-center">
-            <div className="text-center text-black lg:whitespace-nowrap">
-              <h2
-                className="m-0 text-[28px] leading-tight tracking-[0.01em] font-normal sm:text-[44px]"
-                id="home-context-problem-heading"
-              >
-                AI can find your data. It doesn&apos;t understand it.
-              </h2>
-              <p className="m-0 mt-3 text-xl md:mt-1">
-                Agents can&apos;t tell what&apos;s trusted, what your terms mean, or what your team already knows
-              </p>
-            </div>
+    <section
+      aria-labelledby="home-data-engineering-problems-heading"
+      className="bg-white py-16 text-[#181d27] sm:py-20 lg:py-24"
+    >
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-12 lg:px-24">
+        <div className="mx-auto max-w-[1120px] text-center">
+          <h2
+            className="m-0 text-[28px] leading-[1.2] font-normal tracking-[-0.02em] sm:text-[38px] lg:text-[44px]"
+            id="home-data-engineering-problems-heading"
+          >
+            <span className="block">Big Data Is Hard.</span>
+            <span className="block">Your Tools Shouldn&apos;t Make It Harder.</span>
+          </h2>
+          <p className="mx-auto mb-0 mt-4 max-w-[900px] text-[16px] leading-[1.6] text-[#5d6675] sm:text-[18px]">
+            Disconnected tools, repetitive work, and limited visibility slow down data engineering.
+          </p>
+        </div>
 
-            <div className="my-10 mt-16 max-md:mt-10 min-[1440px]:max-w-[1440px]">
-              <div className="mx-auto grid grid-cols-1 gap-4 lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-6">
-                {contextProblems.map((problem) => (
-                  <article
-                    className="flex w-full flex-col overflow-hidden rounded-[20px] border border-white bg-gradient-to-b from-[#e8f4ff] to-white lg:row-span-3 lg:grid lg:grid-rows-[subgrid] lg:gap-0"
-                    key={problem.name}
-                  >
-                    <div className="aspect-[416/270] overflow-hidden">
-                      <object
-                        aria-hidden="true"
-                        className="pointer-events-none block h-full w-full"
-                        data={`https://www.getcollate.io/images/platform/${problem.illustration}`}
-                        tabIndex={-1}
-                        type="image/svg+xml"
-                      />
-                    </div>
-                    <div className="px-5 pt-6 sm:px-6">
-                      <p className="m-0 text-base font-medium text-[#167bf7]">{problem.name}</p>
-                      <h3 className="m-0 mt-1 text-[21px] leading-8 font-semibold text-black">{problem.question}</h3>
-                    </div>
-                    <p className="m-0 px-5 pt-3 pb-8 text-base leading-6 text-black sm:px-6">{problem.description}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:mt-14 lg:mt-16 lg:grid-cols-3 lg:gap-6">
+          {dataEngineeringProblems.map((problem) => {
+            const Illustration = problem.illustration;
+
+            return (
+              <article
+                className="flex min-w-0 flex-col overflow-hidden rounded-[20px] border border-[#e9f0f8] bg-gradient-to-b from-[#e8f4ff] via-[#f8fbff] to-white"
+                key={problem.name}
+              >
+                <div className="aspect-[416/258] w-full overflow-hidden">
+                  <Illustration />
+                </div>
+                <div className="flex flex-1 flex-col px-5 pt-5 pb-8 sm:px-6">
+                  <p className="m-0 text-[15px] font-medium text-[#167bf7] sm:text-base">{problem.name}</p>
+                  <h3 className="m-0 mt-2 text-[20px] leading-[1.35] font-semibold tracking-[-0.015em] text-[#151a23]">
+                    {problem.question}
+                  </h3>
+                  <p className="mb-0 mt-4 text-[15px] leading-[1.65] text-[#475467] sm:text-base">
+                    {problem.description}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
