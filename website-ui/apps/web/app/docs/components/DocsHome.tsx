@@ -2,10 +2,8 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowRightLeft,
-  BookOpen,
   GitBranch,
   Layers3,
-  Network,
   Search,
   ShieldCheck,
   Sparkles,
@@ -458,29 +456,6 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
 
         <DocsExploreMore />
 
-        <section className="mx-auto mt-24 flex max-w-[1190px] flex-col items-start justify-between gap-7 rounded-[22px] border border-[#e7ecf4] bg-[linear-gradient(110deg,#f8faff,#eff7ff)] px-7 py-8 sm:flex-row sm:items-center sm:px-11 sm:py-10">
-          <div className="flex items-start gap-4">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-[#1677f4] shadow-sm">
-              <Network aria-hidden="true" size={23} />
-            </span>
-            <div>
-              <h2 className="m-0 text-[22px] font-semibold text-[#1c2c4c]">Built in the open</h2>
-              <p className="mb-0 mt-2 max-w-[570px] text-[14px] leading-6 text-[#76839a]">
-                Find the source code, report issues, and follow the project's development.
-              </p>
-            </div>
-          </div>
-          <a
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#166df2] px-5 py-3 text-[14px] font-semibold text-white no-underline hover:bg-[#055ad1]"
-            href="https://github.com/weifuwan/yak-ops"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <BookOpen aria-hidden="true" size={17} />
-            Explore GitHub
-            <ArrowRight aria-hidden="true" size={16} />
-          </a>
-        </section>
       </div>
     </main>
   );
