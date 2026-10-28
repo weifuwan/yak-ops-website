@@ -1,0 +1,26 @@
+name: Temporary testimonial formatter
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/_temporary-testimonial-format.yml]
+permissions:
+  contents: read
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.13'
+      - name: Install dependencies
+        working-directory: website-ui
+        run: npm ci --ignore-scripts
+      - name: Format testimonial and print
+        working-directory: website-ui
+        run: |
+          npx oxfmt apps/web/app/home/components/HomeTestimonialsSection.tsx
+          echo "TESTIMONIAL_FORMAT_START"
+          base64 -w0 apps/web/app/home/components/HomeTestimonialsSection.tsx
+          echo
+          echo "TESTIMONIAL_FORMAT_END"
