@@ -167,8 +167,7 @@ export default function ProductsMegaMenu({ onNavigate }: { onNavigate: () => voi
   return (
     <div
       aria-label="Products"
-      className="grid max-h-[calc(100vh-68px)] grid-cols-[340px_minmax(0,1fr)] overflow-y-auto rounded-[20px] bg-[linear-gradient(145deg,#f4f4f5_20%,#e3eef9_100%)] text-[#151b34] shadow-[0_10px_24px_rgba(23,48,83,0.15)]"
-      id="yak-marketing-menu-products"
+      className="grid grid-cols-[340px_minmax(0,1fr)] bg-[linear-gradient(145deg,#f4f4f5_20%,#e3eef9_100%)] text-[#151b34]"
     >
       <aside className="flex min-h-[542px] min-w-0 flex-col px-7 pt-7 pb-5">
         <p className="m-0 text-[12px] leading-5 tracking-[0.04em] text-[#83849f]">PLATFORM</p>

@@ -132,8 +132,7 @@ function MegaMenu({ item, onNavigate }: { item: MarketingMegaNavItem; onNavigate
   return (
     <div
       aria-label={item.label}
-      className="grid max-h-[calc(100vh-89px)] grid-cols-[270px_minmax(0,1fr)] overflow-hidden rounded-[20px] border border-[#e7ebf1] bg-white text-[#162044] shadow-[0_18px_45px_rgba(22,32,68,0.14)] transition-[opacity,transform] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] starting:-translate-y-2 starting:opacity-0 motion-reduce:transition-none"
-      id={'yak-marketing-menu-' + item.key}
+      className="grid grid-cols-[270px_minmax(0,1fr)] bg-white text-[#162044]"
     >
       <aside className="flex min-w-0 flex-col bg-[linear-gradient(145deg,#f4f6fa_10%,#e8f0f9_100%)] px-6 py-7">
         <span className={`${MENU_EYEBROW_CLASS} mb-4`}>YAK OPS</span>
@@ -272,13 +271,13 @@ export default function MarketingHeader() {
         <nav aria-label="Primary navigation" className="h-full max-lg:hidden">
           <ul className="m-0 flex h-full list-none items-center justify-center gap-2 p-0">
             {MARKETING_NAV_ITEMS.map((item) => (
-              <li key={item.key}>
+              <li key={item.key} onMouseEnter={item.kind === 'link' ? () => setOpenMenu(null) : undefined}>
                 {item.kind === 'mega' ? (
                   <button
                     aria-controls={openMenu === item.key ? 'yak-marketing-menu-' + item.key : undefined}
                     aria-expanded={openMenu === item.key}
                     aria-haspopup="true"
-                    className={`${NAV_LINK_CLASS} ${isDark ? NAV_LINK_DARK_CLASS : NAV_LINK_LIGHT_CLASS} ${item.key === 'resources' ? (isDark ? 'border-white/50' : 'border-[#a3a8b6]') : ''} ${openMenu === item.key ? (isDark ? 'border-white/40 bg-white/10 text-white' : 'border-[#d9dfe8] bg-[#f7f8fb] text-[#162044]') : ''}`}
+                    className={`${NAV_LINK_CLASS} ${isDark ? NAV_LINK_DARK_CLASS : NAV_LINK_LIGHT_CLASS}`}
                     onClick={() => setOpenMenu(openMenu === item.key ? null : item.key)}
                     onMouseEnter={() => setOpenMenu(item.key)}
                     type="button"
@@ -325,7 +324,11 @@ export default function MarketingHeader() {
         </div>
 
         {activeMegaMenu && !mobileOpen && (
-          <div className="absolute top-full left-1/2 z-[2] hidden w-[1096px] max-w-[calc(100vw-32px)] -translate-x-1/2 lg:block">
+          <div
+            aria-label={activeMegaMenu.label + ' menu'}
+            className="absolute top-full left-1/2 z-[2] hidden max-h-[calc(100vh-80px)] w-[1096px] max-w-[calc(100vw-32px)] -translate-x-1/2 overflow-y-auto rounded-[20px] border border-[#e7ebf1] bg-white shadow-[0_10px_24px_rgba(23,48,83,0.15)] transition-[opacity,transform] duration-[220ms] ease-[cubic-bezier(0.16,1,0.3,1)] starting:-translate-y-2 starting:opacity-0 motion-reduce:transition-none lg:block"
+            id={'yak-marketing-menu-' + activeMegaMenu.key}
+          >
             {activeMegaMenu.key === 'products' ? (
               <ProductsMegaMenu onNavigate={closeAllMenus} />
             ) : activeMegaMenu.key === 'resources' ? (

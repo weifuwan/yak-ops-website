@@ -9,8 +9,7 @@ export default function ResourcesMegaMenu({ onNavigate }: { onNavigate: () => vo
   return (
     <div
       aria-label="Resources"
-      className="grid max-h-[calc(100vh-80px)] grid-cols-[225px_minmax(0,1fr)] overflow-y-auto rounded-b-[24px] rounded-t-[4px] bg-[linear-gradient(155deg,#fff_6%,#f9fbff_44%,#e6f0fa_100%)] text-[#10131e] shadow-[0_12px_32px_rgba(15,31,56,0.16)]"
-      id="yak-marketing-menu-resources"
+      className="grid grid-cols-[225px_minmax(0,1fr)] bg-[linear-gradient(155deg,#fff_6%,#f9fbff_44%,#e6f0fa_100%)] text-[#10131e]"
     >
       <aside className="min-w-0 px-5 py-6 pr-1">
         <h2 className="m-0 text-[14px] leading-5 font-medium tracking-[0.04em] text-[#777d9c]">RESOURCES</h2>
