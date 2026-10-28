@@ -1,73 +1,43 @@
 import type { HTMLAttributes } from 'react';
 
-import CollateArchitecture from './CollateArchitecture';
+import YakOpsProductPanorama from './YakOpsProductPanorama';
 
-export interface ContextPlatformSectionProps extends HTMLAttributes<HTMLElement> {
-  ontologyHref?: string;
-  productHref?: string;
-}
+export type ContextPlatformSectionProps = HTMLAttributes<HTMLElement>;
 
-export default function ContextPlatformSection({
-  ontologyHref = '/blog/ground-your-ai-in-standards-based-knowledge-with-ontology-explorer',
-  productHref = '/product',
-  className = '',
-  ...props
-}: ContextPlatformSectionProps) {
+export default function ContextPlatformSection({ className = '', ...props }: ContextPlatformSectionProps) {
   return (
-    <section className={`bg-[#F3F4FB] ${className}`} {...props}>
-      <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-12 lg:px-24 lg:py-16">
-        <h2 className="text-center text-[28px] leading-tight tracking-[0.01em] font-normal text-black sm:text-[40px]">
-          One platform. From data integration to operations.
+    <section
+      aria-labelledby="yak-ops-platform-heading"
+      className={['bg-[#F3F4FB]', className].filter(Boolean).join(' ')}
+      {...props}
+    >
+      <div className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-12 lg:px-20 lg:py-20">
+        <h2
+          className="m-0 mx-auto max-w-[850px] text-center text-[28px] leading-tight tracking-[0.01em] font-normal text-[#171B2C] sm:text-[40px]"
+          id="yak-ops-platform-heading"
+        >
+          Build, govern, and deliver data. All in one place.
         </h2>
-
-        <p className="mx-auto mt-4 max-w-[600px] text-center text-base leading-6 text-black">
-          Connect sources, build pipelines, orchestrate workflows, and monitor execution—all in one place.
+        <p className="m-0 mx-auto mt-4 max-w-[750px] text-center text-base leading-7 text-[#536079]">
+          Bring data integration, intelligent modeling, development, governance, and data services together on one
+          platform.
         </p>
 
-        {/* Architecture diagram */}
-        <div className="mx-auto mt-8 max-w-[800px]">
-          <CollateArchitecture />
+        <div className="mt-10 sm:mt-12">
+          <YakOpsProductPanorama />
         </div>
 
-        {/* Ontology information */}
-        <div className="mx-auto mt-6 flex max-w-[820px] flex-col gap-2 rounded-md border border-[#1680F8] bg-white px-3 py-2 sm:flex-row sm:items-center sm:gap-3">
-          <div className="flex items-center gap-3">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.25"
-              strokeLinecap="round"
-              aria-hidden="true"
-              className="shrink-0 text-[#1680F8]"
-            >
-              <circle cx="5.6" cy="6.7" r="3.1" />
-              <circle cx="19.6" cy="7.3" r="2.9" />
-              <circle cx="12.6" cy="17.8" r="3.45" fill="currentColor" stroke="none" />
-              <path d="m8.7 6.83 8 .35M7.25 9.32l5.35 8.48m5.39-8.09L12.6 17.8" />
-            </svg>
-
-            <p className="text-sm text-black md:text-base">
-              An Ontology links business terms to the data assets they describe.
-            </p>
-          </div>
-
+        <p className="m-0 mx-auto mt-6 max-w-[720px] text-center text-xs leading-5 text-[#7A8499]">
+          Product vision. Capabilities are introduced progressively; see{' '}
           <a
-            href={ontologyHref}
+            className="text-[#2F6FED] underline underline-offset-4 hover:text-[#174EAB] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2F6FED]"
+            href="https://github.com/weifuwan/yak-ops/releases"
             rel="noopener noreferrer"
-            className="whitespace-nowrap text-base font-semibold text-[#1680F8] hover:underline sm:ml-auto"
+            target="_blank"
           >
-            Discover Ontology Explorer →
-          </a>
-        </div>
-
-        <p className="mt-8 text-center text-base text-black">
-          Learn more about the{' '}
-          <a href={productHref} rel="noopener noreferrer" className="text-[#1680F8] hover:underline">
-            Collate Agentic Data Platform
-          </a>
+            release notes
+          </a>{' '}
+          for current availability.
         </p>
       </div>
     </section>
