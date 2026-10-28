@@ -3,8 +3,6 @@ import {
   ArrowRight,
   ArrowRightLeft,
   BookOpen,
-  CheckCircle2,
-  Database,
   GitBranch,
   Layers3,
   Network,
@@ -443,47 +441,7 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
           </div>
         </section>
 
-        
         <DocsConnectors />
-
-        <section className="mx-auto mt-24 max-w-[1190px] sm:mt-28">
-          <div className="text-center">
-            <span className="inline-flex rounded-full bg-[#f4eeff] px-4 py-1.5 text-[12px] font-semibold text-[#7353c8]">
-              DATA PLATFORM
-            </span>
-            <h2 className="m-0 mt-4 text-[clamp(28px,3.5vw,39px)] font-semibold tracking-[-0.03em]">
-              Explore the Data Lifecycle
-            </h2>
-            <p className="mt-3 text-[15px] leading-7 text-[#7b8494] sm:text-[16px]">
-              Discover the key parts of Yak Ops, from data connections to trusted data products.
-            </p>
-          </div>
-          <div className="mt-9 grid gap-4 md:grid-cols-3">
-            {[
-              { title: 'Connect', description: 'Explore your available data sources and integration options.', href: '/product/data-sources', icon: Database },
-              { title: 'Build', description: 'Develop, schedule, and operate repeatable data workflows.', href: '/product/data-development', icon: GitBranch },
-              { title: 'Govern', description: 'Understand lineage, quality, and the context around your data.', href: '/product/data-quality', icon: CheckCircle2 },
-            ].map((entry) => {
-              const Icon = entry.icon;
-              return (
-                <Link
-                  className="group rounded-2xl border border-[#e5edf7] bg-[#f9fbff] px-6 py-7 no-underline transition-colors hover:border-[#b7d8fd] hover:bg-[#f0f7ff]"
-                  key={entry.title}
-                  to={entry.href}
-                >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#1377f4] shadow-sm">
-                    <Icon aria-hidden="true" size={23} />
-                  </span>
-                  <h3 className="m-0 mt-6 flex items-center justify-between text-[19px] font-semibold text-[#1b2842]">
-                    {entry.title}
-                    <ArrowRight aria-hidden="true" className="text-[#91a8c3] group-hover:text-[#086cf4]" size={18} />
-                  </h3>
-                  <p className="mb-0 mt-3 text-[14px] leading-[1.7] text-[#78849a]">{entry.description}</p>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
 
         <section className="mx-auto mt-24 flex max-w-[1190px] flex-col items-start justify-between gap-7 rounded-[22px] border border-[#e7ecf4] bg-[linear-gradient(110deg,#f8faff,#eff7ff)] px-7 py-8 sm:flex-row sm:items-center sm:px-11 sm:py-10">
           <div className="flex items-start gap-4">
