@@ -31,6 +31,7 @@ for (const path of forbiddenPaths) {
 
 const requiredPaths = [
   'ARCHITECTURE.md',
+  'AGENTS.md',
   'package-lock.json',
   'FRONTEND_CODE_STYLE.md',
   'docs/tooling.md',
@@ -111,6 +112,8 @@ if (/["/]antd(?:["/@-]|\\b)|@ant-design\/|antd-style/i.test(lockFileContent)) {
 }
 
 const sourceExtensions = new Set(['.js', '.jsx', '.mjs', '.ts', '.tsx', '.json']);
+// Page and layout presentation must be Tailwind-first; stylesheets belong to shared foundations only.
+const pageLocalStyleExtensions = new Set(['.css', '.scss', '.sass', '.less', '.styl', '.pcss']);
 const ignoredDirectoryNames = new Set(['assets', 'dist', 'node_modules', 'public']);
 const files = [];
 
@@ -126,8 +129,14 @@ const walk = (directory) => {
       continue;
     }
 
+    const relativePath = toRelativePath(path);
+
+    if (relativePath.startsWith('apps/web/app/') && pageLocalStyleExtensions.has(extname(entry.name))) {
+      fail(`${relativePath} is a page-local stylesheet; use Tailwind CSS utility classes in JSX`);
+    }
+
     if (entry.name.endsWith('.less')) {
-      fail(`${toRelativePath(path)} uses retired Less styling; use CSS`);
+      fail(`${relativePath} uses retired Less styling; use Tailwind utilities or shared theme CSS`);
     }
 
     if (sourceExtensions.has(extname(entry.name))) {
@@ -148,6 +157,8 @@ const umiImportPattern = /(?:from\s+|import\s*\()\s*['"]@umijs\/max['"]/;
 const antdImportPattern =
   /(?:from\s+|import\s*\()\s*['"](?:antd(?:\/|['"])|@ant-design\/icons(?:['"]|\/)|antd-style(?:['"]|\/))/;
 const baseUiImportPattern = /(?:from\s+|import\s*\()\s*['"]@base-ui\/react/;
+const appStylesheetImportPattern =
+  /(?:\bimport\s*(?:\(\s*|(?:[\s\S]{0,100}?\sfrom\s*)?)|\brequire\s*\(\s*)['"][^'"]+\.(?:css|scss|sass|less|styl|pcss)(?:\?[^'"]*)?['"]/;
 
 const directFetchOwners = new Set(['apps/web/service/http/client.ts', 'apps/web/service/traffic/api.ts']);
 
@@ -161,6 +172,10 @@ for (const path of files) {
 
   if (relativePath.startsWith('apps/web/app/') && appHttpImportPattern.test(content)) {
     fail(`${relativePath} imports service/http directly; app must use a domain service`);
+  }
+
+  if (relativePath.startsWith('apps/web/app/') && appStylesheetImportPattern.test(content)) {
+    fail(`${relativePath} imports a page stylesheet; use Tailwind CSS utilities instead`);
   }
 
   if (directFetchPattern.test(content) && !directFetchOwners.has(relativePath)) {
