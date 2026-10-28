@@ -16,6 +16,8 @@ import {
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import DocsConnectors from './DocsConnectors';
+
 type DocsHomeProps = {
   onSearch: () => void;
 };
@@ -442,6 +444,8 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
         </section>
 
         
+        <DocsConnectors />
+
         <section className="mx-auto mt-24 max-w-[1190px] sm:mt-28">
           <div className="text-center">
             <span className="inline-flex rounded-full bg-[#f4eeff] px-4 py-1.5 text-[12px] font-semibold text-[#7353c8]">
