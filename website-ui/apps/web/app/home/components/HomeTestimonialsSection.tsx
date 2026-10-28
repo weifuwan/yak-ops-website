@@ -34,7 +34,7 @@ const testimonials = [
   }
 ] as const;
 
-const slidePositions = ['translate-x-0', '-translate-x-full', '-translate-x-[-200%]'] as const;
+const slidePositions = ['translate-x-0', '-translate-x-full', '-translate-x-[200%]'] as const;
 
 export default function HomeTestimonialsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
