@@ -1,9 +1,8 @@
 /**
- * Screenshot-faithful Collate hero recreation.
+ * Yak Ops homepage hero, based on the existing Collate visual reference.
  *
- * The original background remains a video (not a screenshot). It is loaded
- * from Collate until the approved asset can be hosted by this website.
- * Copy and CTA destinations are intentionally unchanged for a later pass.
+ * The original background video and right-hand visual remain unchanged until
+ * their Yak Ops-specific replacements are ready.
  */
 export default function HomeHeroSection() {
   return (
@@ -24,35 +23,33 @@ export default function HomeHeroSection() {
 
       <div className="relative mx-auto w-full max-w-[1440px] px-4 pt-[112px] pb-16 sm:px-12 sm:pt-[132px] lg:px-24 lg:pt-[146px] lg:pb-[88px]">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <h1 className="m-0 text-[44px] leading-[1.1] tracking-[0.01em] font-normal text-white sm:text-[56px] lg:text-[64px]">
-              Agentic AI
-              <br />
-              <span className="text-[#FFE500]">you can trust</span>
+          <div className="min-w-0">
+            <h1 className="m-0 text-[44px] leading-[1.1] font-normal tracking-[-0.025em] text-white sm:text-[56px] lg:text-[64px]">
+              <span className="block">Big Data.</span>
+              <span className="block text-[#FFE500]">Under Control.</span>
             </h1>
 
-            <p className="mt-4 max-w-[400px] text-lg leading-8 text-white">
-              Collate is the Agentic Data Platform, built on OpenMetadata. It gives AI the context to get its answers
-              right.
+            <p className="mt-6 max-w-[510px] text-[17px] leading-[1.65] text-white/95 sm:text-lg">
+              Yak Ops is an open-source big data development and governance platform. It makes it easier to turn raw
+              data into reliable, usable data.
             </p>
 
-            <div className="mt-8 flex w-fit flex-row gap-3 whitespace-nowrap sm:gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
               <a
-                className="flex cursor-pointer items-center justify-center rounded-[8px] border border-[#FFE500] bg-[#FFE500] px-6 py-3 text-lg font-medium text-black transition-colors duration-200 hover:bg-[#F5D700] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                href="/welcome"
-                id="hero-try-collate-cta"
+                className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-[8px] border border-[#FFE500] bg-[#FFE500] px-5 py-3 text-base font-medium text-black no-underline transition-colors duration-200 hover:border-[#F5D700] hover:bg-[#F5D700] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-6 sm:text-lg"
+                href="/docs"
+                id="hero-get-started-cta"
+              >
+                Get Started
+              </a>
+              <a
+                className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-[8px] border border-white bg-transparent px-5 py-3 text-base font-medium text-white no-underline transition-colors duration-200 hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-6 sm:text-lg"
+                href="https://github.com/weifuwan/yak-ops"
+                id="hero-view-github-cta"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Try Collate
-              </a>
-              <a
-                className="flex cursor-pointer items-center justify-center rounded-[8px] border border-white bg-transparent px-6 py-3 text-lg font-medium text-white transition-colors duration-200 hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                href="/contact-sales"
-                id="book-demo-cta-benchmark"
-                rel="noopener noreferrer"
-              >
-                Book a Demo
+                View on GitHub
               </a>
             </div>
           </div>
