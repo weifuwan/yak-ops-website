@@ -2,6 +2,7 @@
 
 import ContextPlatformSection from './components/ContextPlatformSection';
 import HomeBrandsMarquee from './components/HomeBrandsMarquee';
+import HomeContextProblemSection from './components/HomeContextProblemSection';
 import HomeHeroSection from './components/HomeHeroSection';
 
 export default function HomePage() {
@@ -9,6 +10,7 @@ export default function HomePage() {
     <main className="-mt-16 min-h-[calc(100vh-64px)] overflow-hidden bg-white">
       <HomeHeroSection />
       <HomeBrandsMarquee />
+      <HomeContextProblemSection />
       <ContextPlatformSection />
     </main>
   );
