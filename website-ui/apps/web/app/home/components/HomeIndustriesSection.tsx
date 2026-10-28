@@ -130,7 +130,12 @@ export default function HomeIndustriesSection() {
                               viewBox="0 0 13 13"
                               width="13"
                             >
-                              <path d="M4.271.5h7.543m0 0v7.543m0-7.543L.5 11.814" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                              <path
+                                d="M4.271.5h7.543m0 0v7.543m0-7.543L.5 11.814"
+                                stroke="currentColor"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
                             </svg>
                           </a>
                         ) : (
