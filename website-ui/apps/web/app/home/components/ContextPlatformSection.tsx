@@ -1,15 +1,15 @@
 
 import type { HTMLAttributes } from "react";
 
+import CollateArchitecture from "./CollateArchitecture";
+
 export interface ContextPlatformSectionProps
   extends HTMLAttributes<HTMLElement> {
-  architectureSrc?: string;
   ontologyHref?: string;
   productHref?: string;
 }
 
 export default function ContextPlatformSection({
-  architectureSrc = "/images/context-platform/architecture.png",
   ontologyHref = "/blog/ground-your-ai-in-standards-based-knowledge-with-ontology-explorer",
   productHref = "/product",
   className = "",
@@ -33,15 +33,7 @@ export default function ContextPlatformSection({
 
         {/* Architecture diagram */}
         <div className="mx-auto mt-8 max-w-[800px]">
-          <img
-            src={architectureSrc}
-            alt="Collate Agentic Data Platform architecture"
-            width={770}
-            height={724}
-            loading="lazy"
-            decoding="async"
-            className="block h-auto w-full"
-          />
+          <CollateArchitecture />
         </div>
 
         {/* Ontology information */}
