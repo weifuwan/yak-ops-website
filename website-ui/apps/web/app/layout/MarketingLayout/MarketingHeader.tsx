@@ -1,4 +1,5 @@
 import brandLogo from '@/assets/img/logo2.png';
+import ProductsMegaMenu from './ProductsMegaMenu';
 import {
   MARKETING_HEADER_ACTIONS,
   MARKETING_NAV_ITEMS,
@@ -322,8 +323,12 @@ export default function MarketingHeader() {
         </div>
 
         {activeMegaMenu && !mobileOpen && (
-          <div className="absolute top-[calc(100%-1px)] left-1/2 z-[2] hidden w-[1100px] max-w-[calc(100vw-48px)] -translate-x-1/2 pt-3 lg:block">
-            <MegaMenu item={activeMegaMenu} onNavigate={closeAllMenus} />
+          <div className="absolute top-full left-1/2 z-[2] hidden w-[1096px] max-w-[calc(100vw-32px)] -translate-x-1/2 lg:block">
+            {activeMegaMenu.key === 'products' ? (
+              <ProductsMegaMenu onNavigate={closeAllMenus} />
+            ) : (
+              <MegaMenu item={activeMegaMenu} onNavigate={closeAllMenus} />
+            )}
           </div>
         )}
       </div>
