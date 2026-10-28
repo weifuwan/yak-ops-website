@@ -1,9 +1,49 @@
-import { useId, type SVGProps } from 'react';
+import { useEffect, useId, useState, type SVGProps } from 'react';
 
 export type CollateArchitectureProps = SVGProps<SVGSVGElement> & {
   /** Optional accessible title. */
   title?: string;
 };
+
+type FlowConnectorProps = {
+  d: string;
+  reversed?: boolean;
+  phaseSeconds?: number;
+  reducedMotion: boolean;
+};
+
+/**
+ * Keep the dotted guide stationary while a single blue dash travels along it.
+ * A 200-unit dash pattern avoids a second dash appearing before the first exits.
+ * With reduced motion, the centered dash remains visible without an animation.
+ */
+function FlowConnector({ d, reversed = false, phaseSeconds = 0, reducedMotion }: FlowConnectorProps) {
+  return (
+    <g fill="none">
+      <path d={d} stroke="#858BAB" strokeWidth="1.4" strokeDasharray="2 4" />
+      <path
+        d={d}
+        pathLength={100}
+        stroke="#1685F8"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeDasharray="30 170"
+        strokeDashoffset="-35"
+      >
+        {!reducedMotion && (
+          <animate
+            attributeName="stroke-dashoffset"
+            from={reversed ? '-100' : '30'}
+            to={reversed ? '30' : '-100'}
+            dur="1.33s"
+            begin={`-${phaseSeconds.toFixed(2)}s`}
+            repeatCount="indefinite"
+          />
+        )}
+      </path>
+    </g>
+  );
+}
 
 /**
  * Editable React SVG recreation of Collate's context-platform diagram.
@@ -18,6 +58,16 @@ export default function CollateArchitecture({
   const id = useId().replace(/:/g, '');
   const gradient = `${id}-blue-gradient`;
   const shadow = `${id}-shadow`;
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReducedMotion(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener('change', update);
+    return () => mediaQuery.removeEventListener('change', update);
+  }, []);
 
   return (
     <svg
@@ -53,8 +103,12 @@ export default function CollateArchitecture({
           <text x={x} y="48" textAnchor="middle" fontSize="21" fontFamily="Arial, sans-serif" fill="#B5BBD0">
             {['✺', '✳', '⬡', '❀', '▥'][i]}
           </text>
-          <path d={`M${x} 70v32`} stroke="#5D6584" strokeDasharray="2 4" strokeWidth="1.4" />
-          <path d={`M${x} 70v9`} stroke="#1685F8" strokeWidth="3" strokeLinecap="round" />
+          <FlowConnector
+            d={`M${x} 70v32`}
+            reversed={i % 2 === 0}
+            phaseSeconds={i * 0.23}
+            reducedMotion={reducedMotion}
+          />
         </g>
       ))}
 
@@ -104,8 +158,7 @@ export default function CollateArchitecture({
       <text x="207" y="256" fontSize="14" fontFamily="Arial, sans-serif" textAnchor="middle" fill="white">
         AI Studio | Skills | Plugins
       </text>
-      <path d="M387 240h18" stroke="#1989F7" strokeWidth="3" strokeLinecap="round" />
-      <path d="M411 240h12" stroke="#727F9A" strokeDasharray="2 4" />
+      <FlowConnector d="M387 240h36" phaseSeconds={0.32} reducedMotion={reducedMotion} />
       <rect x="426" y="199" width="339" height="81" rx="11" fill={`url(#${gradient})`} />
       <text
         x="595"
@@ -157,11 +210,14 @@ export default function CollateArchitecture({
       ))}
 
       {/* Between layers */}
-      {[274, 527].map((x) => (
-        <g key={x}>
-          <path d={`M${x} 386v42`} stroke="#8890AC" strokeDasharray="2 4" strokeWidth="1.6" />
-          <path d={`M${x} 386v12`} stroke="#1685F8" strokeWidth="3" strokeLinecap="round" />
-        </g>
+      {[274, 527].map((x, i) => (
+        <FlowConnector
+          key={x}
+          d={`M${x} 386v42`}
+          reversed={i === 0}
+          phaseSeconds={i === 0 ? 0.18 : 0.77}
+          reducedMotion={reducedMotion}
+        />
       ))}
 
       {/* OpenMetadata layer */}
@@ -250,11 +306,14 @@ export default function CollateArchitecture({
           )}
         </g>
       ))}
-      {[271, 529].map((x) => (
-        <g key={x}>
-          <path d={`M${x - 14} 566h26`} stroke="#8186AA" strokeDasharray="2 4" strokeWidth="1.2" />
-          <path d={`M${x} 566h16`} stroke="#148BFF" strokeWidth="3" strokeLinecap="round" />
-        </g>
+      {[271, 529].map((x, i) => (
+        <FlowConnector
+          key={x}
+          d={`M${x - 14} 566h30`}
+          reversed={i === 0}
+          phaseSeconds={i === 0 ? 0.4 : 0.85}
+          reducedMotion={reducedMotion}
+        />
       ))}
 
       {/* Data systems */}
@@ -269,8 +328,12 @@ export default function CollateArchitecture({
       </text>
       {([234, 289, 344, 399, 454, 509, 564] as const).map((x, i) => (
         <g key={x}>
-          <path d={`M${x} 658v29`} stroke="#858BAB" strokeDasharray="2 4" strokeWidth="1.3" />
-          <path d={`M${x} 658v10`} stroke="#1685F8" strokeWidth="3" strokeLinecap="round" />
+          <FlowConnector
+            d={`M${x} 658v29`}
+            reversed={i % 2 === 0}
+            phaseSeconds={i * 0.17}
+            reducedMotion={reducedMotion}
+          />
           <rect
             x={x - 17}
             y="701"
