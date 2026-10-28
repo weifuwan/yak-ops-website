@@ -95,7 +95,10 @@ export default function MarketingFooter() {
               />
             </a>
           </div>
-          <nav aria-label="Footer navigation" className="col-span-3 grid grid-cols-2 gap-8 md:flex md:flex-row md:justify-between md:gap-10">
+          <nav
+            aria-label="Footer navigation"
+            className="col-span-3 grid grid-cols-2 gap-8 md:flex md:flex-row md:justify-between md:gap-10"
+          >
             {footerGroups.map((group) => (
               <div key={group.title}>
                 <h2 className="m-0 text-[18px] font-semibold">{group.title}</h2>
@@ -149,7 +152,10 @@ export default function MarketingFooter() {
             </ul>
           </nav>
 
-          <div aria-label="Compliance and community badges" className="flex flex-wrap items-center justify-start gap-3 md:gap-5">
+          <div
+            aria-label="Compliance and community badges"
+            className="flex flex-wrap items-center justify-start gap-3 md:gap-5"
+          >
             {complianceBadges.map((badge) => (
               <img
                 alt={badge.label}
