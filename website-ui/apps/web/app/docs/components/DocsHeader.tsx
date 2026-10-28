@@ -61,28 +61,19 @@ const DOCS_TABS: readonly DocsTab[] = [
   { label: 'Deployment', href: '/developers/deployment', description: 'Deployment options and setup' },
 ];
 
+// Keep the reference header focused on nine top-level destinations.
+// Additional documentation routes remain discoverable in the search dialog.
+const DOCS_PRIMARY_TABS = DOCS_TABS.slice(0, 9);
+
 function DocsTabLink({ item, active, onClick }: { item: DocsTab; active: boolean; onClick?: () => void }) {
   const className = [
-    'group relative flex h-10 shrink-0 items-center gap-2 whitespace-nowrap text-sm font-medium no-underline transition-colors duration-150',
+    'group inline-flex h-[44px] min-w-0 flex-1 items-center justify-center rounded-full px-2 text-center text-[13px] font-medium whitespace-nowrap no-underline transition-colors duration-150 xl:text-[14px]',
     active
-      ? 'text-gray-900 dark:text-gray-100'
-      : 'text-gray-700 hover:text-gray-950 dark:text-gray-300 dark:hover:text-white',
+      ? 'border border-[#b8ddff] bg-[#edf7ff] text-[#086cf5] dark:border-blue-600/50 dark:bg-blue-950/50 dark:text-blue-300'
+      : 'text-[#243047] hover:bg-[#edf2f9] hover:text-[#086cf5] dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white',
   ].join(' ');
 
-  const content = (
-    <>
-      {item.label}
-      <span
-        aria-hidden="true"
-        className={[
-          'absolute bottom-0 left-0 h-px w-full transition-colors',
-          active
-            ? 'bg-[#2563eb] dark:bg-blue-400'
-            : 'bg-transparent group-hover:bg-gray-200 dark:group-hover:bg-gray-700',
-        ].join(' ')}
-      />
-    </>
-  );
+  const content = <span>{item.label}</span>;
 
   if (item.external) {
     return (
@@ -110,15 +101,18 @@ function ActionLink({
   href,
   children,
   external = false,
+  primary = false,
   onClick,
 }: {
   href: string;
   children: ReactNode;
   external?: boolean;
+  primary?: boolean;
   onClick?: () => void;
 }) {
-  const className =
-    'flex items-center gap-2 whitespace-nowrap rounded-xl bg-gray-950/[0.03] px-[14px] py-2 text-sm font-medium text-gray-800 no-underline transition-colors hover:bg-gray-950/10 hover:text-gray-950 dark:bg-white/[0.03] dark:text-gray-50 dark:hover:bg-white/10 dark:hover:text-white';
+  const className = primary
+    ? 'inline-flex h-9 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#116bf5] px-4 text-[14px] font-semibold text-white no-underline transition-colors hover:bg-[#0059e4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#116bf5]'
+    : 'inline-flex h-9 items-center gap-2 whitespace-nowrap rounded-lg px-2.5 text-[14px] font-medium text-[#273047] no-underline transition-colors hover:bg-[#f1f5fb] hover:text-[#086cf5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#116bf5] dark:text-gray-200 dark:hover:bg-gray-800';
 
   return external ? (
     <a className={className} href={href} onClick={onClick} rel="noopener noreferrer" target="_blank">
@@ -189,34 +183,38 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
   const closePanel = () => setActivePanel(null);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white text-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
-      <div className="relative z-10 mx-auto max-w-[90rem] px-4 lg:px-5">
-        <div className="flex h-14 min-w-0 items-center gap-4 lg:px-1">
-          <div className="flex min-w-0 flex-1 items-center gap-3 xl:gap-4">
-            <Link aria-label="Yak Ops documentation home" className="shrink-0" to="/docs">
+    <header className="sticky top-0 z-50 w-full border-b border-[#edf0f5] bg-white text-[#151b34] dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 lg:px-6">
+        <div className="flex h-16 min-w-0 items-center justify-between gap-6">
+          <div className="flex min-w-0 items-center gap-4">
+            <Link
+              aria-label="Yak Ops documentation home"
+              className="inline-flex shrink-0 items-center gap-2 no-underline"
+              to="/docs"
+            >
               <img
                 alt="Yak Ops"
-                className="block h-6 w-auto max-w-[130px] object-contain"
+                className="block h-9 w-auto max-w-[150px] object-contain"
                 draggable={false}
                 src={brandLogo}
               />
+              <span className="text-[23px] leading-none font-bold tracking-[0.07em] text-[#0694f5] sm:text-[25px]">
+                DOCS
+              </span>
             </Link>
 
-            <div className="relative hidden items-center lg:flex">
+            <div className="relative hidden items-center sm:flex">
               <button
                 aria-expanded={versionOpen}
                 aria-haspopup="menu"
-                className="group flex h-8 max-w-[12.5rem] items-center gap-2 overflow-hidden whitespace-nowrap rounded-xl px-2.5 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-600/5 hover:text-gray-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:text-gray-300 dark:hover:bg-gray-200/5 dark:hover:text-white"
+                className="group inline-flex h-8 items-center gap-2 rounded-full border border-[#b9ddff] bg-[#edf7ff] px-3.5 text-[13px] font-medium text-[#0861dc] transition-colors hover:bg-[#e1f1ff] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] dark:border-blue-800 dark:bg-blue-950 dark:text-blue-200"
                 onClick={() => setVersionOpen(!versionOpen)}
                 type="button"
               >
-                <span className="truncate">AI 2.0</span>
+                AI 2.0
                 <ChevronRight
                   aria-hidden="true"
-                  className={[
-                    'h-3 w-3 shrink-0 text-gray-400 transition-transform',
-                    versionOpen ? 'rotate-[270deg]' : 'rotate-90',
-                  ].join(' ')}
+                  className={['h-3 w-3 shrink-0 text-[#8796aa] transition-transform', versionOpen ? 'rotate-[270deg]' : 'rotate-90'].join(' ')}
                   strokeWidth={2}
                 />
               </button>
@@ -247,69 +245,27 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
             </div>
           </div>
 
-          <div className="relative z-20 hidden min-w-0 flex-1 items-center gap-2.5 lg:flex">
-            <button
-              aria-label="Open documentation search"
-              className="group/search flex h-9 w-full max-w-sm items-center justify-between gap-2 rounded-full bg-gray-950/[0.03] px-3.5 text-sm leading-6 text-gray-500 transition-colors hover:bg-gray-950/10 dark:bg-white/[0.03] dark:text-white/50 dark:hover:bg-white/10"
-              onClick={() => {
-                setActivePanel('search');
-                setSearchQuery('');
-              }}
-              type="button"
-            >
-              <span className="flex min-w-0 items-center gap-2">
-                <Search
-                  aria-hidden="true"
-                  className="h-4 w-4 shrink-0 text-gray-700 dark:text-gray-400"
-                  strokeWidth={1.6}
-                />
-                <span className="truncate">Search...</span>
-              </span>
-              <span className="flex-none text-xs font-semibold">Ctrl K</span>
-            </button>
-
-            <button
-              aria-label="Ask Assistant"
-              className="hidden h-9 flex-none items-center justify-center gap-1.5 rounded-full bg-gray-950/[0.03] pl-3 pr-3.5 transition-colors hover:bg-gray-950/10 dark:bg-white/[0.03] dark:hover:bg-white/10 xl:flex"
-              onClick={() => {
-                setActivePanel('assistant');
-                setSearchQuery('');
-              }}
-              type="button"
-            >
-              <Sparkles
-                aria-hidden="true"
-                className="h-4 w-4 shrink-0 text-gray-700 dark:text-gray-400"
-                strokeWidth={1.6}
-              />
-              <span className="whitespace-nowrap text-sm text-gray-500 dark:text-white/50">Ask Assistant</span>
-              <span className="flex-none text-xs font-semibold text-gray-500 dark:text-white/50">Ctrl+I</span>
-            </button>
-          </div>
-
-          <div className="hidden flex-1 items-center justify-end lg:flex">
-            <nav aria-label="Documentation actions" className="text-sm">
-              <ul className="m-0 flex list-none items-center gap-2 p-0">
-                <li>
-                  <ActionLink external href={MARKETING_GITHUB_ISSUES_URL}>
-                    <Headphones aria-hidden="true" className="h-4 w-4" />
-                    Support
-                  </ActionLink>
-                </li>
-                <li>
-                  <ActionLink href="/blog">
-                    <BookOpen aria-hidden="true" className="h-4 w-4" />
-                    Blogs
-                  </ActionLink>
-                </li>
-                <li>
-                  <ActionLink external href={MARKETING_HEADER_ACTIONS.demo}>
-                    Free Trial
-                  </ActionLink>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <nav aria-label="Documentation actions" className="ml-auto hidden shrink-0 items-center lg:flex">
+            <ul className="m-0 flex list-none items-center gap-4 p-0">
+              <li>
+                <ActionLink external href={MARKETING_GITHUB_ISSUES_URL}>
+                  <Headphones aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
+                  Support
+                </ActionLink>
+              </li>
+              <li>
+                <ActionLink href="/blog">
+                  <BookOpen aria-hidden="true" className="h-4 w-4" strokeWidth={1.8} />
+                  Blogs
+                </ActionLink>
+              </li>
+              <li>
+                <ActionLink external primary href={MARKETING_HEADER_ACTIONS.demo}>
+                  Free Trial
+                </ActionLink>
+              </li>
+            </ul>
+          </nav>
 
           <div className="relative ml-auto flex shrink-0 items-center gap-3 lg:hidden">
             <button
@@ -381,13 +337,11 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
         </div>
       </div>
 
-      <nav aria-label="Documentation sections" className="hidden h-10 lg:block">
-        <div className="mx-auto flex h-full max-w-[90rem] overflow-x-auto px-4 lg:px-5">
-          <div className="flex h-full min-w-max items-center gap-x-6 px-1">
-            {DOCS_TABS.map((item) => (
-              <DocsTabLink active={activeTab?.label === item.label} item={item} key={item.label} />
-            ))}
-          </div>
+      <nav aria-label="Documentation sections" className="hidden px-5 pt-[18px] pb-7 lg:block">
+        <div className="mx-auto flex h-12 w-full max-w-[1260px] items-center rounded-full border border-[#e3e8f2] bg-[#fafafa] p-[2px] dark:border-gray-800 dark:bg-gray-900">
+          {DOCS_PRIMARY_TABS.map((item) => (
+            <DocsTabLink active={activeTab?.label === item.label} item={item} key={item.label} />
+          ))}
         </div>
       </nav>
 
