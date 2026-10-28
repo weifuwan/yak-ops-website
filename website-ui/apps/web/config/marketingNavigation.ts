@@ -164,10 +164,10 @@ export const MARKETING_DEVELOPER_GUIDES: readonly MarketingNavLink[] = [
     icon: 'services',
   },
   {
-    label: 'Docker 容器',
-    description: '以容器方式运行服务',
-    href: '/developers/docker',
-    icon: 'database',
+    label: '配置说明',
+    description: '服务配置及运行参数',
+    href: '/developers/configuration',
+    icon: 'workflow',
   },
   {
     label: '开发环境',
@@ -176,25 +176,14 @@ export const MARKETING_DEVELOPER_GUIDES: readonly MarketingNavLink[] = [
     icon: 'code',
   },
   {
-    label: '配置说明',
-    description: '服务配置及运行参数',
-    href: '/developers/configuration',
-    icon: 'workflow',
-  },
-  {
     label: 'API Reference',
     description: '接口与扩展能力',
     href: '/developers/api',
     icon: 'metrics',
   },
-  {
-    label: '参与贡献',
-    description: '项目协作与贡献流程',
-    href: '/developers/contributing',
-    icon: 'github',
-  },
 ];
 
+// Keep the mega menu focused. Other existing routes remain accessible through /docs.
 export const MARKETING_DEVELOPER_OPEN_SOURCE: readonly MarketingNavLink[] = [
   {
     label: 'GitHub',
@@ -209,13 +198,6 @@ export const MARKETING_DEVELOPER_OPEN_SOURCE: readonly MarketingNavLink[] = [
     href: MARKETING_GITHUB_RELEASES_URL,
     external: true,
     icon: 'releases',
-  },
-  {
-    label: 'Issues',
-    description: '反馈问题与讨论',
-    href: MARKETING_GITHUB_ISSUES_URL,
-    external: true,
-    icon: 'issues',
   },
 ];
 
