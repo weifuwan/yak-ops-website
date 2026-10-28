@@ -9,27 +9,82 @@ type ProductEntry = {
 
 const collateAi: readonly ProductEntry[] = [
   { label: 'Collate AI', description: 'The AI layer for data', href: '/collate-ai', icon: 'collate-ai-icon.svg' },
-  { label: 'AI Studio & AI SDK', description: 'Code & no code agents', href: '/ai-studio-ai-sdk', icon: 'ai-studio.svg' },
+  {
+    label: 'AI Studio & AI SDK',
+    description: 'Code & no code agents',
+    href: '/ai-studio-ai-sdk',
+    icon: 'ai-studio.svg',
+  },
   { label: 'AskCollate', description: 'Conversational data UI', href: '/askcollate', icon: 'ask-collate.svg' },
   { label: 'AI Analytics', description: 'Governed exploration', href: '/ai-analytics', icon: 'ai-analytics.svg' },
-  { label: 'AI Native Experience', description: 'Embedded AI workflows', href: '/ai-native-experience', icon: 'ai-native.svg' },
-  { label: 'Context Center', description: 'Context for teams and AI', href: '/context-center', icon: 'context-center.svg' },
+  {
+    label: 'AI Native Experience',
+    description: 'Embedded AI workflows',
+    href: '/ai-native-experience',
+    icon: 'ai-native.svg',
+  },
+  {
+    label: 'Context Center',
+    description: 'Context for teams and AI',
+    href: '/context-center',
+    icon: 'context-center.svg',
+  },
 ];
 
 const capabilitiesLeft: readonly ProductEntry[] = [
-  { label: 'Data Discovery', description: 'Beyond the data catalog', href: '/data-discovery', icon: 'data-discovery-icon.svg' },
+  {
+    label: 'Data Discovery',
+    description: 'Beyond the data catalog',
+    href: '/data-discovery',
+    icon: 'data-discovery-icon.svg',
+  },
   { label: 'Data Lineage', description: 'Trace data end to end', href: '/data-lineage', icon: 'data-lineage-icon.svg' },
-  { label: 'Data Quality', description: 'Complete quality solution', href: '/data-quality', icon: 'data-quality-icon.svg' },
-  { label: 'Data Observability', description: 'See into your pipelines', href: '/data-observability', icon: 'data-observability-icon.svg' },
-  { label: 'Data Governance', description: 'Trust and compliance', href: '/data-governance', icon: 'data-governance-icon.svg' },
+  {
+    label: 'Data Quality',
+    description: 'Complete quality solution',
+    href: '/data-quality',
+    icon: 'data-quality-icon.svg',
+  },
+  {
+    label: 'Data Observability',
+    description: 'See into your pipelines',
+    href: '/data-observability',
+    icon: 'data-observability-icon.svg',
+  },
+  {
+    label: 'Data Governance',
+    description: 'Trust and compliance',
+    href: '/data-governance',
+    icon: 'data-governance-icon.svg',
+  },
 ];
 
 const capabilitiesRight: readonly ProductEntry[] = [
-  { label: 'AI Governance Studio', description: 'Govern every AI asset', href: '/ai-governance-studio', icon: 'ai-governance-icon.svg' },
+  {
+    label: 'AI Governance Studio',
+    description: 'Govern every AI asset',
+    href: '/ai-governance-studio',
+    icon: 'ai-governance-icon.svg',
+  },
   { label: 'Data Contracts', description: 'Codify data trust', href: '/data-contracts', icon: 'data-contracts.svg' },
-  { label: 'Data Marketplace', description: 'Self-serve data products', href: '/data-marketplace', icon: 'data-marketplace-icon.svg' },
-  { label: 'Data Insights', description: 'Health, KPIs, and cost', href: '/data-insights', icon: 'data-insights-icon.svg' },
-  { label: 'Data Collaboration', description: 'Collaborate in context', href: '/data-collaboration', icon: 'data-collaboration-icon.svg' },
+  {
+    label: 'Data Marketplace',
+    description: 'Self-serve data products',
+    href: '/data-marketplace',
+    icon: 'data-marketplace-icon.svg',
+  },
+  {
+    label: 'Data Insights',
+    description: 'Health, KPIs, and cost',
+    href: '/data-insights',
+    icon: 'data-insights-icon.svg',
+  },
+  {
+    label: 'Data Collaboration',
+    description: 'Collaborate in context',
+    href: '/data-collaboration',
+    icon: 'data-collaboration-icon.svg',
+  },
 ];
 
 /**
@@ -99,7 +154,9 @@ function PlatformLink({
         {icon === 'comparison' && <span className="text-[17px] font-bold italic text-[#35364f]">VS</span>}
       </span>
       <span className="min-w-0">
-        <span className="block text-[16px] leading-[1.2] font-medium text-[#111119] group-hover:text-[#086cf4]">{label}</span>
+        <span className="block text-[16px] leading-[1.2] font-medium text-[#111119] group-hover:text-[#086cf4]">
+          {label}
+        </span>
         <span className="mt-1 block text-[14px] leading-[1.35] text-[#82829e]">{subtitle}</span>
       </span>
     </a>
@@ -151,7 +208,9 @@ export default function ProductsMegaMenu({ onNavigate }: { onNavigate: () => voi
               v2.0
             </span>
             <span className="min-w-0">
-              <span className="inline-flex rounded-sm bg-[#d9ebff] px-2 py-0.5 text-[12px] leading-4 text-[#1684fa]">NEW</span>
+              <span className="inline-flex rounded-sm bg-[#d9ebff] px-2 py-0.5 text-[12px] leading-4 text-[#1684fa]">
+                NEW
+              </span>
               <span className="mt-1 block text-[15px] leading-5 font-semibold text-[#24284b]">Release Overview</span>
               <span className="mt-1 flex items-center gap-1 text-[14px] text-[#135ac7]">
                 Read More <ArrowUpRight aria-hidden="true" size={13} />
@@ -191,7 +250,9 @@ export default function ProductsMegaMenu({ onNavigate }: { onNavigate: () => voi
               <span className="inline-flex rounded-sm bg-[#d9ebff] px-2 py-0.5 text-[12px] leading-4 text-[#1684fa]">
                 NEW
               </span>
-              <span className="mt-1 block text-[15px] leading-5 font-semibold text-[#24284b]">Semantic Context for AI</span>
+              <span className="mt-1 block text-[15px] leading-5 font-semibold text-[#24284b]">
+                Semantic Context for AI
+              </span>
               <span className="mt-1 flex items-center gap-1 text-[14px] text-[#135ac7]">
                 Read the explainer <ArrowUpRight aria-hidden="true" size={13} />
               </span>
