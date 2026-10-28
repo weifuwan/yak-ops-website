@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   BookOpen,
   Check,
-  ChevronDown,
   ChevronRight,
   EllipsisVertical,
   Headphones,
@@ -13,7 +12,7 @@ import {
   Sparkles,
   X,
 } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 type DocsHeaderProps = {
@@ -120,7 +119,7 @@ function ActionLink({
   onClick,
 }: {
   href: string;
-  children: React.ReactNode;
+  children: ReactNode;
   external?: boolean;
   onClick?: () => void;
 }) {
@@ -167,6 +166,13 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         setActivePanel('search');
+        setSearchQuery('');
+        setMoreOpen(false);
+      }
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'i') {
+        event.preventDefault();
+        setActivePanel('assistant');
         setSearchQuery('');
         setMoreOpen(false);
       }
