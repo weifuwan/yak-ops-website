@@ -3,35 +3,37 @@ import { useEffect, useState } from 'react';
 // Keep the source testimonials and assets until the Yak Ops content pass.
 const testimonials = [
   {
-    name: "Bonnie Xu",
-    role: "Tech Lead, Data Productivity",
-    quote: "The hard part is getting the right context, knowing what data exists, what it means, and how it relates to the business. This is where OpenMetadata has been so foundational.",
-    person: "bonnie-xu.webp",
-    logo: "customer-gallery/header/openai-logo.svg",
-    company: "OpenAI",
+    name: 'Bonnie Xu',
+    role: 'Tech Lead, Data Productivity',
+    quote:
+      'The hard part is getting the right context, knowing what data exists, what it means, and how it relates to the business. This is where OpenMetadata has been so foundational.',
+    person: 'bonnie-xu.webp',
+    logo: 'customer-gallery/header/openai-logo.svg',
+    company: 'OpenAI',
     logoWidth: 111,
-    href: "https://open-metadata.org/case-study/openai"
+    href: 'https://open-metadata.org/case-study/openai',
   },
   {
-    name: "Angelita Frozza Sanches",
-    role: "Head of Data Platform Engineering",
-    quote: "We all talk about AI, but the real product is not AI. Context is the real product. AI just multiplies it.",
-    person: "angelita-frozza-sanches.webp",
-    logo: "summit/scout24.svg",
-    company: "Scout24",
+    name: 'Angelita Frozza Sanches',
+    role: 'Head of Data Platform Engineering',
+    quote: 'We all talk about AI, but the real product is not AI. Context is the real product. AI just multiplies it.',
+    person: 'angelita-frozza-sanches.webp',
+    logo: 'summit/scout24.svg',
+    company: 'Scout24',
     logoWidth: 98,
-    href: "https://www.getcollate.io/customers/scout24"
+    href: 'https://www.getcollate.io/customers/scout24',
   },
   {
-    name: "Jeppe Johansen",
-    role: "Senior Manager, Data Platform",
-    quote: "For years our metadata was something people read, not something a system or agent could call. That's the difference between waiting on a review and just shipping.",
-    person: "jeppe-johansen.webp",
-    logo: "summit-recap/unity-dark.svg",
-    company: "Unity",
+    name: 'Jeppe Johansen',
+    role: 'Senior Manager, Data Platform',
+    quote:
+      "For years our metadata was something people read, not something a system or agent could call. That's the difference between waiting on a review and just shipping.",
+    person: 'jeppe-johansen.webp',
+    logo: 'summit-recap/unity-dark.svg',
+    company: 'Unity',
     logoWidth: 83,
-    href: "https://www.getcollate.io/customers/unity"
-  }
+    href: 'https://www.getcollate.io/customers/unity',
+  },
 ] as const;
 
 const slidePositions = ['translate-x-0', '-translate-x-full', '-translate-x-[200%]'] as const;
@@ -76,10 +78,7 @@ export default function HomeTestimonialsSection() {
         </h2>
 
         <div className="mt-8 rounded-[24px] bg-white/40 p-4 md:mt-10 md:p-2">
-          <div
-            aria-roledescription="carousel"
-            className="overflow-hidden rounded-[16px]"
-          >
+          <div aria-roledescription="carousel" className="overflow-hidden rounded-[16px]">
             <div
               className={`flex transition-transform duration-500 ease-in-out motion-reduce:transition-none ${slidePositions[activeIndex]}`}
             >
