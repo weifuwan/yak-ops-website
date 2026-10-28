@@ -123,7 +123,7 @@ export default function CollateArchitecture({
         fontSize="19"
         letterSpacing="2.3"
         fontWeight="800"
-       
+
         fill="#1F2A4B"
       >
         COLLATE
@@ -137,7 +137,7 @@ export default function CollateArchitecture({
         textAnchor="middle"
         fontSize="13"
         fontStyle="italic"
-       
+
         fill="#777D97"
       >
         Continuous learning powered by shared memory
@@ -149,7 +149,7 @@ export default function CollateArchitecture({
         y="233"
         fontSize="17"
         fontWeight="700"
-       
+
         textAnchor="middle"
         fill="white"
       >
@@ -165,7 +165,7 @@ export default function CollateArchitecture({
         y="226"
         fontSize="17"
         fontWeight="700"
-       
+
         textAnchor="middle"
         fill="white"
       >
@@ -182,7 +182,7 @@ export default function CollateArchitecture({
         y="302"
         fontSize="13"
         fontStyle="italic"
-       
+
         textAnchor="middle"
         fill="#7C839A"
       >
@@ -199,7 +199,7 @@ export default function CollateArchitecture({
             x={item.x + item.w / 2}
             y="342"
             textAnchor="middle"
-           
+
             fontWeight="700"
             fontSize="13.5"
             fill="#161616"
@@ -275,7 +275,7 @@ export default function CollateArchitecture({
             x={item.x + 103.5}
             y="582"
             textAnchor="middle"
-           
+
             fontWeight="700"
             fontSize="18"
             fill="#111"
@@ -286,7 +286,7 @@ export default function CollateArchitecture({
             x={item.x + 103.5}
             y="605"
             textAnchor="middle"
-           
+
             fontSize="13.5"
             fill="#111"
           >
@@ -297,7 +297,7 @@ export default function CollateArchitecture({
               x={item.x + 103.5}
               y="622"
               textAnchor="middle"
-             
+
               fontSize="13.5"
               fill="#111"
             >
