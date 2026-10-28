@@ -45,7 +45,7 @@ function FragmentationWindow({
   const front = depth === 0;
   const surface = front ? '#FFFFFF' : '#F8FAFD';
   const header = front ? '#EDF3FC' : '#F0F4F9';
-  const border = front ? '#AFC4E0' : '#C4D3E4';
+  const border = front ? '#2F6FED' : '#C4D3E4';
   const primaryText = front ? '#243752' : '#657993';
   const secondaryText = front ? '#7588A2' : '#8B9BB0';
   const divider = front ? '#E2EAF4' : '#E7EDF5';
