@@ -4,31 +4,20 @@ import {
   ArrowRightLeft,
   BookOpen,
   CheckCircle2,
-  Code2,
   Database,
   GitBranch,
   Layers3,
   Network,
-  Play,
   Search,
-  Server,
   ShieldCheck,
   Sparkles,
   Workflow,
-  type LucideIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 type DocsHomeProps = {
   onSearch: () => void;
-};
-
-type Entry = {
-  title: string;
-  href: string;
-  icon: LucideIcon;
-  description?: string;
 };
 
 type DocsChip = {
@@ -82,42 +71,56 @@ const popular: readonly DocsChip[] = [
   },
 ];
 
-const guides: readonly Entry[] = [
+type GuideCard = {
+  title: string;
+  href: string;
+  icon: string;
+  iconBackground: string;
+};
+
+// Reference guide imagery and destinations supplied for the Docs homepage.
+const guides: readonly GuideCard[] = [
   {
-    title: 'Quick Start',
-    description: 'Get familiar with the platform and its core workflows.',
-    href: '/developers/quick-start',
-    icon: Play,
+    title: 'Discovery',
+    href: 'https://docs.getcollate.io/ai-2-0/how-to-guides/data-discovery',
+    icon: 'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/discovery.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=c6a03d9ec0b04bf8c5f0add075acaa40',
+    iconBackground: 'bg-[#eafaf1]',
   },
   {
-    title: 'Docker Compose',
-    description: 'Deploy Yak Ops using the Docker Compose guide.',
-    href: '/docs/deploy/docker-compose',
-    icon: Server,
+    title: 'Lineage',
+    href: 'https://docs.getcollate.io/ai-2-0/how-to-guides/data-lineage',
+    icon: 'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/lineage.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=d2e38412de14e1865f8acde4a94118df',
+    iconBackground: 'bg-[#fffbeb]',
   },
   {
-    title: 'Data Sources',
-    description: 'Explore how data connections fit into Yak Ops.',
-    href: '/product/data-sources',
-    icon: Database,
+    title: 'Observability',
+    href: 'https://docs.getcollate.io/ai-2-0/how-to-guides/data-quality-observability',
+    icon: 'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/observability.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=a7a4691c2bb9e8d2a76870f8f0982f3a',
+    iconBackground: 'bg-[#fff6ef]',
   },
   {
-    title: 'Realtime Sync',
-    description: 'Learn about continuous change data capture.',
-    href: '/product/realtime-sync',
-    icon: ArrowRightLeft,
+    title: 'Governance',
+    href: 'https://docs.getcollate.io/ai-2-0/how-to-guides/data-governance',
+    icon: 'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/governance.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=54e2577b7e269f4b2c1a9bb43dfe9d35',
+    iconBackground: 'bg-[#e9fbfd]',
   },
   {
-    title: 'Workflows',
-    description: 'Connect data tasks into repeatable processes.',
-    href: '/product/workflows',
-    icon: Workflow,
+    title: 'Collaboration',
+    href: 'https://docs.getcollate.io/ai-2-0/how-to-guides/data-collaboration',
+    icon: 'https://mintcdn.com/collatedocs/_b2s5J-PJNlcmOmk/public/images/ai-2.0/ai-icons/collaboration.svg?fit=max&auto=format&n=_b2s5J-PJNlcmOmk&q=85&s=f4e247f41684e58dd02032cc998bb956',
+    iconBackground: 'bg-[#ebf7ff]',
   },
   {
-    title: 'Developer Guide',
-    description: 'Set up a development environment and explore APIs.',
-    href: '/developers/development',
-    icon: Code2,
+    title: 'Marketplace',
+    href: 'https://docs.getcollate.io/ai-2-0/how-to-guides/data-marketplace',
+    icon: 'https://mintcdn.com/collatedocs/_b2s5J-PJNlcmOmk/public/images/ai-2.0/ai-icons/data-marketplace.svg?fit=max&auto=format&n=_b2s5J-PJNlcmOmk&q=85&s=8053268d4a5868f0aadb49c169e07e22',
+    iconBackground: 'bg-[#ebf7ff]',
+  },
+  {
+    title: 'Collate AI',
+    href: 'https://docs.getcollate.io/ai-2-0/collate-ai',
+    icon: 'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/collate-ai.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=4cf7396b35cb92e6df304f127f863cd9',
+    iconBackground: 'bg-[#edf7ff]',
   },
 ];
 
@@ -397,43 +400,48 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
 
         <ReleaseCarousel />
 
-        <section className="mx-auto mt-24 max-w-[1190px] text-center sm:mt-28">
-          <span className="inline-flex rounded-full bg-[#f4eeff] px-4 py-1.5 text-[12px] font-semibold text-[#7353c8]">
-            HOW-TO GUIDES
+        <section aria-labelledby="docs-quick-setup-title" className="mx-auto mt-24 max-w-[1300px] text-center sm:mt-28">
+          <span className="inline-flex items-center justify-center rounded-full bg-[#edf8ff] px-5 py-2 text-[14px] font-medium text-[#079bea]">
+            How-to Guides
           </span>
-          <h2 className="m-0 mt-4 text-[clamp(28px,3.5vw,39px)] font-semibold tracking-[-0.03em] text-[#192238]">
+          <h2
+            className="m-0 mt-5 text-[clamp(30px,3.5vw,40px)] leading-[1.2] font-normal tracking-[-0.025em] text-[#181d27]"
+            id="docs-quick-setup-title"
+          >
             Quick Setup Guides
           </h2>
-          <p className="mx-auto mt-3 max-w-[630px] text-[15px] leading-7 text-[#7b8494] sm:text-[16px]">
-            From your first deployment to a production data workflow, start with practical guides.
+          <p className="mx-auto mt-4 max-w-[900px] text-[16px] leading-[1.5] text-[#717680] sm:text-[18px]">
+            Dive into our library of guides to explore data with Collate 2.0.
           </p>
-          <div className="mt-9 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
-            {guides.map((guide) => {
-              const Icon = guide.icon;
-              return (
-                <Link
-                  className="group flex min-h-[145px] gap-4 rounded-2xl border border-[#e6ecf5] bg-white p-5 no-underline transition-[transform,box-shadow,border-color] hover:-translate-y-1 hover:border-[#c8dfff] hover:shadow-[0_12px_30px_rgba(22,55,112,0.08)]"
-                  key={guide.title}
-                  to={guide.href}
-                >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#eef7ff] text-[#1677f7]">
-                    <Icon aria-hidden="true" size={21} strokeWidth={1.8} />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex items-center justify-between gap-2 text-[16px] font-semibold text-[#202b43] group-hover:text-[#086cf4]">
-                      {guide.title}
-                      <ArrowRight aria-hidden="true" className="shrink-0 text-[#a4b4ca] group-hover:text-[#086cf4]" size={16} />
-                    </span>
-                    <span className="mt-2 block text-[13px] leading-[1.65] text-[#768298]">
-                      {guide.description}
-                    </span>
-                  </span>
-                </Link>
-              );
-            })}
+          <div className="mt-[52px] grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 xl:gap-6">
+            {guides.map((guide) => (
+              <a
+                className="group flex min-h-[164px] min-w-0 flex-col items-center justify-center gap-4 rounded-[20px] bg-white px-4 py-5 text-[#252b37] no-underline shadow-[0_4px_12px_-1px_rgba(10,13,18,0.08)] transition-[background-color,color,box-shadow] duration-300 hover:bg-[#f6fbff] hover:text-[#076cf5] hover:shadow-[0_6px_18px_-1px_rgba(10,13,18,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
+                href={guide.href}
+                key={guide.title}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <span className={'flex h-20 w-20 shrink-0 items-center justify-center rounded-full ' + guide.iconBackground}>
+                  <img
+                    alt=""
+                    aria-hidden="true"
+                    className="h-10 w-10 object-contain"
+                    height={40}
+                    loading="lazy"
+                    src={guide.icon}
+                    width={40}
+                  />
+                </span>
+                <span className="text-center text-[16px] leading-[1.3] font-medium sm:text-[18px]">
+                  {guide.title}
+                </span>
+              </a>
+            ))}
           </div>
         </section>
 
+        
         <section className="mx-auto mt-24 max-w-[1190px] sm:mt-28">
           <div className="text-center">
             <span className="inline-flex rounded-full bg-[#f4eeff] px-4 py-1.5 text-[12px] font-semibold text-[#7353c8]">
