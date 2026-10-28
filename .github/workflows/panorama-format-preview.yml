@@ -1,0 +1,25 @@
+name: Temporary Panorama Format Preview
+on:
+  push:
+    paths:
+      - .github/workflows/panorama-format-preview.yml
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.13'
+          cache: npm
+          cache-dependency-path: website-ui/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: website-ui
+      - name: Output formatted panorama for review
+        working-directory: website-ui
+        run: |
+          ./node_modules/.bin/oxfmt apps/web/app/home/components/YakOpsProductPanorama.tsx
+          echo 'PANORAMA_FORMAT_START'
+          base64 -w0 apps/web/app/home/components/YakOpsProductPanorama.tsx
+          echo
+          echo 'PANORAMA_FORMAT_END'
