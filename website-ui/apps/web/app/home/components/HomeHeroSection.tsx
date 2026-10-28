@@ -1,39 +1,98 @@
-import heroImage from '@/assets/homepage-hero-data-core.png';
-
+/**
+ * Screenshot-faithful Collate hero recreation.
+ *
+ * The original background remains a video (not a screenshot). It is loaded
+ * from Collate until the approved asset can be hosted by this website.
+ * Copy and CTA destinations are intentionally unchanged for a later pass.
+ */
 export default function HomeHeroSection() {
   return (
-    <section className="relative h-[320px] w-full overflow-hidden bg-[#EDF4FF] sm:h-[380px] lg:h-[488px]">
-      <img
-        src={heroImage}
-        alt="Yak Ops data operations hero"
-        className="block h-full w-full select-none object-cover object-[72%_65%]"
-        draggable={false}
+    <section
+      className="relative -mt-[60px] w-full overflow-hidden bg-[#1f2545] bg-[linear-gradient(105deg,#212642_30%,#093a78_100%)]"
+      data-hero-section="true"
+    >
+      <video
+        aria-hidden="true"
+        autoPlay
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[50%_20%] motion-reduce:hidden"
+        loop
+        muted
+        playsInline
+        preload="auto"
+        src="https://www.getcollate.io/images/bg-hero-v2.mp4"
       />
 
-      <div className="absolute inset-0">
-        <div className="mx-auto flex h-full w-[calc(100%-clamp(2rem,1.428571rem+2.857143vw,4rem)*2)] max-w-[90rem] items-center">
-          <div className="flex max-w-[80rem] flex-col">
-            <span className="mb-8 inline-flex items-center gap-2 text-[16px] font-medium text-[#0070FF] md:text-[22px]">
-              数据集成
-            </span>
-
-            <h1 className="mb-8 max-w-[64rem] text-[40px] font-semibold leading-[1.04] tracking-[0.035em] text-[#101828] lg:text-[64px]">
-              Data Integration
+      <div className="relative mx-auto w-full max-w-[1440px] px-4 pt-[112px] pb-16 sm:px-12 sm:pt-[132px] lg:px-24 lg:pt-[146px] lg:pb-[88px]">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h1 className="m-0 text-[44px] leading-[1.1] tracking-[0.01em] font-normal text-white sm:text-[56px] lg:text-[64px]">
+              Agentic AI
+              <br />
+              <span className="text-[#FFE500]">you can trust</span>
             </h1>
 
-            <p className="mb-[64px] max-w-[64rem] text-[14px] font-light leading-7 text-[#667085] md:text-[18px]">
-              统一管理数据源、离线同步、实时同步与任务运维
+            <p className="mt-4 max-w-[400px] text-lg leading-8 text-white">
+              Collate is the Agentic Data Platform, built on OpenMetadata. It gives AI the context to get its answers
+              right.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="mt-8 flex w-fit flex-row gap-3 whitespace-nowrap sm:gap-4">
               <a
-                href="https://demo.yak-ops.com"
+                className="flex cursor-pointer items-center justify-center rounded-[8px] border border-[#FFE500] bg-[#FFE500] px-6 py-3 text-lg font-medium text-black transition-colors duration-200 hover:bg-[#F5D700] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                href="/welcome"
+                id="hero-try-collate-cta"
+                rel="noopener noreferrer"
                 target="_blank"
-                rel="noreferrer"
-                className="group relative isolate inline-flex h-auto cursor-pointer select-none items-center justify-center gap-4 overflow-hidden rounded-[8px] bg-transparent px-10 py-4 text-[18px] font-light text-white no-underline transition-all duration-300 ease-in-out before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:bg-[linear-gradient(270deg,#0070FF_0%,#04F_100%)] before:content-[''] after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-[linear-gradient(0deg,#0070FF_0%,#0070FF_100%),linear-gradient(270deg,#0070FF_0%,#04F_100%)] after:opacity-0 after:transition-opacity after:duration-300 after:ease-in-out after:content-[''] hover:font-normal hover:after:opacity-100 hover:!text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0070FF] max-lg:h-10 max-lg:gap-2 max-lg:px-4 max-lg:py-2 max-lg:text-[14px]"
               >
-                线上体验
+                Try Collate
               </a>
+              <a
+                className="flex cursor-pointer items-center justify-center rounded-[8px] border border-white bg-transparent px-6 py-3 text-lg font-medium text-white transition-colors duration-200 hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                href="/contact-sales"
+                id="book-demo-cta-benchmark"
+                rel="noopener noreferrer"
+              >
+                Book a Demo
+              </a>
+            </div>
+          </div>
+
+          <div className="mx-auto w-full max-w-[600px] lg:mr-0">
+            <div className="rounded-2xl border border-white/15 bg-[#0b1935]/70 px-4 pt-7 pb-4 backdrop-blur-md sm:px-7 sm:pt-10 sm:pb-6">
+              <p className="flex items-center justify-center gap-3 text-white sm:gap-5">
+                <span className="text-[56px] leading-none font-bold text-[#FFE500] sm:text-[80px]">7x</span>
+                <span className="text-[28px] leading-none font-semibold sm:text-[40px]">Fewer Errors</span>
+              </p>
+
+              <div className="mt-7 rounded-xl bg-[#07112a]/70 px-4 py-4 sm:mt-9 sm:px-6 sm:py-5">
+                <p className="text-center text-base text-white sm:text-lg">Agent Accuracy</p>
+
+                <div className="mt-3 sm:mt-4">
+                  <p className="text-sm text-white sm:text-base">Opus + Collate</p>
+                  <div className="mt-1.5 flex items-center gap-3 sm:gap-4">
+                    <div
+                      aria-hidden="true"
+                      className="h-7 flex-1 overflow-hidden rounded-full bg-white/10 bg-[repeating-linear-gradient(120deg,transparent_0px,transparent_12px,rgba(255,255,255,0.15)_12px,rgba(255,255,255,0.15)_13px)] sm:h-9"
+                    >
+                      <div className="h-full w-[94%] rounded-full bg-gradient-to-r from-[#1876D7] to-[#318FF6]" />
+                    </div>
+                    <span className="w-12 text-right text-lg font-semibold text-white sm:w-16 sm:text-2xl">94%</span>
+                  </div>
+                </div>
+
+                <div className="mt-3 sm:mt-4">
+                  <p className="text-sm text-white sm:text-base">Opus alone</p>
+                  <div className="mt-1.5 flex items-center gap-3 sm:gap-4">
+                    <div
+                      aria-hidden="true"
+                      className="h-7 flex-1 overflow-hidden rounded-full bg-white/10 bg-[repeating-linear-gradient(120deg,transparent_0px,transparent_12px,rgba(255,255,255,0.15)_12px,rgba(255,255,255,0.15)_13px)] sm:h-9"
+                    >
+                      <div className="h-full w-[59%] rounded-full bg-[#a71d33]" />
+                    </div>
+                    <span className="w-12 text-right text-lg font-semibold text-white sm:w-16 sm:text-2xl">59%</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
