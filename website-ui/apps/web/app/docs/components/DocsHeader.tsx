@@ -193,7 +193,7 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0 }: Docs
   const closePanel = () => setActivePanel(null);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#edf0f5] bg-white text-[#151b34] dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
+    <header className="sticky top-0 z-50 w-full bg-white text-[#151b34] dark:bg-gray-950 dark:text-gray-100">
       <div className="relative z-10 mx-auto max-w-[1400px] px-5 lg:px-6">
         <div className="flex h-16 min-w-0 items-center justify-between gap-6">
           <div className="flex min-w-0 items-center gap-4">
