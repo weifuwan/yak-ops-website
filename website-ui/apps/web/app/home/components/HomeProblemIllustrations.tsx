@@ -241,21 +241,15 @@ export function BlindSpotsIllustration() {
       <path className="yak-blind-error-marker" d="M253 58L264 76M264 58L253 76" stroke="#D6455E" strokeWidth="2.5" strokeLinecap="round" />
       <g filter="url(#blind-shadow)">
         <rect x="30" y="40" width="88" height="54" rx="10" fill="white" stroke="#D6E4F7" />
-        <rect x="45" y="54" width="17" height="17" rx="4" fill="#DCEFFF" />
-        <path d="M49 60H58M49 65H58" stroke="#2288E5" strokeWidth="1.6" strokeLinecap="round" />
-        <text x="69" y="64" fontSize="11" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Source</text>
+        <text x="74" y="65" textAnchor="middle" fontSize="12" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Source</text>
         <rect x="46" y="80" width="52" height="4" rx="2" fill="#DBE7F6" />
 
         <rect x="166" y="37" width="84" height="60" rx="10" fill="white" stroke="#D6E4F7" />
-        <rect x="179" y="51" width="17" height="17" rx="4" fill="#DFEAFE" />
-        <path d="M183 59H192M187.5 54V64" stroke="#5484DA" strokeWidth="1.5" strokeLinecap="round" />
-        <text x="202" y="62" fontSize="11" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Task</text>
+        <text x="208" y="65" textAnchor="middle" fontSize="12" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Task</text>
         <rect x="180" y="79" width="52" height="4" rx="2" fill="#DBE7F6" />
 
         <rect x="303" y="40" width="84" height="54" rx="10" fill="white" stroke="#D6E4F7" />
-        <rect x="316" y="54" width="17" height="17" rx="4" fill="#E8F7F1" />
-        <path d="M320 59H329M320 64H329" stroke="#4DAD94" strokeWidth="1.6" strokeLinecap="round" />
-        <text x="339" y="64" fontSize="10.5" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Sink</text>
+        <text x="345" y="65" textAnchor="middle" fontSize="12" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Sink</text>
         <rect x="317" y="80" width="52" height="4" rx="2" fill="#DBE7F6" />
 
         <rect x="59" y="119" width="298" height="112" rx="13" fill="white" stroke="#D6E4F7" />

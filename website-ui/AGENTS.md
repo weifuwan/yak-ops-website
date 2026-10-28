@@ -11,6 +11,12 @@ Scope: **all work under `website-ui/`**, including AI-generated changes and huma
 5. **Static inline `style={{ ... }}` is forbidden in new page UI.** Inline styles are an exception only for truly runtime-computed values that Tailwind cannot express; add a short comment explaining the need. Never generate Tailwind class names dynamically via string interpolation (e.g. `bg-${color}`)—use complete, statically discoverable classes.
 6. Respect `prefers-reduced-motion`, accessible focus states, keyboard navigation, and mobile layouts. Do not add redundant explanatory UI copy as a side effect of visual refactoring.
 
+## Product Illustration Icon Discipline (mandatory)
+
+1. **Product previews, marketing diagrams, and animated SVG illustrations MUST use clear labels, meaningful states, and realistic interface structure rather than decorative icons.** Do not add a separate icon to a node, card, or table row when its text label already conveys the same meaning.
+2. **In compact pipeline diagrams (e.g. Source → Task → Sink), prefer aligned, consistently spaced text labels without leading decorative icons.** Keep the visual hierarchy restrained; avoid icon-heavy, generic AI-style diagrams and unnecessary visual clutter.
+3. Icons remain appropriate when they communicate an actual action, status, or distinct semantic meaning (including navigation and accessible controls); this is **not** a ban on functional UI icons. Maintain accessible labeling and respect reduced-motion preferences.
+
 ## Enforcement
 
 - `npm run architecture:check` **fails when page-local stylesheets or stylesheet imports are introduced under `apps/web/app`**.

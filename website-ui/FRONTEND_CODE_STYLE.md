@@ -67,6 +67,12 @@ Marketing product previews are illustrative presentation components, not duplica
 
 Base UI is the headless interaction foundation owned by `packages/yak-ui`. App and page code consume Yak UI only; direct `@base-ui/react`, `antd`, `@ant-design/icons` and `antd-style` imports are forbidden.
 
+## Product Preview and Illustration Design (Mandatory)
+
+- 产品示意图、营销动画和数据工作流图 **以真实界面结构、简洁文字标签和有意义的状态为主**，禁止为了装饰给每个节点重复添加图标；文字已经足以识别节点时，**不要再加前置 icon**。
+- 对于 `Source → Task → Sink` 等紧凑流程图，统一标签的字体、基线、内边距与对齐方式；优先通过真实流程、层次和状态变化表达语义，避免密集的小图标、装饰性连接和泛 AI 风格的概念图。
+- 功能性图标（如操作按钮、导航、真实状态提示）在具有明确用途时可以保留。动画不得抢夺正文注意力，并需兼容 `prefers-reduced-motion`；图形内容和动效职责清晰分离。
+
 ## Services
 
 All HTTP access belongs under `apps/web/service`.
