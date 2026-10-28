@@ -7,6 +7,7 @@ import HomeBrandsMarquee from './components/HomeBrandsMarquee';
 import HomeContextProblemSection from './components/HomeContextProblemSection';
 import HomeContextRiskSection from './components/HomeContextRiskSection';
 import HomeIndustriesSection from './components/HomeIndustriesSection';
+import HomeServiceOptionsSection from './components/HomeServiceOptionsSection';
 import HomeHeroSection from './components/HomeHeroSection';
 
 export default function HomePage() {
@@ -20,6 +21,7 @@ export default function HomePage() {
       <HomeMetricsSection />
       <HomeTestimonialsSection />
       <HomeIndustriesSection />
+      <HomeServiceOptionsSection />
     </main>
   );
 }
