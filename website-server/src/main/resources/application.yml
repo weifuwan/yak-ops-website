@@ -16,7 +16,7 @@ spring:
     host: ${MAIL_HOST:smtp.qiye.aliyun.com}
     port: ${MAIL_PORT:465}
     username: ${MAIL_USERNAME:noreply@yak-ops.com}
-    password: ${MAIL_PASSWORD:}
+    password: ${MAIL_PASSWORD:Wei123456.}
     properties:
       mail:
         smtp:

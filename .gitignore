@@ -2,9 +2,11 @@
 .DS_Store
 .idea/
 .vscode/
+website-ui/src/.umi-production
 
 # Frontend
 website-ui/node_modules/
+website-ui/apps/web/node_modules
 website-ui/dist/
 website-ui/.umi/
 website-ui/.umi-production/
