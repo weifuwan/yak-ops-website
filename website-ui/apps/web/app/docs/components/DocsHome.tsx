@@ -37,6 +37,9 @@ const popular: readonly Entry[] = [
   { title: 'Data Sources', href: '/product/data-sources', icon: Database },
   { title: 'Workflows', href: '/product/workflows', icon: Workflow },
   { title: 'Data Quality', href: '/product/data-quality', icon: ShieldCheck },
+  { title: 'Batch Sync', href: '/product/batch-sync', icon: Layers3 },
+  { title: 'Data Lineage', href: '/product/lineage', icon: GitBranch },
+  { title: 'Data Services', href: '/product/data-services', icon: Network },
 ];
 
 const guides: readonly Entry[] = [
@@ -162,7 +165,7 @@ function ReleaseCarousel() {
   const move = (step: number) => setCurrent((index) => (index + step + updates.length) % updates.length);
 
   return (
-    <section aria-label="Featured documentation" className="relative mx-auto mt-20 max-w-[1190px] sm:mt-24">
+    <section aria-label="Featured documentation" className="relative mx-auto mt-0 max-w-[1190px]">
       <div className="overflow-hidden rounded-[24px] bg-[linear-gradient(110deg,#e1e4ff_0%,#d4efff_55%,#c8f4ff_100%)] px-6 py-9 sm:px-12 sm:py-12">
         <div className="grid items-center gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
           <PipelineIllustration />
@@ -225,40 +228,47 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
   return (
     <main className="min-h-screen bg-white pb-28 text-[#192238]">
       <div className="mx-auto w-full max-w-[1300px] px-5 sm:px-8">
-        <section className="pt-[82px] text-center sm:pt-[98px]">
-          <h1 className="m-0 text-[clamp(36px,5vw,56px)] leading-[1.15] font-semibold tracking-[-0.04em]">
-            Unlock the <span className="text-[#079ef2]">Power</span> of Data
+        <section className="bg-[radial-gradient(46.63%_44.4%_at_50%_50%,rgba(201,207,255,0.2)_0%,rgba(255,255,255,0.2)_100%)] pt-24 pb-24 text-center">
+          <h1 className="m-0 mt-6 text-[clamp(36px,5vw,56px)] leading-[1.2] font-semibold tracking-[-0.03em] text-[#181d27]">
+            Unlock the{' '}
+            <span className="bg-[linear-gradient(to_top,#016afb_0%,#00e0ee_100%)] bg-clip-text text-transparent">
+              Power
+            </span>{' '}
+            of Data
           </h1>
-          <p className="mx-auto mt-4 max-w-[800px] text-[16px] leading-[1.7] text-[#7b8494] sm:text-[18px]">
+          <p className="mx-auto mt-5 max-w-[1160px] text-[17px] leading-[1.5] text-[#717680] sm:text-[18px] lg:text-[20px]">
             Connect, synchronize, develop, and govern your data with Yak Ops. Find the guides you need to get started.
           </p>
 
           <button
             aria-label="Search Yak Ops documentation"
-            className="group mx-auto mt-14 flex h-[58px] w-full max-w-[720px] cursor-pointer items-center gap-3 rounded-full border border-[#e0e9f6] bg-[#fafbff] px-4 text-left shadow-[0_1px_2px_rgba(16,52,105,0.03)] transition-colors hover:border-[#bdd8fa] hover:bg-[#f3f8ff] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] sm:px-5"
+            className="group mx-auto mt-16 flex min-h-[64px] w-full max-w-[800px] cursor-pointer items-center gap-3 rounded-full border-2 border-[#eaecf5] bg-white/70 px-4 py-2.5 text-left transition-[border-color,box-shadow,background-color] duration-200 hover:border-[#c7dcfa] hover:bg-white hover:shadow-[0_6px_24px_rgba(34,82,158,0.06)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] sm:gap-4 sm:px-5"
             onClick={onSearch}
             type="button"
           >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(145deg,#44c9ef,#535cf2)] text-white">
-              <Sparkles aria-hidden="true" size={19} strokeWidth={2} />
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(145deg,#44c9ef,#535cf2)] text-white">
+              <Sparkles aria-hidden="true" size={21} strokeWidth={1.8} />
             </span>
-            <span className="min-w-0 flex-1 truncate text-[13px] text-[#9aa4b5] sm:text-[15px]">
+            <span aria-hidden="true" className="h-4 w-px shrink-0 bg-[#dfe4ed]" />
+            <span className="min-w-0 flex-1 truncate text-[14px] font-normal text-[#a0a7b2] sm:text-[16px]">
               Search for connectors, deployment, workflows and more
             </span>
-            <Search aria-hidden="true" className="shrink-0 text-[#a3adbf] sm:hidden" size={16} />
-            <kbd className="hidden shrink-0 text-[12px] text-[#9aa4b5] sm:inline">Ctrl K</kbd>
+            <Search aria-hidden="true" className="shrink-0 text-[#9ca3af] sm:hidden" size={16} />
+            <kbd className="hidden shrink-0 px-2 py-1 text-[12px] font-semibold whitespace-nowrap text-[#9ca3af] sm:inline">
+              Ctrl K
+            </kbd>
           </button>
 
-          <div className="mx-auto mt-5 flex max-w-[1050px] flex-wrap items-center justify-center gap-2.5 sm:gap-3">
+          <div className="mx-auto mt-6 flex max-w-[1300px] flex-wrap items-center justify-center gap-x-4 gap-y-3 lg:gap-x-6">
             {popular.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
-                  className="inline-flex items-center gap-2 rounded-full bg-[#f0f8ff] px-3.5 py-2 text-[13px] font-medium text-[#174b8c] no-underline shadow-[0_4px_12px_rgba(32,80,134,0.08)] transition-transform hover:-translate-y-0.5 hover:bg-[#e3f2ff]"
+                  className="inline-flex w-max items-center gap-3 rounded-full bg-[linear-gradient(93.13deg,#ebf9ff_0%,#ecf4ff_189.43%)] px-3 py-2 text-[14px] leading-6 font-medium whitespace-nowrap text-[#194185] no-underline shadow-[0_4px_12px_-1px_rgba(10,13,18,0.08)] transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-[0_7px_16px_-1px_rgba(10,13,18,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] sm:text-[16px]"
                   key={item.title}
                   to={item.href}
                 >
-                  <Icon aria-hidden="true" className="text-[#159af2]" size={15} strokeWidth={1.9} />
+                  <Icon aria-hidden="true" className="shrink-0 text-[#1695ec]" size={16} strokeWidth={1.8} />
                   {item.title}
                 </Link>
               );
