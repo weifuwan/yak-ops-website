@@ -263,7 +263,7 @@ export default function ProductsMegaMenu({ onNavigate }: { onNavigate: () => voi
 
       <div className="m-4 ml-0 grid min-w-0 grid-cols-3 gap-x-3 rounded-2xl bg-white/50 p-6">
         <section className="min-w-0">
-          <h2 className="m-0 mb-5 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">COLLATE AI</h2>
+          <h2 className="m-0 mb-2 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">COLLATE AI</h2>
           <div className="flex flex-col gap-3">
             {collateAi.map((entry) => (
               <ProductLink entry={entry} key={entry.label} onNavigate={onNavigate} />
@@ -271,14 +271,14 @@ export default function ProductsMegaMenu({ onNavigate }: { onNavigate: () => voi
           </div>
         </section>
         <section className="min-w-0">
-          <h2 className="m-0 mb-5 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">CAPABILITIES</h2>
+          <h2 className="m-0 mb-2 text-[12px] leading-5 font-medium tracking-[0.04em] text-[#777994]">CAPABILITIES</h2>
           <div className="flex flex-col gap-3">
             {capabilitiesLeft.map((entry) => (
               <ProductLink entry={entry} key={entry.label} onNavigate={onNavigate} />
             ))}
           </div>
         </section>
-        <section className="min-w-0 pt-10">
+        <section className="min-w-0 pt-7">
           <div className="flex flex-col gap-3">
             {capabilitiesRight.map((entry) => (
               <ProductLink entry={entry} key={entry.label} onNavigate={onNavigate} />
