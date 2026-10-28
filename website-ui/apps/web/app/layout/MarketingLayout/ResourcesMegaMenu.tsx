@@ -2,13 +2,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 import { MARKETING_RESOURCE_ARTICLES, MARKETING_RESOURCE_LINKS } from '@/config/marketingNavigation';
 
-const resourceIcons = [
-  'case-studies.svg',
-  'learning-center.svg',
-  'events.svg',
-  'compare.svg',
-  'newsroom.svg',
-] as const;
+const resourceIcons = ['case-studies.svg', 'learning-center.svg', 'events.svg', 'compare.svg', 'newsroom.svg'] as const;
 
 /** Reference Resources drop-down, including original copy and source artwork. */
 export default function ResourcesMegaMenu({ onNavigate }: { onNavigate: () => void }) {
