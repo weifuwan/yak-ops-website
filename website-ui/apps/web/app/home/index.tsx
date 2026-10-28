@@ -8,6 +8,7 @@ import HomeContextProblemSection from './components/HomeContextProblemSection';
 import HomeContextRiskSection from './components/HomeContextRiskSection';
 import HomeIndustriesSection from './components/HomeIndustriesSection';
 import HomeServiceOptionsSection from './components/HomeServiceOptionsSection';
+import HomeKnowledgeCenterSection from './components/HomeKnowledgeCenterSection';
 import HomeHeroSection from './components/HomeHeroSection';
 
 export default function HomePage() {
@@ -22,6 +23,7 @@ export default function HomePage() {
       <HomeTestimonialsSection />
       <HomeIndustriesSection />
       <HomeServiceOptionsSection />
+      <HomeKnowledgeCenterSection />
     </main>
   );
 }
