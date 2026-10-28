@@ -67,9 +67,9 @@ const DOCS_PRIMARY_TABS = DOCS_TABS.slice(0, 9);
 
 function DocsTabLink({ item, active, onClick }: { item: DocsTab; active: boolean; onClick?: () => void }) {
   const className = [
-    'group inline-flex h-[44px] min-w-0 flex-1 items-center justify-center rounded-full px-2 text-center text-[13px] font-medium whitespace-nowrap no-underline transition-colors duration-150 xl:text-[14px]',
+    'group inline-flex h-[44px] shrink-0 items-center justify-center rounded-full px-3 text-center text-[13px] font-medium whitespace-nowrap no-underline transition-[color,background-color,border-color] duration-150 xl:px-4 xl:text-[15px] 2xl:px-6 2xl:text-[16px]',
     active
-      ? 'border border-[#b8ddff] bg-[#edf7ff] text-[#086cf5] dark:border-blue-600/50 dark:bg-blue-950/50 dark:text-blue-300'
+      ? 'border border-[#b8ddff] bg-[#edf7ff] font-bold text-[#086cf5] dark:border-blue-600/50 dark:bg-blue-950/50 dark:text-blue-300'
       : 'text-[#243047] hover:bg-[#edf2f9] hover:text-[#086cf5] dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white',
   ].join(' ');
 
@@ -338,7 +338,7 @@ export default function DocsHeader({ onOpenNavigation }: DocsHeaderProps) {
       </div>
 
       <nav aria-label="Documentation sections" className="hidden px-5 pt-[18px] pb-7 lg:block">
-        <div className="mx-auto flex h-12 w-full max-w-[1260px] items-center rounded-full border border-[#e3e8f2] bg-[#fafafa] p-[2px] dark:border-gray-800 dark:bg-gray-900">
+        <div className="mx-auto flex h-12 w-full max-w-[1260px] items-center justify-between rounded-full border border-[#e3e8f2] bg-[#fafafa] p-[2px] dark:border-gray-800 dark:bg-gray-900">
           {DOCS_PRIMARY_TABS.map((item) => (
             <DocsTabLink active={activeTab?.label === item.label} item={item} key={item.label} />
           ))}
