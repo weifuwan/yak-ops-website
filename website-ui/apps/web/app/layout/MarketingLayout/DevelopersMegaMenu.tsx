@@ -136,9 +136,7 @@ export default function DevelopersMegaMenu({ onNavigate }: { onNavigate: () => v
 
       <div className="min-w-0 px-6 py-7">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="m-0 text-[12px] leading-5 font-medium tracking-[0.06em] text-[#777f9a]">
-            DEVELOPMENT GUIDES
-          </h2>
+          <h2 className="m-0 text-[12px] leading-5 font-medium tracking-[0.06em] text-[#777f9a]">DEVELOPMENT GUIDES</h2>
           <Link
             className="inline-flex shrink-0 items-center gap-1 text-[13px] font-medium text-[#1559b6] no-underline hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#086bf5]"
             onClick={onNavigate}
@@ -155,9 +153,7 @@ export default function DevelopersMegaMenu({ onNavigate }: { onNavigate: () => v
         </div>
 
         <div className="mt-6 border-t border-[#dbe4f0] pt-5">
-          <h2 className="m-0 mb-4 text-[12px] leading-5 font-medium tracking-[0.06em] text-[#777f9a]">
-            OPEN SOURCE
-          </h2>
+          <h2 className="m-0 mb-4 text-[12px] leading-5 font-medium tracking-[0.06em] text-[#777f9a]">OPEN SOURCE</h2>
           <div className="grid grid-cols-3 gap-3">
             {MARKETING_DEVELOPER_OPEN_SOURCE.map((link) => (
               <DeveloperLink compact key={link.href} link={link} onNavigate={onNavigate} />
