@@ -7,23 +7,23 @@ import {
 const dataEngineeringProblems = [
   {
     name: 'Fragmentation',
-    question: 'Why does one data workflow need so many tools?',
+    headline: 'One workflow. Too many tools.',
     description:
-      'Data integration, development, scheduling, and monitoring are scattered across different systems.',
+      'Integration, development, and scheduling live in separate systems.',
     illustration: FragmentationIllustration,
   },
   {
     name: 'Manual Work',
-    question: 'Why does delivering data take so long?',
+    headline: 'Same setup. Again and again.',
     description:
-      'Repeated setup, manual configuration, and disconnected workflows slow down every delivery.',
+      'Repetitive configuration slows down every delivery.',
     illustration: ManualWorkIllustration,
   },
   {
     name: 'Blind Spots',
-    question: "Why is it so hard to know what's happening?",
+    headline: "A pipeline fails. Where do you look?",
     description:
-      'When data pipelines fail, finding the cause often means searching through logs, tasks, and systems.',
+      'Finding the cause means searching across logs and systems.',
     illustration: BlindSpotsIllustration,
   },
 ] as const;
@@ -48,7 +48,7 @@ export default function HomeContextProblemSection() {
             <span className="block">Your Tools Shouldn&apos;t Make It Harder.</span>
           </h2>
           <p className="mx-auto mb-0 mt-4 max-w-[900px] text-[16px] leading-[1.6] text-[#5d6675] sm:text-[18px]">
-            Disconnected tools, repetitive work, and limited visibility slow down data engineering.
+            The hardest part isn&apos;t always the data itself.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export default function HomeContextProblemSection() {
                 <div className="px-5 pt-6 sm:px-6">
                   <p className="m-0 text-[15px] font-medium text-[#167bf7] sm:text-base">{problem.name}</p>
                   <h3 className="m-0 mt-2 text-[20px] leading-[1.35] font-semibold tracking-[-0.015em] text-[#151a23]">
-                    {problem.question}
+                    {problem.headline}
                   </h3>
                 </div>
                 <p className="m-0 px-5 pt-3 pb-8 text-[15px] leading-[1.65] text-[#475467] sm:px-6 sm:text-base">
