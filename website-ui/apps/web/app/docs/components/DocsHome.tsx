@@ -426,11 +426,11 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
                   <img
                     alt=""
                     aria-hidden="true"
-                    className="h-10 w-10 object-contain"
-                    height={40}
+                    className="h-20 w-20 object-contain"
+                    height={80}
                     loading="lazy"
                     src={guide.icon}
-                    width={40}
+                    width={80}
                   />
                 </span>
                 <span className="text-center text-[16px] leading-[1.3] font-medium sm:text-[18px]">
