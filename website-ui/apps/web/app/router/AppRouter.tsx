@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
+import BlogPage from '@/app/blog';
 import ApiPage from '@/app/developers/api';
 import ConfigurationPage from '@/app/developers/configuration';
 import ContributingPage from '@/app/developers/contributing';
@@ -28,6 +29,7 @@ export default function AppRouter() {
     <Routes>
       <Route element={<MarketingLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/blog" element={<BlogPage />} />
         <Route path="/product/data-sources" element={<DataSourcesPage />} />
         <Route path="/product/batch-sync" element={<BatchSyncPage />} />
         <Route path="/product/realtime-sync" element={<RealtimeSyncPage />} />

@@ -202,6 +202,12 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
     href: '/docs',
   },
   {
+    key: 'blog',
+    label: 'Blog',
+    kind: 'link',
+    href: '/blog',
+  },
+  {
     key: 'resources',
     label: 'Resources',
     kind: 'mega',
