@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 import DocsConnectors from './DocsConnectors';
 import DocsExploreMore from './DocsExploreMore';
+import DocsFooter from './DocsFooter';
 import DocsHighlights from './DocsHighlights';
 import DocsQuickLinks from './DocsQuickLinks';
 import DocsSummit from './DocsSummit';
@@ -344,7 +345,7 @@ function ReleaseCarousel() {
 
 export default function DocsHome({ onSearch }: DocsHomeProps) {
   return (
-    <main className="min-h-screen bg-white pb-28 text-[#192238]">
+    <main className="min-h-screen bg-white text-[#192238]">
       <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8">
         <section className="bg-[radial-gradient(46.63%_44.4%_at_50%_50%,rgba(201,207,255,0.2)_0%,rgba(255,255,255,0.2)_100%)] pt-24 pb-24 text-center">
           <h1 className="m-0 mt-6 text-[clamp(36px,5vw,56px)] leading-[1.2] font-semibold tracking-[-0.03em] text-[#181d27]">
@@ -457,6 +458,7 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
         <DocsExploreMore />
 
       </div>
+      <DocsFooter />
     </main>
   );
 }
