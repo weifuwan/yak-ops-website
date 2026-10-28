@@ -130,10 +130,7 @@ function MenuItemLink({
 
 function MegaMenu({ item, onNavigate }: { item: MarketingMegaNavItem; onNavigate: () => void }) {
   return (
-    <div
-      aria-label={item.label}
-      className="grid grid-cols-[270px_minmax(0,1fr)] bg-white text-[#162044]"
-    >
+    <div aria-label={item.label} className="grid grid-cols-[270px_minmax(0,1fr)] bg-white text-[#162044]">
       <aside className="flex min-w-0 flex-col bg-[linear-gradient(145deg,#f4f6fa_10%,#e8f0f9_100%)] px-6 py-7">
         <span className={`${MENU_EYEBROW_CLASS} mb-4`}>YAK OPS</span>
         <strong className="text-[22px] font-semibold leading-[1.3] text-[#162044]">
