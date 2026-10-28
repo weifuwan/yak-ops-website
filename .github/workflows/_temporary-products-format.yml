@@ -1,0 +1,28 @@
+name: Temporary format of Products menu
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/_temporary-products-format.yml]
+permissions:
+  contents: read
+jobs:
+  print-formatted:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.13'
+      - name: Install deps
+        working-directory: website-ui
+        run: npm ci --ignore-scripts
+      - name: Format and print
+        working-directory: website-ui
+        run: |
+          npx oxfmt apps/web/app/layout/MarketingLayout/ProductsMegaMenu.tsx apps/web/app/layout/MarketingLayout/MarketingHeader.tsx
+          for file in apps/web/app/layout/MarketingLayout/ProductsMegaMenu.tsx apps/web/app/layout/MarketingLayout/MarketingHeader.tsx; do
+            echo "FORMATTED_START:$file"
+            base64 -w0 "$file"
+            echo
+            echo "FORMATTED_END:$file"
+          done
