@@ -1,10 +1,10 @@
 import brandLogo from '@/assets/img/logo2.png';
+import DevelopersMegaMenu from './DevelopersMegaMenu';
 import ProductsMegaMenu from './ProductsMegaMenu';
 import ResourcesMegaMenu from './ResourcesMegaMenu';
 import {
   MARKETING_HEADER_ACTIONS,
   MARKETING_NAV_ITEMS,
-  type MarketingMegaNavItem,
   type MarketingNavIcon,
   type MarketingNavLink,
 } from '@/config/marketingNavigation';
@@ -51,9 +51,6 @@ const MENU_LINK_CLASS =
   'flex items-center gap-2.5 rounded-[11px] px-[9px] py-[7px] text-[#162044] no-underline transition-[background-color,color] duration-200 hover:bg-[#f3f7fc] hover:text-[#016afb] focus-visible:bg-[#f3f7fc] focus-visible:text-[#016afb] focus-visible:outline-none';
 
 const MENU_EYEBROW_CLASS = 'block text-[11px] font-semibold leading-[18px] tracking-[0.06em] text-[#828aa0]';
-
-const MENU_ACTION_CLASS =
-  'inline-flex min-h-12 items-center gap-3 rounded-[10px] border px-4 text-sm font-semibold no-underline transition-[background-color,border-color,transform] duration-200';
 
 const MOBILE_NAV_LINK_CLASS =
   'flex min-h-[49px] w-full cursor-pointer items-center justify-between border-0 bg-transparent py-2.5 text-[15px] font-semibold text-[#162044] no-underline';
@@ -125,59 +122,6 @@ function MenuItemLink({
       <span className="min-w-0 text-sm font-medium leading-[1.4]">{link.label}</span>
       {link.external && <ExternalLink aria-hidden="true" className="ml-auto shrink-0 text-[#8b95a7]" size={14} />}
     </MarketingLink>
-  );
-}
-
-function MegaMenu({ item, onNavigate }: { item: MarketingMegaNavItem; onNavigate: () => void }) {
-  return (
-    <div aria-label={item.label} className="grid grid-cols-[270px_minmax(0,1fr)] bg-white text-[#162044]">
-      <aside className="flex min-w-0 flex-col bg-[linear-gradient(145deg,#f4f6fa_10%,#e8f0f9_100%)] px-6 py-7">
-        <span className={`${MENU_EYEBROW_CLASS} mb-4`}>YAK OPS</span>
-        <strong className="text-[22px] font-semibold leading-[1.3] text-[#162044]">
-          {item.key === 'products' ? '数据集成' : '开发者资源'}
-        </strong>
-        <div className="mt-auto grid gap-3 pt-[52px]">
-          <MarketingLink
-            className={`${MENU_ACTION_CLASS} justify-between border-[#016afb] bg-[#016afb] text-white hover:-translate-y-px hover:bg-[#0056dc] hover:text-white focus-visible:bg-[#0056dc] focus-visible:text-white`}
-            external
-            href={MARKETING_HEADER_ACTIONS.demo}
-            onClick={onNavigate}
-          >
-            线上体验
-            <ArrowUpRight aria-hidden="true" size={18} />
-          </MarketingLink>
-          <MarketingLink
-            className={`${MENU_ACTION_CLASS} justify-start border-[#dce3ef] bg-white/80 text-[#162044] hover:border-[#b5c5e2] hover:bg-white hover:text-[#162044] focus-visible:border-[#b5c5e2] focus-visible:bg-white`}
-            href={MARKETING_HEADER_ACTIONS.startUsing}
-            onClick={onNavigate}
-          >
-            <BookOpen aria-hidden="true" size={17} />
-            快速开始
-          </MarketingLink>
-        </div>
-      </aside>
-
-      <div
-        className={
-          item.columns.length >= 3
-            ? 'grid min-w-0 grid-cols-3 gap-[22px] overflow-y-auto bg-white p-7'
-            : 'grid min-w-0 grid-cols-2 gap-[22px] overflow-y-auto bg-white p-7'
-        }
-      >
-        {item.columns.map((column) => (
-          <section className="min-w-0" key={column.title}>
-            <h2 className={`${MENU_EYEBROW_CLASS} mb-4`}>{column.title}</h2>
-            <ul className="m-0 grid list-none gap-[7px] p-0">
-              {column.items.map((link) => (
-                <li key={link.href}>
-                  <MenuItemLink link={link} onClick={onNavigate} />
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -331,7 +275,7 @@ export default function MarketingHeader() {
             ) : activeMegaMenu.key === 'resources' ? (
               <ResourcesMegaMenu onNavigate={closeAllMenus} />
             ) : (
-              <MegaMenu item={activeMegaMenu} onNavigate={closeAllMenus} />
+              <DevelopersMegaMenu onNavigate={closeAllMenus} />
             )}
           </div>
         )}

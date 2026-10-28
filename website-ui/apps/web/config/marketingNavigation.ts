@@ -138,6 +138,88 @@ export const MARKETING_RESOURCE_ARTICLES: readonly MarketingNavLink[] = [
 ];
 
 /**
+ * Developer navigation is shared between the desktop mega menu and mobile
+ * accordion so both layouts expose the same existing documentation routes.
+ */
+export const MARKETING_DEVELOPER_START_LINKS: readonly MarketingNavLink[] = [
+  {
+    label: '快速开始',
+    description: '从零开始使用 Yak Ops',
+    href: '/developers/quick-start',
+    icon: 'book',
+  },
+  {
+    label: 'Docker Compose',
+    description: '使用 Compose 快速启动',
+    href: '/docs/deploy/docker-compose',
+    icon: 'services',
+  },
+];
+
+export const MARKETING_DEVELOPER_GUIDES: readonly MarketingNavLink[] = [
+  {
+    label: '部署指南',
+    description: '环境准备与部署选项',
+    href: '/developers/deployment',
+    icon: 'services',
+  },
+  {
+    label: 'Docker 容器',
+    description: '以容器方式运行服务',
+    href: '/developers/docker',
+    icon: 'database',
+  },
+  {
+    label: '开发环境',
+    description: '本地开发与调试',
+    href: '/developers/development',
+    icon: 'code',
+  },
+  {
+    label: '配置说明',
+    description: '服务配置及运行参数',
+    href: '/developers/configuration',
+    icon: 'workflow',
+  },
+  {
+    label: 'API Reference',
+    description: '接口与扩展能力',
+    href: '/developers/api',
+    icon: 'metrics',
+  },
+  {
+    label: '参与贡献',
+    description: '项目协作与贡献流程',
+    href: '/developers/contributing',
+    icon: 'github',
+  },
+];
+
+export const MARKETING_DEVELOPER_OPEN_SOURCE: readonly MarketingNavLink[] = [
+  {
+    label: 'GitHub',
+    description: '浏览项目源代码',
+    href: MARKETING_GITHUB_URL,
+    external: true,
+    icon: 'github',
+  },
+  {
+    label: 'Releases',
+    description: '版本发布记录',
+    href: MARKETING_GITHUB_RELEASES_URL,
+    external: true,
+    icon: 'releases',
+  },
+  {
+    label: 'Issues',
+    description: '反馈问题与讨论',
+    href: MARKETING_GITHUB_ISSUES_URL,
+    external: true,
+    icon: 'issues',
+  },
+];
+
+/**
  * 官网 Header 导航的单一数据源。
  * 只使用已存在的站内页面与开源仓库地址，不引入新的业务页面。
  */
@@ -181,18 +263,9 @@ export const MARKETING_NAV_ITEMS: readonly MarketingNavItem[] = [
     label: 'Developers',
     kind: 'mega',
     columns: [
-      {
-        title: 'GET STARTED',
-        items: [{ label: 'Docker Compose', href: '/docs/deploy/docker-compose', icon: 'book' }],
-      },
-      {
-        title: 'OPEN SOURCE',
-        items: [
-          { label: 'GitHub', href: MARKETING_GITHUB_URL, external: true, icon: 'github' },
-          { label: 'Releases', href: MARKETING_GITHUB_RELEASES_URL, external: true, icon: 'releases' },
-          { label: 'Issues', href: MARKETING_GITHUB_ISSUES_URL, external: true, icon: 'issues' },
-        ],
-      },
+      { title: 'GET STARTED', items: MARKETING_DEVELOPER_START_LINKS },
+      { title: 'DEVELOPMENT GUIDES', items: MARKETING_DEVELOPER_GUIDES },
+      { title: 'OPEN SOURCE', items: MARKETING_DEVELOPER_OPEN_SOURCE },
     ],
   },
   {
