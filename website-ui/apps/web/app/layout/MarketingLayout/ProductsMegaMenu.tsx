@@ -1,4 +1,4 @@
-import { ArrowUpRight, BookOpen, Layers3 } from 'lucide-react';
+import { ArrowUpRight, Layers3 } from 'lucide-react';
 
 type ProductEntry = {
   label: string;
