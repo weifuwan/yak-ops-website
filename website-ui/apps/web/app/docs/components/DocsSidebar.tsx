@@ -13,9 +13,7 @@ export default function DocsSidebar({ onNavigate, sections, currentSlug }: DocsS
     <nav aria-label="Documentation navigation" className="pb-10">
       {sections.map((section) => (
         <section className="mb-6 last:mb-0" key={section.title}>
-          <div className="mb-3 px-3 text-[13px] font-semibold leading-5 text-[#27272A]">
-            {section.title}
-          </div>
+          <div className="mb-3 px-3 text-[13px] font-semibold leading-5 text-[#27272A]">{section.title}</div>
           <div className="grid gap-1">
             {section.items.map((item) => {
               const active = currentSlug === item.slug;

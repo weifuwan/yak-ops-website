@@ -1,12 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import {
-  getDocsDocument,
-  getDocsNavigation,
-  type DocsDocument,
-  type DocsNavigation,
-} from '@/service/docs';
+import { getDocsDocument, getDocsNavigation, type DocsDocument, type DocsNavigation } from '@/service/docs';
 import { extractDocsToc } from '@/utils/docs';
 
 import ConnectorDocHeader from './components/ConnectorDocHeader';
@@ -108,10 +103,7 @@ export default function DocsPage() {
   }, [requestedSlug, isHome, isRelease]);
 
   const currentDocument = documentData?.slug === requestedSlug ? documentData : undefined;
-  const toc = useMemo(
-    () => (currentDocument ? extractDocsToc(currentDocument.markdown) : []),
-    [currentDocument],
-  );
+  const toc = useMemo(() => (currentDocument ? extractDocsToc(currentDocument.markdown) : []), [currentDocument]);
 
   const closeMobileNavigation = () => setMobileNavOpen(false);
   const docSections = navigation?.sections ?? [];
@@ -142,11 +134,7 @@ export default function DocsPage() {
               isConnectorDocument ? 'top-[90px] h-[calc(100vh-90px)]' : 'top-[158px] h-[calc(100vh-158px)]',
             ].join(' ')}
           >
-            <DocsSidebar
-              currentSlug={requestedSlug}
-              onNavigate={closeMobileNavigation}
-              sections={docSections}
-            />
+            <DocsSidebar currentSlug={requestedSlug} onNavigate={closeMobileNavigation} sections={docSections} />
           </aside>
 
           <main className="min-w-0 flex-1 py-9 lg:px-8 xl:px-10">
@@ -224,11 +212,7 @@ export default function DocsPage() {
               </Link>
             </nav>
             <div className="flex-1 overflow-y-auto px-4 py-6">
-              <DocsSidebar
-                currentSlug={requestedSlug}
-                onNavigate={closeMobileNavigation}
-                sections={docSections}
-              />
+              <DocsSidebar currentSlug={requestedSlug} onNavigate={closeMobileNavigation} sections={docSections} />
             </div>
           </aside>
         </div>

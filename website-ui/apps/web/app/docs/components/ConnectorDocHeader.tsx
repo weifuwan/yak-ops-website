@@ -65,9 +65,7 @@ export default function ConnectorDocHeader({ slug, title }: ConnectorDocHeaderPr
           ) : null}
         </div>
         <div className="min-w-0 flex-1">
-          <h1 className="m-0 text-[28px] leading-[1.2] font-semibold tracking-[-0.025em] text-[#181D27]">
-            {title}
-          </h1>
+          <h1 className="m-0 text-[28px] leading-[1.2] font-semibold tracking-[-0.025em] text-[#181D27]">{title}</h1>
           <div className="mt-3 flex flex-wrap gap-2">
             {presentation.capabilities.map((capability) => (
               <span

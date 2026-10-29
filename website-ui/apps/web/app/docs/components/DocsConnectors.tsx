@@ -75,7 +75,11 @@ export default function DocsConnectors() {
   };
 
   return (
-    <section aria-labelledby="docs-connectors-title" id="connectors" className="mx-auto mt-24 w-full max-w-[1300px] sm:mt-28">
+    <section
+      aria-labelledby="docs-connectors-title"
+      id="connectors"
+      className="mx-auto mt-24 w-full max-w-[1300px] sm:mt-28"
+    >
       <div className="text-center">
         <span className="mx-auto inline-flex items-center rounded-full bg-[#f0f9ff] px-5 py-2 text-[14px] font-medium text-[#0ba5ec]">
           Connectors
