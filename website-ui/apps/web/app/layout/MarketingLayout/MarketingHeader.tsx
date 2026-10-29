@@ -1,4 +1,5 @@
-import brandLogo from '@/assets/img/logo2.png';
+import brandLogoOnDark from '@/assets/img/yak-ops-on-dark.svg';
+import brandLogoOnLight from '@/assets/img/yak-ops-on-light.svg';
 import DevelopersMegaMenu from './DevelopersMegaMenu';
 import ProductsMegaMenu from './ProductsMegaMenu';
 import ResourcesMegaMenu from './ResourcesMegaMenu';
@@ -199,13 +200,9 @@ export default function MarketingHeader() {
         >
           <img
             alt="Yak Ops"
+            className="block h-auto w-full object-contain"
             draggable={false}
-            src={brandLogo}
-            className={
-              isDark
-                ? 'block h-auto w-full object-contain invert mix-blend-screen transition-[filter] duration-[240ms]'
-                : 'block h-auto w-full object-contain transition-[filter] duration-[240ms]'
-            }
+            src={isDark ? brandLogoOnDark : brandLogoOnLight}
           />
         </MarketingLink>
 
