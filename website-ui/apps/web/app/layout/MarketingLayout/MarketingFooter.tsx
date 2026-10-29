@@ -1,119 +1,104 @@
+import { Github, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+import brandLogo from '@/assets/img/logo2.png';
+
 const footerGroups = [
   {
-    title: 'Product',
+    title: 'Platform',
     links: [
-      { label: 'AI for Data Platform', href: '/product' },
-      { label: 'Collate vs OSS OpenMetadata', href: '/comparison' },
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'Data Sources', href: '/product/data-sources' },
+      { label: 'Batch Sync', href: '/product/batch-sync' },
+      { label: 'Realtime Sync', href: '/product/realtime-sync' },
+      { label: 'Data Development', href: '/product/data-development' },
     ],
   },
   {
-    title: 'Company',
+    title: 'Developers',
     links: [
-      { label: 'About', href: '/about' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Partners', href: '/partners' },
-      { label: 'Contact Us', href: '/contact-sales' },
+      { label: 'Quick Start', href: '/developers/quick-start' },
+      { label: 'Deployment', href: '/developers/deployment' },
+      { label: 'API Guide', href: '/developers/api' },
+      { label: 'Configuration', href: '/developers/configuration' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { label: 'Documentation', href: 'https://docs.getcollate.io' },
+      { label: 'Documentation', href: '/docs' },
       { label: 'Blog', href: '/blog' },
-      { label: 'Case Studies', href: '/case-studies' },
+      { label: 'Releases', href: 'https://github.com/weifuwan/yak-ops/releases' },
     ],
   },
   {
-    title: 'Support',
+    title: 'Community',
     links: [
-      { label: 'Privacy Policy', href: '/privacypolicy' },
-      { label: 'Terms and Conditions', href: '/terms' },
-      { label: 'Trust Center', href: 'https://trustcenter.getcollate.io' },
+      { label: 'GitHub', href: 'https://github.com/weifuwan/yak-ops' },
+      { label: 'Contributing', href: '/developers/contributing' },
+      { label: 'Report an Issue', href: 'https://github.com/weifuwan/yak-ops/issues' },
     ],
   },
 ] as const;
 
-const socialLinks = [
-  {
-    label: 'Collate on X',
-    href: 'https://twitter.com/collatedata',
-    width: 18,
-    height: 18,
-    viewBox: '0 0 18 18',
-    path: 'M10.712 7.622 17.413 0h-1.588l-5.818 6.618L5.36 0H0l7.027 10.007L0 18h1.588l6.144-6.989L12.64 18H18L10.712 7.622Zm-2.175 2.474-.712-.997L2.16 1.17H4.6l4.571 6.4.712.996 5.943 8.319h-2.439l-4.85-6.788Z',
-  },
-  {
-    label: 'Collate on LinkedIn',
-    href: 'https://www.linkedin.com/company/collateinc',
-    width: 18,
-    height: 18,
-    viewBox: '0 0 18 18',
-    path: 'M17.25 17.25v-6.869a4.225 4.225 0 0 0-4.225-4.225c-1.102 0-2.385.674-3.007 1.685V6.402H6.402V17.25h3.616v-6.39c0-.997.804-1.814 1.802-1.814a1.815 1.815 0 0 1 1.814 1.815v6.389h3.616ZM2.19 4.368A2.177 2.177 0 0 0 4.368 2.19C4.368.985 3.396 0 2.19 0A2.19 2.19 0 0 0 0 2.19c0 1.206.985 2.178 2.19 2.178ZM3.992 17.25V6.402H.402V17.25h3.59Z',
-  },
-  {
-    label: 'Collate on YouTube',
-    href: 'https://www.youtube.com/@CollateData',
-    width: 20,
-    height: 14,
-    viewBox: '0 0 20 14',
-    path: 'm8 10 5.19-3L8 4v6Zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L20 7c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L10 14c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L0 7c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73C2.64.31 3.5.22 4.82.16c1.3-.07 2.49-.1 3.59-.1L10 0c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73Z',
-  },
-] as const;
-
-const complianceBadges = [
-  { label: 'SOC2 Type 1', image: 'soc2.svg' },
-  { label: 'GDPR', image: 'gdpr.svg' },
-  { label: 'CCPA', image: 'ccpa.svg' },
-  { label: 'Linux Foundation', image: 'linux-foundation.svg' },
-] as const;
-
-function referenceHref(href: string) {
-  // Most reference routes do not exist on the Yak Ops website yet.
-  return href.startsWith('https://') ? href : `https://www.getcollate.io${href}`;
-}
+const footerLinkClass =
+  'inline-flex min-h-8 items-center text-[14px] leading-6 text-[#5A6881] no-underline transition-colors duration-200 hover:text-[#1769CC] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2F6FED]';
 
 /**
- * Shared marketing footer. Text, badges, imagery and links are reference
- * content and should be replaced during the Yak Ops branding pass.
+ * Shared marketing footer: only real Yak Ops routes, source repositories and
+ * community links. No managed service, customer, or compliance claims.
  */
 export default function MarketingFooter() {
   return (
-    <footer className="mt-auto bg-white px-5 py-20 text-black sm:px-10 md:py-16">
-      <div className="mx-auto w-full max-w-[1440px]">
-        <div className="mx-auto grid grid-cols-1 gap-8 text-left md:gap-0 lg:grid-cols-5">
-          <div className="col-span-2 mb-4 flex justify-start lg:mb-0">
-            <a aria-label="Collate home" className="inline-flex items-center" href="/">
-              <img
-                alt="Collate: Data Collaboration for Teams"
-                className="h-[50px] w-[200px] cursor-pointer object-contain object-left"
-                decoding="async"
-                height={50}
-                loading="lazy"
-                src="https://www.getcollate.io/images/collate-logo.svg"
-                width={200}
-              />
+    <footer className="mt-auto border-t border-[#E3E9F2] bg-[#F8FAFC] text-[#17223C]">
+      <div className="mx-auto w-full max-w-[1440px] px-6 pt-14 pb-7 sm:px-12 lg:px-16 lg:pt-16">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-14">
+          <div className="max-w-[350px]">
+            <Link
+              aria-label="Yak Ops home"
+              className="inline-flex w-[148px] items-center rounded-md outline-offset-4 focus-visible:outline-2 focus-visible:outline-[#2F6FED]"
+              to="/"
+            >
+              <img alt="Yak Ops" className="block h-auto w-full object-contain" src={brandLogo} />
+            </Link>
+            <p className="m-0 mt-5 max-w-[320px] text-[14px] leading-6 text-[#5A6881]">
+              Open-source data integration, development, and operations. Built in the open.
+            </p>
+            <a
+              className="mt-5 inline-flex min-h-10 items-center gap-2 rounded-lg border border-[#D9E3EF] bg-white px-3 text-[13px] font-semibold text-[#263E61] no-underline transition-colors duration-200 hover:border-[#A8C7F1] hover:text-[#1769CC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2F6FED]"
+              href="https://github.com/weifuwan/yak-ops"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Github aria-hidden="true" size={17} strokeWidth={1.8} />
+              View on GitHub
+              <ArrowUpRight aria-hidden="true" size={14} strokeWidth={1.8} />
             </a>
           </div>
+
           <nav
             aria-label="Footer navigation"
-            className="col-span-3 grid grid-cols-2 gap-8 md:flex md:flex-row md:justify-between md:gap-10"
+            className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-4 sm:gap-x-6"
           >
             {footerGroups.map((group) => (
-              <div key={group.title}>
-                <h2 className="m-0 text-[18px] font-semibold">{group.title}</h2>
-                <ul className="m-0 list-none pt-4 pl-0 sm:pt-5">
+              <div className="min-w-0" key={group.title}>
+                <h2 className="m-0 text-[14px] font-semibold text-[#1B2E4D]">{group.title}</h2>
+                <ul className="m-0 mt-4 flex list-none flex-col gap-1 p-0">
                   {group.links.map((link) => (
-                    <li className="py-2" key={link.label}>
-                      <a
-                        aria-label={link.label}
-                        className="text-[14px] font-normal text-black transition-colors duration-300 hover:text-[#73718a] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1366bf]"
-                        href={referenceHref(link.href)}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        {link.label}
-                      </a>
+                    <li key={link.label}>
+                      {link.href.startsWith('https://') ? (
+                        <a
+                          className={footerLinkClass}
+                          href={link.href}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link className={footerLinkClass} to={link.href}>
+                          {link.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -122,60 +107,16 @@ export default function MarketingFooter() {
           </nav>
         </div>
 
-        <div className="mt-8 flex flex-row items-center justify-between gap-8 border-b border-[#e5e7eb] pb-10 md:mt-12 md:gap-12">
-          <nav aria-label="Social media">
-            <ul className="m-0 flex list-none justify-start pt-4 pl-0 sm:pt-8">
-              {socialLinks.map((social) => (
-                <li
-                  className="mr-2 flex items-center justify-center rounded-[6px] bg-gradient-to-r from-[#f5f0ff] to-[#edf5ff] px-[6px] py-1.5 transition-colors duration-300 hover:bg-[#e8e8ee]"
-                  key={social.label}
-                >
-                  <a
-                    aria-label={social.label}
-                    className="text-[#73718a] hover:text-[#383651] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1366bf]"
-                    href={social.href}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      fill="currentColor"
-                      height={social.height}
-                      viewBox={social.viewBox}
-                      width={social.width}
-                    >
-                      <path d={social.path} />
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div
-            aria-label="Compliance and community badges"
-            className="flex flex-wrap items-center justify-start gap-3 md:gap-5"
+        <div className="mt-14 flex flex-col gap-3 border-t border-[#E3E9F2] pt-6 text-[13px] leading-5 text-[#66748C] sm:flex-row sm:items-center sm:justify-between">
+          <p className="m-0">© {new Date().getFullYear()} Yak Ops. Built in the open.</p>
+          <a
+            className="w-fit text-[#66748C] no-underline transition-colors duration-200 hover:text-[#1769CC] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2F6FED]"
+            href="https://github.com/weifuwan/yak-ops/blob/main/LICENSE"
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            {complianceBadges.map((badge) => (
-              <img
-                alt={badge.label}
-                className="block h-[60px] w-[50px] object-contain md:w-[60px]"
-                decoding="async"
-                height={60}
-                key={badge.label}
-                loading="lazy"
-                src={`https://www.getcollate.io/images/compliance/${badge.image}`}
-                width={60}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-5 flex flex-col gap-4 text-left md:flex-row md:justify-between md:gap-12">
-          <div className="text-sm font-normal text-black">
-            <p className="m-0">Copyright © 2026 Collate. All Rights Reserved</p>
-            <p className="m-0">Collate® is a registered trademark of Collate, Inc.</p>
-          </div>
+            Apache License 2.0
+          </a>
         </div>
       </div>
     </footer>
