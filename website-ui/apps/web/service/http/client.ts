@@ -45,3 +45,23 @@ export function postJson<T>(path: string, body?: unknown): Promise<T> {
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 }
+
+/**
+ * Read a public JSON endpoint without the credentials or response envelope
+ * used by Yak Ops backend APIs.
+ */
+export async function getPublicJson<T>(url: string, init: RequestInit = {}): Promise<T> {
+  const response = await fetch(url, {
+    ...init,
+    headers: {
+      Accept: 'application/json',
+      ...init.headers,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Public API request failed: ${response.status}`);
+  }
+
+  return (await response.json()) as T;
+}
