@@ -75,10 +75,7 @@ export default function MarketingFooter() {
             </a>
           </div>
 
-          <nav
-            aria-label="Footer navigation"
-            className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-4 sm:gap-x-6"
-          >
+          <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-4 sm:gap-x-6">
             {footerGroups.map((group) => (
               <div className="min-w-0" key={group.title}>
                 <h2 className="m-0 text-[14px] font-semibold text-[#1B2E4D]">{group.title}</h2>
@@ -86,12 +83,7 @@ export default function MarketingFooter() {
                   {group.links.map((link) => (
                     <li key={link.label}>
                       {link.href.startsWith('https://') ? (
-                        <a
-                          className={footerLinkClass}
-                          href={link.href}
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
+                        <a className={footerLinkClass} href={link.href} rel="noopener noreferrer" target="_blank">
                           {link.label}
                         </a>
                       ) : (
