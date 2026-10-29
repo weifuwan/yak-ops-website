@@ -1,5 +1,16 @@
 import { useEffect, useId, useState, type SVGProps } from 'react';
 
+import {
+  AiInnovationIcon,
+  AnalyticsBiIcon,
+  ApplicationSourceIcon,
+  BusinessTeamsIcon,
+  ComputeSourceIcon,
+  DatabaseSourceIcon,
+  DataProductsIcon,
+  WarehouseSourceIcon,
+} from './ArchitectureEndpointIcons';
+
 export type YakOpsArchitectureProps = SVGProps<SVGSVGElement> & {
   /** Optional accessible title. */
   title?: string;
@@ -95,10 +106,10 @@ export default function YakOpsArchitecture({
       </text>
       {(
         [
-          { x: 255, name: 'Databases', icon: '▤' },
-          { x: 380, name: 'Warehouses', icon: '▥' },
-          { x: 505, name: 'Applications', icon: '◇' },
-          { x: 630, name: 'Compute', icon: '✣' },
+          { x: 255, name: 'Databases', Icon: DatabaseSourceIcon },
+          { x: 380, name: 'Warehouses', Icon: WarehouseSourceIcon },
+          { x: 505, name: 'Applications', Icon: ApplicationSourceIcon },
+          { x: 630, name: 'Compute', Icon: ComputeSourceIcon },
         ] as const
       ).map((item, index) => (
         <g key={item.name}>
@@ -112,9 +123,7 @@ export default function YakOpsArchitecture({
             stroke="#E2E6F6"
             filter={`url(#${shadow})`}
           />
-          <text x={item.x} y="45" textAnchor="middle" fontSize="22" fill="#AEB6CE">
-            {item.icon}
-          </text>
+          <item.Icon x={item.x - 12} y={26} width={24} height={24} />
           <text x={item.x} y="78" textAnchor="middle" fontSize="12.5" fill="#40516E">
             {item.name}
           </text>
@@ -265,10 +274,10 @@ export default function YakOpsArchitecture({
       </text>
       {(
         [
-          { x: 248, name: 'Business Teams', icon: '▣' },
-          { x: 380, name: 'Analytics & BI', icon: '◈' },
-          { x: 512, name: 'Data Products', icon: '▤' },
-          { x: 644, name: 'AI & Innovation', icon: '✳' },
+          { x: 248, name: 'Business Teams', Icon: BusinessTeamsIcon },
+          { x: 380, name: 'Analytics & BI', Icon: AnalyticsBiIcon },
+          { x: 512, name: 'Data Products', Icon: DataProductsIcon },
+          { x: 644, name: 'AI & Innovation', Icon: AiInnovationIcon },
         ] as const
       ).map((item, index) => (
         <g key={item.name}>
@@ -288,9 +297,7 @@ export default function YakOpsArchitecture({
             stroke="#E3E9F6"
             filter={`url(#${shadow})`}
           />
-          <text x={item.x} y="718" fontSize="20" fill="#AEB6CE" textAnchor="middle">
-            {item.icon}
-          </text>
+          <item.Icon x={item.x - 12} y={699} width={24} height={24} />
           <text x={item.x} y="748" textAnchor="middle" fontSize="12.5" fill="#40516E">
             {item.name}
           </text>
