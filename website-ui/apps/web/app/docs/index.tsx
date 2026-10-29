@@ -87,11 +87,14 @@ export default function DocsPage() {
   };
 
   return (
-    <div className={isHome || isRelease ? 'min-h-screen bg-white font-yak text-[#18181B]' : 'min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]'}>
-      <DocsHeader
-        onOpenNavigation={() => setMobileNavOpen(true)}
-        searchRequest={searchRequest}
-      />
+    <div
+      className={
+        isHome || isRelease
+          ? 'min-h-screen bg-white font-yak text-[#18181B]'
+          : 'min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]'
+      }
+    >
+      <DocsHeader onOpenNavigation={() => setMobileNavOpen(true)} searchRequest={searchRequest} />
 
       {isHome ? (
         <DocsHome onSearch={() => setSearchRequest((count) => count + 1)} />
@@ -102,7 +105,7 @@ export default function DocsPage() {
           <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block">
             <DocsSidebar onNavigate={navigateToDockerCompose} />
           </aside>
-  
+
           <main className="min-w-0 flex-1 py-9 lg:px-8 xl:px-10">
             <div className="mx-auto max-w-[760px]">
               {loading ? (
@@ -114,7 +117,7 @@ export default function DocsPage() {
               ) : null}
             </div>
           </main>
-  
+
           <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block">
             <DocsTableOfContents items={toc} />
           </aside>
@@ -144,7 +147,11 @@ export default function DocsPage() {
             <nav aria-label="Documentation main pages" className="grid gap-1 border-b border-[#edf0f5] px-4 py-4">
               <Link
                 aria-current={isHome ? 'page' : undefined}
-                className={isHome ? 'rounded-lg bg-[#ecf6ff] px-3 py-2.5 text-sm font-semibold text-[#086cf5]' : 'rounded-lg px-3 py-2.5 text-sm font-medium text-[#334155] hover:bg-[#f2f6fc]'}
+                className={
+                  isHome
+                    ? 'rounded-lg bg-[#ecf6ff] px-3 py-2.5 text-sm font-semibold text-[#086cf5]'
+                    : 'rounded-lg px-3 py-2.5 text-sm font-medium text-[#334155] hover:bg-[#f2f6fc]'
+                }
                 onClick={() => setMobileNavOpen(false)}
                 to="/docs"
               >
@@ -152,7 +159,11 @@ export default function DocsPage() {
               </Link>
               <Link
                 aria-current={isRelease ? 'page' : undefined}
-                className={isRelease ? 'rounded-lg bg-[#ecf6ff] px-3 py-2.5 text-sm font-semibold text-[#086cf5]' : 'rounded-lg px-3 py-2.5 text-sm font-medium text-[#334155] hover:bg-[#f2f6fc]'}
+                className={
+                  isRelease
+                    ? 'rounded-lg bg-[#ecf6ff] px-3 py-2.5 text-sm font-semibold text-[#086cf5]'
+                    : 'rounded-lg px-3 py-2.5 text-sm font-medium text-[#334155] hover:bg-[#f2f6fc]'
+                }
                 onClick={() => setMobileNavOpen(false)}
                 to="/docs/release-2.0"
               >

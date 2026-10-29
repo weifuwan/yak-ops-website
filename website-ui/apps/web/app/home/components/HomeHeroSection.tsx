@@ -64,9 +64,7 @@ export default function HomeHeroSection() {
               </p>
 
               <div className="mt-7 rounded-xl bg-[#07112a]/70 px-4 py-4 sm:mt-9 sm:px-6 sm:py-5">
-                <p className="m-0 text-center text-base font-medium text-white sm:text-lg">
-                  Relative Delivery Time
-                </p>
+                <p className="m-0 text-center text-base font-medium text-white sm:text-lg">Relative Delivery Time</p>
 
                 <div className="mt-3 sm:mt-4">
                   <p className="m-0 text-sm text-white sm:text-base">Traditional Approach</p>
@@ -93,7 +91,6 @@ export default function HomeHeroSection() {
                     <span className="w-12 text-right text-lg font-semibold text-white sm:w-16 sm:text-2xl">25%</span>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>

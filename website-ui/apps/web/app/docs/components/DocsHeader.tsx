@@ -224,7 +224,10 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0 }: Docs
                 AI 2.0
                 <ChevronRight
                   aria-hidden="true"
-                  className={['h-3 w-3 shrink-0 text-[#8796aa] transition-transform', versionOpen ? 'rotate-[270deg]' : 'rotate-90'].join(' ')}
+                  className={[
+                    'h-3 w-3 shrink-0 text-[#8796aa] transition-transform',
+                    versionOpen ? 'rotate-[270deg]' : 'rotate-90',
+                  ].join(' ')}
                   strokeWidth={2}
                 />
               </button>
