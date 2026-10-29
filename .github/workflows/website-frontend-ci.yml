@@ -37,6 +37,14 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
+      - name: Capture formatted service options (temporary)
+        run: |
+          npx oxfmt apps/web/app/home/components/HomeServiceOptionsSection.tsx
+          echo 'FORMATTED_SERVICE_BEGIN'
+          base64 -w0 apps/web/app/home/components/HomeServiceOptionsSection.tsx
+          echo
+          echo 'FORMATTED_SERVICE_END'
+
       - name: Frontend format
         run: npm run format:check
 
