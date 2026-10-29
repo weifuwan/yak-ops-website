@@ -33,7 +33,7 @@ const DOCS_TABS: readonly DocsTab[] = [
   { label: 'Home', href: '/docs', description: 'Documentation home' },
   { label: 'Release 2.0', href: '/docs/release-2.0', description: 'Yak Ops 2.0 release overview' },
   { label: 'Get Started', href: '/docs/deploy/docker-compose', description: 'Start using Yak Ops' },
-  { label: 'Connectors', href: '/product/data-sources', description: 'Connect your data sources' },
+  { label: 'Connectors', href: '/docs#connectors', description: 'Browse supported connectors' },
   { label: 'Products', href: '/product/data-development', description: 'Explore Yak Ops capabilities' },
   { label: 'Collate AI', href: '/developers/api', description: 'Explore APIs and integrations' },
   { label: 'How-to Guides', href: '/docs/deploy/docker-compose', description: 'Practical setup guides' },
@@ -62,6 +62,9 @@ const DOCS_TABS: readonly DocsTab[] = [
   { label: 'SSO', href: '/developers/configuration', description: 'Authentication configuration' },
   { label: 'MCP Server', href: '/developers/api', description: 'API and integration reference' },
   { label: 'Deployment', href: '/developers/deployment', description: 'Deployment options and setup' },
+  { label: 'MySQL', href: '/docs/connectors/database/mysql', description: 'JDBC Source, JDBC Sink, and CDC' },
+  { label: 'PostgreSQL', href: '/docs/connectors/database/postgresql', description: 'JDBC Source and JDBC Sink' },
+  { label: 'Oracle', href: '/docs/connectors/database/oracle', description: 'JDBC Source and JDBC Sink' },
 ];
 
 // Keep the reference header focused on nine top-level destinations.
@@ -359,13 +362,13 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
       </div>
 
       {!compact ? (
-      <nav aria-label="Documentation sections" className="hidden px-5 pt-[18px] pb-7 lg:block">
-        <div className="mx-auto flex h-12 w-full max-w-[1260px] items-center justify-between rounded-full border border-[#e3e8f2] bg-[#fafafa] p-[2px] dark:border-gray-800 dark:bg-gray-900">
-          {DOCS_PRIMARY_TABS.map((item) => (
-            <DocsTabLink active={activeTab?.label === item.label} item={item} key={item.label} />
-          ))}
-        </div>
-      </nav>
+        <nav aria-label="Documentation sections" className="hidden px-5 pt-[18px] pb-7 lg:block">
+          <div className="mx-auto flex h-12 w-full max-w-[1260px] items-center justify-between rounded-full border border-[#e3e8f2] bg-[#fafafa] p-[2px] dark:border-gray-800 dark:bg-gray-900">
+            {DOCS_PRIMARY_TABS.map((item) => (
+              <DocsTabLink active={activeTab?.label === item.label} item={item} key={item.label} />
+            ))}
+          </div>
+        </nav>
       ) : null}
 
       <div className="flex h-14 items-center border-t border-gray-100 px-5 lg:hidden dark:border-gray-800">
