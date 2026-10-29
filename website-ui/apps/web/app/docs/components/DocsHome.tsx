@@ -36,42 +36,50 @@ const popular: readonly DocsChip[] = [
   {
     title: 'Databricks',
     href: 'https://docs.getcollate.io/ai-2-0/connectors/database/databricks',
-    image: 'https://mintcdn.com/collatedocs/12mtkhFtvTP7FUxZ/public/images/connectors/databrick.webp?fit=max&auto=format&n=12mtkhFtvTP7FUxZ&q=85&s=595ec3832f654c87e1ec35a422933f7f',
+    image:
+      'https://mintcdn.com/collatedocs/12mtkhFtvTP7FUxZ/public/images/connectors/databrick.webp?fit=max&auto=format&n=12mtkhFtvTP7FUxZ&q=85&s=595ec3832f654c87e1ec35a422933f7f',
   },
   {
     title: 'BigQuery',
     href: 'https://docs.getcollate.io/ai-2-0/connectors/database/bigquery',
-    image: 'https://mintcdn.com/collatedocs/XRLyE3HymqoH13_i/public/images/connectors/bigquery.webp?fit=max&auto=format&n=XRLyE3HymqoH13_i&q=85&s=f3bd1ac39f3c204cc48d09874c6cee43',
+    image:
+      'https://mintcdn.com/collatedocs/XRLyE3HymqoH13_i/public/images/connectors/bigquery.webp?fit=max&auto=format&n=XRLyE3HymqoH13_i&q=85&s=f3bd1ac39f3c204cc48d09874c6cee43',
   },
   {
     title: 'Redshift',
     href: 'https://docs.getcollate.io/ai-2-0/connectors/database/redshift',
-    image: 'https://mintcdn.com/collatedocs/kj7ZjFqdvAgAlfBX/public/images/connectors/redshift.webp?fit=max&auto=format&n=kj7ZjFqdvAgAlfBX&q=85&s=aa91561402fb57c7cc256a509873bffd',
+    image:
+      'https://mintcdn.com/collatedocs/kj7ZjFqdvAgAlfBX/public/images/connectors/redshift.webp?fit=max&auto=format&n=kj7ZjFqdvAgAlfBX&q=85&s=aa91561402fb57c7cc256a509873bffd',
   },
   {
     title: 'Snowflake',
     href: 'https://docs.getcollate.io/ai-2-0/connectors/database/snowflake',
-    image: 'https://mintcdn.com/collatedocs/qybQN_VCNOUNg9nn/public/images/connectors/snowflakes.webp?fit=max&auto=format&n=qybQN_VCNOUNg9nn&q=85&s=70fdc52fb23bfcdcb33c630e7592c7eb',
+    image:
+      'https://mintcdn.com/collatedocs/qybQN_VCNOUNg9nn/public/images/connectors/snowflakes.webp?fit=max&auto=format&n=qybQN_VCNOUNg9nn&q=85&s=70fdc52fb23bfcdcb33c630e7592c7eb',
   },
   {
     title: 'Collate AI Chat',
     href: 'https://docs.getcollate.io/ai-2-0/collate-ai/collate-ai-chat',
-    image: 'https://mintcdn.com/collatedocs/yvgGxaeRR5RwtQo6/public/images/icons/askcollate.svg?fit=max&auto=format&n=yvgGxaeRR5RwtQo6&q=85&s=e13369d212b859ab1a7cbdb6373964aa',
+    image:
+      'https://mintcdn.com/collatedocs/yvgGxaeRR5RwtQo6/public/images/icons/askcollate.svg?fit=max&auto=format&n=yvgGxaeRR5RwtQo6&q=85&s=e13369d212b859ab1a7cbdb6373964aa',
   },
   {
     title: 'AI Studio',
     href: 'https://docs.getcollate.io/ai-2-0/collate-ai/ai-studio',
-    image: 'https://mintcdn.com/collatedocs/rbimi0ZI_PNqhVKs/public/images/homepage-icons/studio-ai.svg?fit=max&auto=format&n=rbimi0ZI_PNqhVKs&q=85&s=af69fe456a77472b8b5372e4ddcca32b',
+    image:
+      'https://mintcdn.com/collatedocs/rbimi0ZI_PNqhVKs/public/images/homepage-icons/studio-ai.svg?fit=max&auto=format&n=rbimi0ZI_PNqhVKs&q=85&s=af69fe456a77472b8b5372e4ddcca32b',
   },
   {
     title: 'AI SDK',
     href: 'https://docs.getcollate.io/ai-2-0/developer-guide/sdk/ai-sdk',
-    image: 'https://mintcdn.com/collatedocs/HoL0Mtvr6sdpYjdM/public/images/homepage-icons/ai-sdk2.svg?fit=max&auto=format&n=HoL0Mtvr6sdpYjdM&q=85&s=3b22cf8b3b07fa7e7ebf57b05a0993ab',
+    image:
+      'https://mintcdn.com/collatedocs/HoL0Mtvr6sdpYjdM/public/images/homepage-icons/ai-sdk2.svg?fit=max&auto=format&n=HoL0Mtvr6sdpYjdM&q=85&s=3b22cf8b3b07fa7e7ebf57b05a0993ab',
   },
   {
     title: 'AI Analytics',
     href: 'https://docs.getcollate.io/ai-2-0/collate-ai/ai-analytics',
-    image: 'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/insights.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=d14723743333262bdfbe31777c786301',
+    image:
+      'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/insights.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=d14723743333262bdfbe31777c786301',
   },
 ];
 
@@ -132,7 +140,8 @@ const updates = [
   {
     title: 'Release 2.0',
     eyebrow: 'RELEASE OVERVIEW',
-    description: 'Explore the documentation for Yak Ops 2.0. Release details and upgrade notes will be added as they become available.',
+    description:
+      'Explore the documentation for Yak Ops 2.0. Release details and upgrade notes will be added as they become available.',
     href: '/docs/release-2.0',
     action: 'Explore Release 2.0',
     icon: Layers3,
@@ -140,7 +149,8 @@ const updates = [
   {
     title: 'Realtime Data Sync',
     eyebrow: 'EXPLORE YAK OPS',
-    description: 'Move beyond one-off transfers. Explore incremental synchronization and MySQL CDC in the realtime data pipeline.',
+    description:
+      'Move beyond one-off transfers. Explore incremental synchronization and MySQL CDC in the realtime data pipeline.',
     href: '/product/realtime-sync',
     action: 'Explore realtime sync',
     icon: ArrowRightLeft,
@@ -193,7 +203,9 @@ function PipelineIllustration({ title }: { title: string }) {
                 }
                 key={name}
               >
-                <span className={index === 0 ? 'h-2 w-2 rounded-[3px] bg-[#5193f6]' : 'h-2 w-2 rounded-[3px] bg-[#cad7ea]'} />
+                <span
+                  className={index === 0 ? 'h-2 w-2 rounded-[3px] bg-[#5193f6]' : 'h-2 w-2 rounded-[3px] bg-[#cad7ea]'}
+                />
                 <span className="truncate">{name}</span>
               </div>
             ))}
@@ -214,7 +226,9 @@ function PipelineIllustration({ title }: { title: string }) {
                 <span className="block truncate text-[10px] font-semibold text-[#314368]">{title}</span>
                 <span className="mt-0.5 block text-[7px] text-[#9caac0]">Workspace overview</span>
               </div>
-              <span className="shrink-0 rounded bg-[#e7f1ff] px-2 py-1 text-[7px] font-semibold text-[#2385f3]">Dashboard</span>
+              <span className="shrink-0 rounded bg-[#e7f1ff] px-2 py-1 text-[7px] font-semibold text-[#2385f3]">
+                Dashboard
+              </span>
             </div>
             <div className="mt-3 grid grid-cols-3 gap-1.5 sm:gap-2">
               {[
@@ -224,7 +238,9 @@ function PipelineIllustration({ title }: { title: string }) {
               ].map((metric) => (
                 <div className="rounded-[5px] border border-[#e8edf7] p-1.5" key={metric.label}>
                   <span className="block truncate text-[7px] text-[#8696b2]">{metric.label}</span>
-                  <span className={'mt-1 block text-[15px] leading-none font-semibold ' + metric.accent}>{metric.count}</span>
+                  <span className={'mt-1 block text-[15px] leading-none font-semibold ' + metric.accent}>
+                    {metric.count}
+                  </span>
                   <span className="mt-1.5 block h-[3px] w-3/4 rounded bg-[#e9f3ff]" />
                 </div>
               ))}
@@ -250,7 +266,13 @@ function PipelineIllustration({ title }: { title: string }) {
                 <div className="mt-3 grid gap-2">
                   {['Sync completed', 'Quality checked', 'Workflow running'].map((activity, index) => (
                     <div className="flex items-center gap-1.5" key={activity}>
-                      <span className={index === 2 ? 'h-2 w-2 shrink-0 rounded-full bg-[#f2c45e]' : 'h-2 w-2 shrink-0 rounded-full bg-[#6bd9aa]'} />
+                      <span
+                        className={
+                          index === 2
+                            ? 'h-2 w-2 shrink-0 rounded-full bg-[#f2c45e]'
+                            : 'h-2 w-2 shrink-0 rounded-full bg-[#6bd9aa]'
+                        }
+                      />
                       <span className="truncate text-[7px] text-[#8795ac]">{activity}</span>
                     </div>
                   ))}
@@ -317,7 +339,10 @@ function ReleaseCarousel() {
         >
           <ArrowRight aria-hidden="true" size={20} strokeWidth={2.2} />
         </button>
-        <div aria-label="Choose featured update" className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-1.5">
+        <div
+          aria-label="Choose featured update"
+          className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-1.5"
+        >
           {updates.map((update, index) => (
             <button
               aria-current={index === current ? 'true' : undefined}
@@ -426,7 +451,9 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span className={'flex h-20 w-20 shrink-0 items-center justify-center rounded-full ' + guide.iconBackground}>
+                <span
+                  className={'flex h-20 w-20 shrink-0 items-center justify-center rounded-full ' + guide.iconBackground}
+                >
                   <img
                     alt=""
                     aria-hidden="true"
@@ -437,9 +464,7 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
                     width={80}
                   />
                 </span>
-                <span className="text-center text-[16px] leading-[1.3] font-medium sm:text-[18px]">
-                  {guide.title}
-                </span>
+                <span className="text-center text-[16px] leading-[1.3] font-medium sm:text-[18px]">{guide.title}</span>
               </a>
             ))}
           </div>
@@ -456,7 +481,6 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
         <DocsVideo />
 
         <DocsExploreMore />
-
       </div>
       <DocsFooter />
     </main>

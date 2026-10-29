@@ -15,11 +15,12 @@ export default function DocsFooter() {
   return (
     <footer className="mx-auto w-full max-w-[1260px] px-5 pt-9 pb-10 sm:px-8 sm:pt-12">
       <div className="grid items-center gap-x-10 gap-y-6 text-[14px] text-[#717680] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
-        <p className="m-0 text-center leading-6 md:text-left">
-          ©2026 Collate. All rights reserved.
-        </p>
+        <p className="m-0 text-center leading-6 md:text-left">©2026 Collate. All rights reserved.</p>
 
-        <nav aria-label="Legal and contact links" className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+        <nav
+          aria-label="Legal and contact links"
+          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+        >
           {legalLinks.map((link) => (
             <a
               className="whitespace-nowrap text-[14px] leading-6 text-[#252b37] no-underline transition-colors hover:text-[#086cf5] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677f4]"

@@ -12,9 +12,7 @@ function SummitLogo({ alt, fallback, height, src, width }: SummitLogoProps) {
   const [failed, setFailed] = useState(false);
 
   return failed ? (
-    <span className="whitespace-nowrap text-[13px] font-bold tracking-[0.08em] text-white">
-      {fallback}
-    </span>
+    <span className="whitespace-nowrap text-[13px] font-bold tracking-[0.08em] text-white">{fallback}</span>
   ) : (
     <img
       alt={alt}
@@ -33,10 +31,7 @@ function SummitLogo({ alt, fallback, height, src, width }: SummitLogoProps) {
  */
 export default function DocsSummit() {
   return (
-    <section
-      aria-labelledby="docs-summit-title"
-      className="mx-auto mb-[72px] w-full max-w-[1200px] px-5 pt-5"
-    >
+    <section aria-labelledby="docs-summit-title" className="mx-auto mb-[72px] w-full max-w-[1200px] px-5 pt-5">
       <div className="flex w-max max-w-full items-center gap-5 rounded-tl-[32px] rounded-tr-[80px] bg-[#224] px-5 pt-[9px] pb-[10px] sm:px-[45px]">
         <SummitLogo
           alt="Collate"
@@ -45,7 +40,9 @@ export default function DocsSummit() {
           src="https://mintcdn.com/collatedocs/qgslKCiS8vDK3Zn0/public/images/collate-white.svg?fit=max&auto=format&n=qgslKCiS8vDK3Zn0&q=85&s=78498777aae9d06c5aeacbfcee9f8c4b"
           width={84}
         />
-        <span aria-hidden="true" className="text-[20px] leading-[18px] font-light text-white/90">×</span>
+        <span aria-hidden="true" className="text-[20px] leading-[18px] font-light text-white/90">
+          ×
+        </span>
         <SummitLogo
           alt="OpenMetadata"
           fallback="OpenMetadata"
@@ -71,9 +68,7 @@ export default function DocsSummit() {
           >
             Collate Summit ‘26
           </h2>
-          <p className="m-0 mt-2 text-[18px] leading-[1.5] text-[#224] sm:text-[20px]">
-            Data &amp; AI in Production
-          </p>
+          <p className="m-0 mt-2 text-[18px] leading-[1.5] text-[#224] sm:text-[20px]">Data &amp; AI in Production</p>
         </div>
         <a
           className="inline-flex shrink-0 items-center justify-center rounded-[6px] bg-[#fbe200] px-5 py-[11px] text-[18px] leading-7 font-semibold whitespace-nowrap text-black no-underline transition-colors hover:bg-[#f3d600] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#224]"

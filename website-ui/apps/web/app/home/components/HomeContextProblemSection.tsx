@@ -1,29 +1,22 @@
-import {
-  BlindSpotsIllustration,
-  FragmentationIllustration,
-  ManualWorkIllustration,
-} from './HomeProblemIllustrations';
+import { BlindSpotsIllustration, FragmentationIllustration, ManualWorkIllustration } from './HomeProblemIllustrations';
 
 const dataEngineeringProblems = [
   {
     name: 'Fragmentation',
     headline: 'One workflow. Too many tools.',
-    description:
-      'Integration, development, and scheduling live in separate systems.',
+    description: 'Integration, development, and scheduling live in separate systems.',
     illustration: FragmentationIllustration,
   },
   {
     name: 'Manual Work',
     headline: 'Same setup. Again and again.',
-    description:
-      'Repetitive configuration slows down every delivery.',
+    description: 'Repetitive configuration slows down every delivery.',
     illustration: ManualWorkIllustration,
   },
   {
     name: 'Blind Spots',
-    headline: "A pipeline fails. Where do you look?",
-    description:
-      'Finding the cause means searching across logs and systems.',
+    headline: 'A pipeline fails. Where do you look?',
+    description: 'Finding the cause means searching across logs and systems.',
     illustration: BlindSpotsIllustration,
   },
 ] as const;

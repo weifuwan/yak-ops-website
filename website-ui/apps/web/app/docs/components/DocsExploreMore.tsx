@@ -72,9 +72,7 @@ export default function DocsExploreMore() {
           >
             Explore More
           </h2>
-          <p className="m-0 mt-1 text-[18px] leading-[1.5] text-[#717680]">
-            Learn more about Collate
-          </p>
+          <p className="m-0 mt-1 text-[18px] leading-[1.5] text-[#717680]">Learn more about Collate</p>
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:col-span-2">

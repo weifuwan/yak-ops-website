@@ -10,9 +10,7 @@ function useIllustrationAnimation() {
 }
 
 function loopTransition(active: boolean, times: number[]) {
-  return active
-    ? { duration: 7, times, repeat: Infinity, ease: 'easeInOut' as const }
-    : { duration: 0 };
+  return active ? { duration: 7, times, repeat: Infinity, ease: 'easeInOut' as const } : { duration: 0 };
 }
 
 const ROW_STAGES = [
@@ -62,13 +60,7 @@ const fragmentationPositions = [
  * Opaque, product-like workflow panels. Back panels use a solid neutral surface
  * rather than opacity, so their contents never look washed out through the stack.
  */
-function FragmentationWindow({
-  highlightedRow,
-  depth,
-}: {
-  highlightedRow: number;
-  depth: number;
-}) {
+function FragmentationWindow({ highlightedRow, depth }: { highlightedRow: number; depth: number }) {
   const front = depth === 0;
   const surface = front ? '#FFFFFF' : '#F8FAFD';
   const header = front ? '#EDF3FC' : '#F0F4F9';
@@ -96,14 +88,7 @@ function FragmentationWindow({
         UPDATED
       </text>
       <path d="M17 63H301" stroke={divider} />
-      <rect
-        x="11"
-        y={66 + highlightedRow * 36}
-        width="296"
-        height="34"
-        rx="5"
-        fill={front ? '#E5EFFF' : '#EDF2F8'}
-      />
+      <rect x="11" y={66 + highlightedRow * 36} width="296" height="34" rx="5" fill={front ? '#E5EFFF' : '#EDF2F8'} />
 
       {pipelineRows.map((row, index) => {
         const baseline = 85 + index * 36;
@@ -174,11 +159,7 @@ export function FragmentationIllustration() {
             className="origin-center [transform-box:fill-box]"
             initial={false}
             animate={position}
-            transition={
-              reducedMotion
-                ? { duration: 0 }
-                : { duration: 0.85, ease: [0.22, 1, 0.36, 1] }
-            }
+            transition={reducedMotion ? { duration: 0 } : { duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           >
             <FragmentationWindow highlightedRow={panel.index} depth={panel.depth} />
           </motion.g>
@@ -212,7 +193,15 @@ export function ManualWorkIllustration() {
         <circle cx="94" cy="48" r="4" fill="#FFB7A6" />
         <circle cx="107" cy="48" r="4" fill="#F9D680" />
         <circle cx="120" cy="48" r="4" fill="#9DDECE" />
-        <text x="208" y="52" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="600" textAnchor="middle" fill="#365170">
+        <text
+          x="208"
+          y="52"
+          fontFamily="Arial, sans-serif"
+          fontSize="12"
+          fontWeight="600"
+          textAnchor="middle"
+          fill="#365170"
+        >
           Pipeline setup
         </text>
 
@@ -221,11 +210,19 @@ export function ManualWorkIllustration() {
           animate={animation.animate ? { opacity: ROW_STAGES[0].opacity, x: ROW_STAGES[0].x } : { opacity: 1, x: 0 }}
           transition={loopTransition(animation.animate, ROW_STAGES[0].times)}
         >
-        <rect x="94" y="80" width="229" height="35" rx="8" fill="#F4F8FF" />
-        <rect x="107" y="90" width="14" height="14" rx="4" fill="#D9E9FB" stroke="#A2C4E9" />
-        <path d="M111 97L114 100L119 94" stroke="#2B87EB" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="132" y="102" fontFamily="Arial, sans-serif" fontSize="12" fill="#3C587A">Configure sources</text>
-        <path d="M283 97H307" stroke="#B7CBE5" strokeWidth="2" strokeLinecap="round" />
+          <rect x="94" y="80" width="229" height="35" rx="8" fill="#F4F8FF" />
+          <rect x="107" y="90" width="14" height="14" rx="4" fill="#D9E9FB" stroke="#A2C4E9" />
+          <path
+            d="M111 97L114 100L119 94"
+            stroke="#2B87EB"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <text x="132" y="102" fontFamily="Arial, sans-serif" fontSize="12" fill="#3C587A">
+            Configure sources
+          </text>
+          <path d="M283 97H307" stroke="#B7CBE5" strokeWidth="2" strokeLinecap="round" />
         </motion.g>
 
         <motion.g
@@ -233,11 +230,19 @@ export function ManualWorkIllustration() {
           animate={animation.animate ? { opacity: ROW_STAGES[1].opacity, x: ROW_STAGES[1].x } : { opacity: 1, x: 0 }}
           transition={loopTransition(animation.animate, ROW_STAGES[1].times)}
         >
-        <rect x="94" y="123" width="229" height="35" rx="8" fill="#F4F8FF" />
-        <rect x="107" y="133" width="14" height="14" rx="4" fill="#D9E9FB" stroke="#A2C4E9" />
-        <path d="M111 140L114 143L119 137" stroke="#2B87EB" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="132" y="145" fontFamily="Arial, sans-serif" fontSize="12" fill="#3C587A">Set up schedules</text>
-        <path d="M283 140H307" stroke="#B7CBE5" strokeWidth="2" strokeLinecap="round" />
+          <rect x="94" y="123" width="229" height="35" rx="8" fill="#F4F8FF" />
+          <rect x="107" y="133" width="14" height="14" rx="4" fill="#D9E9FB" stroke="#A2C4E9" />
+          <path
+            d="M111 140L114 143L119 137"
+            stroke="#2B87EB"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <text x="132" y="145" fontFamily="Arial, sans-serif" fontSize="12" fill="#3C587A">
+            Set up schedules
+          </text>
+          <path d="M283 140H307" stroke="#B7CBE5" strokeWidth="2" strokeLinecap="round" />
         </motion.g>
 
         <motion.g
@@ -245,11 +250,19 @@ export function ManualWorkIllustration() {
           animate={animation.animate ? { opacity: ROW_STAGES[2].opacity, x: ROW_STAGES[2].x } : { opacity: 1, x: 0 }}
           transition={loopTransition(animation.animate, ROW_STAGES[2].times)}
         >
-        <rect x="94" y="166" width="229" height="35" rx="8" fill="#F4F8FF" />
-        <rect x="107" y="176" width="14" height="14" rx="4" fill="#D9E9FB" stroke="#A2C4E9" />
-        <path d="M111 183L114 186L119 180" stroke="#2B87EB" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <text x="132" y="188" fontFamily="Arial, sans-serif" fontSize="12" fill="#3C587A">Verify and deploy</text>
-        <path d="M283 183H307" stroke="#B7CBE5" strokeWidth="2" strokeLinecap="round" />
+          <rect x="94" y="166" width="229" height="35" rx="8" fill="#F4F8FF" />
+          <rect x="107" y="176" width="14" height="14" rx="4" fill="#D9E9FB" stroke="#A2C4E9" />
+          <path
+            d="M111 183L114 186L119 180"
+            stroke="#2B87EB"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <text x="132" y="188" fontFamily="Arial, sans-serif" fontSize="12" fill="#3C587A">
+            Verify and deploy
+          </text>
+          <path d="M283 183H307" stroke="#B7CBE5" strokeWidth="2" strokeLinecap="round" />
         </motion.g>
       </g>
 
@@ -258,11 +271,17 @@ export function ManualWorkIllustration() {
         animate={animation.animate ? { opacity: REPEAT_SETUP.opacity, y: REPEAT_SETUP.y } : { opacity: 1, y: 0 }}
         transition={loopTransition(animation.animate, REPEAT_SETUP.times)}
       >
-      <rect x="144" y="211" width="128" height="33" rx="16.5" fill="#E9F3FF" stroke="#B8D6F6" />
-      <path d="M159 228C159 222.5 166 220.5 170 224M170 224V220M170 224H166M171 228C171 233.5 164 235.5 160 232M160 232V236M160 232H164" stroke="#3189E8" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="181" y="232" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="600" fill="#2E6FB9">
-        Repeat setup
-      </text>
+        <rect x="144" y="211" width="128" height="33" rx="16.5" fill="#E9F3FF" stroke="#B8D6F6" />
+        <path
+          d="M159 228C159 222.5 166 220.5 170 224M170 224V220M170 224H166M171 228C171 233.5 164 235.5 160 232M160 232V236M160 232H164"
+          stroke="#3189E8"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <text x="181" y="232" fontFamily="Arial, sans-serif" fontSize="12" fontWeight="600" fill="#2E6FB9">
+          Repeat setup
+        </text>
       </motion.g>
     </svg>
   );
@@ -284,44 +303,102 @@ export function BlindSpotsIllustration() {
       </defs>
       <rect width="416" height="270" fill="url(#blind-surface)" />
       <path d="M104 67H179M237 67H312" stroke="#84AED9" strokeWidth="3" strokeDasharray="6 6" strokeLinecap="round" />
-      <motion.circle cx="113" cy="67" r="5.5" fill="#237EEA"
+      <motion.circle
+        cx="113"
+        cy="67"
+        r="5.5"
+        fill="#237EEA"
         style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
         animate={animation.animate ? { opacity: DATA_TRAVEL.opacity, x: DATA_TRAVEL.x } : { opacity: 1, x: 0 }}
         transition={loopTransition(animation.animate, DATA_TRAVEL.times)}
       />
-      <motion.path d="M253 58L264 76M264 58L253 76" stroke="#D6455E" strokeWidth="2.5" strokeLinecap="round"
+      <motion.path
+        d="M253 58L264 76M264 58L253 76"
+        stroke="#D6455E"
+        strokeWidth="2.5"
+        strokeLinecap="round"
         style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-        animate={animation.animate ? { opacity: FAILURE_ALERT.opacity, scale: FAILURE_ALERT.scale } : { opacity: 1, scale: 1 }}
+        animate={
+          animation.animate ? { opacity: FAILURE_ALERT.opacity, scale: FAILURE_ALERT.scale } : { opacity: 1, scale: 1 }
+        }
         transition={loopTransition(animation.animate, FAILURE_ALERT.times)}
       />
       <g filter="url(#blind-shadow)">
         <rect x="30" y="40" width="88" height="54" rx="10" fill="white" stroke="#D6E4F7" />
-        <text x="74" y="65" textAnchor="middle" fontSize="12" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Source</text>
+        <text
+          x="74"
+          y="65"
+          textAnchor="middle"
+          fontSize="12"
+          fontFamily="Arial, sans-serif"
+          fontWeight="600"
+          fill="#365170"
+        >
+          Source
+        </text>
         <rect x="46" y="80" width="52" height="4" rx="2" fill="#DBE7F6" />
 
         <rect x="166" y="37" width="84" height="60" rx="10" fill="white" stroke="#D6E4F7" />
-        <text x="208" y="65" textAnchor="middle" fontSize="12" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Task</text>
+        <text
+          x="208"
+          y="65"
+          textAnchor="middle"
+          fontSize="12"
+          fontFamily="Arial, sans-serif"
+          fontWeight="600"
+          fill="#365170"
+        >
+          Task
+        </text>
         <rect x="180" y="79" width="52" height="4" rx="2" fill="#DBE7F6" />
 
         <rect x="303" y="40" width="84" height="54" rx="10" fill="white" stroke="#D6E4F7" />
-        <text x="345" y="65" textAnchor="middle" fontSize="12" fontFamily="Arial, sans-serif" fontWeight="600" fill="#365170">Sink</text>
+        <text
+          x="345"
+          y="65"
+          textAnchor="middle"
+          fontSize="12"
+          fontFamily="Arial, sans-serif"
+          fontWeight="600"
+          fill="#365170"
+        >
+          Sink
+        </text>
         <rect x="317" y="80" width="52" height="4" rx="2" fill="#DBE7F6" />
 
         <rect x="59" y="119" width="298" height="112" rx="13" fill="white" stroke="#D6E4F7" />
         <rect x="59" y="119" width="298" height="33" rx="13" fill="#F9FBFF" />
         <path d="M59 141V152H357V141" fill="#F9FBFF" />
-        <motion.circle cx="80" cy="136" r="5.5" fill="#E25569"
+        <motion.circle
+          cx="80"
+          cy="136"
+          r="5.5"
+          fill="#E25569"
           animate={animation.animate ? { opacity: ERROR_HIGHLIGHT.opacity } : { opacity: 1 }}
           transition={loopTransition(animation.animate, ERROR_HIGHLIGHT.times)}
         />
         <text x="94" y="140" fontSize="12" fontFamily="Arial, sans-serif" fontWeight="600" fill="#394F6E">
           Pipeline failed
         </text>
-        <motion.rect x="284" y="127" width="57" height="18" rx="9" fill="#FFF0F2"
+        <motion.rect
+          x="284"
+          y="127"
+          width="57"
+          height="18"
+          rx="9"
+          fill="#FFF0F2"
           animate={animation.animate ? { opacity: ERROR_HIGHLIGHT.opacity } : { opacity: 1 }}
           transition={loopTransition(animation.animate, ERROR_HIGHLIGHT.times)}
         />
-        <text x="312" y="140" textAnchor="middle" fontSize="10.5" fontFamily="Arial, sans-serif" fontWeight="600" fill="#D04963">
+        <text
+          x="312"
+          y="140"
+          textAnchor="middle"
+          fontSize="10.5"
+          fontFamily="Arial, sans-serif"
+          fontWeight="600"
+          fill="#D04963"
+        >
           Error
         </text>
         <rect x="79" y="165" width="20" height="5" rx="2.5" fill="#9DB5D4" />

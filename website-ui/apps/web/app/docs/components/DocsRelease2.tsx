@@ -20,7 +20,8 @@ export default function DocsRelease2() {
           Release <span className="text-[#078ef0]">2.0</span>
         </h1>
         <p className="mt-6 max-w-[690px] text-[17px] leading-[1.85] text-[#65738a]">
-          Welcome to the Yak Ops 2.0 release overview. This page is a starting point for release notes, important changes, and upgrade guidance.
+          Welcome to the Yak Ops 2.0 release overview. This page is a starting point for release notes, important
+          changes, and upgrade guidance.
         </p>
         <div className="mt-10 rounded-2xl border border-[#e5eaf3] bg-[#f8fbff] px-7 py-8 sm:px-9">
           <div className="flex items-start gap-4">
@@ -28,7 +29,8 @@ export default function DocsRelease2() {
             <div>
               <h2 className="m-0 text-[20px] font-semibold">Release details are being prepared</h2>
               <p className="mb-0 mt-3 text-[15px] leading-7 text-[#6a7890]">
-                The full changelog, migration notes, and compatibility information will be published here. Until then, explore the existing documentation and deployment guide.
+                The full changelog, migration notes, and compatibility information will be published here. Until then,
+                explore the existing documentation and deployment guide.
               </p>
             </div>
           </div>
