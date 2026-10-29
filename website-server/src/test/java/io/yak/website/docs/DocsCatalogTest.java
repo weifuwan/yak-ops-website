@@ -31,6 +31,19 @@ class DocsCatalogTest {
     }
 
     @Test
+    void connectorDocumentsAreListedInNavigation() {
+        assertThat(catalog.navigation().sections().stream()
+                .filter(section -> "Connectors".equals(section.title()))
+                .flatMap(section -> section.items().stream())
+                .map(DocsModels.NavigationItem::slug)
+                .toList())
+                .containsExactly(
+                        "connectors/database/mysql",
+                        "connectors/database/postgresql",
+                        "connectors/database/oracle");
+    }
+
+    @Test
     void navigationOnlyExposesDeclaredDocuments() {
         assertThat(catalog.document("../README")).isEmpty();
         assertThat(catalog.document("README")).isEmpty();
