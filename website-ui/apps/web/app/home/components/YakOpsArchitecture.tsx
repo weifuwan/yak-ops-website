@@ -181,10 +181,10 @@ export default function YakOpsArchitecture({
 
       {/* Governance and operations layer, using the original lilac cards and icons. */}
       <rect x="16" y="430" width="768" height="220" rx="12" fill="#E5DFFC" stroke="#7F46FF" strokeWidth="1.8" />
-      <g transform="translate(40 449)" fill="none" stroke="#8557E8" strokeWidth="2.3" strokeLinejoin="round">
+      <g transform="translate(38 454)" fill="none" stroke="#8557E8" strokeWidth="2.3" strokeLinejoin="round">
         <path d="M0 5 8 0 16 5 8 10zM0 11l8 5 8-5M0 16l8 5 8-5" />
       </g>
-      <text x="73" y="476" fontSize="17" fontWeight="700" fill="#6941A5">
+      <text x="64" y="472" fontSize="19" letterSpacing="2" fontWeight="800" fill="#6941A5">
         Governance &amp; Operations
       </text>
 
