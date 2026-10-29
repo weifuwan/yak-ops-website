@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-import YakOpsProductPanorama from './YakOpsProductPanorama';
+import YakOpsArchitecture from './YakOpsArchitecture';
 
 export type ContextPlatformSectionProps = HTMLAttributes<HTMLElement>;
 
@@ -22,8 +22,8 @@ export default function ContextPlatformSection({ className = '', ...props }: Con
           Connect data, build workflows, and deliver trusted data—all in one place.
         </p>
 
-        <div className="mx-auto mt-6 max-w-[860px] sm:mt-8">
-          <YakOpsProductPanorama />
+        <div className="mx-auto mt-6 max-w-[800px] sm:mt-8">
+          <YakOpsArchitecture />
         </div>
 
         <p className="m-0 mx-auto mt-4 max-w-[720px] text-center text-xs leading-5 text-[#7A8499]">
