@@ -10,6 +10,26 @@
           "description": "Deploy Yak Ops with Docker Compose."
         }
       ]
+    },
+    {
+      "title": "Connectors",
+      "items": [
+        {
+          "slug": "connectors/database/mysql",
+          "title": "MySQL",
+          "description": "Configure MySQL JDBC reads, writes, and CDC."
+        },
+        {
+          "slug": "connectors/database/postgresql",
+          "title": "PostgreSQL",
+          "description": "Configure PostgreSQL JDBC reads and writes."
+        },
+        {
+          "slug": "connectors/database/oracle",
+          "title": "Oracle",
+          "description": "Configure Oracle JDBC reads and writes."
+        }
+      ]
     }
   ]
 }

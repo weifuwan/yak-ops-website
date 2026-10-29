@@ -24,6 +24,13 @@ class DocsCatalogTest {
     }
 
     @Test
+    void databaseConnectorDocumentsAreRegistered() {
+        assertThat(catalog.document("connectors/database/mysql")).isPresent();
+        assertThat(catalog.document("connectors/database/postgresql")).isPresent();
+        assertThat(catalog.document("connectors/database/oracle")).isPresent();
+    }
+
+    @Test
     void navigationOnlyExposesDeclaredDocuments() {
         assertThat(catalog.document("../README")).isEmpty();
         assertThat(catalog.document("README")).isEmpty();

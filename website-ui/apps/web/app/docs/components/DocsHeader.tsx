@@ -19,6 +19,7 @@ import { Link, useLocation } from 'react-router-dom';
 type DocsHeaderProps = {
   onOpenNavigation: () => void;
   searchRequest?: number;
+  compact?: boolean;
 };
 
 type DocsTab = {
@@ -127,7 +128,7 @@ function ActionLink({
   );
 }
 
-export default function DocsHeader({ onOpenNavigation, searchRequest = 0 }: DocsHeaderProps) {
+export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compact = false }: DocsHeaderProps) {
   const { pathname } = useLocation();
   const [activePanel, setActivePanel] = useState<'search' | 'assistant' | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -357,6 +358,7 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0 }: Docs
         </div>
       </div>
 
+      {!compact ? (
       <nav aria-label="Documentation sections" className="hidden px-5 pt-[18px] pb-7 lg:block">
         <div className="mx-auto flex h-12 w-full max-w-[1260px] items-center justify-between rounded-full border border-[#e3e8f2] bg-[#fafafa] p-[2px] dark:border-gray-800 dark:bg-gray-900">
           {DOCS_PRIMARY_TABS.map((item) => (
@@ -364,6 +366,7 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0 }: Docs
           ))}
         </div>
       </nav>
+      ) : null}
 
       <div className="flex h-14 items-center border-t border-gray-100 px-5 lg:hidden dark:border-gray-800">
         <button
