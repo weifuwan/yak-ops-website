@@ -89,17 +89,18 @@ export default function YakOpsArchitecture({
         </filter>
       </defs>
 
-
       {/* External data systems: deliberately light-weight around the two layers. */}
       <text x="16" y="49" fontSize="16" fill="#161B30">
         Data Sources
       </text>
-      {([
-        { x: 255, name: 'Databases', icon: '▤' },
-        { x: 380, name: 'Warehouses', icon: '▥' },
-        { x: 505, name: 'Applications', icon: '◇' },
-        { x: 630, name: 'Compute', icon: '✣' },
-      ] as const).map((item, index) => (
+      {(
+        [
+          { x: 255, name: 'Databases', icon: '▤' },
+          { x: 380, name: 'Warehouses', icon: '▥' },
+          { x: 505, name: 'Applications', icon: '◇' },
+          { x: 630, name: 'Compute', icon: '✣' },
+        ] as const
+      ).map((item, index) => (
         <g key={item.name}>
           <rect
             x={item.x - 17}
@@ -125,7 +126,6 @@ export default function YakOpsArchitecture({
           />
         </g>
       ))}
-
 
       {/* Product layer: preserve the old layout of two large blue cards and three small supporting cards. */}
       <rect x="16" y="111" width="768" height="270" rx="12" fill="#D3E4F8" stroke="#2F6FED" strokeWidth="1.7" />
@@ -178,7 +178,6 @@ export default function YakOpsArchitecture({
           reducedMotion={reducedMotion}
         />
       ))}
-
 
       {/* Governance and operations layer, using the original lilac cards and icons. */}
       <rect x="16" y="430" width="768" height="220" rx="12" fill="#E5DFFC" stroke="#7F46FF" strokeWidth="1.8" />
@@ -245,7 +244,6 @@ export default function YakOpsArchitecture({
           >
             {item.line1}
           </text>
-
         </g>
       ))}
       {[271, 529].map((x, i) => (
@@ -265,12 +263,14 @@ export default function YakOpsArchitecture({
       <text x="16" y="719" fontSize="15" fill="#161B30">
         Consumers
       </text>
-      {([
-        { x: 248, name: 'Business Teams', icon: '▣' },
-        { x: 380, name: 'Analytics & BI', icon: '◈' },
-        { x: 512, name: 'Data Products', icon: '▤' },
-        { x: 644, name: 'AI & Innovation', icon: '✳' },
-      ] as const).map((item, index) => (
+      {(
+        [
+          { x: 248, name: 'Business Teams', icon: '▣' },
+          { x: 380, name: 'Analytics & BI', icon: '◈' },
+          { x: 512, name: 'Data Products', icon: '▤' },
+          { x: 644, name: 'AI & Innovation', icon: '✳' },
+        ] as const
+      ).map((item, index) => (
         <g key={item.name}>
           <FlowConnector
             d={`M${item.x} 656v31`}
