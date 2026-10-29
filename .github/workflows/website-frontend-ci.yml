@@ -37,6 +37,14 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
+      - name: Capture formatted footer (temporary)
+        run: |
+          npx oxfmt apps/web/app/layout/MarketingLayout/MarketingFooter.tsx
+          echo 'FORMATTED_FOOTER_BEGIN'
+          base64 -w0 apps/web/app/layout/MarketingLayout/MarketingFooter.tsx
+          echo
+          echo 'FORMATTED_FOOTER_END'
+
       - name: Frontend format
         run: npm run format:check
 
