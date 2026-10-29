@@ -5,24 +5,21 @@ const industries = [
     id: 'financial-services',
     label: 'Financial Services',
     title: "Financial data can't afford to arrive late.",
-    description:
-      'Keep transaction, account, and reporting data synchronized, with clear visibility into every task.',
+    description: 'Keep transaction, account, and reporting data synchronized, with clear visibility into every task.',
     scenes: ['Transaction Data', 'Core Databases', 'Risk Reporting', 'Data Operations'],
   },
   {
     id: 'healthcare',
     label: 'Healthcare',
     title: "Disconnected systems shouldn't mean disconnected data.",
-    description:
-      'Connect clinical and operational data workflows, and make synchronization easier to manage.',
+    description: 'Connect clinical and operational data workflows, and make synchronization easier to manage.',
     scenes: ['Clinical Records', 'Hospital Systems', 'Operational Data', 'Reporting'],
   },
   {
     id: 'retail',
     label: 'Retail & Commerce',
     title: 'Orders move fast. Your data should keep up.',
-    description:
-      'Synchronize orders, inventory, and sales data to support faster reporting and daily operations.',
+    description: 'Synchronize orders, inventory, and sales data to support faster reporting and daily operations.',
     scenes: ['Orders', 'Inventory', 'Sales Data', 'Analytics'],
   },
   {
@@ -36,8 +33,7 @@ const industries = [
     id: 'technology',
     label: 'Technology',
     title: "More services shouldn't mean more data chaos.",
-    description:
-      'Connect databases, manage synchronization workflows, and monitor execution from one place.',
+    description: 'Connect databases, manage synchronization workflows, and monitor execution from one place.',
     scenes: ['Databases', 'Data Pipelines', 'Job Monitoring', 'Data Services'],
   },
 ] as const;
