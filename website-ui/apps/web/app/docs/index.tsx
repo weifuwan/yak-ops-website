@@ -44,9 +44,13 @@ export default function DocsPage() {
   const [searchRequest, setSearchRequest] = useState(0);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
     setMobileNavOpen(false);
-  }, [location.pathname]);
+    if (isHome && location.hash === '#connectors') {
+      window.requestAnimationFrame(() => document.getElementById('connectors')?.scrollIntoView());
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  }, [location.pathname, location.hash, isHome]);
 
   useEffect(() => {
     let cancelled = false;
@@ -103,9 +107,10 @@ export default function DocsPage() {
     };
   }, [requestedSlug, isHome, isRelease]);
 
+  const currentDocument = documentData?.slug === requestedSlug ? documentData : undefined;
   const toc = useMemo(
-    () => (documentData ? extractDocsToc(documentData.markdown) : []),
-    [documentData],
+    () => (currentDocument ? extractDocsToc(currentDocument.markdown) : []),
+    [currentDocument],
   );
 
   const closeMobileNavigation = () => setMobileNavOpen(false);
@@ -146,16 +151,16 @@ export default function DocsPage() {
 
           <main className="min-w-0 flex-1 py-9 lg:px-8 xl:px-10">
             <div className="mx-auto max-w-[760px]">
-              {loading ? (
+              {loading || (!currentDocument && !errorMessage) ? (
                 <div className="min-h-[360px]" />
               ) : errorMessage ? (
                 <DocsErrorState message={errorMessage} />
-              ) : documentData ? (
+              ) : currentDocument ? (
                 <>
                   {isConnectorDocument ? (
-                    <ConnectorDocHeader slug={requestedSlug} title={documentData.title} />
+                    <ConnectorDocHeader slug={requestedSlug} title={currentDocument.title} />
                   ) : null}
-                  <MarkdownArticle markdown={documentData.markdown} />
+                  <MarkdownArticle markdown={currentDocument.markdown} />
                 </>
               ) : null}
             </div>
