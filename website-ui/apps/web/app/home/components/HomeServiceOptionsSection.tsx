@@ -3,11 +3,7 @@ const serviceOptions = [
     eyebrow: 'Open Source · Self-hosted',
     title: 'Run it yourself.',
     description: 'Deploy Yak Ops in your own environment and take control of your data workflows.',
-    benefits: [
-      'Deploy with Docker',
-      'Run batch and MySQL CDC synchronization',
-      'Monitor task execution and history',
-    ],
+    benefits: ['Deploy with Docker', 'Run batch and MySQL CDC synchronization', 'Monitor task execution and history'],
     href: '/developers/quick-start',
     action: 'Deploy Yak Ops',
     community: false,
