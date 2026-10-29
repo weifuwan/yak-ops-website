@@ -245,18 +245,7 @@ export default function YakOpsArchitecture({
           >
             {item.line1}
           </text>
-          {item.line2 && (
-            <text
-              x={item.x + 103.5}
-              y="622"
-              textAnchor="middle"
 
-              fontSize="13.5"
-              fill="#111"
-            >
-              {item.line2}
-            </text>
-          )}
         </g>
       ))}
       {[271, 529].map((x, i) => (
@@ -268,7 +257,6 @@ export default function YakOpsArchitecture({
           reducedMotion={reducedMotion}
         />
       ))}
-
 
       {/* Business outcomes. Keep endpoint labels outside the platform panels. */}
       <text x="16" y="698" fontSize="15" fill="#161B30">
