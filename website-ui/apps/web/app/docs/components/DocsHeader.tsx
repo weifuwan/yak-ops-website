@@ -1,4 +1,5 @@
-import brandLogo from '@/assets/img/logo2.png';
+import brandLogoOnDark from '@/assets/img/yak-ops-on-dark.svg';
+import brandLogoOnLight from '@/assets/img/yak-ops-on-light.svg';
 import { MARKETING_GITHUB_ISSUES_URL, MARKETING_HEADER_ACTIONS } from '@/config/marketingNavigation';
 import {
   ArrowUpRight,
@@ -204,9 +205,15 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0 }: Docs
             >
               <img
                 alt="Yak Ops"
-                className="block h-9 w-auto max-w-[150px] object-contain"
+                className="block h-9 w-auto max-w-[150px] object-contain dark:hidden"
                 draggable={false}
-                src={brandLogo}
+                src={brandLogoOnLight}
+              />
+              <img
+                alt="Yak Ops"
+                className="hidden h-9 w-auto max-w-[150px] object-contain dark:block"
+                draggable={false}
+                src={brandLogoOnDark}
               />
               <span className="text-[23px] leading-none font-bold tracking-[0.07em] text-[#0694f5] sm:text-[25px]">
                 DOCS
