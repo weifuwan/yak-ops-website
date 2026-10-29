@@ -1,0 +1,45 @@
+name: Docs One-off Formatter
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/docs-format-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.13'
+          cache: npm
+          cache-dependency-path: website-ui/package-lock.json
+
+      - name: Install dependencies
+        working-directory: website-ui
+        run: npm ci --ignore-scripts
+
+      - name: Format website frontend
+        working-directory: website-ui
+        run: npm run format
+
+      - name: Commit formatted documentation files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website-ui/apps/web/app/docs
+          if git diff --cached --quiet; then
+            echo "No formatting changes."
+            exit 0
+          fi
+          git commit -m "style(docs): format connector documentation pages"
+          git push origin HEAD:main
