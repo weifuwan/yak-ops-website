@@ -1,28 +1,50 @@
 import { useRef, useState, type KeyboardEvent } from 'react';
 
 const industries = [
-  { id: 'financial-services', label: 'Financial services' },
-  { id: 'healthcare', label: 'Healthcare & life sciences' },
-  { id: 'retail', label: 'Retail & commerce' },
-  { id: 'manufacturing', label: 'Manufacturing & mobility' },
-  { id: 'technology', label: 'Technology & AI' },
-] as const;
-
-const financialCustomers = [
   {
-    name: 'UnionBank',
-    logo: 'summit-recap/union-bank-dark.svg',
-    href: 'https://www.getcollate.io/customers/unionbank',
+    id: 'financial-services',
+    label: 'Financial Services',
+    title: "Financial data can't afford to arrive late.",
+    description:
+      'Keep transaction, account, and reporting data synchronized, with clear visibility into every task.',
+    scenes: ['Transaction Data', 'Core Databases', 'Risk Reporting', 'Data Operations'],
   },
-  { name: 'Santander', logo: 'brands/Santander.webp' },
-  { name: 'S&P Global', logo: 'industries/logos/sp-global.webp' },
-  { name: 'Experian', logo: 'industries/logos/experian.svg' },
+  {
+    id: 'healthcare',
+    label: 'Healthcare',
+    title: "Disconnected systems shouldn't mean disconnected data.",
+    description:
+      'Connect clinical and operational data workflows, and make synchronization easier to manage.',
+    scenes: ['Clinical Records', 'Hospital Systems', 'Operational Data', 'Reporting'],
+  },
+  {
+    id: 'retail',
+    label: 'Retail & Commerce',
+    title: 'Orders move fast. Your data should keep up.',
+    description:
+      'Synchronize orders, inventory, and sales data to support faster reporting and daily operations.',
+    scenes: ['Orders', 'Inventory', 'Sales Data', 'Analytics'],
+  },
+  {
+    id: 'manufacturing',
+    label: 'Manufacturing',
+    title: 'Production visibility starts with connected data.',
+    description: 'Bring production, inventory, and supply chain data into manageable workflows.',
+    scenes: ['Production', 'Inventory', 'Supply Chain', 'Operations'],
+  },
+  {
+    id: 'technology',
+    label: 'Technology',
+    title: "More services shouldn't mean more data chaos.",
+    description:
+      'Connect databases, manage synchronization workflows, and monitor execution from one place.',
+    scenes: ['Databases', 'Data Pipelines', 'Job Monitoring', 'Data Services'],
+  },
 ] as const;
 
 /**
- * The reference HTML only includes the Financial services panel. Other industry
- * tabs use clearly provisional panels instead of made-up customer case studies.
- * Replace them once their reference assets and copy are supplied.
+ * Industry scenarios, not customer endorsements or claims of certified
+ * industry solutions. All five tabs use the same business-first layout.
  */
 export default function HomeIndustriesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -49,10 +71,10 @@ export default function HomeIndustriesSection() {
     <section className="bg-gray-100">
       <div className="mx-auto w-full max-w-[1100px] px-4 py-12 sm:px-12 lg:px-0 lg:py-20">
         <h2 className="m-0 text-center text-[28px] leading-tight tracking-[0.01em] font-normal text-black sm:text-[40px]">
-          The cost of being wrong changes by industry.
+          Different industries. One need: reliable data.
         </h2>
         <p className="m-0 mt-3 text-center text-base text-black sm:text-lg">
-          So does the context AI needs to get right.
+          Connect systems, build data workflows, and keep them running.
         </p>
 
         <div
@@ -91,94 +113,26 @@ export default function HomeIndustriesSection() {
             role="tabpanel"
             tabIndex={0}
           >
-            {index === 0 ? (
-              <>
-                <img
-                  alt=""
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 h-full w-full object-cover object-left"
-                  decoding="async"
-                  loading="lazy"
-                  src="https://www.getcollate.io/images/industries/financial-services.webp"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#102341]/0 from-30% to-[#102341] to-75% md:bg-gradient-to-r" />
-                <div className="relative grid grid-cols-1 items-center gap-6 p-4 pb-8 md:grid-cols-[3fr_2fr] md:gap-10 md:p-12">
-                  <div className="grid grid-cols-2 gap-3">
-                    {financialCustomers.map((customer) => (
-                      <div key={customer.name}>
-                        {'href' in customer ? (
-                          <a
-                            aria-label={`${customer.name} customer story`}
-                            className="group relative flex h-[88px] items-center justify-center rounded-xl border border-white/60 bg-gradient-to-b from-white/90 to-white/70 px-4 backdrop-blur-sm transition-colors duration-200 hover:border-[#1268ce] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1268ce] md:h-[136px]"
-                            href={customer.href}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                          >
-                            <img
-                              alt={customer.name}
-                              className="block max-h-[40px] w-full max-w-[160px] object-contain"
-                              decoding="async"
-                              loading="lazy"
-                              src={`https://www.getcollate.io/images/${customer.logo}`}
-                            />
-                            <svg
-                              aria-hidden="true"
-                              className="absolute right-3 bottom-3 text-[#1268ce]"
-                              fill="none"
-                              height="13"
-                              viewBox="0 0 13 13"
-                              width="13"
-                            >
-                              <path
-                                d="M4.271.5h7.543m0 0v7.543m0-7.543L.5 11.814"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </a>
-                        ) : (
-                          <div className="flex h-[88px] items-center justify-center rounded-xl border border-white/60 bg-gradient-to-b from-white/90 to-white/70 px-4 backdrop-blur-sm md:h-[136px]">
-                            <img
-                              alt={customer.name}
-                              className="block max-h-[40px] w-full max-w-[160px] object-contain"
-                              decoding="async"
-                              loading="lazy"
-                              src={`https://www.getcollate.io/images/${customer.logo}`}
-                            />
-                          </div>
-                        )}
-                      </div>
-                    ))}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_18%_70%,rgba(23,111,210,0.52),transparent_58%)]"
+            />
+            <div className="relative grid min-h-[350px] grid-cols-1 items-center gap-6 p-4 pb-8 md:grid-cols-[3fr_2fr] md:gap-10 md:p-12">
+              <div className="grid grid-cols-2 gap-3" aria-label={`${industry.label} data scenarios`}>
+                {industry.scenes.map((scene) => (
+                  <div
+                    className="flex h-[88px] items-center justify-center rounded-xl border border-white/60 bg-gradient-to-b from-white/95 to-[#E1EAF5]/95 px-4 text-center text-[15px] font-semibold leading-snug text-[#243752] shadow-sm md:h-[136px] md:text-[17px]"
+                    key={scene}
+                  >
+                    {scene}
                   </div>
-                  <div className="text-white max-md:px-2">
-                    <h3 className="m-0 text-2xl leading-tight font-semibold md:text-[28px]">
-                      When every answer needs an audit trail.
-                    </h3>
-                    <p className="m-0 mt-4 text-base leading-7 md:text-lg">
-                      AI must show the data, definitions, policies, and decisions behind it.
-                    </p>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="grid min-h-[350px] grid-cols-1 items-center gap-8 p-8 text-white md:grid-cols-[3fr_2fr] md:p-12">
-                <div aria-hidden="true" className="grid grid-cols-2 gap-3">
-                  {Array.from({ length: 4 }, (_, i) => (
-                    <div
-                      className="h-[88px] rounded-xl border border-white/30 bg-gradient-to-b from-white/15 to-white/5 md:h-[136px]"
-                      key={i}
-                    />
-                  ))}
-                </div>
-                <div>
-                  <h3 className="m-0 text-2xl leading-tight font-semibold md:text-[28px]">{industry.label}</h3>
-                  <p className="m-0 mt-4 text-base leading-7 md:text-lg">
-                    Industry-specific context and customer examples will be added here.
-                  </p>
-                </div>
+                ))}
               </div>
-            )}
+              <div className="text-white max-md:px-2">
+                <h3 className="m-0 text-2xl leading-tight font-semibold md:text-[28px]">{industry.title}</h3>
+                <p className="m-0 mt-4 text-base leading-7 text-[#E4EDF9] md:text-lg">{industry.description}</p>
+              </div>
+            </div>
           </div>
         ))}
       </div>
