@@ -1,0 +1,39 @@
+name: Website Backend CI
+
+on:
+  pull_request:
+    paths:
+      - 'website-server/**'
+      - 'docs/**'
+      - 'pom.xml'
+      - '.github/workflows/website-backend-ci.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'website-server/**'
+      - 'docs/**'
+      - 'pom.xml'
+      - '.github/workflows/website-backend-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Backend tests
+        run: mvn -B -pl website-server -am test
