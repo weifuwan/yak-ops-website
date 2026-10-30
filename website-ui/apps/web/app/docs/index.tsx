@@ -38,55 +38,7 @@ export default function DocsPage() {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [searchRequest, setSearchRequest] = useState(0);
-  const { progress, start, startIfIdle, complete } = useDocsNavigationProgress();
-
-  // Start before React Router updates the URL, including links in the sidebar and Markdown.
-  useEffect(() => {
-    const onLinkClick = (event: MouseEvent) => {
-      if (
-        event.defaultPrevented ||
-        event.button !== 0 ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey ||
-        !(event.target instanceof Element)
-      ) {
-        return;
-      }
-
-      const anchor = event.target.closest('a[href]');
-      if (!(anchor instanceof HTMLAnchorElement) || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) {
-        return;
-      }
-
-      const destination = new URL(anchor.href, window.location.href);
-      const current = new URL(window.location.href);
-      if (
-        destination.origin === current.origin &&
-        (destination.pathname === '/docs' || destination.pathname.startsWith('/docs/')) &&
-        destination.pathname !== current.pathname
-      ) {
-        start();
-      }
-    };
-
-    const onPopState = () => {
-      if (
-        window.location.pathname !== location.pathname &&
-        (window.location.pathname === '/docs' || window.location.pathname.startsWith('/docs/'))
-      ) {
-        start();
-      }
-    };
-
-    document.addEventListener('click', onLinkClick, true);
-    window.addEventListener('popstate', onPopState);
-    return () => {
-      document.removeEventListener('click', onLinkClick, true);
-      window.removeEventListener('popstate', onPopState);
-    };
-  }, [start, location.pathname]);
+  const { progress, complete } = useDocsNavigationProgress(location.pathname);
 
   useEffect(() => {
     setMobileNavOpen(false);
@@ -127,7 +79,6 @@ export default function DocsPage() {
     }
 
     let cancelled = false;
-    startIfIdle();
     setLoading(true);
     setErrorMessage(undefined);
 
@@ -153,7 +104,7 @@ export default function DocsPage() {
     return () => {
       cancelled = true;
     };
-  }, [requestedSlug, isHome, isRelease, startIfIdle, complete]);
+  }, [requestedSlug, location.pathname, isHome, isRelease, complete]);
 
   const currentDocument = documentData?.slug === requestedSlug ? documentData : undefined;
   const toc = useMemo(() => (currentDocument ? extractDocsToc(currentDocument.markdown) : []), [currentDocument]);
