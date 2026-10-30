@@ -57,16 +57,18 @@ export default function DocsTableOfContents({ items }: DocsTableOfContentsProps)
         <TocIcon />
         <span>On this page</span>
       </div>
-      <div className="space-y-0.5">
+      <div className="space-y-0.5 border-l border-[#E4E7EC]">
         {items.map((item) => {
           const isActive = activeId === item.id;
           return (
             <a
               aria-current={isActive ? 'location' : undefined}
               className={[
-                'block py-1 hover:text-[#18181B]',
-                item.level === 3 ? 'pl-4' : 'pl-0',
-                isActive ? 'font-medium text-[#18181B]' : '',
+                '-ml-px block border-l-2 py-1.5 transition-colors duration-150',
+                item.level === 3 ? 'pl-7' : 'pl-3',
+                isActive
+                  ? 'border-[#086cf5] font-semibold text-[#086cf5]'
+                  : 'border-transparent font-normal text-[#52525B] hover:text-[#086cf5]',
               ]
                 .filter(Boolean)
                 .join(' ')}
