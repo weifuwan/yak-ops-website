@@ -10,6 +10,7 @@ import DocsConnectorSidebar from './components/DocsConnectorSidebar';
 import DocsHeader from './components/DocsHeader';
 import DocsHome from './components/DocsHome';
 import DocsNavigationProgress, { useDocsNavigationProgress } from './components/DocsNavigationProgress';
+import DocsProductsOverview from './components/DocsProductsOverview';
 import DocsRelease2 from './components/DocsRelease2';
 import DocsSidebar from './components/DocsSidebar';
 import DocsTableOfContents from './components/DocsTableOfContents';
@@ -39,6 +40,8 @@ export default function DocsPage() {
   const isRelease = requestedSlug === 'release-2.0';
   const isConnectorDocument = requestedSlug.startsWith('connectors/database/');
   const isConnectorOverview = requestedSlug === 'connectors/overview';
+  const isProductsOverview = requestedSlug === 'products/overview';
+  const isCategoryOverview = isConnectorOverview || isProductsOverview;
 
   const [navigation, setNavigation] = useState<DocsNavigation>();
   const [navigationLoaded, setNavigationLoaded] = useState(false);
@@ -138,7 +141,26 @@ export default function DocsPage() {
   );
   const docSections = useMemo(() => (currentSection ? [currentSection] : []), [currentSection]);
   const connectorItems = currentSection?.title === 'Connectors' ? currentSection.items : [];
-  const pageToc = isConnectorOverview ? CONNECTORS_TOC : toc;
+  const productItems = useMemo(
+    () =>
+      currentSection?.title === 'Products'
+        ? currentSection.items.filter((item) => item.slug.startsWith('products/') && item.slug !== 'products/overview')
+        : [],
+    [currentSection],
+  );
+  const productsToc = useMemo<DocsTocItem[]>(
+    () => [
+      { id: 'doc-products', title: 'Products', level: 2 },
+      { id: 'doc-platform-capabilities', title: 'Platform Capabilities', level: 2 },
+      ...productItems.map((item) => ({
+        id: 'doc-' + item.slug.substring(item.slug.lastIndexOf('/') + 1),
+        title: item.title,
+        level: 3,
+      })),
+    ],
+    [productItems],
+  );
+  const pageToc = isConnectorOverview ? CONNECTORS_TOC : isProductsOverview ? productsToc : toc;
 
   const closeMobileNavigation = () => setMobileNavOpen(false);
 
@@ -153,7 +175,7 @@ export default function DocsPage() {
         <DocsRelease2 />
       ) : (
         <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
-          {!isConnectorOverview ? (
+          {!isCategoryOverview ? (
             <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 [scrollbar-width:none] lg:block [&::-webkit-scrollbar]:hidden">
               {isConnectorDocument ? (
                 <DocsConnectorSidebar
@@ -170,20 +192,24 @@ export default function DocsPage() {
 
           <main
             className={
-              isConnectorOverview ? 'min-w-0 flex-1 py-9 lg:pr-8 xl:pr-10' : 'min-w-0 flex-1 py-9 lg:px-8 xl:px-10'
+              isCategoryOverview ? 'min-w-0 flex-1 py-9 lg:pr-8 xl:pr-10' : 'min-w-0 flex-1 py-9 lg:px-8 xl:px-10'
             }
           >
-            <div className={isConnectorOverview ? 'mx-auto max-w-[900px]' : 'mx-auto max-w-[760px]'}>
-              {loading || (!currentDocument && !errorMessage) || (isConnectorOverview && !navigationLoaded) ? (
+            <div className={isCategoryOverview ? 'mx-auto max-w-[900px]' : 'mx-auto max-w-[760px]'}>
+              {loading || (!currentDocument && !errorMessage) || (isCategoryOverview && !navigationLoaded) ? (
                 <div className="min-h-[360px]" />
               ) : errorMessage ? (
                 <DocsErrorState message={errorMessage} />
               ) : currentDocument ? (
-                isConnectorOverview ? (
+                isCategoryOverview ? (
                   navigation ? (
-                    <DocsConnectorOverview items={connectorItems} />
+                    isConnectorOverview ? (
+                      <DocsConnectorOverview items={connectorItems} />
+                    ) : (
+                      <DocsProductsOverview items={productItems} />
+                    )
                   ) : (
-                    <DocsErrorState message="The connector catalog could not be loaded." />
+                    <DocsErrorState message="The documentation catalog could not be loaded." />
                   )
                 ) : (
                   <>
