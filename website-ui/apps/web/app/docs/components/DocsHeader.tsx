@@ -16,6 +16,8 @@ import {
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import DocsSearchDialog from './DocsSearchDialog';
+
 type DocsHeaderProps = {
   onOpenNavigation: () => void;
   searchRequest?: number;
@@ -288,6 +290,28 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
             </div>
           </div>
 
+          <div className="mx-auto hidden min-w-0 max-w-[450px] flex-1 items-center justify-center gap-2 xl:flex">
+            <button
+              className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-[#1677ff] bg-white px-3 text-[13px] font-medium text-[#086cf5] hover:bg-[#F0F7FF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
+              onClick={() => { setActivePanel('assistant'); setSearchQuery(''); }}
+              type="button"
+            >
+              <Sparkles aria-hidden="true" size={15} />
+              Ask Assistant
+              <span className="text-[10px] text-[#667085]">Ctrl I</span>
+            </button>
+            <button
+              aria-label="Open documentation search"
+              className="flex h-9 min-w-0 max-w-[245px] flex-1 items-center gap-2 rounded-full border-0 bg-[#F5F6F8] px-3 text-[13px] text-[#667085] hover:bg-[#EAEDF2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
+              onClick={() => { setActivePanel('search'); setSearchQuery(''); }}
+              type="button"
+            >
+              <Search aria-hidden="true" className="shrink-0" size={15} />
+              <span className="flex-1 truncate text-left">Search...</span>
+              <span className="shrink-0 text-[11px] font-medium">Ctrl K</span>
+            </button>
+          </div>
+
           <nav aria-label="Documentation actions" className="ml-auto hidden shrink-0 items-center lg:flex">
             <ul className="m-0 flex list-none items-center gap-4 p-0">
               <li>
@@ -411,7 +435,9 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
         </button>
       </div>
 
-      {activePanel ? (
+      {activePanel === 'search' ? <DocsSearchDialog onClose={closePanel} /> : null}
+
+      {activePanel === 'assistant' ? (
         <div className="fixed inset-0 z-[1400] flex items-start justify-center bg-gray-950/25 px-4 pt-[14vh] backdrop-blur-[2px]">
           <button
             aria-label="Close dialog"

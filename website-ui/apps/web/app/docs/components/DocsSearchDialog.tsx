@@ -56,7 +56,7 @@ function breadcrumbs(slug: string, title: string, navigation?: DocsNavigation): 
   const intermediate = slug
     .split('/')
     .slice(1, -1)
-    .map((name) => name.replaceAll('-', ' ').replace(/\\b\\w/g, (letter) => letter.toUpperCase()));
+    .map((name) => name.replaceAll('-', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()));
   const labels = [section?.title || 'Documentation', ...intermediate, title]
     .filter((name, index, values) => index === 0 || name.toLowerCase() !== values[index - 1].toLowerCase());
   return labels.length > 4 ? ['…', ...labels.slice(-3)] : labels;
