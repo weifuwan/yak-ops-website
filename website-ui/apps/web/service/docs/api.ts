@@ -1,9 +1,5 @@
 import { apiRequest } from '@/service/http/client';
-import type {
-  DocsDocument,
-  DocsNavigation,
-  DocsSearchResponse,
-} from './types';
+import type { DocsDocument, DocsNavigation, DocsSearchResponse } from './types';
 
 const DOCS_API = '/api/v1/docs';
 
@@ -14,4 +10,3 @@ export const getDocsNavigation = (): Promise<DocsNavigation> => apiRequest<DocsN
 
 export const searchDocs = (query: string): Promise<DocsSearchResponse> =>
   apiRequest<DocsSearchResponse>(DOCS_API + '/search?q=' + encodeURIComponent(query));
-
