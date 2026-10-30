@@ -72,7 +72,7 @@ export default function DocsHighlights() {
           const Icon = highlight.icon;
           return (
             <article
-              className="flex min-w-0 flex-col rounded-[20px] border border-[#edf0f5] bg-white p-7 shadow-[0_4px_12px_-1px_rgba(10,13,18,0.06)] transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#d6e8ff] hover:bg-[#fbfdff] hover:shadow-[0_6px_16px_-1px_rgba(10,13,18,0.09)]"
+              className="relative flex min-w-0 flex-col rounded-[20px] bg-white p-7 shadow-[0_5px_14px_rgba(15,23,42,0.09)] transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] focus-within:-translate-y-[2px] after:pointer-events-none after:absolute after:inset-x-6 after:bottom-0 after:h-5 after:rounded-full after:opacity-0 after:shadow-[0_14px_12px_-8px_rgba(15,23,42,0.23)] after:transition-opacity after:duration-[280ms] after:ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] hover:after:opacity-100 focus-within:after:opacity-100 motion-reduce:transform-none motion-reduce:transition-none motion-reduce:after:transition-none"
               key={highlight.title}
             >
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FF]">
