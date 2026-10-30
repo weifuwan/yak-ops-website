@@ -27,48 +27,63 @@ type DocsTab = {
   href: string;
   description: string;
   external?: boolean;
+  activePrefix?: string;
 };
 
 const DOCS_TABS: readonly DocsTab[] = [
   { label: 'Home', href: '/docs', description: 'Documentation home' },
-  { label: 'Release 2.0', href: '/docs/release-2.0', description: 'Yak Ops 2.0 release overview' },
-  { label: 'Get Started', href: '/docs/deploy/docker-compose', description: 'Start using Yak Ops' },
-  { label: 'Connectors', href: '/docs#connectors', description: 'Browse supported connectors' },
-  { label: 'Products', href: '/product/data-development', description: 'Explore Yak Ops capabilities' },
-  { label: 'Collate AI', href: '/developers/api', description: 'Explore APIs and integrations' },
-  { label: 'How-to Guides', href: '/docs/deploy/docker-compose', description: 'Practical setup guides' },
-  { label: 'Admin', href: '/developers/configuration', description: 'Configure and manage Yak Ops' },
-  { label: 'Developers', href: '/developers/quick-start', description: 'Developer tools and workflows' },
-  { label: 'SQL Studio', href: '/product/data-development', description: 'Data development tools' },
-  { label: 'Data Insights', href: '/product/metrics', description: 'Metrics and data insights' },
-  { label: 'Data Discovery', href: '/product/data-sources', description: 'Find and explore data' },
-  { label: 'Data Collaboration', href: '/product/workflows', description: 'Collaborate across data workflows' },
+  { label: 'Release 2.0', href: '/docs/release-2.0', description: 'Yak Ops 2.0 release information' },
   {
-    label: 'Data Quality & Observability',
-    href: '/product/data-quality',
-    description: 'Monitor data quality and reliability',
+    label: 'Get Started',
+    href: '/docs/deploy/docker-compose',
+    activePrefix: '/docs/deploy/',
+    description: 'Installation and getting started',
   },
-  { label: 'Data Lineage', href: '/product/lineage', description: 'Understand data dependencies' },
-  { label: 'Data Governance', href: '/product/data-assets', description: 'Govern data assets' },
-  { label: 'Data Marketplace', href: '/product/datasets', description: 'Discover reusable data products' },
-  { label: 'Data Contracts', href: '/developers/api', description: 'Interfaces and integration contracts' },
-  { label: 'Guide for Data Users', href: '/docs/deploy/docker-compose', description: 'Guides for everyday users' },
   {
-    label: 'Customer Support',
-    href: MARKETING_GITHUB_ISSUES_URL,
-    description: 'Ask questions and report issues',
-    external: true,
+    label: 'Connectors',
+    href: '/docs/connectors/overview',
+    activePrefix: '/docs/connectors/',
+    description: 'Database sources, sinks, and CDC',
   },
-  { label: 'SSO', href: '/developers/configuration', description: 'Authentication configuration' },
-  { label: 'MCP Server', href: '/developers/api', description: 'API and integration reference' },
-  { label: 'Deployment', href: '/developers/deployment', description: 'Deployment options and setup' },
-  { label: 'MySQL', href: '/docs/connectors/database/mysql', description: 'JDBC Source, JDBC Sink, and CDC' },
-  { label: 'PostgreSQL', href: '/docs/connectors/database/postgresql', description: 'JDBC Source and JDBC Sink' },
-  { label: 'Oracle', href: '/docs/connectors/database/oracle', description: 'JDBC Source and JDBC Sink' },
+  {
+    label: 'Products',
+    href: '/docs/products/overview',
+    activePrefix: '/docs/products/',
+    description: 'Data integration, development, and governance',
+  },
+  {
+    label: 'Yak Ops AI',
+    href: '/docs/ai/overview',
+    activePrefix: '/docs/ai/',
+    description: 'AI capabilities planned for Yak Ops 2.0',
+  },
+  {
+    label: 'How-to Guides',
+    href: '/docs/guides/overview',
+    activePrefix: '/docs/guides/',
+    description: 'Task-oriented tutorials and examples',
+  },
+  {
+    label: 'Admin',
+    href: '/docs/admin/overview',
+    activePrefix: '/docs/admin/',
+    description: 'Configuration and operations',
+  },
+  {
+    label: 'Developers',
+    href: '/docs/developers/overview',
+    activePrefix: '/docs/developers/',
+    description: 'API, development, and contributions',
+  },
+  { label: 'Data Integration', href: '/docs/products/data-integration', description: 'Batch and real-time sync' },
+  { label: 'Data Development', href: '/docs/products/data-development', description: 'SQL, workflows, and scheduling' },
+  { label: 'Data Governance', href: '/docs/products/data-governance', description: 'Quality, lineage, and assets' },
+  { label: 'MySQL', href: '/docs/connectors/database/mysql', description: 'MySQL JDBC and CDC' },
+  { label: 'PostgreSQL', href: '/docs/connectors/database/postgresql', description: 'PostgreSQL JDBC' },
+  { label: 'Oracle', href: '/docs/connectors/database/oracle', description: 'Oracle JDBC' },
 ];
 
-// Keep the reference header focused on nine top-level destinations.
-// Additional documentation routes remain discoverable in the search dialog.
+// Retain the existing nine-tab capsule layout; additional documents are searchable.
 const DOCS_PRIMARY_TABS = DOCS_TABS.slice(0, 9);
 
 function DocsTabLink({ item, active, onClick }: { item: DocsTab; active: boolean; onClick?: () => void }) {
@@ -139,8 +154,9 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
   const [moreOpen, setMoreOpen] = useState(false);
 
   const activeTab =
-    DOCS_TABS.find((item) => item.href === pathname) ??
-    DOCS_TABS.find((item) => item.href === '/docs' && pathname.startsWith('/docs/'));
+    DOCS_PRIMARY_TABS.find(
+      (item) => item.href === pathname || (item.activePrefix && pathname.startsWith(item.activePrefix)),
+    ) ?? DOCS_TABS.find((item) => item.href === pathname);
 
   const filteredTabs = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -232,7 +248,7 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
                 onClick={() => setVersionOpen(!versionOpen)}
                 type="button"
               >
-                AI 2.0
+                Latest
                 <ChevronRight
                   aria-hidden="true"
                   className={[
@@ -249,19 +265,19 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
                   role="menu"
                 >
                   <div className="flex items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                    <span>AI 2.0</span>
+                    <span>Current documentation</span>
                     <Check aria-label="Current version" className="text-blue-600 dark:text-blue-400" size={15} />
                   </div>
                   <div className="px-3 pb-2 text-xs text-gray-500 dark:text-gray-400">
-                    Current documentation version
+                    Release 2.0 information is available separately.
                   </div>
                   <Link
                     className="flex items-center justify-between rounded-lg px-3 py-2 text-sm text-gray-700 no-underline hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
                     onClick={() => setVersionOpen(false)}
                     role="menuitem"
-                    to="/docs"
+                    to="/docs/release-2.0"
                   >
-                    Getting Started
+                    Release 2.0
                     <ArrowUpRight aria-hidden="true" size={14} />
                   </Link>
                 </div>

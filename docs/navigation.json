@@ -15,19 +15,89 @@
       "title": "Connectors",
       "items": [
         {
+          "slug": "connectors/overview",
+          "title": "Overview",
+          "description": "Browse database connectors."
+        },
+        {
           "slug": "connectors/database/mysql",
           "title": "MySQL",
-          "description": "Configure MySQL JDBC reads, writes, and CDC."
+          "description": "Configure MySQL JDBC and CDC."
         },
         {
           "slug": "connectors/database/postgresql",
           "title": "PostgreSQL",
-          "description": "Configure PostgreSQL JDBC reads and writes."
+          "description": "Configure PostgreSQL JDBC."
         },
         {
           "slug": "connectors/database/oracle",
           "title": "Oracle",
-          "description": "Configure Oracle JDBC reads and writes."
+          "description": "Configure Oracle JDBC."
+        }
+      ]
+    },
+    {
+      "title": "Products",
+      "items": [
+        {
+          "slug": "products/overview",
+          "title": "Overview",
+          "description": "Explore the product documentation."
+        },
+        {
+          "slug": "products/data-integration",
+          "title": "Data Integration",
+          "description": "Batch and real-time sync."
+        },
+        {
+          "slug": "products/data-development",
+          "title": "Data Development",
+          "description": "SQL, workflows, and scheduling."
+        },
+        {
+          "slug": "products/data-governance",
+          "title": "Data Governance",
+          "description": "Quality, lineage, and data assets."
+        }
+      ]
+    },
+    {
+      "title": "Yak Ops AI",
+      "items": [
+        {
+          "slug": "ai/overview",
+          "title": "Overview",
+          "description": "AI capabilities planned for Yak Ops 2.0."
+        }
+      ]
+    },
+    {
+      "title": "How-to Guides",
+      "items": [
+        {
+          "slug": "guides/overview",
+          "title": "Overview",
+          "description": "Practical tutorials and walkthroughs."
+        }
+      ]
+    },
+    {
+      "title": "Admin",
+      "items": [
+        {
+          "slug": "admin/overview",
+          "title": "Overview",
+          "description": "Configuration and operations."
+        }
+      ]
+    },
+    {
+      "title": "Developers",
+      "items": [
+        {
+          "slug": "developers/overview",
+          "title": "Overview",
+          "description": "APIs, development, and contributions."
         }
       ]
     }

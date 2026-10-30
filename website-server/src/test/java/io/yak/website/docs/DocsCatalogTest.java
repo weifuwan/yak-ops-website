@@ -38,9 +38,23 @@ class DocsCatalogTest {
                 .map(DocsModels.NavigationItem::slug)
                 .toList())
                 .containsExactly(
+                        "connectors/overview",
                         "connectors/database/mysql",
                         "connectors/database/postgresql",
                         "connectors/database/oracle");
+    }
+
+    @Test
+    void newDocumentationSectionsAreRegistered() {
+        assertThat(catalog.document("connectors/overview")).isPresent();
+        assertThat(catalog.document("products/overview")).isPresent();
+        assertThat(catalog.document("products/data-integration")).isPresent();
+        assertThat(catalog.document("products/data-development")).isPresent();
+        assertThat(catalog.document("products/data-governance")).isPresent();
+        assertThat(catalog.document("ai/overview")).isPresent();
+        assertThat(catalog.document("guides/overview")).isPresent();
+        assertThat(catalog.document("admin/overview")).isPresent();
+        assertThat(catalog.document("developers/overview")).isPresent();
     }
 
     @Test
