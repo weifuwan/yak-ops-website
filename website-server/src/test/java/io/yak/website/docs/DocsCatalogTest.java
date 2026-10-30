@@ -46,6 +46,13 @@ class DocsCatalogTest {
 
     @Test
     void newDocumentationSectionsAreRegistered() {
+        assertThat(catalog.document("getting-started/overview")).isPresent();
+        assertThat(catalog.document("getting-started/before-you-begin")).isPresent();
+        assertThat(catalog.document("getting-started/deploy")).isPresent();
+        assertThat(catalog.document("getting-started/connect-data")).isPresent();
+        assertThat(catalog.document("getting-started/integrate-data")).isPresent();
+        assertThat(catalog.document("getting-started/build-workflow")).isPresent();
+        assertThat(catalog.document("getting-started/data-governance")).isPresent();
         assertThat(catalog.document("connectors/overview")).isPresent();
         assertThat(catalog.document("products/overview")).isPresent();
         assertThat(catalog.document("products/data-integration")).isPresent();
@@ -60,9 +67,24 @@ class DocsCatalogTest {
     @Test
     void previousAndNextStayWithinTheirDocumentationModule() {
         DocsModels.DocumentResponse gettingStarted =
-                catalog.document("deploy/docker-compose").orElseThrow();
+                catalog.document("getting-started/overview").orElseThrow();
         assertThat(gettingStarted.previous()).isNull();
-        assertThat(gettingStarted.next()).isNull();
+        assertThat(gettingStarted.next().slug()).isEqualTo("getting-started/before-you-begin");
+
+        DocsModels.DocumentResponse deploy =
+                catalog.document("getting-started/deploy").orElseThrow();
+        assertThat(deploy.previous().slug()).isEqualTo("getting-started/before-you-begin");
+        assertThat(deploy.next().slug()).isEqualTo("deploy/docker-compose");
+
+        DocsModels.DocumentResponse dockerCompose =
+                catalog.document("deploy/docker-compose").orElseThrow();
+        assertThat(dockerCompose.previous().slug()).isEqualTo("getting-started/deploy");
+        assertThat(dockerCompose.next().slug()).isEqualTo("getting-started/connect-data");
+
+        DocsModels.DocumentResponse lastStep =
+                catalog.document("getting-started/data-governance").orElseThrow();
+        assertThat(lastStep.previous().slug()).isEqualTo("getting-started/build-workflow");
+        assertThat(lastStep.next()).isNull();
 
         DocsModels.DocumentResponse connectorOverview =
                 catalog.document("connectors/overview").orElseThrow();

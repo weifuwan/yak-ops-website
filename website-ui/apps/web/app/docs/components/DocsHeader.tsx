@@ -35,8 +35,8 @@ const DOCS_TABS: readonly DocsTab[] = [
   { label: 'Release 2.0', href: '/docs/release-2.0', description: 'Yak Ops 2.0 release information' },
   {
     label: 'Get Started',
-    href: '/docs/deploy/docker-compose',
-    activePrefix: '/docs/deploy/',
+    href: '/docs/getting-started/overview',
+    activePrefix: '/docs/getting-started/',
     description: 'Installation and getting started',
   },
   {
@@ -155,7 +155,10 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
 
   const activeTab =
     DOCS_PRIMARY_TABS.find(
-      (item) => item.href === pathname || (item.activePrefix && pathname.startsWith(item.activePrefix)),
+      (item) =>
+        item.href === pathname ||
+        (item.activePrefix && pathname.startsWith(item.activePrefix)) ||
+        (item.label === 'Get Started' && pathname.startsWith('/docs/deploy/')),
     ) ?? DOCS_TABS.find((item) => item.href === pathname);
 
   const filteredTabs = useMemo(() => {

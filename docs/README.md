@@ -14,7 +14,7 @@ This directory is the source of truth for public Yak Ops documentation. Git is t
 
 The nine top-level sections are Home, Release 2.0, Get Started, Connectors, Products, Yak Ops AI, How-to Guides, Admin, and Developers.
 
-The top navigation switches documentation modules. Each desktop and mobile sidebar displays only the section containing the active document; Connectors details use their own nested sidebar. The catalog stays global for document lookup and search, while previous/next links never cross module boundaries.
+The top navigation switches documentation modules. Each desktop and mobile sidebar displays only the section containing the active document; Get Started provides a guided overview with five steps and a nested Docker Compose deployment guide, while Connectors details use their own nested sidebar. The catalog stays global for document lookup and search, while previous/next links never cross module boundaries.
 
 Release 2.0 is a dedicated frontend page. Products groups Data Integration, Data Development, and Data Governance. The Yak Ops AI overview describes planned 2.0 areas, not shipped features.
 

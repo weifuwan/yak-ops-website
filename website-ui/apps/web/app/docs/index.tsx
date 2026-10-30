@@ -7,6 +7,8 @@ import { extractDocsToc, type DocsTocItem } from '@/utils/docs';
 import ConnectorDocHeader from './components/ConnectorDocHeader';
 import DocsConnectorOverview from './components/DocsConnectorOverview';
 import DocsConnectorSidebar from './components/DocsConnectorSidebar';
+import DocsGetStartedOverview from './components/DocsGetStartedOverview';
+import DocsGetStartedSidebar from './components/DocsGetStartedSidebar';
 import DocsHeader from './components/DocsHeader';
 import DocsHome from './components/DocsHome';
 import DocsNavigationProgress, { useDocsNavigationProgress } from './components/DocsNavigationProgress';
@@ -15,6 +17,12 @@ import DocsRelease2 from './components/DocsRelease2';
 import DocsSidebar from './components/DocsSidebar';
 import DocsTableOfContents from './components/DocsTableOfContents';
 import MarkdownArticle from './components/MarkdownArticle';
+
+const GET_STARTED_TOC: DocsTocItem[] = [
+  { id: 'doc-get-started', title: 'Get Started', level: 2 },
+  { id: 'doc-start-here', title: 'Start Here', level: 2 },
+  { id: 'doc-lets-get-started', title: "Let's Get Started", level: 2 },
+];
 
 const CONNECTORS_TOC: DocsTocItem[] = [
   { id: 'doc-connectors', title: 'Connectors', level: 2 },
@@ -38,10 +46,12 @@ export default function DocsPage() {
   const requestedSlug = docsSlugFromPath(location.pathname);
   const isHome = requestedSlug === '';
   const isRelease = requestedSlug === 'release-2.0';
+  const isGetStartedOverview = requestedSlug === 'getting-started/overview';
+  const isGetStartedDocument = requestedSlug.startsWith('getting-started/') || requestedSlug === 'deploy/docker-compose';
   const isConnectorDocument = requestedSlug.startsWith('connectors/database/');
   const isConnectorOverview = requestedSlug === 'connectors/overview';
   const isProductsOverview = requestedSlug === 'products/overview';
-  const isCategoryOverview = isConnectorOverview || isProductsOverview;
+  const isCategoryOverview = isGetStartedOverview || isConnectorOverview || isProductsOverview;
 
   const [navigation, setNavigation] = useState<DocsNavigation>();
   const [navigationLoaded, setNavigationLoaded] = useState(false);
@@ -140,6 +150,7 @@ export default function DocsPage() {
     [navigation, requestedSlug],
   );
   const docSections = useMemo(() => (currentSection ? [currentSection] : []), [currentSection]);
+  const getStartedItems = currentSection?.title === 'Getting Started' ? currentSection.items : [];
   const connectorItems = currentSection?.title === 'Connectors' ? currentSection.items : [];
   const productItems = useMemo(
     () =>
@@ -160,7 +171,13 @@ export default function DocsPage() {
     ],
     [productItems],
   );
-  const pageToc = isConnectorOverview ? CONNECTORS_TOC : isProductsOverview ? productsToc : toc;
+  const pageToc = isGetStartedOverview
+    ? GET_STARTED_TOC
+    : isConnectorOverview
+      ? CONNECTORS_TOC
+      : isProductsOverview
+        ? productsToc
+        : toc;
 
   const closeMobileNavigation = () => setMobileNavOpen(false);
 
@@ -177,7 +194,13 @@ export default function DocsPage() {
         <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
           {!isCategoryOverview ? (
             <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 [scrollbar-width:none] lg:block [&::-webkit-scrollbar]:hidden">
-              {isConnectorDocument ? (
+              {isGetStartedDocument ? (
+                <DocsGetStartedSidebar
+                  currentSlug={requestedSlug}
+                  items={getStartedItems}
+                  onNavigate={closeMobileNavigation}
+                />
+              ) : isConnectorDocument ? (
                 <DocsConnectorSidebar
                   currentSlug={requestedSlug}
                   items={connectorItems}
@@ -203,7 +226,9 @@ export default function DocsPage() {
               ) : currentDocument ? (
                 isCategoryOverview ? (
                   navigation ? (
-                    isConnectorOverview ? (
+                    isGetStartedOverview ? (
+                      <DocsGetStartedOverview items={getStartedItems} />
+                    ) : isConnectorOverview ? (
                       <DocsConnectorOverview items={connectorItems} />
                     ) : (
                       <DocsProductsOverview items={productItems} />
@@ -276,7 +301,13 @@ export default function DocsPage() {
               </Link>
             </nav>
             <div className="flex-1 overflow-y-auto px-4 py-6">
-              {isConnectorDocument ? (
+              {isGetStartedDocument ? (
+                <DocsGetStartedSidebar
+                  currentSlug={requestedSlug}
+                  items={getStartedItems}
+                  onNavigate={closeMobileNavigation}
+                />
+              ) : isConnectorDocument ? (
                 <DocsConnectorSidebar
                   currentSlug={requestedSlug}
                   items={connectorItems}

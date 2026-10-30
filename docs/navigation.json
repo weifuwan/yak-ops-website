@@ -1,13 +1,48 @@
 {
-  "defaultSlug": "deploy/docker-compose",
+  "defaultSlug": "getting-started/overview",
   "sections": [
     {
       "title": "Getting Started",
       "items": [
         {
+          "slug": "getting-started/overview",
+          "title": "Overview",
+          "description": "Start here and follow the guided onboarding steps."
+        },
+        {
+          "slug": "getting-started/before-you-begin",
+          "title": "Before You Begin",
+          "description": "Prepare your environment before deploying Yak Ops."
+        },
+        {
+          "slug": "getting-started/deploy",
+          "title": "Step 1 - Deploy Yak Ops",
+          "description": "Deploy the platform and verify its services."
+        },
+        {
           "slug": "deploy/docker-compose",
           "title": "Docker Compose",
           "description": "Deploy Yak Ops with Docker Compose."
+        },
+        {
+          "slug": "getting-started/connect-data",
+          "title": "Step 2 - Connect Your Data",
+          "description": "Register and validate a database connection."
+        },
+        {
+          "slug": "getting-started/integrate-data",
+          "title": "Step 3 - Integrate Your Data",
+          "description": "Explore batch and real-time data integration."
+        },
+        {
+          "slug": "getting-started/build-workflow",
+          "title": "Step 4 - Build Your First Workflow",
+          "description": "Learn how workflows and scheduling fit together."
+        },
+        {
+          "slug": "getting-started/data-governance",
+          "title": "Step 5 - Explore Data Governance",
+          "description": "Discover data quality, lineage, and data assets."
         }
       ]
     },
