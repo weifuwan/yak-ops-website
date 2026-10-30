@@ -1,25 +1,17 @@
-import { ArrowUpRight, Database, GitBranch, ShieldCheck } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Database, GitBranch, ShieldCheck } from 'lucide-react';
 
 import type { DocsNavigationItem } from '@/service/docs';
+
+import DocsCatalogCard from './DocsCatalogCard';
 
 type DocsProductsOverviewProps = {
   items: DocsNavigationItem[];
 };
 
-const presentations: Record<string, { description: string; capabilities: string[] }> = {
-  'data-integration': {
-    description: 'Connect your data sources and run batch or real-time synchronization tasks.',
-    capabilities: ['Data Sources', 'Batch Sync', 'Real-time Sync'],
-  },
-  'data-development': {
-    description: 'Develop data processing tasks, orchestrate workflows, and schedule execution.',
-    capabilities: ['SQL Development', 'Workflows', 'Scheduling'],
-  },
-  'data-governance': {
-    description: 'Organize data assets, understand lineage, and improve data reliability.',
-    capabilities: ['Data Quality', 'Data Lineage', 'Data Assets'],
-  },
+const presentations: Record<string, string> = {
+  'data-integration': 'Connect data sources and run batch or real-time synchronization tasks.',
+  'data-development': 'Develop SQL tasks, orchestrate workflows, and schedule execution.',
+  'data-governance': 'Organize data assets, explore lineage, and improve data quality.',
 };
 
 function ProductIcon({ id }: { id: string }) {
@@ -60,41 +52,16 @@ export default function DocsProductsOverview({ items }: DocsProductsOverviewProp
         <div className="grid gap-4 sm:grid-cols-2">
           {products.map((item) => {
             const id = item.slug.substring(item.slug.lastIndexOf('/') + 1);
-            const presentation = presentations[id];
 
             return (
-              <Link
-                className="group flex min-h-[188px] items-start gap-4 rounded-2xl border border-[#EDF0F4] bg-white px-5 py-5 text-[#1D2939] no-underline shadow-[0_4px_12px_rgba(15,23,42,0.06)] transition-[border-color,box-shadow] hover:border-[#B8DDFF] hover:shadow-[0_6px_20px_rgba(15,23,42,0.09)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
+              <DocsCatalogCard
+                description={presentations[id] ?? item.description}
+                headingId={'doc-' + id}
+                icon={<ProductIcon id={id} />}
                 key={item.slug}
+                title={item.title}
                 to={'/docs/' + item.slug}
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#F6F8FC]">
-                  <ProductIcon id={id} />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <h3
-                    className="m-0 scroll-mt-[190px] text-[17px] font-semibold leading-6 text-[#1D2939] group-hover:text-[#086cf5]"
-                    id={'doc-' + id}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="mt-1.5 mb-3 text-[13px] leading-[1.65] text-[#667085]">
-                    {presentation?.description ?? item.description}
-                  </p>
-                  {presentation ? (
-                    <div className="flex flex-wrap gap-x-3 gap-y-1 text-[12px] leading-5 text-[#667085]">
-                      {presentation.capabilities.map((capability) => (
-                        <span key={capability}>{capability}</span>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-                <ArrowUpRight
-                  aria-hidden="true"
-                  className="mt-1 shrink-0 text-[#98A2B3] transition-colors group-hover:text-[#086cf5]"
-                  size={16}
-                />
-              </Link>
+              />
             );
           })}
         </div>

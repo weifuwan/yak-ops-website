@@ -1,9 +1,9 @@
 import { Database, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import type { DocsNavigationItem } from '@/service/docs';
 
+import DocsCatalogCard from './DocsCatalogCard';
 import DocsFilterSelect from './DocsFilterSelect';
 
 type Props = { items: DocsNavigationItem[] };
@@ -106,32 +106,28 @@ export default function DocsConnectorOverview({ items }: Props) {
                 const id = item.slug.substring(item.slug.lastIndexOf('/') + 1);
                 const presentation = presentations[id];
                 return (
-                  <Link
-                    key={item.slug}
-                    to={'/docs/' + item.slug}
-                    className="group flex min-h-[92px] items-center gap-4 rounded-2xl border border-[#EDF0F4] bg-white px-5 py-4 text-[#1D2939] no-underline shadow-[0_4px_12px_rgba(15,23,42,0.06)] transition-[border-color,box-shadow] hover:border-[#B8DDFF] hover:shadow-[0_6px_20px_rgba(15,23,42,0.09)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
-                  >
-                    <span className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#F7F9FC]">
-                      <Database aria-hidden="true" size={24} className="text-[#7DA5DF]" />
-                      {presentation?.image ? (
-                        <img
-                          alt=""
-                          className="absolute inset-2 h-8 w-8 object-contain"
-                          loading="lazy"
-                          src={presentation.image}
-                          onError={(event) => {
-                            event.currentTarget.hidden = true;
-                          }}
-                        />
-                      ) : null}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block font-semibold">{item.title}</span>
-                      <span className="mt-1 block text-[12px] text-[#667085]">
-                        {presentation?.capabilities ?? item.description}
+                  <DocsCatalogCard
+                    description={presentation?.capabilities ?? item.description}
+                    icon={
+                      <span className="relative flex h-6 w-6 items-center justify-center">
+                        <Database aria-hidden="true" className="text-[#7DA5DF]" size={23} strokeWidth={1.8} />
+                        {presentation?.image ? (
+                          <img
+                            alt=""
+                            className="absolute inset-0 h-6 w-6 object-contain"
+                            loading="lazy"
+                            onError={(event) => {
+                              event.currentTarget.hidden = true;
+                            }}
+                            src={presentation.image}
+                          />
+                        ) : null}
                       </span>
-                    </span>
-                  </Link>
+                    }
+                    key={item.slug}
+                    title={item.title}
+                    to={'/docs/' + item.slug}
+                  />
                 );
               })}
             </div>
