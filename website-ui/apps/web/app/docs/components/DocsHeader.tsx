@@ -293,7 +293,10 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
           <div className="mx-auto hidden min-w-0 max-w-[450px] flex-1 items-center justify-center gap-2 xl:flex">
             <button
               className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-[#1677ff] bg-white px-3 text-[13px] font-medium text-[#086cf5] hover:bg-[#F0F7FF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
-              onClick={() => { setActivePanel('assistant'); setSearchQuery(''); }}
+              onClick={() => {
+                setActivePanel('assistant');
+                setSearchQuery('');
+              }}
               type="button"
             >
               <Sparkles aria-hidden="true" size={15} />
@@ -303,7 +306,10 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
             <button
               aria-label="Open documentation search"
               className="flex h-9 min-w-0 max-w-[245px] flex-1 items-center gap-2 rounded-full border-0 bg-[#F5F6F8] px-3 text-[13px] text-[#667085] hover:bg-[#EAEDF2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
-              onClick={() => { setActivePanel('search'); setSearchQuery(''); }}
+              onClick={() => {
+                setActivePanel('search');
+                setSearchQuery('');
+              }}
               type="button"
             >
               <Search aria-hidden="true" className="shrink-0" size={15} />

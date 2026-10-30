@@ -24,9 +24,11 @@ function readLocalHistory(): DocsSearchHistoryItem[] {
   try {
     const value: unknown = JSON.parse(sessionStorage.getItem(LOCAL_HISTORY_KEY) || '[]');
     if (!Array.isArray(value)) return [];
-    return value.filter((item): item is DocsSearchHistoryItem =>
-      Boolean(item && typeof item === 'object' && typeof item.searchQuery === 'string'),
-    ).slice(0, MAX_RECENT);
+    return value
+      .filter((item): item is DocsSearchHistoryItem =>
+        Boolean(item && typeof item === 'object' && typeof item.searchQuery === 'string'),
+      )
+      .slice(0, MAX_RECENT);
   } catch {
     return [];
   }
@@ -41,7 +43,9 @@ function rememberLocal(entry: DocsSearchHistoryRequest): DocsSearchHistoryItem[]
   };
   const previous = readLocalHistory();
   const unique = (item: DocsSearchHistoryItem) =>
-    next.documentSlug ? item.documentSlug !== next.documentSlug : item.documentSlug || item.searchQuery.toLowerCase() !== next.searchQuery.toLowerCase();
+    next.documentSlug
+      ? item.documentSlug !== next.documentSlug
+      : item.documentSlug || item.searchQuery.toLowerCase() !== next.searchQuery.toLowerCase();
   const updated = [next, ...previous.filter(unique)].slice(0, MAX_RECENT);
   try {
     sessionStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(updated));
@@ -57,8 +61,9 @@ function breadcrumbs(slug: string, title: string, navigation?: DocsNavigation): 
     .split('/')
     .slice(1, -1)
     .map((name) => name.replaceAll('-', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase()));
-  const labels = [section?.title || 'Documentation', ...intermediate, title]
-    .filter((name, index, values) => index === 0 || name.toLowerCase() !== values[index - 1].toLowerCase());
+  const labels = [section?.title || 'Documentation', ...intermediate, title].filter(
+    (name, index, values) => index === 0 || name.toLowerCase() !== values[index - 1].toLowerCase(),
+  );
   return labels.length > 4 ? ['…', ...labels.slice(-3)] : labels;
 }
 
@@ -137,8 +142,12 @@ export default function DocsSearchDialog({ onClose }: Props) {
   useEffect(() => {
     let cancelled = false;
     getDocsNavigation()
-      .then((result) => { if (!cancelled) setNavigation(result); })
-      .catch(() => { /* Search results still work without navigation metadata. */ });
+      .then((result) => {
+        if (!cancelled) setNavigation(result);
+      })
+      .catch(() => {
+        /* Search results still work without navigation metadata. */
+      });
     setRecent(readLocalHistory());
     getDocsSearchHistory()
       .then((results) => {
@@ -147,8 +156,12 @@ export default function DocsSearchDialog({ onClose }: Props) {
           setIsAnonymous(false);
         }
       })
-      .catch(() => { if (!cancelled) setIsAnonymous(true); });
-    return () => { cancelled = true; };
+      .catch(() => {
+        if (!cancelled) setIsAnonymous(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -175,7 +188,9 @@ export default function DocsSearchDialog({ onClose }: Props) {
             setSearchError(true);
           }
         })
-        .finally(() => { if (!cancelled) setLoading(false); });
+        .finally(() => {
+          if (!cancelled) setLoading(false);
+        });
     }, 250);
     return () => {
       cancelled = true;
@@ -184,11 +199,17 @@ export default function DocsSearchDialog({ onClose }: Props) {
   }, [normalized]);
 
   const items = useMemo<SearchItem[]>(() => {
-    if (normalized) return hits.map((hit) => ({
-      key: hit.slug, title: hit.title, slug: hit.slug, query: normalized,
-    }));
+    if (normalized)
+      return hits.map((hit) => ({
+        key: hit.slug,
+        title: hit.title,
+        slug: hit.slug,
+        query: normalized,
+      }));
     return recent.map((entry, index) => {
-      const document = navigation?.sections.flatMap((part) => part.items).find((item) => item.slug === entry.documentSlug);
+      const document = navigation?.sections
+        .flatMap((part) => part.items)
+        .find((item) => item.slug === entry.documentSlug);
       return {
         key: entry.documentSlug || entry.searchQuery + index,
         title: document?.title || entry.documentSlug?.split('/').at(-1)?.replaceAll('-', ' ') || entry.searchQuery,
@@ -222,10 +243,10 @@ export default function DocsSearchDialog({ onClose }: Props) {
   const handleKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      setSelected((current) => items.length ? (current + 1) % items.length : 0);
+      setSelected((current) => (items.length ? (current + 1) % items.length : 0));
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
-      setSelected((current) => items.length ? (current - 1 + items.length) % items.length : 0);
+      setSelected((current) => (items.length ? (current - 1 + items.length) % items.length : 0));
     } else if (event.key === 'Enter') {
       event.preventDefault();
       const item = items[selected];
@@ -239,7 +260,11 @@ export default function DocsSearchDialog({ onClose }: Props) {
 
   const clearHistory = () => {
     setRecent([]);
-    try { sessionStorage.removeItem(LOCAL_HISTORY_KEY); } catch { /* Ignore disabled storage. */ }
+    try {
+      sessionStorage.removeItem(LOCAL_HISTORY_KEY);
+    } catch {
+      /* Ignore disabled storage. */
+    }
     if (!isAnonymous) {
       void clearDocsSearchHistory().catch(() => {
         // Search works without persistence; on next open the API can be retried.
@@ -249,7 +274,12 @@ export default function DocsSearchDialog({ onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-[1400] overflow-y-auto bg-[#101828]/40 px-4 pt-[6vh] backdrop-blur-[1px] sm:pt-[6vh]">
-      <button aria-label="Close search" className="fixed inset-0 h-full w-full cursor-default border-0 bg-transparent" onClick={onClose} type="button" />
+      <button
+        aria-label="Close search"
+        className="fixed inset-0 h-full w-full cursor-default border-0 bg-transparent"
+        onClick={onClose}
+        type="button"
+      />
       <section
         aria-label="Search documentation"
         aria-modal="true"
@@ -278,7 +308,12 @@ export default function DocsSearchDialog({ onClose }: Props) {
               value={query}
             />
             {normalized ? (
-              <button aria-label="Clear search" className="rounded p-1 text-[#98A2B3] hover:bg-[#F2F4F7]" onClick={() => setQuery('')} type="button">
+              <button
+                aria-label="Clear search"
+                className="rounded p-1 text-[#98A2B3] hover:bg-[#F2F4F7]"
+                onClick={() => setQuery('')}
+                type="button"
+              >
                 <X size={15} />
               </button>
             ) : (
@@ -290,10 +325,20 @@ export default function DocsSearchDialog({ onClose }: Props) {
           <div className="flex items-center justify-between px-3 py-2 text-[12px] text-[#98A2B3]">
             <span>{normalized ? 'Search results' : 'Recent searches'}</span>
             {!normalized && recent.length ? (
-              <button className="border-0 bg-transparent text-[12px] text-[#667085] hover:text-[#086cf5]" onClick={clearHistory} type="button">Clear history</button>
+              <button
+                className="border-0 bg-transparent text-[12px] text-[#667085] hover:text-[#086cf5]"
+                onClick={clearHistory}
+                type="button"
+              >
+                Clear history
+              </button>
             ) : null}
           </div>
-          <div aria-label={normalized ? 'Search results' : 'Recent searches'} id="docs-search-result-list" role="listbox">
+          <div
+            aria-label={normalized ? 'Search results' : 'Recent searches'}
+            id="docs-search-result-list"
+            role="listbox"
+          >
             {items.map((item, index) => (
               <SearchResult
                 id={'docs-search-item-' + index}
@@ -307,14 +352,25 @@ export default function DocsSearchDialog({ onClose }: Props) {
             ))}
             {!items.length ? (
               <p className="m-0 px-3 py-8 text-center text-[13px] text-[#98A2B3]">
-                {loading ? 'Searching documentation…' : searchError ? 'Search is temporarily unavailable.' : normalized ? 'No matching documents found.' : 'Search guides, connectors, and product documentation.'}
+                {loading
+                  ? 'Searching documentation…'
+                  : searchError
+                    ? 'Search is temporarily unavailable.'
+                    : normalized
+                      ? 'No matching documents found.'
+                      : 'Search guides, connectors, and product documentation.'}
               </p>
             ) : null}
           </div>
         </div>
         <footer className="flex items-center gap-4 border-t border-[#EAECF0] px-4 py-3 text-[11px] font-medium text-[#98A2B3]">
-          <span className="flex items-center gap-1"><ArrowUp aria-hidden="true" size={13} /><ArrowDown aria-hidden="true" size={13} /> Select</span>
-          <span className="flex items-center gap-1"><CornerDownLeft aria-hidden="true" size={13} /> Open</span>
+          <span className="flex items-center gap-1">
+            <ArrowUp aria-hidden="true" size={13} />
+            <ArrowDown aria-hidden="true" size={13} /> Select
+          </span>
+          <span className="flex items-center gap-1">
+            <CornerDownLeft aria-hidden="true" size={13} /> Open
+          </span>
           <span className="ml-auto">ESC Close</span>
         </footer>
       </section>
