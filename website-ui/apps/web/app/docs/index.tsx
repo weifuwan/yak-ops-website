@@ -112,8 +112,8 @@ export default function DocsPage() {
     <div
       className={
         isHome || isRelease || isConnectorDocument
-          ? 'min-h-screen bg-white font-yak text-[#18181B]'
-          : 'min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]'
+          ? 'docs-page min-h-screen bg-white font-yak text-[#18181B]'
+          : 'docs-page min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]'
       }
     >
       <DocsHeader

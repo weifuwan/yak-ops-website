@@ -90,6 +90,15 @@
     font-family: var(--yak-font-sans);
   }
 
+  /* Keep document scrolling while hiding only the browser's viewport scrollbar. */
+  html:has(.docs-page) {
+    scrollbar-width: none;
+  }
+
+  html:has(.docs-page)::-webkit-scrollbar {
+    display: none;
+  }
+
   body {
     color: var(--yak-text-primary);
     background: var(--yak-page-background);
