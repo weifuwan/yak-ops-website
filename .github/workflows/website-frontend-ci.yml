@@ -27,6 +27,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Fetch user-provided documentation icon
+        shell: bash
+        run: |
+          curl -fLsS --max-time 30 --retry 2 -A "Mozilla/5.0" "https://mintcdn.com/collatedocs/yvgGxaeRR5RwtQo6/public/images/icons/ask-ai-home.svg" -o /tmp/ask-ai-home.svg
+          echo "BEGIN_ICON_BASE64"
+          base64 -w0 /tmp/ask-ai-home.svg
+          echo
+          echo "END_ICON_BASE64"
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
