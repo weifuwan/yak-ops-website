@@ -1,0 +1,37 @@
+name: Docs formatting (one-time)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/docs-format-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.13'
+          cache: npm
+          cache-dependency-path: website-ui/package-lock.json
+      - name: Install frontend dependencies
+        working-directory: website-ui
+        run: npm ci --ignore-scripts
+      - name: Format Docs files only
+        working-directory: website-ui
+        run: npx oxfmt apps/web/app/docs/index.tsx apps/web/app/docs/components/DocsConnectorOverview.tsx apps/web/app/docs/components/DocsConnectorSidebar.tsx apps/web/app/docs/components/DocsFilterSelect.tsx
+      - name: Commit formatted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add website-ui/apps/web/app/docs/index.tsx website-ui/apps/web/app/docs/components/DocsConnectorOverview.tsx website-ui/apps/web/app/docs/components/DocsConnectorSidebar.tsx website-ui/apps/web/app/docs/components/DocsFilterSelect.tsx
+          if ! git diff --cached --quiet; then
+            git commit -m "style(docs): format connector and navigation source"
+            git push origin HEAD:main
+          fi
