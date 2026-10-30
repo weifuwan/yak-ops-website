@@ -14,7 +14,7 @@ const presentations: Record<string, { image?: string; capabilities: string }> = 
   oracle: { image: '/images/integrations/Oracle.png', capabilities: 'JDBC Source · JDBC Sink' },
 };
 
-const typeName = (type: string) => type === 'database' ? 'Database' : type.replaceAll('-', ' ');
+const typeName = (type: string) => (type === 'database' ? 'Database' : type.replaceAll('-', ' '));
 
 export default function DocsConnectorOverview({ items }: Props) {
   const [query, setQuery] = useState('');
@@ -24,19 +24,17 @@ export default function DocsConnectorOverview({ items }: Props) {
     () => items.filter((item) => item.slug.startsWith('connectors/') && item.slug !== 'connectors/overview'),
     [items],
   );
-  const types = useMemo(
-    () => Array.from(new Set(connectors.map((item) => item.slug.split('/')[1]))),
-    [connectors],
-  );
+  const types = useMemo(() => Array.from(new Set(connectors.map((item) => item.slug.split('/')[1]))), [connectors]);
   const services = useMemo(
     () => connectors.filter((item) => serviceType === 'all' || item.slug.split('/')[1] === serviceType),
     [connectors, serviceType],
   );
   const filtered = useMemo(() => {
     const search = query.trim().toLowerCase();
-    return services.filter((item) =>
-      (service === 'all' || service === item.slug) &&
-      (!search || item.title.toLowerCase().includes(search) || item.description.toLowerCase().includes(search)),
+    return services.filter(
+      (item) =>
+        (service === 'all' || service === item.slug) &&
+        (!search || item.title.toLowerCase().includes(search) || item.description.toLowerCase().includes(search)),
     );
   }, [services, service, query]);
 
@@ -97,7 +95,10 @@ export default function DocsConnectorOverview({ items }: Props) {
         if (!matches.length) return null;
         return (
           <section className="mb-12" aria-labelledby={`doc-${type}`} key={type}>
-            <h2 id={`doc-${type}`} className="mb-5 scroll-mt-[270px] text-[25px] font-semibold tracking-[-0.02em] text-[#1D2939]">
+            <h2
+              id={`doc-${type}`}
+              className="mb-5 scroll-mt-[270px] text-[25px] font-semibold tracking-[-0.02em] text-[#1D2939]"
+            >
               {typeName(type)}
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -118,7 +119,9 @@ export default function DocsConnectorOverview({ items }: Props) {
                           className="absolute inset-2 h-8 w-8 object-contain"
                           loading="lazy"
                           src={presentation.image}
-                          onError={(event) => { event.currentTarget.hidden = true; }}
+                          onError={(event) => {
+                            event.currentTarget.hidden = true;
+                          }}
                         />
                       ) : null}
                     </span>

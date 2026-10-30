@@ -55,7 +55,9 @@ export default function DocsConnectorSidebar({ currentSlug, items, toc, onNaviga
                     aria-current={active ? 'page' : undefined}
                     className={
                       'min-w-0 flex-1 rounded-lg px-3 py-2 no-underline transition-colors ' +
-                      (active ? 'bg-[#E7F0FF] font-semibold text-[#086cf5]' : 'text-[#52525B] hover:bg-[#F4F7FB] hover:text-[#086cf5]')
+                      (active
+                        ? 'bg-[#E7F0FF] font-semibold text-[#086cf5]'
+                        : 'text-[#52525B] hover:bg-[#F4F7FB] hover:text-[#086cf5]')
                     }
                   >
                     {item.title}
@@ -68,26 +70,32 @@ export default function DocsConnectorSidebar({ currentSlug, items, toc, onNaviga
                       onClick={() => setExpandedSlug(expanded ? null : item.slug)}
                       className="flex h-8 w-6 shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent text-[#667085]"
                     >
-                      {expanded ? <ChevronDown aria-hidden="true" size={14} /> : <ChevronRight aria-hidden="true" size={14} />}
+                      {expanded ? (
+                        <ChevronDown aria-hidden="true" size={14} />
+                      ) : (
+                        <ChevronRight aria-hidden="true" size={14} />
+                      )}
                     </button>
                   ) : null}
                 </div>
                 {expanded ? (
                   <div className="my-1 ml-4 space-y-0.5 border-l border-[#E4E7EC] pl-2">
-                    {toc.filter((heading) => heading.level === 2).map((heading) => (
-                      <a
-                        href={'#' + heading.id}
-                        key={heading.id}
-                        onClick={onNavigate}
-                        aria-current={hash === '#' + heading.id ? 'location' : undefined}
-                        className={
-                          'block rounded-md px-2 py-1.5 text-[12px] no-underline hover:text-[#086cf5] ' +
-                          (hash === '#' + heading.id ? 'font-medium text-[#086cf5]' : 'text-[#667085]')
-                        }
-                      >
-                        {heading.title}
-                      </a>
-                    ))}
+                    {toc
+                      .filter((heading) => heading.level === 2)
+                      .map((heading) => (
+                        <a
+                          href={'#' + heading.id}
+                          key={heading.id}
+                          onClick={onNavigate}
+                          aria-current={hash === '#' + heading.id ? 'location' : undefined}
+                          className={
+                            'block rounded-md px-2 py-1.5 text-[12px] no-underline hover:text-[#086cf5] ' +
+                            (hash === '#' + heading.id ? 'font-medium text-[#086cf5]' : 'text-[#667085]')
+                          }
+                        >
+                          {heading.title}
+                        </a>
+                      ))}
                   </div>
                 ) : null}
               </div>

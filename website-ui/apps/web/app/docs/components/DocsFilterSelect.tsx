@@ -93,7 +93,9 @@ export default function DocsFilterSelect({ label, value, options, onChange }: Pr
         <span className="min-w-0 truncate">{selected?.label}</span>
         <ChevronDown
           aria-hidden="true"
-          className={'shrink-0 transition-transform duration-150 ' + (open ? 'rotate-180 text-[#2F6FED]' : 'text-[#667085]')}
+          className={
+            'shrink-0 transition-transform duration-150 ' + (open ? 'rotate-180 text-[#2F6FED]' : 'text-[#667085]')
+          }
           size={15}
         />
       </button>

@@ -168,7 +168,11 @@ export default function DocsPage() {
             </aside>
           ) : null}
 
-          <main className={isConnectorOverview ? 'min-w-0 flex-1 py-9 lg:pr-8 xl:pr-10' : 'min-w-0 flex-1 py-9 lg:px-8 xl:px-10'}>
+          <main
+            className={
+              isConnectorOverview ? 'min-w-0 flex-1 py-9 lg:pr-8 xl:pr-10' : 'min-w-0 flex-1 py-9 lg:px-8 xl:px-10'
+            }
+          >
             <div className={isConnectorOverview ? 'mx-auto max-w-[900px]' : 'mx-auto max-w-[760px]'}>
               {loading || (!currentDocument && !errorMessage) || (isConnectorOverview && !navigationLoaded) ? (
                 <div className="min-h-[360px]" />
