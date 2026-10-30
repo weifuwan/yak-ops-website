@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import type { DocsNavigationItem } from '@/service/docs';
 
+import DocsFilterSelect from './DocsFilterSelect';
+
 type Props = { items: DocsNavigationItem[] };
 
 const presentations: Record<string, { image?: string; capabilities: string }> = {
@@ -54,7 +56,7 @@ export default function DocsConnectorOverview({ items }: Props) {
         <div className="grid gap-3 sm:grid-cols-3">
           <label className="flex min-w-0 flex-col gap-2 text-[12px] font-medium text-[#475467]">
             Search
-            <span className="flex h-10 items-center gap-2 rounded-md border border-[#E2E8F0] px-3">
+            <span className="flex h-9 items-center gap-2 rounded-md border border-[#DFE7F5] bg-white px-3 transition-colors focus-within:border-[#2F6FED] focus-within:ring-2 focus-within:ring-[#2F6FED]/15">
               <Search aria-hidden="true" size={15} className="shrink-0 text-[#98A2B3]" />
               <input
                 type="search"
@@ -65,28 +67,27 @@ export default function DocsConnectorOverview({ items }: Props) {
               />
             </span>
           </label>
-          <label className="flex min-w-0 flex-col gap-2 text-[12px] font-medium text-[#475467]">
-            Service Type
-            <select
-              value={serviceType}
-              onChange={(event) => { setServiceType(event.target.value); setService('all'); }}
-              className="h-10 w-full cursor-pointer rounded-md border border-[#E2E8F0] bg-white px-3 text-[13px] text-[#475467] focus-visible:outline-[#1677ff]"
-            >
-              <option value="all">All Service Types</option>
-              {types.map((type) => <option value={type} key={type}>{typeName(type)}</option>)}
-            </select>
-          </label>
-          <label className="flex min-w-0 flex-col gap-2 text-[12px] font-medium text-[#475467]">
-            Service
-            <select
-              value={service}
-              onChange={(event) => setService(event.target.value)}
-              className="h-10 w-full cursor-pointer rounded-md border border-[#E2E8F0] bg-white px-3 text-[13px] text-[#475467] focus-visible:outline-[#1677ff]"
-            >
-              <option value="all">All Services</option>
-              {services.map((item) => <option value={item.slug} key={item.slug}>{item.title}</option>)}
-            </select>
-          </label>
+          <DocsFilterSelect
+            label="Service Type"
+            onChange={(nextType) => {
+              setServiceType(nextType);
+              setService('all');
+            }}
+            options={[
+              { value: 'all', label: 'All Service Types' },
+              ...types.map((type) => ({ value: type, label: typeName(type) })),
+            ]}
+            value={serviceType}
+          />
+          <DocsFilterSelect
+            label="Service"
+            onChange={setService}
+            options={[
+              { value: 'all', label: 'All Services' },
+              ...services.map((item) => ({ value: item.slug, label: item.title })),
+            ]}
+            value={service}
+          />
         </div>
       </div>
 
