@@ -49,7 +49,7 @@ export default function ConnectorDocHeader({ slug, title }: ConnectorDocHeaderPr
         </span>
       </div>
 
-      <div className="flex items-center gap-4 border-b border-solid border-[#E4E7EC] pb-5">
+      <div className="flex items-center gap-4 pb-5">
         <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F8FAFC]">
           <Database aria-hidden="true" className="text-[#7DA5DF]" size={28} strokeWidth={1.7} />
           {presentation.image ? (
