@@ -10,7 +10,6 @@ import {
   RadioTower,
   Search,
   ShieldCheck,
-  Sparkles,
   Workflow,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -369,9 +368,14 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
             onClick={onSearch}
             type="button"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(145deg,#44c9ef,#535cf2)] text-white">
-              <Sparkles aria-hidden="true" size={21} strokeWidth={1.8} />
-            </span>
+            <img
+              alt=""
+              aria-hidden="true"
+              className="h-10 w-10 shrink-0"
+              height={40}
+              src="/images/icons/ask-ai-home.svg"
+              width={40}
+            />
             <span aria-hidden="true" className="h-4 w-px shrink-0 bg-[#dfe4ed]" />
             <span className="min-w-0 flex-1 truncate text-[14px] font-normal text-[#a0a7b2] sm:text-[16px]">
               Search for connectors, deployment, workflows and more
