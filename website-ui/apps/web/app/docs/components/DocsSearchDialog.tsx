@@ -2,32 +2,44 @@ import { ArrowDown, ArrowUp, CornerDownLeft, FileText, Search, X } from 'lucide-
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  clearDocsSearchHistory,
-  getDocsNavigation,
-  getDocsSearchHistory,
-  saveDocsSearchHistory,
-  type DocsNavigation,
-  type DocsSearchHistoryItem,
-  type DocsSearchHistoryRequest,
-} from '@/service/docs';
+import { getDocsNavigation, type DocsNavigation } from '@/service/docs';
 
 type Props = { onClose: () => void };
 type SearchItem = { key: string; title: string; slug: string | null; query: string; anchor?: string | null };
+type DocsSearchHistoryItem = {
+  searchQuery: string;
+  documentSlug: string | null;
+  anchor: string | null;
+  updatedAt: string;
+};
+type DocsSearchHistoryRequest = {
+  searchQuery: string;
+  documentSlug?: string;
+  anchor?: string;
+};
 
 const LOCAL_HISTORY_KEY = 'yak-ops-docs-search-history';
 const MAX_RECENT = 10;
 
 function readLocalHistory(): DocsSearchHistoryItem[] {
   try {
-    const value: unknown = JSON.parse(sessionStorage.getItem(LOCAL_HISTORY_KEY) || '[]');
+    const stored = localStorage.getItem(LOCAL_HISTORY_KEY);
+    // Preserve search history from the previously session-scoped implementation.
+    const legacy = stored === null ? sessionStorage.getItem(LOCAL_HISTORY_KEY) : null;
+    const value: unknown = JSON.parse(stored ?? legacy ?? '[]');
     if (!Array.isArray(value)) return [];
-    return value
+    const history = value
       .filter((item): item is DocsSearchHistoryItem =>
         Boolean(item && typeof item === 'object' && typeof item.searchQuery === 'string'),
       )
       .slice(0, MAX_RECENT);
+    if (legacy !== null) {
+      localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(history));
+      sessionStorage.removeItem(LOCAL_HISTORY_KEY);
+    }
+    return history;
   } catch {
+    // Storage may be disabled; the search dialog remains usable.
     return [];
   }
 }
@@ -46,7 +58,7 @@ function rememberLocal(entry: DocsSearchHistoryRequest): DocsSearchHistoryItem[]
       : item.documentSlug || item.searchQuery.toLowerCase() !== next.searchQuery.toLowerCase();
   const updated = [next, ...previous.filter(unique)].slice(0, MAX_RECENT);
   try {
-    sessionStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(updated));
+    localStorage.setItem(LOCAL_HISTORY_KEY, JSON.stringify(updated));
   } catch {
     // Storage may be unavailable; public search must remain usable.
   }
@@ -149,7 +161,6 @@ export default function DocsSearchDialog({ onClose }: Props) {
   const [recent, setRecent] = useState<DocsSearchHistoryItem[]>([]);
   const [selected, setSelected] = useState(0);
   const [navigationError, setNavigationError] = useState(false);
-  const [isAnonymous, setIsAnonymous] = useState(true);
   const normalized = query.trim();
 
   useEffect(() => {
@@ -173,18 +184,13 @@ export default function DocsSearchDialog({ onClose }: Props) {
         if (!cancelled) setNavigationError(true);
       });
     setRecent(readLocalHistory());
-    getDocsSearchHistory()
-      .then((results) => {
-        if (!cancelled) {
-          setRecent(results);
-          setIsAnonymous(false);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setIsAnonymous(true);
-      });
+    const syncHistory = (event: StorageEvent) => {
+      if (event.key === LOCAL_HISTORY_KEY) setRecent(readLocalHistory());
+    };
+    window.addEventListener('storage', syncHistory);
     return () => {
       cancelled = true;
+      window.removeEventListener('storage', syncHistory);
     };
   }, []);
 
@@ -221,13 +227,7 @@ export default function DocsSearchDialog({ onClose }: Props) {
   }, [navigation, normalized, recent]);
 
   const recordHistory = (entry: DocsSearchHistoryRequest) => {
-    if (isAnonymous) {
-      setRecent(rememberLocal(entry));
-      return;
-    }
-    void saveDocsSearchHistory(entry).catch(() => {
-      setRecent(rememberLocal(entry));
-    });
+    setRecent(rememberLocal(entry));
   };
 
   const openItem = (item: SearchItem) => {
@@ -261,14 +261,10 @@ export default function DocsSearchDialog({ onClose }: Props) {
   const clearHistory = () => {
     setRecent([]);
     try {
+      localStorage.setItem(LOCAL_HISTORY_KEY, '[]');
       sessionStorage.removeItem(LOCAL_HISTORY_KEY);
     } catch {
-      /* Ignore disabled storage. */
-    }
-    if (!isAnonymous) {
-      void clearDocsSearchHistory().catch(() => {
-        // Search works without persistence; on next open the API can be retried.
-      });
+      // Clearing UI history must still work when browser storage is disabled.
     }
   };
 

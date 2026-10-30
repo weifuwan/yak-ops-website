@@ -1,9 +1,7 @@
-import { apiRequest, postJson } from '@/service/http/client';
+import { apiRequest } from '@/service/http/client';
 import type {
   DocsDocument,
   DocsNavigation,
-  DocsSearchHistoryItem,
-  DocsSearchHistoryRequest,
   DocsSearchResponse,
 } from './types';
 
@@ -17,11 +15,3 @@ export const getDocsNavigation = (): Promise<DocsNavigation> => apiRequest<DocsN
 export const searchDocs = (query: string): Promise<DocsSearchResponse> =>
   apiRequest<DocsSearchResponse>(DOCS_API + '/search?q=' + encodeURIComponent(query));
 
-export const getDocsSearchHistory = (): Promise<DocsSearchHistoryItem[]> =>
-  apiRequest<DocsSearchHistoryItem[]>(DOCS_API + '/search-history');
-
-export const saveDocsSearchHistory = (entry: DocsSearchHistoryRequest): Promise<DocsSearchHistoryItem> =>
-  postJson<DocsSearchHistoryItem>(DOCS_API + '/search-history', entry);
-
-export const clearDocsSearchHistory = (): Promise<string> =>
-  apiRequest<string>(DOCS_API + '/search-history', { method: 'DELETE' });

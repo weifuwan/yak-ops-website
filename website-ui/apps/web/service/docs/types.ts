@@ -34,16 +34,3 @@ export type DocsSearchResponse = {
   query: string;
   hits: DocsSearchHit[];
 };
-
-export type DocsSearchHistoryItem = {
-  searchQuery: string;
-  documentSlug: string | null;
-  anchor: string | null;
-  updatedAt: string;
-};
-
-export type DocsSearchHistoryRequest = {
-  searchQuery: string;
-  documentSlug?: string;
-  anchor?: string;
-};
