@@ -7,6 +7,7 @@ import { extractDocsToc } from '@/utils/docs';
 import ConnectorDocHeader from './components/ConnectorDocHeader';
 import DocsHeader from './components/DocsHeader';
 import DocsHome from './components/DocsHome';
+import DocsNavigationProgress, { useDocsNavigationProgress } from './components/DocsNavigationProgress';
 import DocsRelease2 from './components/DocsRelease2';
 import DocsSidebar from './components/DocsSidebar';
 import DocsTableOfContents from './components/DocsTableOfContents';
@@ -37,6 +38,52 @@ export default function DocsPage() {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [searchRequest, setSearchRequest] = useState(0);
+  const { progress, start, startIfIdle, complete } = useDocsNavigationProgress();
+
+  // Start before React Router updates the URL, including links in the sidebar and Markdown.
+  useEffect(() => {
+    const onLinkClick = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        !(event.target instanceof Element)
+      ) {
+        return;
+      }
+
+      const anchor = event.target.closest('a[href]');
+      if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) {
+        return;
+      }
+
+      const destination = new URL(anchor.href, window.location.href);
+      const current = new URL(window.location.href);
+      if (
+        destination.origin === current.origin &&
+        (destination.pathname === '/docs' || destination.pathname.startsWith('/docs/')) &&
+        (destination.pathname !== current.pathname || destination.search !== current.search)
+      ) {
+        start();
+      }
+    };
+
+    const onPopState = () => {
+      if (window.location.pathname === '/docs' || window.location.pathname.startsWith('/docs/')) {
+        start();
+      }
+    };
+
+    document.addEventListener('click', onLinkClick, true);
+    window.addEventListener('popstate', onPopState);
+    return () => {
+      document.removeEventListener('click', onLinkClick, true);
+      window.removeEventListener('popstate', onPopState);
+    };
+  }, [start]);
 
   useEffect(() => {
     setMobileNavOpen(false);
@@ -69,6 +116,7 @@ export default function DocsPage() {
 
   useEffect(() => {
     if (isHome || isRelease) {
+      complete();
       setDocumentData(undefined);
       setErrorMessage(undefined);
       setLoading(false);
@@ -76,6 +124,7 @@ export default function DocsPage() {
     }
 
     let cancelled = false;
+    startIfIdle();
     setLoading(true);
     setErrorMessage(undefined);
 
@@ -94,13 +143,14 @@ export default function DocsPage() {
       .finally(() => {
         if (!cancelled) {
           setLoading(false);
+          complete();
         }
       });
 
     return () => {
       cancelled = true;
     };
-  }, [requestedSlug, isHome, isRelease]);
+  }, [requestedSlug, isHome, isRelease, startIfIdle, complete]);
 
   const currentDocument = documentData?.slug === requestedSlug ? documentData : undefined;
   const toc = useMemo(() => (currentDocument ? extractDocsToc(currentDocument.markdown) : []), [currentDocument]);
@@ -116,6 +166,7 @@ export default function DocsPage() {
           : 'docs-page min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]'
       }
     >
+      <DocsNavigationProgress progress={progress} />
       <DocsHeader
         compact={isConnectorDocument}
         onOpenNavigation={() => setMobileNavOpen(true)}
