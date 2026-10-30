@@ -162,13 +162,7 @@ export default function DocsPage() {
   const docSections = navigation?.sections ?? [];
 
   return (
-    <div
-      className={
-        isHome || isRelease || isConnectorDocument
-          ? 'docs-page min-h-screen bg-white font-yak text-[#18181B]'
-          : 'docs-page min-h-screen bg-[#F5F5F5] font-yak text-[#18181B]'
-      }
-    >
+    <div className="docs-page min-h-screen bg-white font-yak text-[#18181B]">
       <DocsNavigationProgress progress={progress} />
       <DocsHeader
         compact={isConnectorDocument}
