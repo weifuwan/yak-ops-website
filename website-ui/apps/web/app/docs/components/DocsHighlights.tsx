@@ -75,7 +75,9 @@ export default function DocsHighlights() {
               className="flex min-w-0 flex-col rounded-[20px] border border-[#edf0f5] bg-white p-7 shadow-[0_4px_12px_-1px_rgba(10,13,18,0.06)] transition-[background-color,border-color,box-shadow] duration-300 hover:border-[#d6e8ff] hover:bg-[#fbfdff] hover:shadow-[0_6px_16px_-1px_rgba(10,13,18,0.09)]"
               key={highlight.title}
             >
-              <Icon aria-hidden="true" className="shrink-0 text-[#087bf5]" size={48} strokeWidth={1.7} />
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FF]">
+                <Icon aria-hidden="true" className="text-[#1570EF]" size={28} strokeWidth={2} />
+              </span>
               <h3 className="m-0 mt-3 text-[20px] leading-[1.35] font-medium text-[#181d27]">{highlight.title}</h3>
               <p className="mt-3 mb-6 text-[15px] leading-[1.7] text-[#667085]">{highlight.description}</p>
               <Link
