@@ -1,4 +1,4 @@
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { isValidElement, type ReactNode, useState } from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
@@ -17,7 +17,6 @@ const ARTICLE_CLASS_NAME = [
   '[&_ul]:my-5 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6',
   '[&_ol]:my-5 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-6',
   '[&_li]:pl-1',
-  '[&_blockquote]:my-6 [&_blockquote]:rounded-r-xl [&_blockquote]:border-0 [&_blockquote]:border-l-[3px] [&_blockquote]:border-solid [&_blockquote]:border-[#D4D4D8] [&_blockquote]:bg-[#ECECEC] [&_blockquote]:px-5 [&_blockquote]:py-1 [&_blockquote]:text-[#52525B]',
   '[&_code]:rounded-md [&_code]:bg-[#E4E4E7] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-yak-mono [&_code]:text-[0.9em] [&_code]:text-[#27272A]',
   '[&_table]:my-6 [&_table]:w-full [&_table]:border-collapse [&_table]:text-sm',
   '[&_th]:border-b [&_th]:border-solid [&_th]:border-[#D4D4D8] [&_th]:px-3 [&_th]:py-2.5 [&_th]:text-left [&_th]:font-semibold [&_th]:text-[#27272A]',
@@ -72,6 +71,25 @@ function CodeBlock({ children }: { children?: ReactNode }) {
 
 const markdownComponents: Components = {
   pre: ({ children }) => <CodeBlock>{children}</CodeBlock>,
+  blockquote: ({ children }) => {
+    if (/^\\s*Tip\\s*:/i.test(nodeText(children))) {
+      return (
+        <aside
+          aria-label="Tip"
+          className="my-6 flex items-start gap-3 rounded-2xl border border-solid border-[#A6F4C5] bg-[#EFFCF4] px-4 py-3 text-[14px] leading-[1.6] text-[#475467] [&_p]:my-0"
+        >
+          <Lightbulb aria-hidden="true" className="mt-0.5 shrink-0 text-[#166534]" size={19} strokeWidth={2} />
+          <div className="min-w-0 flex-1">{children}</div>
+        </aside>
+      );
+    }
+
+    return (
+      <blockquote className="my-6 rounded-r-xl border-0 border-l-[3px] border-solid border-[#D4D4D8] bg-[#ECECEC] px-5 py-1 text-[#52525B]">
+        {children}
+      </blockquote>
+    );
+  },
   a: ({ href, children }) => {
     if (href?.startsWith('/docs/')) {
       return <Link to={href}>{children}</Link>;
