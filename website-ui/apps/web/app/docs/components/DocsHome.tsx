@@ -39,9 +39,19 @@ type DocsChip = {
 // Only published connector pages are links. Planned connectors have no
 // destination until their documentation is available.
 const popular: readonly DocsChip[] = [
-  { title: 'MySQL', href: '/docs/connectors/database/mysql', image: '/images/integrations/MySQL.png', icon: Database },
+  {
+    title: 'MySQL',
+    href: '/docs/connectors/database/mysql',
+    image: '/images/integrations/MySQL.png',
+    icon: Database,
+  },
   { title: 'PostgreSQL', href: '/docs/connectors/database/postgresql', icon: Database },
-  { title: 'Oracle', href: '/docs/connectors/database/oracle', image: '/images/integrations/Oracle.png', icon: Database },
+  {
+    title: 'Oracle',
+    href: '/docs/connectors/database/oracle',
+    image: '/images/integrations/Oracle.png',
+    icon: Database,
+  },
   { title: 'Apache Doris', image: '/images/integrations/doris.png', icon: DatabaseZap },
   { title: 'StarRocks', icon: Layers3 },
   { title: 'Kafka', icon: RadioTower },
@@ -376,7 +386,13 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
             {popular.map((item) => {
               const Icon = item.icon;
               const icon = item.image ? (
-                <img alt="" aria-hidden="true" className="block h-4 w-4 shrink-0 object-contain" loading="lazy" src={item.image} />
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="block h-4 w-4 shrink-0 object-contain"
+                  loading="lazy"
+                  src={item.image}
+                />
               ) : (
                 <Icon aria-hidden="true" className="shrink-0 text-[#2675DB]" size={16} strokeWidth={1.8} />
               );
