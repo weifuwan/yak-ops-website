@@ -7,7 +7,7 @@ type DocsTableOfContentsProps = {
 
 function TocIcon() {
   return (
-    <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 18 18">
+    <svg aria-hidden="true" className="h-[18px] w-[18px] shrink-0" fill="none" viewBox="0 0 18 18">
       <path
         d="M2.75 3.75H15.25M2.75 9H8.25M2.75 14.25H15.25"
         stroke="currentColor"
@@ -53,7 +53,7 @@ export default function DocsTableOfContents({ items }: DocsTableOfContentsProps)
 
   return (
     <nav aria-label="On this page" className="text-[13px] leading-5 text-[#71717A]">
-      <div className="mb-2 flex items-center gap-2 font-semibold text-[#3F3F46]">
+      <div className="mb-3 flex items-center gap-2 text-[18px] leading-6 font-semibold text-[#3F3F46]">
         <TocIcon />
         <span>On this page</span>
       </div>
