@@ -58,6 +58,53 @@ class DocsCatalogTest {
     }
 
     @Test
+    void previousAndNextStayWithinTheirDocumentationModule() {
+        DocsModels.DocumentResponse gettingStarted =
+                catalog.document("deploy/docker-compose").orElseThrow();
+        assertThat(gettingStarted.previous()).isNull();
+        assertThat(gettingStarted.next()).isNull();
+
+        DocsModels.DocumentResponse connectorOverview =
+                catalog.document("connectors/overview").orElseThrow();
+        assertThat(connectorOverview.previous()).isNull();
+        assertThat(connectorOverview.next().slug()).isEqualTo("connectors/database/mysql");
+
+        DocsModels.DocumentResponse mysql =
+                catalog.document("connectors/database/mysql").orElseThrow();
+        assertThat(mysql.previous().slug()).isEqualTo("connectors/overview");
+        assertThat(mysql.next().slug()).isEqualTo("connectors/database/postgresql");
+
+        DocsModels.DocumentResponse oracle =
+                catalog.document("connectors/database/oracle").orElseThrow();
+        assertThat(oracle.previous().slug()).isEqualTo("connectors/database/postgresql");
+        assertThat(oracle.next()).isNull();
+
+        DocsModels.DocumentResponse productsOverview =
+                catalog.document("products/overview").orElseThrow();
+        assertThat(productsOverview.previous()).isNull();
+        assertThat(productsOverview.next().slug()).isEqualTo("products/data-integration");
+
+        DocsModels.DocumentResponse governance =
+                catalog.document("products/data-governance").orElseThrow();
+        assertThat(governance.next()).isNull();
+
+        DocsModels.DocumentResponse aiOverview =
+                catalog.document("ai/overview").orElseThrow();
+        assertThat(aiOverview.previous()).isNull();
+        assertThat(aiOverview.next()).isNull();
+    }
+
+    @Test
+    void globalSearchStillReturnsDocumentsAcrossModules() {
+        assertThat(catalog.search("Docker").hits())
+                .extracting(DocsModels.SearchHit::slug)
+                .contains("deploy/docker-compose");
+        assertThat(catalog.search("MySQL").hits())
+                .extracting(DocsModels.SearchHit::slug)
+                .contains("connectors/database/mysql");
+    }
+
+    @Test
     void navigationOnlyExposesDeclaredDocuments() {
         assertThat(catalog.document("../README")).isEmpty();
         assertThat(catalog.document("README")).isEmpty();

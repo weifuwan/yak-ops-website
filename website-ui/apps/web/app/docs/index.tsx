@@ -130,11 +130,17 @@ export default function DocsPage() {
 
   const currentDocument = documentData?.slug === requestedSlug ? documentData : undefined;
   const toc = useMemo(() => (currentDocument ? extractDocsToc(currentDocument.markdown) : []), [currentDocument]);
-  const connectorItems = navigation?.sections.find((section) => section.title === 'Connectors')?.items ?? [];
+  // The backend navigation is a document registry; each page owns exactly one
+  // navigation section. Never show other modules in the current sidebar.
+  const currentSection = useMemo(
+    () => navigation?.sections.find((section) => section.items.some((item) => item.slug === requestedSlug)),
+    [navigation, requestedSlug],
+  );
+  const docSections = useMemo(() => (currentSection ? [currentSection] : []), [currentSection]);
+  const connectorItems = currentSection?.title === 'Connectors' ? currentSection.items : [];
   const pageToc = isConnectorOverview ? CONNECTORS_TOC : toc;
 
   const closeMobileNavigation = () => setMobileNavOpen(false);
-  const docSections = navigation?.sections ?? [];
 
   return (
     <div className="docs-page min-h-screen bg-white font-yak text-[#18181B]">

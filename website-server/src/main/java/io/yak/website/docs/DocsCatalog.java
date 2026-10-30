@@ -70,10 +70,16 @@ public class DocsCatalog {
         }
 
         Integer position = positionBySlug.get(entry.item().slug());
-        NavigationItem previous = position != null && position > 0
+        // Previous/next navigation stays within the owning documentation section.
+        // Cross-module references remain available through links and global search.
+        NavigationItem previous = position != null
+                        && position > 0
+                        && orderedDocs.get(position - 1).section().equals(entry.section())
                 ? orderedDocs.get(position - 1).item()
                 : null;
-        NavigationItem next = position != null && position + 1 < orderedDocs.size()
+        NavigationItem next = position != null
+                        && position + 1 < orderedDocs.size()
+                        && orderedDocs.get(position + 1).section().equals(entry.section())
                 ? orderedDocs.get(position + 1).item()
                 : null;
 
