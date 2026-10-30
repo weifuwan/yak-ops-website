@@ -1,6 +1,6 @@
 import { Database, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import type { DocsNavigationItem } from '@/service/docs';
 
@@ -36,7 +36,22 @@ function ConnectorIcon({ image }: { image?: string }) {
 }
 
 export default function DocsConnectorOverview({ items }: Props) {
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('search') ?? '';
+  const updateSearch = (value: string) => {
+    setSearchParams(
+      (current) => {
+        const next = new URLSearchParams(current);
+        if (value.trim()) {
+          next.set('search', value);
+        } else {
+          next.delete('search');
+        }
+        return next;
+      },
+      { replace: true, preventScrollReset: true },
+    );
+  };
   const [serviceType, setServiceType] = useState('all');
   const [service, setService] = useState('all');
   const connectors = useMemo(
@@ -78,7 +93,7 @@ export default function DocsConnectorOverview({ items }: Props) {
               <input
                 type="search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => updateSearch(event.target.value)}
                 placeholder="Search connectors..."
                 className="w-full min-w-0 border-0 bg-transparent text-[13px] text-[#1D2939] outline-none placeholder:text-[#98A2B3]"
               />
