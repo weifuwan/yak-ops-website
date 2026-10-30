@@ -66,7 +66,13 @@ export default function DocsFilterSelect({ label, value, options, onChange }: Pr
   };
 
   return (
-    <div ref={containerRef} className="relative flex min-w-0 flex-col gap-2 text-[12px] font-medium text-[#475467]">
+    <div
+      ref={containerRef}
+      className="relative flex min-w-0 flex-col gap-2 text-[12px] font-medium text-[#475467]"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+      }}
+    >
       <span id={id + '-label'}>{label}</span>
       <button
         aria-controls={id + '-options'}
