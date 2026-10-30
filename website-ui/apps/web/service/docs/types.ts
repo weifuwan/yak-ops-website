@@ -22,3 +22,28 @@ export type DocsDocument = {
   previous?: DocsNavigationItem | null;
   next?: DocsNavigationItem | null;
 };
+
+export type DocsSearchHit = {
+  slug: string;
+  title: string;
+  section: string;
+  snippet: string;
+};
+
+export type DocsSearchResponse = {
+  query: string;
+  hits: DocsSearchHit[];
+};
+
+export type DocsSearchHistoryItem = {
+  searchQuery: string;
+  documentSlug: string | null;
+  anchor: string | null;
+  updatedAt: string;
+};
+
+export type DocsSearchHistoryRequest = {
+  searchQuery: string;
+  documentSlug?: string;
+  anchor?: string;
+};
