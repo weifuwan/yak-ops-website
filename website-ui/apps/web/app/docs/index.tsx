@@ -56,7 +56,7 @@ export default function DocsPage() {
       }
 
       const anchor = event.target.closest('a[href]');
-      if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) {
+      if (!(anchor instanceof HTMLAnchorElement) || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) {
         return;
       }
 
@@ -65,14 +65,17 @@ export default function DocsPage() {
       if (
         destination.origin === current.origin &&
         (destination.pathname === '/docs' || destination.pathname.startsWith('/docs/')) &&
-        (destination.pathname !== current.pathname || destination.search !== current.search)
+        destination.pathname !== current.pathname
       ) {
         start();
       }
     };
 
     const onPopState = () => {
-      if (window.location.pathname === '/docs' || window.location.pathname.startsWith('/docs/')) {
+      if (
+        window.location.pathname !== location.pathname &&
+        (window.location.pathname === '/docs' || window.location.pathname.startsWith('/docs/'))
+      ) {
         start();
       }
     };
@@ -83,7 +86,7 @@ export default function DocsPage() {
       document.removeEventListener('click', onLinkClick, true);
       window.removeEventListener('popstate', onPopState);
     };
-  }, [start]);
+  }, [start, location.pathname]);
 
   useEffect(() => {
     setMobileNavOpen(false);
