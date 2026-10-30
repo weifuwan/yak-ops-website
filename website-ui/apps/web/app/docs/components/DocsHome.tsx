@@ -376,7 +376,7 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
           <h1 className="m-0 mt-6 text-[clamp(36px,5vw,56px)] leading-[1.2] font-semibold tracking-[-0.03em] text-[#181d27]">
             Unlock the{' '}
             <span className="bg-[linear-gradient(to_top,#016afb_0%,#00e0ee_100%)] bg-clip-text text-transparent">
-              Power
+              Potential
             </span>{' '}
             of Data
           </h1>
