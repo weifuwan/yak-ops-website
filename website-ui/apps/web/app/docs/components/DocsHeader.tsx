@@ -290,9 +290,9 @@ export default function DocsHeader({ onOpenNavigation, searchRequest = 0, compac
             </div>
           </div>
 
-          <div className="mx-auto hidden min-w-0 max-w-[450px] flex-1 items-center justify-center gap-2 xl:flex">
+          <div className="mx-auto hidden min-w-0 max-w-[450px] flex-1 items-center justify-center gap-2 lg:flex">
             <button
-              className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-[#1677ff] bg-white px-3 text-[13px] font-medium text-[#086cf5] hover:bg-[#F0F7FF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
+              className="hidden xl:inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-[#1677ff] bg-white px-3 text-[13px] font-medium text-[#086cf5] hover:bg-[#F0F7FF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
               onClick={() => {
                 setActivePanel('assistant');
                 setSearchQuery('');
