@@ -7,11 +7,9 @@ import {
   getDocsNavigation,
   getDocsSearchHistory,
   saveDocsSearchHistory,
-  searchDocs,
   type DocsNavigation,
   type DocsSearchHistoryItem,
   type DocsSearchHistoryRequest,
-  type DocsSearchHit,
 } from '@/service/docs';
 
 type Props = { onClose: () => void };
@@ -148,11 +146,9 @@ export default function DocsSearchDialog({ onClose }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState('');
   const [navigation, setNavigation] = useState<DocsNavigation>();
-  const [hits, setHits] = useState<DocsSearchHit[]>([]);
   const [recent, setRecent] = useState<DocsSearchHistoryItem[]>([]);
   const [selected, setSelected] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [searchError, setSearchError] = useState(false);
+  const [navigationError, setNavigationError] = useState(false);
   const [isAnonymous, setIsAnonymous] = useState(true);
   const normalized = query.trim();
 
@@ -174,7 +170,7 @@ export default function DocsSearchDialog({ onClose }: Props) {
         if (!cancelled) setNavigation(result);
       })
       .catch(() => {
-        /* Search results still work without navigation metadata. */
+        if (!cancelled) setNavigationError(true);
       });
     setRecent(readLocalHistory());
     getDocsSearchHistory()
@@ -194,46 +190,22 @@ export default function DocsSearchDialog({ onClose }: Props) {
 
   useEffect(() => {
     setSelected(0);
-    setHits([]);
-    setSearchError(false);
-    if (!normalized) {
-      setLoading(false);
-      return undefined;
-    }
-    let cancelled = false;
-    setLoading(true);
-    const timeout = window.setTimeout(() => {
-      searchDocs(normalized)
-        .then((result) => {
-          if (!cancelled) {
-            setHits(result.hits);
-            setSearchError(false);
-          }
-        })
-        .catch(() => {
-          if (!cancelled) {
-            setHits([]);
-            setSearchError(true);
-          }
-        })
-        .finally(() => {
-          if (!cancelled) setLoading(false);
-        });
-    }, 250);
-    return () => {
-      cancelled = true;
-      window.clearTimeout(timeout);
-    };
   }, [normalized]);
 
   const items = useMemo<SearchItem[]>(() => {
-    if (normalized)
-      return hits.map((hit) => ({
-        key: hit.slug,
-        title: hit.title,
-        slug: hit.slug,
-        query: normalized,
-      }));
+    if (normalized) {
+      const term = normalized.toLowerCase();
+      // Only published navigation titles are searchable. Filtering them locally
+      // avoids clearing results or waiting for an API response on each keystroke.
+      return (
+        navigation?.sections
+          .flatMap((section) => section.items)
+          .filter((item) => item.title.toLowerCase().includes(term))
+          .sort((left, right) => Number(right.title.toLowerCase() === term) - Number(left.title.toLowerCase() === term))
+          .slice(0, 12)
+          .map((item) => ({ key: item.slug, title: item.title, slug: item.slug, query: normalized })) ?? []
+      );
+    }
     return recent.map((entry, index) => {
       const document = navigation?.sections
         .flatMap((part) => part.items)
@@ -246,7 +218,7 @@ export default function DocsSearchDialog({ onClose }: Props) {
         anchor: entry.anchor,
       };
     });
-  }, [hits, navigation, normalized, recent]);
+  }, [navigation, normalized, recent]);
 
   const recordHistory = (entry: DocsSearchHistoryRequest) => {
     if (isAnonymous) {
@@ -279,7 +251,7 @@ export default function DocsSearchDialog({ onClose }: Props) {
       event.preventDefault();
       const item = items[selected];
       if (item) openItem(item);
-      else if (normalized && !loading) recordHistory({ searchQuery: normalized });
+      else if (normalized && navigation) recordHistory({ searchQuery: normalized });
     } else if (event.key === 'Escape') {
       event.preventDefault();
       onClose();
@@ -349,7 +321,7 @@ export default function DocsSearchDialog({ onClose }: Props) {
             )}
           </div>
         </div>
-        <div className="max-h-[min(55vh,420px)] min-h-[132px] overflow-y-auto px-1.5 pb-2">
+        <div className="h-[min(55vh,420px)] overflow-y-auto px-1.5 pb-2">
           <div className="flex items-center justify-between px-3 py-2 text-[12px] text-[#98A2B3]">
             <span>{normalized ? 'Search results' : 'Recent searches'}</span>
             {!normalized && recent.length ? (
@@ -381,10 +353,10 @@ export default function DocsSearchDialog({ onClose }: Props) {
             ))}
             {!items.length ? (
               <p className="m-0 px-3 py-8 text-center text-[13px] text-[#98A2B3]">
-                {loading
-                  ? 'Searching documentation…'
-                  : searchError
-                    ? 'Search is temporarily unavailable.'
+                {navigationError
+                  ? 'Search is temporarily unavailable.'
+                  : normalized && !navigation
+                    ? 'Loading documentation…'
                     : normalized
                       ? 'No matching documents found.'
                       : 'Search guides, connectors, and product documentation.'}
