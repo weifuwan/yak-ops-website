@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { getDocsDocument, getDocsNavigation, type DocsDocument, type DocsNavigation } from '@/service/docs';
@@ -47,13 +47,16 @@ export default function DocsPage() {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [searchRequest, setSearchRequest] = useState(0);
+  const scrollPathRef = useRef<string | null>(null);
   const { progress, complete } = useDocsNavigationProgress(location.pathname);
 
   // Keep hash-only navigation from jumping back to the top.
   useEffect(() => {
+    if (scrollPathRef.current === location.pathname) return;
+    scrollPathRef.current = location.pathname;
     setMobileNavOpen(false);
     if (!location.hash) window.scrollTo({ top: 0, behavior: 'auto' });
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   // Markdown headings may arrive after the hash in an asynchronous document request.
   useEffect(() => {
