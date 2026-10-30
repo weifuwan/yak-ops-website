@@ -273,7 +273,7 @@ export default function DocsSearchDialog({ onClose }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-[1400] overflow-y-auto bg-[#101828]/40 px-4 pt-[6vh] backdrop-blur-[1px] sm:pt-[6vh]">
+    <div className="fixed inset-0 z-[1400] overflow-y-auto bg-[#9a9a9a]/65 px-4 pt-[6vh] sm:pt-[6vh]">
       <button
         aria-label="Close search"
         className="fixed inset-0 h-full w-full cursor-default border-0 bg-transparent"
