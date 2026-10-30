@@ -16,6 +16,26 @@ const presentations: Record<string, { image?: string; capabilities: string }> = 
 
 const typeName = (type: string) => (type === 'database' ? 'Database' : type.replaceAll('-', ' '));
 
+function ConnectorIcon({ image }: { image?: string }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  return (
+    <span className="flex h-6 w-6 items-center justify-center">
+      {image && !imageFailed ? (
+        <img
+          alt=""
+          className="h-6 w-6 object-contain"
+          loading="lazy"
+          onError={() => setImageFailed(true)}
+          src={image}
+        />
+      ) : (
+        <Database aria-hidden="true" className="text-[#7DA5DF]" size={23} strokeWidth={1.8} />
+      )}
+    </span>
+  );
+}
+
 export default function DocsConnectorOverview({ items }: Props) {
   const [query, setQuery] = useState('');
   const [serviceType, setServiceType] = useState('all');
@@ -108,22 +128,7 @@ export default function DocsConnectorOverview({ items }: Props) {
                 return (
                   <DocsCatalogCard
                     description={presentation?.capabilities ?? item.description}
-                    icon={
-                      <span className="relative flex h-6 w-6 items-center justify-center">
-                        <Database aria-hidden="true" className="text-[#7DA5DF]" size={23} strokeWidth={1.8} />
-                        {presentation?.image ? (
-                          <img
-                            alt=""
-                            className="absolute inset-0 h-6 w-6 object-contain"
-                            loading="lazy"
-                            onError={(event) => {
-                              event.currentTarget.hidden = true;
-                            }}
-                            src={presentation.image}
-                          />
-                        ) : null}
-                      </span>
-                    }
+                    icon={<ConnectorIcon image={presentation?.image} />}
                     key={item.slug}
                     title={item.title}
                     to={'/docs/' + item.slug}
