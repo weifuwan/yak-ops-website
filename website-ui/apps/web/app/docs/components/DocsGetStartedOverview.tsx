@@ -75,18 +75,20 @@ export default function DocsGetStartedOverview({ items }: Props) {
           Start Here
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          {startHere.filter((entry) => available.has(entry.slug)).map((entry) => {
-            const Icon = entry.icon;
-            return (
-              <DocsCatalogCard
-                description={entry.description}
-                icon={<Icon aria-hidden="true" size={22} strokeWidth={1.8} />}
-                key={entry.slug}
-                title={entry.title}
-                to={'/docs/' + entry.slug}
-              />
-            );
-          })}
+          {startHere
+            .filter((entry) => available.has(entry.slug))
+            .map((entry) => {
+              const Icon = entry.icon;
+              return (
+                <DocsCatalogCard
+                  description={entry.description}
+                  icon={<Icon aria-hidden="true" size={22} strokeWidth={1.8} />}
+                  key={entry.slug}
+                  title={entry.title}
+                  to={'/docs/' + entry.slug}
+                />
+              );
+            })}
         </div>
       </section>
 
@@ -98,25 +100,27 @@ export default function DocsGetStartedOverview({ items }: Props) {
           Let's Get Started
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
-          {steps.filter((entry) => available.has(entry.slug)).map((entry) => {
-            const step = steps.indexOf(entry) + 1;
-            return (
-              <DocsCatalogCard
-                description={entry.description}
-                icon={
-                  <span
-                    aria-hidden="true"
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-[#E7F0FF] text-[12px] font-semibold text-[#086cf5]"
-                  >
-                    {step}
-                  </span>
-                }
-                key={entry.slug}
-                title={`Step ${step} – ${entry.title}`}
-                to={'/docs/' + entry.slug}
-              />
-            );
-          })}
+          {steps
+            .filter((entry) => available.has(entry.slug))
+            .map((entry) => {
+              const step = steps.indexOf(entry) + 1;
+              return (
+                <DocsCatalogCard
+                  description={entry.description}
+                  icon={
+                    <span
+                      aria-hidden="true"
+                      className="flex h-6 w-6 items-center justify-center rounded-full bg-[#E7F0FF] text-[12px] font-semibold text-[#086cf5]"
+                    >
+                      {step}
+                    </span>
+                  }
+                  key={entry.slug}
+                  title={`Step ${step} – ${entry.title}`}
+                  to={'/docs/' + entry.slug}
+                />
+              );
+            })}
         </div>
       </section>
     </article>
