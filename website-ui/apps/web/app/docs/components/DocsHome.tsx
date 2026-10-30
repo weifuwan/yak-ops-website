@@ -379,8 +379,8 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
               Trusted Data
             </span>
           </h1>
-          <p className="mx-auto mt-5 max-w-[1160px] text-[17px] leading-[1.5] text-[#717680] sm:text-[18px] lg:text-[20px]">
-            Connect, synchronize, develop, and govern your data with Yak Ops. Find the guides you need to get started.
+          <p className="mx-auto mt-5 max-w-[1160px] text-[17px] leading-[1.5] text-[#717680] sm:text-[18px]">
+            Learn how to integrate, manage, and govern your data with Yak Ops — all in one platform.
           </p>
 
           <button
