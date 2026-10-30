@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { getDocsDocument, getDocsNavigation, type DocsDocument, type DocsNavigation } from '@/service/docs';
-import { extractDocsToc } from '@/utils/docs';
+import { extractDocsToc, type DocsTocItem } from '@/utils/docs';
 
 import ConnectorDocHeader from './components/ConnectorDocHeader';
+import DocsConnectorOverview from './components/DocsConnectorOverview';
+import DocsConnectorSidebar from './components/DocsConnectorSidebar';
 import DocsHeader from './components/DocsHeader';
 import DocsHome from './components/DocsHome';
 import DocsNavigationProgress, { useDocsNavigationProgress } from './components/DocsNavigationProgress';
@@ -12,6 +14,11 @@ import DocsRelease2 from './components/DocsRelease2';
 import DocsSidebar from './components/DocsSidebar';
 import DocsTableOfContents from './components/DocsTableOfContents';
 import MarkdownArticle from './components/MarkdownArticle';
+
+const CONNECTORS_TOC: DocsTocItem[] = [
+  { id: 'doc-connectors', title: 'Connectors', level: 2 },
+  { id: 'doc-database', title: 'Database', level: 2 },
+];
 
 const docsSlugFromPath = (pathname: string) =>
   pathname.startsWith('/docs') ? pathname.slice(5).split('/').filter(Boolean).join('/') : '';
@@ -31,8 +38,10 @@ export default function DocsPage() {
   const isHome = requestedSlug === '';
   const isRelease = requestedSlug === 'release-2.0';
   const isConnectorDocument = requestedSlug.startsWith('connectors/database/');
+  const isConnectorOverview = requestedSlug === 'connectors/overview';
 
   const [navigation, setNavigation] = useState<DocsNavigation>();
+  const [navigationLoaded, setNavigationLoaded] = useState(false);
   const [documentData, setDocumentData] = useState<DocsDocument>();
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -40,14 +49,21 @@ export default function DocsPage() {
   const [searchRequest, setSearchRequest] = useState(0);
   const { progress, complete } = useDocsNavigationProgress(location.pathname);
 
+  // Keep hash-only navigation from jumping back to the top.
   useEffect(() => {
     setMobileNavOpen(false);
-    if (isHome && location.hash === '#connectors') {
-      window.requestAnimationFrame(() => document.getElementById('connectors')?.scrollIntoView());
-    } else {
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    }
-  }, [location.pathname, location.hash, isHome]);
+    if (!location.hash) window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [location.pathname]);
+
+  // Markdown headings may arrive after the hash in an asynchronous document request.
+  useEffect(() => {
+    if (!location.hash) return undefined;
+    const id = decodeURIComponent(location.hash.substring(1));
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView();
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash, documentData]);
 
   useEffect(() => {
     let cancelled = false;
@@ -62,6 +78,9 @@ export default function DocsPage() {
         if (!cancelled) {
           setNavigation(undefined);
         }
+      })
+      .finally(() => {
+        if (!cancelled) setNavigationLoaded(true);
       });
 
     return () => {
@@ -108,6 +127,8 @@ export default function DocsPage() {
 
   const currentDocument = documentData?.slug === requestedSlug ? documentData : undefined;
   const toc = useMemo(() => (currentDocument ? extractDocsToc(currentDocument.markdown) : []), [currentDocument]);
+  const connectorItems = navigation?.sections.find((section) => section.title === 'Connectors')?.items ?? [];
+  const pageToc = isConnectorOverview ? CONNECTORS_TOC : toc;
 
   const closeMobileNavigation = () => setMobileNavOpen(false);
   const docSections = navigation?.sections ?? [];
@@ -115,11 +136,7 @@ export default function DocsPage() {
   return (
     <div className="docs-page min-h-screen bg-white font-yak text-[#18181B]">
       <DocsNavigationProgress progress={progress} />
-      <DocsHeader
-        compact={isConnectorDocument}
-        onOpenNavigation={() => setMobileNavOpen(true)}
-        searchRequest={searchRequest}
-      />
+      <DocsHeader onOpenNavigation={() => setMobileNavOpen(true)} searchRequest={searchRequest} />
 
       {isHome ? (
         <DocsHome onSearch={() => setSearchRequest((count) => count + 1)} />
@@ -127,39 +144,48 @@ export default function DocsPage() {
         <DocsRelease2 />
       ) : (
         <div className="mx-auto flex max-w-[80rem] items-start px-5 lg:px-8">
-          <aside
-            className={[
-              'sticky hidden w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 lg:block',
-              isConnectorDocument ? 'top-[90px] h-[calc(100vh-90px)]' : 'top-[158px] h-[calc(100vh-158px)]',
-            ].join(' ')}
-          >
-            <DocsSidebar currentSlug={requestedSlug} onNavigate={closeMobileNavigation} sections={docSections} />
-          </aside>
+          {!isConnectorOverview ? (
+            <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-8 pr-8 [scrollbar-width:none] lg:block [&::-webkit-scrollbar]:hidden">
+              {isConnectorDocument ? (
+                <DocsConnectorSidebar
+                  currentSlug={requestedSlug}
+                  items={connectorItems}
+                  onNavigate={closeMobileNavigation}
+                  toc={toc}
+                />
+              ) : (
+                <DocsSidebar currentSlug={requestedSlug} onNavigate={closeMobileNavigation} sections={docSections} />
+              )}
+            </aside>
+          ) : null}
 
-          <main className="min-w-0 flex-1 py-9 lg:px-8 xl:px-10">
-            <div className="mx-auto max-w-[760px]">
-              {loading || (!currentDocument && !errorMessage) ? (
+          <main className={isConnectorOverview ? 'min-w-0 flex-1 py-9 lg:pr-8 xl:pr-10' : 'min-w-0 flex-1 py-9 lg:px-8 xl:px-10'}>
+            <div className={isConnectorOverview ? 'mx-auto max-w-[900px]' : 'mx-auto max-w-[760px]'}>
+              {loading || (!currentDocument && !errorMessage) || (isConnectorOverview && !navigationLoaded) ? (
                 <div className="min-h-[360px]" />
               ) : errorMessage ? (
                 <DocsErrorState message={errorMessage} />
               ) : currentDocument ? (
-                <>
-                  {isConnectorDocument ? (
-                    <ConnectorDocHeader slug={requestedSlug} title={currentDocument.title} />
-                  ) : null}
-                  <MarkdownArticle markdown={currentDocument.markdown} />
-                </>
+                isConnectorOverview ? (
+                  navigation ? (
+                    <DocsConnectorOverview items={connectorItems} />
+                  ) : (
+                    <DocsErrorState message="The connector catalog could not be loaded." />
+                  )
+                ) : (
+                  <>
+                    {isConnectorDocument ? (
+                      <ConnectorDocHeader slug={requestedSlug} title={currentDocument.title} />
+                    ) : null}
+                    <MarkdownArticle markdown={currentDocument.markdown} />
+                  </>
+                )
               ) : null}
             </div>
           </main>
 
-          <aside
-            className={[
-              'sticky hidden w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block',
-              isConnectorDocument ? 'top-[90px] h-[calc(100vh-90px)]' : 'top-[158px] h-[calc(100vh-158px)]',
-            ].join(' ')}
-          >
-            <DocsTableOfContents items={toc} />
+          <aside className="sticky top-[158px] hidden h-[calc(100vh-158px)] w-[14rem] shrink-0 overflow-y-auto py-9 pl-8 xl:block [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <DocsTableOfContents items={pageToc} />
           </aside>
         </div>
       )}
@@ -211,7 +237,16 @@ export default function DocsPage() {
               </Link>
             </nav>
             <div className="flex-1 overflow-y-auto px-4 py-6">
-              <DocsSidebar currentSlug={requestedSlug} onNavigate={closeMobileNavigation} sections={docSections} />
+              {isConnectorDocument ? (
+                <DocsConnectorSidebar
+                  currentSlug={requestedSlug}
+                  items={connectorItems}
+                  onNavigate={closeMobileNavigation}
+                  toc={toc}
+                />
+              ) : (
+                <DocsSidebar currentSlug={requestedSlug} onNavigate={closeMobileNavigation} sections={docSections} />
+              )}
             </div>
           </aside>
         </div>

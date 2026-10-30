@@ -34,7 +34,7 @@ export default function ConnectorDocHeader({ slug, title }: ConnectorDocHeaderPr
   return (
     <header className="mb-8">
       <nav aria-label="Breadcrumb" className="mb-5 flex items-center gap-2 text-[13px] leading-5 text-[#71717A]">
-        <Link className="text-inherit no-underline hover:text-[#086cf5]" to="/docs#connectors">
+        <Link className="text-inherit no-underline hover:text-[#086cf5]" to="/docs/connectors/overview">
           Connectors
         </Link>
         <ChevronRight aria-hidden="true" size={14} />
