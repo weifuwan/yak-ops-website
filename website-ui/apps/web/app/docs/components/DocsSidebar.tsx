@@ -23,7 +23,7 @@ export default function DocsSidebar({ onNavigate, sections, currentSlug }: DocsS
                   className={[
                     'flex w-full items-start rounded-[10px] px-3 py-2 text-left text-[13px] leading-5 no-underline transition-colors',
                     active
-                      ? 'bg-[#E4E4E7] font-medium text-[#18181B]'
+                      ? 'bg-[#E7F0FF] font-semibold text-[#086cf5]'
                       : 'font-normal text-[#52525B] hover:bg-[#F4F4F5] hover:text-[#18181B]',
                   ].join(' ')}
                   key={item.slug}
