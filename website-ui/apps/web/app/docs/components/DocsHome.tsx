@@ -2,13 +2,18 @@ import {
   ArrowLeft,
   ArrowRight,
   ArrowRightLeft,
+  Database,
+  DatabaseZap,
   GitBranch,
   Layers3,
+  PlugZap,
+  RadioTower,
   Search,
   ShieldCheck,
   Sparkles,
   Workflow,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -26,62 +31,26 @@ type DocsHomeProps = {
 
 type DocsChip = {
   title: string;
-  href: string;
-  image: string;
+  href?: string;
+  image?: string;
+  icon: LucideIcon;
 };
 
-// Reference artwork and destinations from the supplied Collate Docs chips.
-// These are intentionally external sample links; Yak Ops guides remain below.
+// Only published connector pages are links. Planned connectors have no
+// destination until their documentation is available.
 const popular: readonly DocsChip[] = [
-  {
-    title: 'Databricks',
-    href: 'https://docs.getcollate.io/ai-2-0/connectors/database/databricks',
-    image:
-      'https://mintcdn.com/collatedocs/12mtkhFtvTP7FUxZ/public/images/connectors/databrick.webp?fit=max&auto=format&n=12mtkhFtvTP7FUxZ&q=85&s=595ec3832f654c87e1ec35a422933f7f',
-  },
-  {
-    title: 'BigQuery',
-    href: 'https://docs.getcollate.io/ai-2-0/connectors/database/bigquery',
-    image:
-      'https://mintcdn.com/collatedocs/XRLyE3HymqoH13_i/public/images/connectors/bigquery.webp?fit=max&auto=format&n=XRLyE3HymqoH13_i&q=85&s=f3bd1ac39f3c204cc48d09874c6cee43',
-  },
-  {
-    title: 'Redshift',
-    href: 'https://docs.getcollate.io/ai-2-0/connectors/database/redshift',
-    image:
-      'https://mintcdn.com/collatedocs/kj7ZjFqdvAgAlfBX/public/images/connectors/redshift.webp?fit=max&auto=format&n=kj7ZjFqdvAgAlfBX&q=85&s=aa91561402fb57c7cc256a509873bffd',
-  },
-  {
-    title: 'Snowflake',
-    href: 'https://docs.getcollate.io/ai-2-0/connectors/database/snowflake',
-    image:
-      'https://mintcdn.com/collatedocs/qybQN_VCNOUNg9nn/public/images/connectors/snowflakes.webp?fit=max&auto=format&n=qybQN_VCNOUNg9nn&q=85&s=70fdc52fb23bfcdcb33c630e7592c7eb',
-  },
-  {
-    title: 'Collate AI Chat',
-    href: 'https://docs.getcollate.io/ai-2-0/collate-ai/collate-ai-chat',
-    image:
-      'https://mintcdn.com/collatedocs/yvgGxaeRR5RwtQo6/public/images/icons/askcollate.svg?fit=max&auto=format&n=yvgGxaeRR5RwtQo6&q=85&s=e13369d212b859ab1a7cbdb6373964aa',
-  },
-  {
-    title: 'AI Studio',
-    href: 'https://docs.getcollate.io/ai-2-0/collate-ai/ai-studio',
-    image:
-      'https://mintcdn.com/collatedocs/rbimi0ZI_PNqhVKs/public/images/homepage-icons/studio-ai.svg?fit=max&auto=format&n=rbimi0ZI_PNqhVKs&q=85&s=af69fe456a77472b8b5372e4ddcca32b',
-  },
-  {
-    title: 'AI SDK',
-    href: 'https://docs.getcollate.io/ai-2-0/developer-guide/sdk/ai-sdk',
-    image:
-      'https://mintcdn.com/collatedocs/HoL0Mtvr6sdpYjdM/public/images/homepage-icons/ai-sdk2.svg?fit=max&auto=format&n=HoL0Mtvr6sdpYjdM&q=85&s=3b22cf8b3b07fa7e7ebf57b05a0993ab',
-  },
-  {
-    title: 'AI Analytics',
-    href: 'https://docs.getcollate.io/ai-2-0/collate-ai/ai-analytics',
-    image:
-      'https://mintcdn.com/collatedocs/q9W0TCgsCU2-B-iR/public/images/homepage-icons/insights.svg?fit=max&auto=format&n=q9W0TCgsCU2-B-iR&q=85&s=d14723743333262bdfbe31777c786301',
-  },
+  { title: 'MySQL', href: '/docs/connectors/database/mysql', image: '/images/integrations/MySQL.png', icon: Database },
+  { title: 'PostgreSQL', href: '/docs/connectors/database/postgresql', icon: Database },
+  { title: 'Oracle', href: '/docs/connectors/database/oracle', image: '/images/integrations/Oracle.png', icon: Database },
+  { title: 'Apache Doris', image: '/images/integrations/doris.png', icon: DatabaseZap },
+  { title: 'StarRocks', icon: Layers3 },
+  { title: 'Kafka', icon: RadioTower },
+  { title: 'ClickHouse', icon: DatabaseZap },
+  { title: 'All Connectors', href: '/docs/connectors/overview', icon: PlugZap },
 ];
+
+const connectorChipClass =
+  'inline-flex w-max items-center gap-2 rounded-full bg-[linear-gradient(93.13deg,#ebf9ff_0%,#ecf4ff_189.43%)] px-3 py-2 text-[14px] leading-6 font-medium whitespace-nowrap text-[#194185] shadow-[0_4px_12px_-1px_rgba(10,13,18,0.08)] sm:text-[16px]';
 
 type GuideCard = {
   title: string;
@@ -403,27 +372,36 @@ export default function DocsHome({ onSearch }: DocsHomeProps) {
             </kbd>
           </button>
 
-          <div className="mx-auto mt-6 flex max-w-[1300px] flex-wrap items-center justify-center gap-x-6 gap-y-3">
-            {popular.map((item) => (
-              <a
-                className="inline-flex w-max items-center gap-3 rounded-full bg-[linear-gradient(93.13deg,#ebf9ff_0%,#ecf4ff_189.43%)] px-3 py-2 text-[14px] leading-6 font-medium whitespace-nowrap text-[#194185] no-underline shadow-[0_4px_12px_-1px_rgba(10,13,18,0.08)] transition-[color,box-shadow] duration-200 hover:bg-[linear-gradient(93.13deg,#def3ff_0%,#dbeaff_189.43%)] hover:text-[#086cf5] hover:shadow-[0_4px_12px_-1px_rgba(10,13,18,0.10)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] sm:text-[16px]"
-                href={item.href}
-                key={item.title}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  aria-hidden="true"
-                  className="block h-4 w-4 shrink-0 object-contain"
-                  height={16}
-                  loading="lazy"
-                  src={item.image}
-                  width={16}
-                />
-                <span>{item.title}</span>
-              </a>
-            ))}
+          <div className="mx-auto mt-6 flex max-w-[1300px] flex-wrap items-center justify-center gap-x-4 gap-y-3">
+            {popular.map((item) => {
+              const Icon = item.icon;
+              const icon = item.image ? (
+                <img alt="" aria-hidden="true" className="block h-4 w-4 shrink-0 object-contain" loading="lazy" src={item.image} />
+              ) : (
+                <Icon aria-hidden="true" className="shrink-0 text-[#2675DB]" size={16} strokeWidth={1.8} />
+              );
+              return item.href ? (
+                <Link
+                  className={`${connectorChipClass} no-underline transition-[color,box-shadow] duration-200 hover:bg-[linear-gradient(93.13deg,#def3ff_0%,#dbeaff_189.43%)] hover:text-[#086cf5] hover:shadow-[0_4px_12px_-1px_rgba(10,13,18,0.10)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]`}
+                  key={item.title}
+                  to={item.href}
+                >
+                  {icon}
+                  <span>{item.title}</span>
+                </Link>
+              ) : (
+                <span
+                  aria-label={`${item.title}, coming soon`}
+                  className={`${connectorChipClass} opacity-75`}
+                  key={item.title}
+                  title="Planned connector — documentation not yet available"
+                >
+                  {icon}
+                  <span>{item.title}</span>
+                  <span className="text-[10px] font-medium text-[#667085] sm:text-[11px]">Soon</span>
+                </span>
+              );
+            })}
           </div>
         </section>
 
