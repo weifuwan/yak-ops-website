@@ -134,9 +134,26 @@ class DocsCatalogTest {
     }
 
     @Test
-    void searchReturnsDockerComposeGuide() {
+    void searchOnlyMatchesPublishedNavigationTitles() {
+        assertThat(catalog.search("mysql").hits())
+                .extracting(DocsModels.SearchHit::slug)
+                .containsExactly("connectors/database/mysql");
+        assertThat(catalog.search("MYSQL").hits())
+                .extracting(DocsModels.SearchHit::title)
+                .containsExactly("MySQL");
+
+        // These terms occur in document bodies or descriptions, not in menu titles.
+        assertThat(catalog.search("CDC").hits()).isEmpty();
+        assertThat(catalog.search("JDBC").hits()).isEmpty();
+    }
+
+    @Test
+    void searchStillMatchesNavigationTitlesAcrossModules() {
         assertThat(catalog.search("Docker").hits())
                 .extracting(DocsModels.SearchHit::slug)
-                .contains("deploy/docker-compose");
+                .containsExactly("deploy/docker-compose");
+        assertThat(catalog.search("Data").hits())
+                .extracting(DocsModels.SearchHit::slug)
+                .contains("products/data-integration", "products/data-governance");
     }
 }

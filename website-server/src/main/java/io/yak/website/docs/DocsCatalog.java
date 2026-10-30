@@ -37,10 +37,6 @@ public class DocsCatalog {
     private static final int SEARCH_RESULT_LIMIT = 12;
     private static final Pattern SAFE_SLUG =
             Pattern.compile("^[a-z0-9][a-z0-9/_-]*$");
-    private static final Pattern MARKDOWN_LINK =
-            Pattern.compile("!?\\[([^\\]]*)]\\([^)]*\\)");
-    private static final Pattern MARKDOWN_MARKERS =
-            Pattern.compile("[#>*_~`|]");
 
     private final NavigationResponse navigation;
     private final Map<String, DocEntry> docsBySlug;
@@ -111,7 +107,7 @@ public class DocsCatalog {
                             entry.item().slug(),
                             entry.item().title(),
                             entry.section(),
-                            snippet(entry.plainText(), normalizedQuery))));
+                            entry.item().description())));
         }
 
         scored.sort((left, right) -> Integer.compare(right.score(), left.score()));
@@ -164,8 +160,7 @@ public class DocsCatalog {
                 DocEntry entry = new DocEntry(
                         normalizeItem(item),
                         section.title().trim(),
-                        markdown,
-                        toPlainText(markdown));
+                        markdown);
                 positions.put(entry.item().slug(), ordered.size());
                 ordered.add(entry);
                 docs.put(entry.item().slug(), entry);
@@ -226,75 +221,20 @@ public class DocsCatalog {
         }
     }
 
+    // Search only declared navigation titles. Content, descriptions and section names
+    // must not cause unrelated menu entries to appear in the search results.
     private int score(DocEntry entry, String query) {
         String title = entry.item().title().toLowerCase(Locale.ROOT);
-        String section = entry.section().toLowerCase(Locale.ROOT);
-        String text = entry.searchText();
-        int score = 0;
         if (title.equals(query)) {
-            score += 160;
-        } else if (title.contains(query)) {
-            score += 100;
+            return 160;
         }
-        if (section.contains(query)) {
-            score += 35;
-        }
-        int occurrences = countOccurrences(text, query);
-        if (occurrences > 0) {
-            score += 12 + Math.min(occurrences, 16);
-        }
-        return score;
-    }
-
-    private int countOccurrences(String text, String query) {
-        int count = 0;
-        int from = 0;
-        while (from < text.length()) {
-            int index = text.indexOf(query, from);
-            if (index < 0) {
-                break;
-            }
-            count++;
-            from = index + Math.max(1, query.length());
-        }
-        return count;
-    }
-
-    private String snippet(String plainText, String normalizedQuery) {
-        String normalizedText = plainText.toLowerCase(Locale.ROOT);
-        int match = normalizedText.indexOf(normalizedQuery);
-        if (match < 0) {
-            return plainText.length() <= 140
-                    ? plainText
-                    : plainText.substring(0, 140).trim() + "…";
-        }
-        int start = Math.max(0, match - 42);
-        int end = Math.min(
-                plainText.length(),
-                match + normalizedQuery.length() + 88);
-        String prefix = start > 0 ? "…" : "";
-        String suffix = end < plainText.length() ? "…" : "";
-        return prefix + plainText.substring(start, end).trim() + suffix;
-    }
-
-    private String toPlainText(String markdown) {
-        String text = MARKDOWN_LINK.matcher(markdown).replaceAll("$1");
-        text = text.replaceAll("(?m)^\\s*```[a-zA-Z0-9_-]*\\s*$", " ");
-        text = text.replace("```", " ");
-        text = MARKDOWN_MARKERS.matcher(text).replaceAll(" ");
-        return text.replaceAll("\\s+", " ").trim();
+        return title.contains(query) ? 100 : 0;
     }
 
     private record DocEntry(
             NavigationItem item,
             String section,
-            String markdown,
-            String plainText) {
-
-        String searchText() {
-            return plainText.toLowerCase(Locale.ROOT);
-        }
-    }
+            String markdown) {}
 
     private record ScoredHit(int score, SearchHit hit) {}
 
