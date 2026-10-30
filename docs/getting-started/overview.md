@@ -4,7 +4,7 @@ Follow this guide to explore Yak Ops, a big data governance platform for connect
 
 ## Start Here
 
-Read [Before You Begin](/docs/getting-started/before-you-begin) to prepare your environment.
+Read the [Platform Overview](/docs/getting-started/platform-overview) to understand Yak Ops, then [Before You Begin](/docs/getting-started/before-you-begin) to prepare your environment.
 
 ## Let's Get Started
 

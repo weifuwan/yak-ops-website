@@ -10,6 +10,11 @@
           "description": "Start here and follow the guided onboarding steps."
         },
         {
+          "slug": "getting-started/platform-overview",
+          "title": "Platform Overview",
+          "description": "Learn the concepts and capabilities of Yak Ops."
+        },
+        {
           "slug": "getting-started/before-you-begin",
           "title": "Before You Begin",
           "description": "Prepare your environment before deploying Yak Ops."

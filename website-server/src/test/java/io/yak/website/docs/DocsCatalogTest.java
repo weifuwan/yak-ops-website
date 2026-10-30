@@ -47,6 +47,7 @@ class DocsCatalogTest {
     @Test
     void newDocumentationSectionsAreRegistered() {
         assertThat(catalog.document("getting-started/overview")).isPresent();
+        assertThat(catalog.document("getting-started/platform-overview")).isPresent();
         assertThat(catalog.document("getting-started/before-you-begin")).isPresent();
         assertThat(catalog.document("getting-started/deploy")).isPresent();
         assertThat(catalog.document("getting-started/connect-data")).isPresent();
@@ -69,7 +70,7 @@ class DocsCatalogTest {
         DocsModels.DocumentResponse gettingStarted =
                 catalog.document("getting-started/overview").orElseThrow();
         assertThat(gettingStarted.previous()).isNull();
-        assertThat(gettingStarted.next().slug()).isEqualTo("getting-started/before-you-begin");
+        assertThat(gettingStarted.next().slug()).isEqualTo("getting-started/platform-overview");
 
         DocsModels.DocumentResponse deploy =
                 catalog.document("getting-started/deploy").orElseThrow();

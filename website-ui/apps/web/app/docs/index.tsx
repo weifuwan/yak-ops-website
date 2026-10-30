@@ -47,7 +47,8 @@ export default function DocsPage() {
   const isHome = requestedSlug === '';
   const isRelease = requestedSlug === 'release-2.0';
   const isGetStartedOverview = requestedSlug === 'getting-started/overview';
-  const isGetStartedDocument = requestedSlug.startsWith('getting-started/') || requestedSlug === 'deploy/docker-compose';
+  const isGetStartedDocument =
+    requestedSlug.startsWith('getting-started/') || requestedSlug === 'deploy/docker-compose';
   const isConnectorDocument = requestedSlug.startsWith('connectors/database/');
   const isConnectorOverview = requestedSlug === 'connectors/overview';
   const isProductsOverview = requestedSlug === 'products/overview';

@@ -8,7 +8,7 @@ type Props = {
   onNavigate: () => void;
 };
 
-const startSlugs = ['getting-started/overview', 'getting-started/before-you-begin'];
+const startSlugs = ['getting-started/platform-overview', 'getting-started/before-you-begin'];
 const stepSlugs = [
   'getting-started/deploy',
   'getting-started/connect-data',
@@ -19,6 +19,8 @@ const stepSlugs = [
 
 export default function DocsGetStartedSidebar({ currentSlug, items, onNavigate }: Props) {
   const available = new Map(items.map((item) => [item.slug, item]));
+  const dockerCompose = available.get('deploy/docker-compose');
+
   const navLink = (item: DocsNavigationItem, nested = false) => {
     const active = currentSlug === item.slug;
     return (
@@ -42,7 +44,11 @@ export default function DocsGetStartedSidebar({ currentSlug, items, onNavigate }
 
   return (
     <nav aria-label="Get Started steps" className="pb-10">
-      <Link className="mb-5 block px-3 text-[14px] font-semibold text-[#086cf5] no-underline" onClick={onNavigate} to="/docs/getting-started/overview">
+      <Link
+        className="mb-5 block px-3 text-[14px] font-semibold text-[#086cf5] no-underline"
+        onClick={onNavigate}
+        to="/docs/getting-started/overview"
+      >
         Get Started
       </Link>
       <div className="mb-6">
@@ -63,10 +69,8 @@ export default function DocsGetStartedSidebar({ currentSlug, items, onNavigate }
             return (
               <div key={slug}>
                 {navLink(item)}
-                {slug === 'getting-started/deploy' && available.has('deploy/docker-compose') ? (
-                  <div className="my-1 ml-3 border-l border-[#E4E7EC] pl-1">
-                    {navLink(available.get('deploy/docker-compose')!, true)}
-                  </div>
+                {slug === 'getting-started/deploy' && dockerCompose ? (
+                  <div className="my-1 ml-3 border-l border-[#E4E7EC] pl-1">{navLink(dockerCompose, true)}</div>
                 ) : null}
               </div>
             );
