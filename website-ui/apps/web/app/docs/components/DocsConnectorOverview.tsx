@@ -1,17 +1,16 @@
 import { Database, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import type { DocsNavigationItem } from '@/service/docs';
 
-import DocsCatalogCard from './DocsCatalogCard';
 import DocsFilterSelect from './DocsFilterSelect';
 
 type Props = { items: DocsNavigationItem[] };
 
-const presentations: Record<string, { image?: string; capabilities: string }> = {
-  mysql: { image: '/images/integrations/MySQL.png', capabilities: 'JDBC Source · JDBC Sink · CDC' },
-  postgresql: { capabilities: 'JDBC Source · JDBC Sink' },
-  oracle: { image: '/images/integrations/Oracle.png', capabilities: 'JDBC Source · JDBC Sink' },
+const connectorLogos: Record<string, string> = {
+  mysql: '/images/integrations/MySQL.png',
+  oracle: '/images/integrations/Oracle.png',
 };
 
 const typeName = (type: string) => (type === 'database' ? 'Database' : type.replaceAll('-', ' '));
@@ -20,17 +19,17 @@ function ConnectorIcon({ image }: { image?: string }) {
   const [imageFailed, setImageFailed] = useState(false);
 
   return (
-    <span className="flex h-6 w-6 items-center justify-center">
+    <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#F5F7FA]">
       {image && !imageFailed ? (
         <img
           alt=""
-          className="h-6 w-6 object-contain"
+          className="h-10 w-10 object-contain"
           loading="lazy"
           onError={() => setImageFailed(true)}
           src={image}
         />
       ) : (
-        <Database aria-hidden="true" className="text-[#7DA5DF]" size={23} strokeWidth={1.8} />
+        <Database aria-hidden="true" className="text-[#2675DB]" size={30} strokeWidth={1.8} />
       )}
     </span>
   );
@@ -124,15 +123,15 @@ export default function DocsConnectorOverview({ items }: Props) {
             <div className="grid gap-4 sm:grid-cols-2">
               {matches.map((item) => {
                 const id = item.slug.substring(item.slug.lastIndexOf('/') + 1);
-                const presentation = presentations[id];
                 return (
-                  <DocsCatalogCard
-                    description={presentation?.capabilities ?? item.description}
-                    icon={<ConnectorIcon image={presentation?.image} />}
+                  <Link
+                    className="group relative flex min-h-[112px] items-center gap-4 rounded-2xl bg-white px-5 py-5 text-[#1D2939] no-underline shadow-[0_5px_14px_rgba(15,23,42,0.09)] transition-transform duration-[280ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[2px] focus-visible:-translate-y-[2px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff] after:pointer-events-none after:absolute after:inset-x-6 after:bottom-0 after:h-5 after:rounded-full after:opacity-0 after:shadow-[0_14px_12px_-8px_rgba(15,23,42,0.23)] after:transition-opacity after:duration-[280ms] after:ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] hover:after:opacity-100 focus-visible:after:opacity-100 motion-reduce:transform-none motion-reduce:transition-none motion-reduce:after:transition-none"
                     key={item.slug}
-                    title={item.title}
                     to={'/docs/' + item.slug}
-                  />
+                  >
+                    <ConnectorIcon image={connectorLogos[id]} />
+                    <h3 className="m-0 min-w-0 text-[20px] leading-7 font-semibold text-[#1D2939]">{item.title}</h3>
+                  </Link>
                 );
               })}
             </div>
