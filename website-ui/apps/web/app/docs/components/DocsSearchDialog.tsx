@@ -67,10 +67,35 @@ function breadcrumbs(slug: string, title: string, navigation?: DocsNavigation): 
   return labels.length > 4 ? ['…', ...labels.slice(-3)] : labels;
 }
 
+function highlightMatches(text: string, search: string) {
+  const term = search.trim().toLowerCase();
+  if (!term) return text;
+
+  const lowerText = text.toLowerCase();
+  const parts: React.ReactNode[] = [];
+  let offset = 0;
+  let match = lowerText.indexOf(term);
+
+  while (match !== -1) {
+    if (match > offset) parts.push(text.slice(offset, match));
+    parts.push(
+      <mark className="bg-transparent font-semibold text-[#086cf5]" key={match}>
+        {text.slice(match, match + term.length)}
+      </mark>,
+    );
+    offset = match + term.length;
+    match = lowerText.indexOf(term, offset);
+  }
+
+  if (offset < text.length) parts.push(text.slice(offset));
+  return parts.length ? parts : text;
+}
+
 function SearchResult({
   item,
   selected,
   navigation,
+  searchTerm,
   onOpen,
   onHighlight,
   id,
@@ -78,6 +103,7 @@ function SearchResult({
   item: SearchItem;
   selected: boolean;
   navigation?: DocsNavigation;
+  searchTerm: string;
   onOpen: () => void;
   onHighlight: () => void;
   id: string;
@@ -97,13 +123,15 @@ function SearchResult({
     >
       <FileText aria-hidden="true" className="mt-0.5 shrink-0 text-[#667085]" size={17} strokeWidth={1.7} />
       <span className="flex min-w-0 flex-1 flex-col gap-1">
-        <span className="truncate text-[14px] leading-5 font-medium text-[#1D2939]">{item.title}</span>
+        <span className="truncate text-[14px] leading-5 font-medium text-[#1D2939]">
+          {highlightMatches(item.title, searchTerm)}
+        </span>
         {item.slug ? (
           <span className="flex min-w-0 items-center gap-1 overflow-hidden text-[12px] leading-4 text-[#7A8291]">
             {breadcrumbs(item.slug, item.title, navigation).map((crumb, index) => (
               <span className="flex min-w-0 items-center gap-1" key={index}>
                 {index ? <span className="shrink-0 text-[#A6ADBB]">›</span> : null}
-                <span className="truncate">{crumb}</span>
+                <span className="truncate">{highlightMatches(crumb, searchTerm)}</span>
               </span>
             ))}
           </span>
@@ -345,6 +373,7 @@ export default function DocsSearchDialog({ onClose }: Props) {
                 item={item}
                 key={item.key}
                 navigation={navigation}
+                searchTerm={normalized}
                 onHighlight={() => setSelected(index)}
                 onOpen={() => openItem(item)}
                 selected={selected === index}
